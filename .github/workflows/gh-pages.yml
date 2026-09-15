@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node (optional, keep for future builds)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps (skip if none)
+        run: npm ci || echo "no npm project"
+
+      - name: Build (skip if static)
+        run: npm run build || echo "no build script"
+
+      - name: Prepare publish folder
+        run: |
+          mkdir -p public
+          cp -R *.html public/ || true
+          cp -R *.css public/ || true
+          cp -R *.js public/ || true
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          force_orphan: true
+          commit_message: "CI: Deploy GitHub Pages"
