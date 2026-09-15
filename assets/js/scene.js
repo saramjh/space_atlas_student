@@ -45,27 +45,43 @@ scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xdde6ef,size
 
 function ring(radius, color=0x44515f){const pts=[];for(let i=0;i<128;i++){let a=i/128*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*radius,0,Math.sin(a)*radius));}const g=new THREE.BufferGeometry().setFromPoints(pts);return new THREE.LineLoop(g,new THREE.LineBasicMaterial({color,transparent:true,opacity:.46}));}
 
-// Radial-gradient canvas texture so the sun reads as a glowing sphere
-// instead of a flat solid-color disc.
-function makeSunTexture(){
+// A 2D gradient wrapped onto a sphere's UV distorts badly at the poles
+// (looking straight down in Top view showed a flat dark disc instead of a
+// glow). Sprites always face the camera, so a radial-gradient sprite gives
+// a consistent glowing highlight from every angle instead.
+function makeRadialSpriteTexture(stops){
   const size = 256;
   const canvas = document.createElement('canvas');
   canvas.width = canvas.height = size;
   const ctx = canvas.getContext('2d');
-  const g = ctx.createRadialGradient(size*0.4, size*0.36, size*0.02, size/2, size/2, size/2);
-  g.addColorStop(0, '#fff6c8');
-  g.addColorStop(0.32, '#ffd97a');
-  g.addColorStop(0.62, '#f3a53f');
-  g.addColorStop(0.85, '#d97a2e');
-  g.addColorStop(1, '#b3521f');
+  const g = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+  stops.forEach(([offset, color]) => g.addColorStop(offset, color));
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, size, size);
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
 }
-const sun = new THREE.Mesh(new THREE.SphereGeometry(4.6,48,32),new THREE.MeshBasicMaterial({map:makeSunTexture()}));scene.add(sun);
-const sunGlow = new THREE.Mesh(new THREE.SphereGeometry(5.4,32,24),new THREE.MeshBasicMaterial({color:0xffb347,transparent:true,opacity:.22,side:THREE.BackSide,blending:THREE.AdditiveBlending}));scene.add(sunGlow);
+
+const sun = new THREE.Mesh(new THREE.SphereGeometry(4.6,48,32),new THREE.MeshBasicMaterial({color:0xf0a840}));scene.add(sun);
+
+const sunHotspotTex = makeRadialSpriteTexture([
+  [0, 'rgba(255,246,200,0.95)'],
+  [0.45, 'rgba(255,205,120,0.55)'],
+  [1, 'rgba(255,205,120,0)']
+]);
+const sunHotspot = new THREE.Sprite(new THREE.SpriteMaterial({map:sunHotspotTex, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
+sunHotspot.scale.set(9.4, 9.4, 1);
+sun.add(sunHotspot);
+
+const sunGlowTex = makeRadialSpriteTexture([
+  [0, 'rgba(255,179,71,0.5)'],
+  [0.5, 'rgba(255,140,60,0.18)'],
+  [1, 'rgba(255,140,60,0)']
+]);
+const sunGlow = new THREE.Sprite(new THREE.SpriteMaterial({map:sunGlowTex, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
+sunGlow.scale.set(16, 16, 1);
+sun.add(sunGlow);
 const planetGroup=new THREE.Group();scene.add(planetGroup);
 const selectable=[];
 function makePlanet(p,i){scene.add(ring(p.orbit));const pivot=new THREE.Group();planetGroup.add(pivot);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,36,24),new THREE.MeshStandardMaterial({color:p.color,roughness:.8,metalness:0}));mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
