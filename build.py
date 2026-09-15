@@ -9,6 +9,7 @@ regenerates sitemap.xml from the same page list.
 Run: python3 build.py
 """
 import json
+import os
 import shutil
 from pathlib import Path
 
@@ -16,6 +17,14 @@ ROOT = Path(__file__).parent
 TEMPLATES = ROOT / "templates"
 PAGES = ROOT / "pages"
 PUBLIC = ROOT / "public"
+
+# GitHub Pages project sites (https://<user>.github.io/<repo>/) are served
+# from a subpath, not the domain root — a plain "/assets/..." link resolves
+# against the *domain* root and 404s. SITE_BASE is prepended to every
+# internal absolute link (nav hrefs, stylesheet/favicon/script src).
+# Empty by default so a local `python3 build.py` + `http.server` (served at
+# the root) keeps working unchanged; CI sets SITE_BASE=/space_atlas_student.
+SITE_BASE = os.environ.get("SITE_BASE", "").rstrip("/")
 
 
 def read(path):
@@ -46,10 +55,11 @@ def render_page(layout, nav, footer, meta, content):
         "{{OG_IMAGE}}": meta.get("ogImage", ""),
         "{{JSONLD_NAME}}": meta.get("jsonldName", meta.get("title", "")),
         "{{JSONLD_DESCRIPTION}}": meta.get("jsonldDescription", meta.get("description", "")),
+        "{{BASE}}": SITE_BASE,
     }
     for token, value in tokens.items():
         html = html.replace(token, value)
-    script_tag = f'<script type="module" src="{meta["script"]}"></script>' if meta.get("script") else ""
+    script_tag = f'<script type="module" src="{SITE_BASE}{meta["script"]}"></script>' if meta.get("script") else ""
     html = html.replace("{{SCRIPT}}", script_tag)
     return html
 
