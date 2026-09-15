@@ -66,7 +66,7 @@ let trackingPlanet = null; // when focused, track moving planet
 let targetCamPos = null;
 
 function setPanel(p){
-  panel.innerHTML=`<div class="eyebrow">Selected object</div><h3>${p.name}</h3><p>${p.desc}</p><dl><dt>Diameter</dt><dd>${p.diameter}</dd><dt>Avg. distance from Sun</dt><dd>${p.distance}</dd><dt>Distance</dt><dd>${p.au}</dd></dl><p class="verify-line">Verified against <a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science ↗</a> · checked 2026</p>`;
+  panel.innerHTML=`<div class="eyebrow">Selected object</div><p class="panel-title">${p.name}</p><p>${p.desc}</p><dl><dt>Diameter</dt><dd>${p.diameter}</dd><dt>Avg. distance from Sun</dt><dd>${p.distance}</dd><dt>Distance</dt><dd>${p.au}</dd></dl><p class="verify-line">Verified against <a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science ↗</a> · checked 2026</p>`;
 }
 
 function focusPlanet(index){

@@ -50,7 +50,7 @@ function renderQuiz(){
         quizFeedback.innerHTML = `<span style="color:#2b663b;font-weight:600">✓ Correct!</span> ${item.right}`;
       } else {
         b.classList.add('wrong');
-        quizFeedback.innerHTML = `<span style="color:#bd4c2f;font-weight:600">Think further:</span> ${item.wrong}`;
+        quizFeedback.innerHTML = `<span style="color:#ad4327;font-weight:600">Think further:</span> ${item.wrong}`;
       }
       quizRetry.hidden = false;
     };
