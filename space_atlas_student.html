@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Space Atlas — Student Reference</title>
+<meta name="description" content="An interactive space-science reference for students in grades 4–8. Explore 3D planetary models, verify scale vs. distance, and trace evidence back to NASA, JPL, and ESA." />
+<link rel="canonical" href="https://spaceatlas.edu/" />
+
+<!-- Open Graph / Social Sharing -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Space Atlas — Student Reference (Grades 4–8)" />
+<meta property="og:description" content="Manipulate interactive 3D planetary models, compare diameters, and discover why space models require separate scales." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Space Atlas — Student Reference" />
+<meta name="twitter:description" content="Interactive 3D solar system and planetary scale laboratory for STEM education." />
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80" />
+
+<!-- Schema.org Educational Resource -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Space Atlas — Student Reference",
+  "description": "A visual and interactive space-science reference designed for students in grades 4–8 to explore planetary sizes, orbital distances, and observational evidence.",
+  "educationalLevel": "Grades 4-8",
+  "learningResourceType": "Interactive Simulation",
+  "interactivityType": "mixed",
+  "inLanguage": "en",
+  "keywords": "solar system, astronomy, 3D simulation, planetary scale, NASA, science education",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  }
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4DYFKSNFBG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4DYFKSNFBG');
+</script>
+
+<!-- Google AdSense Script -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4410729598083068"
+     crossorigin="anonymous"></script>
+
+<style>
+:root{
+  --paper:#f4f2ec; --ink:#101419; --muted:#626970; --rule:#cbc7bc; --panel:#ebe8df;
+  --space:#0c1118; --space2:#151c25; --accent:#bd4c2f; --blue:#3e6f91; --yellow:#d29b42;
+  --max:1440px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}
+a{color:inherit}
+button,input{font:inherit}
+.wrap{max-width:var(--max);margin:auto;padding:0 28px}
+header{position:sticky;top:0;z-index:20;background:rgba(244,242,236,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.header-row{height:66px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.brand{font:700 17px/1.1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+.brand small{display:block;color:var(--muted);font:500 10px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:4px;letter-spacing:.08em}
+nav{display:flex;gap:24px;font-size:13px}
+nav a{text-decoration:none;border-bottom:1px solid transparent;padding:23px 0 20px}
+nav a:hover{border-color:var(--ink)}
+.utility{justify-self:end;font-size:12px;color:var(--muted)}
+.hero{border-bottom:1px solid var(--rule)}
+.hero-grid{display:grid;grid-template-columns:minmax(320px,.78fr) minmax(580px,1.42fr);min-height:620px}
+.intro{padding:78px 52px 70px 0;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--rule)}
+.kicker{font:600 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:18px}
+h1{font:600 clamp(46px,5.4vw,82px)/.96 Georgia,"Times New Roman",serif;letter-spacing:-.045em;margin:0 0 28px;max-width:720px}
+.lead{font-size:18px;max-width:580px;color:#3b4146;margin:0 0 34px}
+.intro-note{border-top:1px solid var(--rule);padding-top:20px;display:grid;grid-template-columns:92px 1fr;gap:16px;font-size:12px;color:var(--muted)}
+.intro-note strong{color:var(--ink);font-weight:650}
+.scene-shell{position:relative;background:var(--space);min-height:620px;overflow:hidden;color:#f4f6f8}
+#threeCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2}
+#sceneFallback{position:absolute;inset:0;overflow:hidden;z-index:1;background:radial-gradient(circle at 45% 42%,#253040 0,#121821 42%,#090e14 100%)}
+#sceneFallback:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#fff 0.6px,transparent 0.7px);background-size:56px 56px;opacity:.18}
+.sun{position:absolute;width:126px;height:126px;border-radius:50%;left:46%;top:41%;transform:translate(-50%,-50%);background:radial-gradient(circle at 38% 35%,#fff3b5 0,#f3b449 28%,#c96927 58%,#9e351d 100%);box-shadow:0 0 70px rgba(240,152,53,.35)}
+.orbit{position:absolute;left:46%;top:41%;border:1px solid rgba(255,255,255,.17);border-radius:50%;transform:translate(-50%,-50%) rotate(-8deg)}
+.o1{width:220px;height:104px}.o2{width:320px;height:152px}.o3{width:430px;height:204px}.o4{width:560px;height:264px}.o5{width:760px;height:356px}
+.p{position:absolute;border-radius:50%;box-shadow:inset -9px -10px 20px rgba(0,0,0,.38)}
+.earth{width:34px;height:34px;left:66%;top:40%;background:radial-gradient(circle at 35% 32%,#8ebad1,#3e7597 47%,#315240)}
+.mars{width:27px;height:27px;left:28%;top:53%;background:#a64f37}
+.jupiter{width:82px;height:82px;left:74%;top:59%;background:repeating-linear-gradient(0deg,#d2b38b 0 9px,#b77d62 9px 16px,#ddc5a0 16px 24px)}
+.saturn{width:68px;height:68px;left:16%;top:26%;background:#cdb98f}.saturn:after{content:"";position:absolute;width:115px;height:30px;border:6px solid #b6a27d;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-14deg);opacity:.75}
+.scene-top{position:absolute;z-index:4;left:22px;right:22px;top:20px;display:flex;justify-content:space-between;gap:16px;pointer-events:none}
+.scene-label{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase}
+.scene-mode{font:500 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:#b9c0c7;text-align:right}
+.scene-help{position:absolute;z-index:4;left:22px;bottom:18px;font-size:11px;color:#bfc6cc;max-width:360px;pointer-events:none}
+.scene-panel{position:absolute;z-index:5;right:18px;bottom:18px;width:248px;background:rgba(10,14,20,.86);border:1px solid rgba(255,255,255,.18);padding:15px 16px 14px;backdrop-filter:blur(10px)}
+.scene-panel .eyebrow{font:600 9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#aeb8c2;margin-bottom:8px}
+.scene-panel h3{font:600 24px Georgia,serif;margin:0 0 6px}
+.scene-panel p{font-size:11px;line-height:1.45;color:#c6ccd1;margin:0 0 10px}
+.scene-panel dl{display:grid;grid-template-columns:1fr auto;gap:5px 10px;margin:0;font-size:10px;border-top:1px solid rgba(255,255,255,.14);padding-top:9px}
+.scene-panel dt{color:#9ea8b2}.scene-panel dd{margin:0}
+.scene-controls{position:absolute;z-index:5;left:22px;top:56px;display:flex;flex-wrap:wrap;gap:6px;max-width:440px}
+.scene-controls button{background:rgba(12,17,24,.75);color:#e9edf0;border:1px solid rgba(255,255,255,.25);padding:6px 9px;font-size:10px;cursor:pointer;border-radius:2px;transition:all .15s ease}
+.scene-controls button:hover,.scene-controls button.active{background:#eae8e1;color:#111;border-color:#eae8e1;font-weight:600}
+.planet-quick-bar{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+.planet-quick-bar button{font-size:9px;padding:4px 7px;background:rgba(20,28,38,.8);border:1px solid rgba(255,255,255,.18);color:#ccd3db}
+.planet-quick-bar button:hover,.planet-quick-bar button.active{background:#3e6f91;color:#fff;border-color:#5a8fae}
+#sceneTooltip{position:absolute;z-index:6;pointer-events:none;background:rgba(16,20,25,.92);color:#f4f2ec;padding:4px 8px;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;border:1px solid rgba(255,255,255,.3);border-radius:3px;transform:translate(-50%,-130%);display:none;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+
+.section{padding:72px 0;border-bottom:1px solid var(--rule)}
+.section-head{display:grid;grid-template-columns:260px 1fr;gap:42px;margin-bottom:38px}
+.section-id{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;padding-top:8px}
+h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;margin:0 0 10px}
+.section-head p{margin:0;color:var(--muted);max-width:760px}
+.learning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;border-top:1px solid var(--rule)}
+.step{padding:24px 0 8px;min-height:210px;position:relative}
+.step-no{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);margin-bottom:46px}
+.step h3{font:600 22px/1.1 Georgia,serif;margin:0 0 10px}.step p{font-size:13px;color:var(--muted);margin:0;max-width:330px}
+.step .micro{position:absolute;right:22px;top:22px;width:86px;height:54px}
+.scale-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:0;border:1px solid var(--rule)}
+.scale-viz{padding:34px 34px 30px;border-right:1px solid var(--rule);background:#ece9e1;display:flex;flex-direction:column;justify-content:space-between}
+.scale-viz h3,.source-panel h3{font:600 24px Georgia,serif;margin:0 0 7px}.scale-viz p{font-size:12px;color:var(--muted);margin:0 0 20px}
+.planets-row{display:flex;align-items:flex-end;gap:14px;min-height:235px;padding-bottom:20px;border-bottom:1px solid #aaa59a;overflow-x:auto}
+.planet-item{display:flex;flex-direction:column;align-items:center;gap:9px;min-width:46px;font:500 9px ui-monospace,SFMono-Regular,Menlo,monospace;color:#53585c;cursor:pointer;padding:6px;border-radius:4px;transition:background .15s ease}
+.planet-item:hover,.planet-item.active{background:rgba(0,0,0,.06);color:var(--ink)}
+.planet-item.active .ball{outline:2px solid var(--accent);outline-offset:3px}
+.ball{border-radius:50%;background:#777;flex:0 0 auto;box-shadow:inset -8px -9px 14px rgba(0,0,0,.25);transition:transform .2s ease}
+.planet-item:hover .ball{transform:scale(1.05)}
+
+/* Scale Lab Live Fact Box & Intuition Question */
+.scale-fact-box{margin-top:20px;padding:16px 18px;background:#ded9cd;border-left:3px solid var(--accent);font-size:12px;line-height:1.45}
+.scale-fact-box strong{font-family:Georgia,serif;font-size:16px;display:block;margin-bottom:4px;color:var(--ink)}
+.scale-quiz{margin-top:28px;border-top:1px dashed var(--rule);padding-top:20px}
+.scale-quiz-title{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
+.scale-quiz p{margin:0 0 12px;font-size:13px;color:var(--ink);font-weight:500}
+.quiz-options{display:flex;gap:8px;flex-wrap:wrap}
+.quiz-options button{font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:7px 12px;border:1px solid #9e9a8f;background:transparent;cursor:pointer;border-radius:3px}
+.quiz-options button:hover{background:#d5cfbf}
+.quiz-options button.correct{background:#315240;color:#fff;border-color:#315240}
+.quiz-options button.wrong{background:#bd4c2f;color:#fff;border-color:#bd4c2f;opacity:.7}
+.quiz-feedback{margin-top:10px;font-size:11px;color:#464a4e;display:none}
+
+.source-panel{padding:34px}
+.source-panel ol{margin:20px 0 0;padding:0;list-style:none;border-top:1px solid var(--rule)}
+.source-panel li{display:grid;grid-template-columns:28px 1fr auto;gap:13px;padding:16px 0;border-bottom:1px solid var(--rule);align-items:start}
+.source-panel .num{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);padding-top:3px}.source-panel b{font-size:13px}.source-panel span{display:block;font-size:11px;color:var(--muted);margin-top:3px}.source-panel a{font-size:11px;text-decoration:none;border-bottom:1px solid #8d8980;white-space:nowrap}
+.truth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.truth{border-top:2px solid var(--ink);padding:18px 0}.truth h3{font:600 20px Georgia,serif;margin:0 0 8px}.truth p{font-size:12px;color:var(--muted);margin:0}.truth code{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;border-top:2px solid var(--ink);font-size:12px}.ref-table th,.ref-table td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--rule);vertical-align:top}.ref-table th{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.ref-table a{text-decoration:none;border-bottom:1px solid #8d8980}.tag{font:600 9px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+
+/* Editorial Ad Slot Styles */
+.ad-slot-wrapper{max-width:var(--max);margin:36px auto;padding:18px 28px;background:rgba(235,232,223,.45);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ad-label{font:600 9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;display:block;text-align:center}
+
+footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.footer-grid strong{color:var(--ink)}
+@media(max-width:980px){.header-row{grid-template-columns:1fr auto}.header-row nav{display:none}.hero-grid{grid-template-columns:1fr}.intro{border-right:0;border-bottom:1px solid var(--rule);padding:52px 0}.scene-shell{min-height:560px}.learning-grid,.truth-grid{grid-template-columns:1fr}.scale-grid{grid-template-columns:1fr}.scale-viz{border-right:0;border-bottom:1px solid var(--rule)}.section-head{grid-template-columns:1fr;gap:10px}.section{padding:52px 0}}
+@media(max-width:620px){.wrap{padding:0 18px}.scene-panel{width:210px}.scene-controls{right:18px;left:18px;top:55px}.scene-help{display:none}.hero-grid{min-height:auto}.scene-shell{min-height:520px}.planets-row{gap:8px}.utility{display:none}.header-row{grid-template-columns:1fr}.intro-note{grid-template-columns:1fr}}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.179.1/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.179.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap header-row">
+    <div class="brand">SPACE ATLAS<small>STUDENT REFERENCE · GRADES 4–8</small></div>
+    <nav aria-label="Primary">
+      <a href="#solar">Solar system</a><a href="#scale">Scale</a><a href="#thinking">How to read models</a><a href="#sources">Sources</a>
+    </nav>
+    <div class="utility">English · metric units</div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="solar">
+  <div class="wrap hero-grid">
+    <div class="intro">
+      <div>
+        <div class="kicker">01 · Solar system model</div>
+        <h1>Start with a model. Check it against the evidence.</h1>
+        <p class="lead">Space is hard to understand because its sizes, distances, and timescales are far beyond everyday experience. This site uses interactive models to make those relationships visible, then points you to the sources behind them.</p>
+      </div>
+      <div class="intro-note">
+        <strong>Model rule</strong>
+        <span>No single classroom model can show planet size and orbital distance accurately at the same time on one screen. Every visualization here states what has been simplified.</span>
+      </div>
+    </div>
+
+    <div class="scene-shell" id="sceneShell" aria-label="Interactive 3D solar system model">
+      <div id="sceneFallback" aria-hidden="true">
+<svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
+  <defs>
+    <radialGradient id="bg"><stop offset="0" stop-color="#202a37"/><stop offset="1" stop-color="#0b1016"/></radialGradient>
+    <radialGradient id="sunG"><stop offset="0" stop-color="#fff1ae"/><stop offset=".35" stop-color="#efaf42"/><stop offset="1" stop-color="#b64a26"/></radialGradient>
+    <linearGradient id="jup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dec7a5"/><stop offset=".28" stop-color="#a8755f"/><stop offset=".48" stop-color="#e1c6a0"/><stop offset=".7" stop-color="#b47c61"/><stop offset="1" stop-color="#d2b890"/></linearGradient>
+  </defs>
+  <rect width="900" height="620" fill="url(#bg)"/>
+  <g fill="none" stroke="#8190a0" stroke-opacity=".26" stroke-width="1">
+    <ellipse cx="405" cy="305" rx="95" ry="36" transform="rotate(-8 405 305)"/><ellipse cx="405" cy="305" rx="145" ry="55" transform="rotate(-8 405 305)"/><ellipse cx="405" cy="305" rx="205" ry="78" transform="rotate(-8 405 305)"/><ellipse cx="405" cy="305" rx="280" ry="106" transform="rotate(-8 405 305)"/><ellipse cx="405" cy="305" rx="365" ry="138" transform="rotate(-8 405 305)"/>
+  </g>
+  <g fill="#dce6ef" opacity=".55"><circle cx="10" cy="20" r="0.7"/><circle cx="83" cy="67" r="0.95"/><circle cx="156" cy="114" r="1.2"/><circle cx="229" cy="161" r="0.7"/><circle cx="302" cy="208" r="0.95"/><circle cx="375" cy="255" r="1.2"/><circle cx="448" cy="302" r="0.7"/><circle cx="521" cy="349" r="0.95"/><circle cx="594" cy="396" r="1.2"/><circle cx="667" cy="443" r="0.7"/><circle cx="740" cy="490" r="0.95"/><circle cx="813" cy="537" r="1.2"/><circle cx="886" cy="584" r="0.7"/><circle cx="79" cy="51" r="0.95"/><circle cx="152" cy="98" r="1.2"/><circle cx="225" cy="145" r="0.7"/><circle cx="298" cy="192" r="0.95"/><circle cx="371" cy="239" r="1.2"/><circle cx="444" cy="286" r="0.7"/><circle cx="517" cy="333" r="0.95"/><circle cx="590" cy="380" r="1.2"/><circle cx="663" cy="427" r="0.7"/><circle cx="736" cy="474" r="0.95"/><circle cx="809" cy="521" r="1.2"/><circle cx="882" cy="568" r="0.7"/><circle cx="75" cy="35" r="0.95"/><circle cx="148" cy="82" r="1.2"/><circle cx="221" cy="129" r="0.7"/><circle cx="294" cy="176" r="0.95"/><circle cx="367" cy="223" r="1.2"/><circle cx="440" cy="270" r="0.7"/><circle cx="513" cy="317" r="0.95"/><circle cx="586" cy="364" r="1.2"/><circle cx="659" cy="411" r="0.7"/><circle cx="732" cy="458" r="0.95"/><circle cx="805" cy="505" r="1.2"/><circle cx="878" cy="552" r="0.7"/><circle cx="71" cy="599" r="0.95"/><circle cx="144" cy="66" r="1.2"/><circle cx="217" cy="113" r="0.7"/><circle cx="290" cy="160" r="0.95"/><circle cx="363" cy="207" r="1.2"/></g>
+  <circle cx="405" cy="305" r="59" fill="url(#sunG)"/>
+  <circle cx="555" cy="275" r="17" fill="#497e9b"/><circle cx="247" cy="345" r="13" fill="#a9543d"/>
+  <circle cx="671" cy="397" r="45" fill="url(#jup)"/>
+  <g transform="translate(170 214) rotate(-13)"><ellipse rx="56" ry="15" fill="none" stroke="#b5a37c" stroke-width="8" opacity=".72"/><circle r="33" fill="#c9b88d"/></g>
+  <circle cx="726" cy="178" r="22" fill="#72b3b9"/><circle cx="82" cy="301" r="21" fill="#4b72b9"/>
+</svg></div>
+      <canvas id="threeCanvas"></canvas>
+      <div id="sceneTooltip"></div>
+      <div class="scene-top"><div class="scene-label">Interactive model</div><div class="scene-mode">DISTANCES COMPRESSED · COLORS SIMPLIFIED<br>DRAG TO ORBIT · SCROLL TO ZOOM · SELECT A PLANET</div></div>
+      <div class="scene-controls">
+        <div style="display:flex;gap:6px;width:100%">
+          <button id="btnExplore" class="active">Explore view</button>
+          <button id="btnTop">Top view</button>
+          <button id="btnMotion">Pause motion</button>
+          <button id="btnResetTarget" title="Reset camera focus to center">Reset view</button>
+        </div>
+        <div class="planet-quick-bar" aria-label="Quick planet selector">
+          <button data-planet="0">Mercury</button>
+          <button data-planet="1">Venus</button>
+          <button data-planet="2" class="active">Earth</button>
+          <button data-planet="3">Mars</button>
+          <button data-planet="4">Jupiter</button>
+          <button data-planet="5">Saturn</button>
+          <button data-planet="6">Uranus</button>
+          <button data-planet="7">Neptune</button>
+        </div>
+      </div>
+      <div class="scene-help">Click any planet or button above to fly the camera into focus. Planet sizes are exaggerated relative to orbits so small worlds remain selectable.</div>
+      <aside class="scene-panel" id="planetPanel">
+        <div class="eyebrow">Selected object</div><h3>Earth</h3><p>Our reference point for comparing the other planets.</p>
+        <dl><dt>Diameter</dt><dd>12,756 km</dd><dt>Avg. distance from Sun</dt><dd>149.7 million km</dd><dt>Distance</dt><dd>1.00 AU</dd></dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="thinking">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">02 · Learning method</div><div><h2>Three steps from “that looks cool” to “I understand why.”</h2><p>Visuals should start a question, not end it. Each topic follows the same learning pattern so students can separate a model from the evidence behind it.</p></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">STEP 1</div><svg class="micro" viewBox="0 0 86 54" aria-hidden="true"><circle cx="26" cy="27" r="17" fill="#3e6f91"/><path d="M49 11c14 9 14 23 0 32" fill="none" stroke="#101419"/><path d="M45 41l5 2-1-6" fill="#101419"/></svg><h3>Manipulate the model</h3><p>Rotate a planet, change your viewpoint, or compare worlds side by side. Use motion to reveal relationships that a flat illustration hides.</p></article>
+    <article class="step"><div class="step-no">STEP 2</div><svg class="micro" viewBox="0 0 86 54" aria-hidden="true"><circle cx="18" cy="27" r="6" fill="#bd4c2f"/><circle cx="42" cy="27" r="12" fill="#d29b42"/><circle cx="72" cy="27" r="19" fill="#3e6f91"/></svg><h3>Compare a measurable fact</h3><p>Switch from a dramatic view to a scale view. Read diameter, distance, orbital period, or temperature as quantities that can be checked.</p></article>
+    <article class="step"><div class="step-no">STEP 3</div><svg class="micro" viewBox="0 0 86 54" aria-hidden="true"><path d="M12 13h62M12 27h48M12 41h57" stroke="#101419" stroke-width="2"/><circle cx="70" cy="27" r="5" fill="#bd4c2f"/></svg><h3>Verify the source</h3><p>Follow the reference to NASA, JPL, ESA, or a mission page. Learn where the number, image, or simulation came from and what it can tell you.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="scale">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">03 · Scale laboratory</div><div><h2>Planet size and planet distance are different problems.</h2><p>The row below compares approximate planetary diameters relative to Earth. Orbital distances are intentionally not represented here; mixing both scales on one compact graphic would be misleading.</p></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz">
+      <div>
+        <h3>Relative diameters</h3><p>Select any planet below to inspect diameter ratio and Earth volume equivalence.</p>
+        <div class="planets-row" id="scaleRow" aria-label="Relative planet diameter comparison">
+          <div class="planet-item" data-idx="0"><div class="ball" style="width:18px;height:18px;background:#77736f"></div><span>Mercury<br>0.38×</span></div>
+          <div class="planet-item" data-idx="1"><div class="ball" style="width:35px;height:35px;background:#c2a47d"></div><span>Venus<br>0.95×</span></div>
+          <div class="planet-item active" data-idx="2"><div class="ball" style="width:37px;height:37px;background:#3e6f91"></div><span>Earth<br>1.00×</span></div>
+          <div class="planet-item" data-idx="3"><div class="ball" style="width:24px;height:24px;background:#a9513a"></div><span>Mars<br>0.53×</span></div>
+          <div class="planet-item" data-idx="4"><div class="ball" style="width:158px;height:158px;background:repeating-linear-gradient(0deg,#d3b991 0 13px,#a66d57 13px 22px,#e2c7a1 22px 32px)"></div><span>Jupiter<br>11.2×</span></div>
+          <div class="planet-item" data-idx="5"><div class="ball" style="width:132px;height:132px;background:#c9b589"></div><span>Saturn<br>9.45×</span></div>
+          <div class="planet-item" data-idx="6"><div class="ball" style="width:74px;height:74px;background:#76b5ba"></div><span>Uranus<br>4.01×</span></div>
+          <div class="planet-item" data-idx="7"><div class="ball" style="width:71px;height:71px;background:#477bb9"></div><span>Neptune<br>3.88×</span></div>
+        </div>
+
+        <div class="scale-fact-box" id="scaleFactBox">
+          <strong>Earth (Baseline Reference)</strong>
+          <span>Diameter: 12,756 km. All other planets are compared against Earth's diameter (1.00×) and volume (1.00×).</span>
+        </div>
+      </div>
+
+      <div class="scale-quiz">
+        <div class="scale-quiz-title">Intuition Check · Astronomical Scale</div>
+        <p>If Earth were placed exactly <strong>1 meter</strong> from the Sun in a classroom model, how far away would <strong>Neptune</strong> be?</p>
+        <div class="quiz-options" id="quizOptions">
+          <button data-answer="3">About 3 meters</button>
+          <button data-answer="10">About 10 meters</button>
+          <button data-answer="30">About 30 meters (end of hallway)</button>
+          <button data-answer="100">Over 100 meters</button>
+        </div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>What to open next</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>Make a scale solar system</b><span>Build a physical model and discover why size and distance need separate scales.</span></div><a href="https://www.jpl.nasa.gov/edu/resources/project/make-a-scale-solar-system/" target="_blank" rel="noreferrer">JPL Education ↗</a></li>
+        <li><div class="num">02</div><div><b>NASA's Eyes on the Solar System</b><span>Move through a richer 3D simulation with missions, moons, asteroids, and time controls.</span></div><a href="https://science.nasa.gov/eyes/" target="_blank" rel="noreferrer">NASA Eyes ↗</a></li>
+        <li><div class="num">03</div><div><b>Planet sizes and locations</b><span>Check official numbers for planetary diameter, order, and average distance from the Sun.</span></div><a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<!-- Advertisement Placement -->
+<aside class="ad-slot-wrapper" aria-label="Sponsored Advertisement">
+  <span class="ad-label">Advertisement</span>
+  <!-- space-atlas-students -->
+  <ins class="adsbygoogle"
+       style="display:block;min-width:300px;min-height:90px;width:100%"
+       data-ad-client="ca-pub-4410729598083068"
+       data-ad-slot="5573301932"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</aside>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">04 · Read visualizations carefully</div><div><h2>A useful space image tells you what kind of truth it shows.</h2><p>A photograph, an artist's concept, a simulation, and a scientific diagram can all be useful, but they do not make the same claim.</p></div></div>
+  <div class="truth-grid">
+    <article class="truth"><code>OBSERVATION</code><h3>Recorded by an instrument</h3><p>Ask which telescope, spacecraft, wavelength, date, and processing steps produced the image or measurement.</p></article>
+    <article class="truth"><code>MODEL / SIMULATION</code><h3>A calculation made visible</h3><p>Ask which variables were simplified, whether time or distance is compressed, and which data constrain the model.</p></article>
+    <article class="truth"><code>ILLUSTRATION</code><h3>An explanation, not a photograph</h3><p>Useful for things we cannot photograph directly. A trustworthy source should label an artist's concept or schematic clearly.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="sources">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">05 · Trusted references</div><div><h2>Choose the reference that matches your question.</h2><p>These are not ranked as “best sites.” They serve different learning jobs: first explanations, classroom activities, interactive 3D exploration, and deeper mission or science information.</p></div></div>
+  <table class="ref-table">
+    <thead><tr><th>Reference</th><th>Best used for</th><th>Level</th><th>Why it belongs here</th><th>Open</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NASA Space Place</strong><br><span class="tag">Student first stop</span></td><td>Short explanations, activities, games, basic vocabulary</td><td>Elementary / early middle</td><td>Designed specifically around space and Earth science for children.</td><td><a href="https://spaceplace.nasa.gov/" target="_blank" rel="noreferrer">spaceplace.nasa.gov ↗</a></td></tr>
+      <tr><td><strong>JPL Education</strong><br><span class="tag">Do & test</span></td><td>Hands-on projects, lessons, grade-linked STEM activities</td><td>K–12</td><td>Turns mission science into activities students can perform and measure.</td><td><a href="https://www.jpl.nasa.gov/edu/" target="_blank" rel="noreferrer">jpl.nasa.gov/edu ↗</a></td></tr>
+      <tr><td><strong>NASA's Eyes</strong><br><span class="tag">Interactive 3D</span></td><td>Solar system, spacecraft, asteroids, exoplanets, mission context</td><td>Middle school +</td><td>Browser-based 3D applications built around NASA data and mission models.</td><td><a href="https://science.nasa.gov/eyes/" target="_blank" rel="noreferrer">science.nasa.gov/eyes ↗</a></td></tr>
+      <tr><td><strong>NASA Science</strong><br><span class="tag">Deeper reference</span></td><td>Planet facts, stars, galaxies, black holes, missions, images</td><td>Middle school → adult</td><td>Useful when a simplified explanation raises a more precise scientific question.</td><td><a href="https://science.nasa.gov/" target="_blank" rel="noreferrer">science.nasa.gov ↗</a></td></tr>
+      <tr><td><strong>ESA</strong><br><span class="tag">Second agency view</span></td><td>European missions, science stories, images, education material</td><td>Middle school +</td><td>Helps students compare explanations and missions across major space agencies.</td><td><a href="https://www.esa.int/" target="_blank" rel="noreferrer">esa.int ↗</a></td></tr>
+    </tbody>
+  </table>
+ </div>
+</section>
+</main>
+<footer><div class="wrap footer-grid"><div><strong>SPACE ATLAS / STUDENT REFERENCE</strong><br>Prototype interface. Educational model, not an astronomical ephemeris.</div><div>3D interaction is used where viewpoint, spatial relationship, and comparison improve understanding. Decorative 3D is intentionally excluded.</div></div></footer>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvas = document.querySelector('#threeCanvas');
+const shell = document.querySelector('#sceneShell');
+const fallback = document.querySelector('#sceneFallback');
+const panel = document.querySelector('#planetPanel');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b1016);
+scene.fog = new THREE.Fog(0x0b1016, 55, 125);
+const camera = new THREE.PerspectiveCamera(44, 1, 0.1, 220);
+camera.position.set(0, 29, 57);
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = .055;
+controls.minDistance = 22; controls.maxDistance = 100;
+controls.maxPolarAngle = Math.PI * .48;
+controls.target.set(0,0,0);
+
+scene.add(new THREE.AmbientLight(0x778899, .55));
+const sunLight = new THREE.PointLight(0xffddb0, 2500, 140, 1.4); scene.add(sunLight);
+
+const starGeo = new THREE.BufferGeometry();
+const stars=[]; for(let i=0;i<1100;i++){const r=70+Math.random()*90, t=Math.random()*Math.PI*2, p=Math.acos(2*Math.random()-1);stars.push(r*Math.sin(p)*Math.cos(t),r*Math.cos(p),r*Math.sin(p)*Math.sin(t));}
+starGeo.setAttribute('position',new THREE.Float32BufferAttribute(stars,3));
+scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xdde6ef,size:.13,sizeAttenuation:true,transparent:true,opacity:.7})));
+
+function ring(radius, color=0x44515f){const pts=[];for(let i=0;i<128;i++){let a=i/128*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*radius,0,Math.sin(a)*radius));}const g=new THREE.BufferGeometry().setFromPoints(pts);return new THREE.LineLoop(g,new THREE.LineBasicMaterial({color,transparent:true,opacity:.46}));}
+
+const data=[
+{name:'Mercury',diameter:'4,879 km',distance:'58 million km',au:'0.39 AU',r:0.52,orbit:7.5,color:0x8c8780,speed:.011,desc:'The smallest planet and the closest to the Sun.'},
+{name:'Venus',diameter:'12,104 km',distance:'108 million km',au:'0.72 AU',r:0.9,orbit:10.7,color:0xc8a476,speed:.008,desc:'Nearly Earth-sized, with a thick carbon-dioxide atmosphere.'},
+{name:'Earth',diameter:'12,756 km',distance:'149.7 million km',au:'1.00 AU',r:0.95,orbit:14,color:0x477e9d,speed:.0065,desc:'Our reference point for comparing the other planets.'},
+{name:'Mars',diameter:'6,792 km',distance:'227.9 million km',au:'1.52 AU',r:0.67,orbit:17.5,color:0xa6533d,speed:.0052,desc:'A cold rocky world with a thin atmosphere and two small moons.'},
+{name:'Jupiter',diameter:'142,984 km',distance:'778 million km',au:'5.20 AU',r:3.65,orbit:24,color:0xc9a681,speed:.0028,desc:'The largest planet, a gas giant more than 11 Earth diameters wide.'},
+{name:'Saturn',diameter:'120,536 km',distance:'1.4 billion km',au:'9.58 AU',r:3.1,orbit:31,color:0xc9b88d,speed:.0021,desc:'A gas giant surrounded by a broad system of icy rings.'},
+{name:'Uranus',diameter:'51,118 km',distance:'2.9 billion km',au:'19.2 AU',r:1.8,orbit:38,color:0x74b8bd,speed:.0015,desc:'An ice giant that rotates on its side relative to most planets.'},
+{name:'Neptune',diameter:'49,528 km',distance:'4.5 billion km',au:'30.05 AU',r:1.72,orbit:45,color:0x4b72b9,speed:.0012,desc:'The most distant major planet, an ice giant with extremely fast winds.'}
+];
+
+const sun = new THREE.Mesh(new THREE.SphereGeometry(4.6,48,32),new THREE.MeshBasicMaterial({color:0xe9a33c}));scene.add(sun);
+const sunGlow = new THREE.Mesh(new THREE.SphereGeometry(5.15,32,24),new THREE.MeshBasicMaterial({color:0xe39431,transparent:true,opacity:.12,side:THREE.BackSide}));scene.add(sunGlow);
+const planetGroup=new THREE.Group();scene.add(planetGroup);
+const selectable=[];
+function makePlanet(p,i){scene.add(ring(p.orbit));const pivot=new THREE.Group();planetGroup.add(pivot);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,36,24),new THREE.MeshStandardMaterial({color:p.color,roughness:.8,metalness:0}));mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
+if(p.name==='Saturn'){const rg=new THREE.RingGeometry(4.1,5.5,64);const rm=new THREE.MeshBasicMaterial({color:0xb8a67e,side:THREE.DoubleSide,transparent:true,opacity:.65});const rings=new THREE.Mesh(rg,rm);rings.rotation.x=Math.PI/2.35;mesh.add(rings);} return {pivot,mesh,p};}
+const planets=data.map(makePlanet);
+
+const tooltip = document.querySelector('#sceneTooltip');
+const quickButtons = document.querySelectorAll('.planet-quick-bar button');
+
+const raycaster=new THREE.Raycaster(), mouse=new THREE.Vector2();
+let hoveredMesh = null;
+
+// Camera Target Animation State
+let targetLookAt = new THREE.Vector3(0, 0, 0);
+let currentLookAt = new THREE.Vector3(0, 0, 0);
+let trackingPlanet = null; // when focused, track moving planet
+let targetCamPos = null;
+
+function setPanel(p){
+  panel.innerHTML=`<div class="eyebrow">Selected object</div><h3>${p.name}</h3><p>${p.desc}</p><dl><dt>Diameter</dt><dd>${p.diameter}</dd><dt>Avg. distance from Sun</dt><dd>${p.distance}</dd><dt>Distance</dt><dd>${p.au}</dd></dl>`;
+}
+
+function focusPlanet(index){
+  const obj = planets[index];
+  if(!obj) return;
+  const p = obj.p;
+  trackingPlanet = obj;
+  setPanel(p);
+  
+  // Highlight active quick button
+  quickButtons.forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.planet, 10) === index);
+  });
+
+  // Calculate target camera offset based on planet size
+  const worldPos = new THREE.Vector3();
+  obj.mesh.getWorldPosition(worldPos);
+  const dist = Math.max(p.r * 6.5, 9);
+  targetCamPos = new THREE.Vector3(worldPos.x + dist * 0.7, worldPos.y + dist * 0.5, worldPos.z + dist * 0.8);
+}
+
+function resetFocus(){
+  trackingPlanet = null;
+  targetLookAt.set(0, 0, 0);
+  targetCamPos = new THREE.Vector3(0, 29, 57);
+  quickButtons.forEach(btn => btn.classList.remove('active'));
+}
+
+quickButtons.forEach(btn => {
+  btn.onclick = () => {
+    const idx = parseInt(btn.dataset.planet, 10);
+    focusPlanet(idx);
+  };
+});
+
+document.querySelector('#btnResetTarget').onclick = resetFocus;
+
+// Raycasting for click & hover
+function updatePointer(e){
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+}
+
+renderer.domElement.addEventListener('pointermove', e => {
+  updatePointer(e);
+  raycaster.setFromCamera(mouse, camera);
+  const hit = raycaster.intersectObjects(selectable, false)[0];
+  if(hit){
+    hoveredMesh = hit.object;
+    renderer.domElement.style.cursor = 'pointer';
+    tooltip.style.display = 'block';
+    const rect = shell.getBoundingClientRect();
+    tooltip.style.left = `${e.clientX - rect.left}px`;
+    tooltip.style.top = `${e.clientY - rect.top}px`;
+    tooltip.textContent = hoveredMesh.userData.name;
+  } else {
+    hoveredMesh = null;
+    renderer.domElement.style.cursor = 'default';
+    tooltip.style.display = 'none';
+  }
+});
+
+renderer.domElement.addEventListener('pointerleave', () => {
+  tooltip.style.display = 'none';
+  hoveredMesh = null;
+});
+
+renderer.domElement.addEventListener('pointerdown', e => {
+  updatePointer(e);
+  raycaster.setFromCamera(mouse, camera);
+  const hit = raycaster.intersectObjects(selectable, false)[0];
+  if(hit){
+    focusPlanet(hit.object.userData.index);
+  }
+});
+
+let moving=true;
+document.querySelector('#btnMotion').onclick=e=>{
+  moving=!moving;
+  e.currentTarget.textContent=moving?'Pause motion':'Resume motion';
+  e.currentTarget.classList.toggle('active',!moving);
+};
+
+document.querySelector('#btnTop').onclick=()=>{
+  trackingPlanet = null;
+  targetLookAt.set(0,0,0);
+  camera.position.set(0,72,.1);
+  controls.target.set(0,0,0);
+  controls.update();
+  document.querySelector('#btnTop').classList.add('active');
+  document.querySelector('#btnExplore').classList.remove('active');
+};
+
+document.querySelector('#btnExplore').onclick=()=>{
+  trackingPlanet = null;
+  targetLookAt.set(0,0,0);
+  camera.position.set(0,29,57);
+  controls.target.set(0,0,0);
+  controls.update();
+  document.querySelector('#btnExplore').classList.add('active');
+  document.querySelector('#btnTop').classList.remove('active');
+};
+
+function resize(){
+  const w=shell.clientWidth,h=shell.clientHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(shell);
+resize();
+fallback.style.display='none';
+
+let last=performance.now();
+function animate(now){
+  requestAnimationFrame(animate);
+  const dt=Math.min((now-last)/16.67, 2);
+  last=now;
+  
+  if(moving){
+    planets.forEach(o=>o.pivot.rotation.y += o.p.speed*dt);
+    sun.rotation.y += .0015*dt;
+  }
+
+  // Smooth camera tracking & fly-to transitions
+  if(trackingPlanet){
+    const worldPos = new THREE.Vector3();
+    trackingPlanet.mesh.getWorldPosition(worldPos);
+    targetLookAt.copy(worldPos);
+  }
+
+  // Interpolate controls target
+  currentLookAt.lerp(targetLookAt, 0.08 * dt);
+  controls.target.copy(currentLookAt);
+
+  if(targetCamPos){
+    camera.position.lerp(targetCamPos, 0.06 * dt);
+    if(camera.position.distanceTo(targetCamPos) < 0.2){
+      targetCamPos = null; // completed smooth travel
+    }
+  }
+
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate(performance.now());
+
+// Section 03: Scale Laboratory Interactive Inspector
+const scaleData = [
+  {name:'Mercury', ratio:'0.38×', earths:'0.055 Earths', detail:'Diameter is 4,879 km. You could fit about 18 Mercurys inside Earth by volume.'},
+  {name:'Venus', ratio:'0.95×', earths:'0.86 Earths', detail:'Diameter is 12,104 km. Nearly identical in size to Earth ("Earth\'s twin"), but with extreme greenhouse heat.'},
+  {name:'Earth', ratio:'1.00×', earths:'1.00 Earth (Baseline)', detail:'Diameter is 12,756 km. Our standard reference for planetary scale.'},
+  {name:'Mars', ratio:'0.53×', earths:'0.15 Earths', detail:'Diameter is 6,792 km. Just over half the width of Earth; about 6.6 Mars volumes fit inside Earth.'},
+  {name:'Jupiter', ratio:'11.21×', earths:'1,321 Earths', detail:'Diameter is 142,984 km. Over 11 Earths lined up end-to-end, and over 1,300 Earths could fit inside its volume!'},
+  {name:'Saturn', ratio:'9.45×', earths:'764 Earths', detail:'Diameter is 120,536 km (excluding rings). Rings span up to 282,000 km, yet are only tens of meters thick.'},
+  {name:'Uranus', ratio:'4.01×', earths:'63 Earths', detail:'Diameter is 51,118 km. An ice giant wide enough to hold about 63 Earths inside.'},
+  {name:'Neptune', ratio:'3.88×', earths:'58 Earths', detail:'Diameter is 49,528 km. Slightly smaller in diameter than Uranus, but more massive, holding ~58 Earth volumes.'}
+];
+
+const scaleFactBox = document.querySelector('#scaleFactBox');
+const scaleItems = document.querySelectorAll('#scaleRow .planet-item');
+
+scaleItems.forEach(item => {
+  item.addEventListener('click', () => {
+    scaleItems.forEach(el => el.classList.remove('active'));
+    item.classList.add('active');
+    const idx = parseInt(item.dataset.idx, 10);
+    const info = scaleData[idx];
+    scaleFactBox.innerHTML = `
+      <strong>${info.name} — ${info.ratio} Earth's Diameter (${info.earths} Volume)</strong>
+      <span>${info.detail}</span>
+    `;
+  });
+});
+
+// Intuition Check Quiz Handling
+const quizBtns = document.querySelectorAll('#quizOptions button');
+const quizFeedback = document.querySelector('#quizFeedback');
+
+quizBtns.forEach(btn => {
+  btn.onclick = () => {
+    quizBtns.forEach(b => {
+      b.disabled = true;
+      if(b.dataset.answer === "30"){
+        b.classList.add('correct');
+      }
+    });
+
+    if(btn.dataset.answer === "30"){
+      quizFeedback.style.display = 'block';
+      quizFeedback.innerHTML = `<span style="color:#2b663b;font-weight:600">✓ Correct!</span> At 1 AU = 1 meter, Neptune (30.05 AU) is about <strong>30 meters away</strong> — the entire length of a school hallway! This illustrates why planet sizes must be exaggerated in solar system models.`;
+    } else {
+      btn.classList.add('wrong');
+      quizFeedback.style.display = 'block';
+      quizFeedback.innerHTML = `<span style="color:#bd4c2f;font-weight:600">Think further:</span> Neptune is 30 times farther from the Sun than Earth is (30.05 AU). If Earth is at 1 meter, Neptune is <strong>30 meters away</strong>!`;
+    }
+  };
+});
+</script>
+</body>
+</html>
