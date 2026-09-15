@@ -275,7 +275,8 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 
 /* Temperature comparison page */
 .temp-chart{display:flex;align-items:flex-end;gap:14px;height:260px;padding-top:20px;border-bottom:1px solid #aaa59a}
-.temp-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.temp-bar-col{flex:1;min-width:34px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+@media(max-width:620px){.temp-chart{overflow-x:auto;-webkit-overflow-scrolling:touch;gap:10px}.temp-bar-col{flex:0 0 auto;width:38px}}
 .temp-bar{width:100%;max-width:56px;border-radius:2px 2px 0 0;position:relative}
 .temp-bar .temp-val{position:absolute;top:-20px;left:0;right:0;text-align:center;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace}
 .temp-bar-col .name{margin-top:8px;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
@@ -340,11 +341,18 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 @media(max-width:780px){.ptype-grid{grid-template-columns:1fr}}
 
 /* Earth-Moon true scale page */
+.emscale-outer{position:relative}
 .emscale-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:1px solid #aaa59a;border-bottom:1px solid #aaa59a;padding:30px 0}
 .emscale-track{position:relative;height:70px;width:1900px}
 .emscale-body{position:absolute;bottom:0;border-radius:50%;box-shadow:inset -6px -8px 14px rgba(0,0,0,.3)}
 .emscale-label{position:absolute;bottom:-22px;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);white-space:nowrap}
 .emscale-hint{margin-top:10px;font-size:11px;color:var(--muted)}
+.emscale-fade{position:absolute;top:1px;bottom:1px;right:0;width:70px;background:linear-gradient(90deg,transparent,#ece9e1 85%);pointer-events:none;transition:opacity .3s ease}
+.emscale-fade.hidden{opacity:0}
+.emscale-scrollcue{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:var(--accent);color:#fff;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;padding:7px 12px;border-radius:14px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2);animation:emscaleNudge 1.6s ease-in-out infinite;transition:opacity .3s ease}
+.emscale-scrollcue.hidden{opacity:0;pointer-events:none}
+@keyframes emscaleNudge{0%,100%{transform:translate(0,-50%)}50%{transform:translate(6px,-50%)}}
+@media(prefers-reduced-motion:reduce){.emscale-scrollcue{animation:none}}
 
 /* Tides page */
 .tide-diagram{background:var(--space);padding:20px}

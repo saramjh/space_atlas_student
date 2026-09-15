@@ -15,7 +15,10 @@ const TILT_RAD = (15 * Math.PI) / 180;
 const { scene, camera, controls, renderer, canvas } = createSceneBase({
   canvasSelector: '#eclipseCanvas',
   shellSelector: '#eclipseShell',
-  cameraPos: new THREE.Vector3(0, 7, 17),
+  // Pulled back from the original (0,7,17): that framing clipped the Moon
+  // out of the vertical frustum at some orbital angles regardless of
+  // container width (see moon-phases.js for the same fix/explanation).
+  cameraPos: new THREE.Vector3(0, 12, 27),
   minDistance: 12,
   maxDistance: 26,
   background: 0x0b1016,

@@ -11,7 +11,9 @@ const ORBIT_RADIUS = 9;
 const { scene, camera, controls, renderer, canvas } = createSceneBase({
   canvasSelector: '#lockCanvas',
   shellSelector: '#lockShell',
-  cameraPos: new THREE.Vector3(0, 15, 3),
+  // See moon-phases.js: a lower camera clipped the Moon out of the
+  // vertical frustum at some orbital angles regardless of container width.
+  cameraPos: new THREE.Vector3(0, 27, 5),
   minDistance: 10,
   maxDistance: 20,
   background: 0x0b1016,

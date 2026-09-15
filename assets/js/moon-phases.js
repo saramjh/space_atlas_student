@@ -10,7 +10,12 @@ const MOON_ORBIT_RADIUS = 9;
 const { scene, camera, renderer, controls, canvas } = createSceneBase({
   canvasSelector: '#moonCanvas',
   shellSelector: '#moonSceneShell',
-  cameraPos: new THREE.Vector3(0, 15, 3),
+  // y must clear the full orbit vertically regardless of container aspect:
+  // at fov 44 the vertical half-angle is 22°, so a camera this high sees a
+  // vertical half-extent of y*tan(22°) ≈ 11 world units at the orbit's
+  // plane — comfortably more than MOON_ORBIT_RADIUS (9). A lower camera
+  // clipped the Moon out of view entirely at some orbital angles.
+  cameraPos: new THREE.Vector3(0, 27, 5),
   minDistance: 10,
   maxDistance: 30,
   background: 0x0b1016,

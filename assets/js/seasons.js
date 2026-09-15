@@ -13,7 +13,10 @@ const TILT_RAD = (23.5 * Math.PI) / 180;
 const { scene, camera, controls, renderer, canvas } = createSceneBase({
   canvasSelector: '#seasonCanvas',
   shellSelector: '#seasonShell',
-  cameraPos: new THREE.Vector3(4, 9, 18),
+  // Pulled back from the original (4,9,18): that framing clipped Earth out
+  // of the vertical frustum at some orbital angles regardless of container
+  // width (see moon-phases.js for the same fix/explanation).
+  cameraPos: new THREE.Vector3(6, 14, 29),
   minDistance: 14,
   maxDistance: 30,
   background: 0x0b1016,

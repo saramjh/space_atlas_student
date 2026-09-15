@@ -10,13 +10,17 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>To scale, both size and distance.</h2></div></div>
   <div class="scale-compare">
-    <div class="emscale-scroll">
-      <div class="emscale-track">
-        <div class="emscale-body" style="left:0;width:60px;height:60px;background:radial-gradient(circle at 35% 32%,#8ebad1,#3e7597 47%,#315240)"></div>
-        <div class="emscale-label" style="left:0">Earth</div>
-        <div class="emscale-body" style="left:1808px;width:16px;height:16px;background:#bcb8b0"></div>
-        <div class="emscale-label" style="left:1808px">Moon</div>
+    <div class="emscale-outer">
+      <div class="emscale-scroll" id="emscaleScroll">
+        <div class="emscale-track">
+          <div class="emscale-body" style="left:0;width:60px;height:60px;background:radial-gradient(circle at 35% 32%,#8ebad1,#3e7597 47%,#315240)"></div>
+          <div class="emscale-label" style="left:0">Earth</div>
+          <div class="emscale-body" style="left:1808px;width:16px;height:16px;background:#bcb8b0"></div>
+          <div class="emscale-label" style="left:1808px">Moon</div>
+        </div>
       </div>
+      <div class="emscale-fade" id="emscaleFade"></div>
+      <div class="emscale-scrollcue" id="emscaleCue">Scroll for Moon →</div>
     </div>
     <p class="emscale-hint">Both circles and the gap between them use the same scale: 1 pixel ≈ 213 km. Scroll all the way right to reach the Moon.</p>
   </div>

@@ -1,5 +1,26 @@
 import { initQuiz } from './quiz-widget.js';
 
+// The scale strip is wider than the viewport by design (that's the point —
+// feeling how far away the Moon really is), but a wide scrollable box with
+// no visible content past the edge doesn't read as scrollable on its own.
+// Fade the right edge and hide the "scroll" cue once the user has started.
+const scrollEl = document.querySelector('#emscaleScroll');
+const fadeEl = document.querySelector('#emscaleFade');
+const cueEl = document.querySelector('#emscaleCue');
+if (scrollEl && scrollEl.scrollWidth <= scrollEl.clientWidth + 2) {
+  fadeEl.classList.add('hidden');
+  cueEl.classList.add('hidden');
+} else {
+  scrollEl.addEventListener(
+    'scroll',
+    () => {
+      fadeEl.classList.add('hidden');
+      cueEl.classList.add('hidden');
+    },
+    { once: true }
+  );
+}
+
 initQuiz([
   {
     q: "Why can the Earth-Moon system be shown accurately for both size and distance, when the full solar system can't?",
