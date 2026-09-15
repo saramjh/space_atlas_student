@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { PLANETS } from './planet-data.js';
+import { getPlanetTexture } from './textures.js';
 
 const canvas = document.querySelector('#threeCanvas');
 const shell = document.querySelector('#sceneShell');
@@ -22,9 +23,13 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
 
+const DEFAULT_MIN_DISTANCE = 22;
+const DEFAULT_CAM_POS = new THREE.Vector3(0, 29, 57);
+const TOP_CAM_POS = new THREE.Vector3(0, 72, .1);
+
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true; controls.dampingFactor = .055;
-controls.minDistance = 22; controls.maxDistance = 100;
+controls.minDistance = DEFAULT_MIN_DISTANCE; controls.maxDistance = 100;
 controls.maxPolarAngle = Math.PI * .48;
 controls.target.set(0,0,0);
 canvas.setAttribute('tabindex','0');
@@ -84,7 +89,7 @@ sunGlow.scale.set(16, 16, 1);
 sun.add(sunGlow);
 const planetGroup=new THREE.Group();scene.add(planetGroup);
 const selectable=[];
-function makePlanet(p,i){scene.add(ring(p.orbit));const pivot=new THREE.Group();planetGroup.add(pivot);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,36,24),new THREE.MeshStandardMaterial({color:p.color,roughness:.8,metalness:0}));mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
+function makePlanet(p,i){scene.add(ring(p.orbit));const pivot=new THREE.Group();planetGroup.add(pivot);const tex=getPlanetTexture(p.name);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,48,32),new THREE.MeshStandardMaterial(tex?{map:tex,roughness:.85,metalness:0}:{color:p.color,roughness:.85,metalness:0}));mesh.rotation.y=Math.random()*Math.PI*2;mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
 if(p.name==='Saturn'){const rg=new THREE.RingGeometry(4.1,5.5,64);const rm=new THREE.MeshBasicMaterial({color:0xb8a67e,side:THREE.DoubleSide,transparent:true,opacity:.65});const rings=new THREE.Mesh(rg,rm);rings.rotation.x=Math.PI/2.35;mesh.add(rings);} return {pivot,mesh,p};}
 const planets=PLANETS.map(makePlanet);
 
@@ -119,12 +124,17 @@ function focusPlanet(index){
   obj.mesh.getWorldPosition(worldPos);
   const dist = Math.max(p.r * 6.5, 9);
   targetCamPos = new THREE.Vector3(worldPos.x + dist * 0.7, worldPos.y + dist * 0.5, worldPos.z + dist * 0.8);
+  // OrbitControls enforces minDistance every frame; without lowering it here
+  // it would fight our fly-to and yank the camera back out right after a
+  // close approach to a small planet.
+  controls.minDistance = Math.min(DEFAULT_MIN_DISTANCE, dist * 0.6);
 }
 
 function resetFocus(){
   trackingPlanet = null;
   targetLookAt.set(0, 0, 0);
-  targetCamPos = new THREE.Vector3(0, 29, 57);
+  targetCamPos = DEFAULT_CAM_POS.clone();
+  controls.minDistance = DEFAULT_MIN_DISTANCE;
   quickButtons.forEach(btn => btn.classList.remove('active'));
 }
 
@@ -183,12 +193,16 @@ document.querySelector('#btnMotion').onclick=e=>{
   e.currentTarget.classList.toggle('active',!moving);
 };
 
+// Top/Explore also fly in smoothly via targetCamPos/targetLookAt (the same
+// path focusPlanet uses) instead of snapping the camera instantly — mixing
+// an instant camera.position.set() with the animate loop's lerp caused the
+// look-at target to visibly lag behind the jumped position for a moment.
 document.querySelector('#btnTop').onclick=()=>{
   trackingPlanet = null;
   targetLookAt.set(0,0,0);
-  camera.position.set(0,72,.1);
-  controls.target.set(0,0,0);
-  controls.update();
+  targetCamPos = TOP_CAM_POS.clone();
+  controls.minDistance = DEFAULT_MIN_DISTANCE;
+  quickButtons.forEach(btn => btn.classList.remove('active'));
   document.querySelector('#btnTop').classList.add('active');
   document.querySelector('#btnExplore').classList.remove('active');
 };
@@ -196,9 +210,9 @@ document.querySelector('#btnTop').onclick=()=>{
 document.querySelector('#btnExplore').onclick=()=>{
   trackingPlanet = null;
   targetLookAt.set(0,0,0);
-  camera.position.set(0,29,57);
-  controls.target.set(0,0,0);
-  controls.update();
+  targetCamPos = DEFAULT_CAM_POS.clone();
+  controls.minDistance = DEFAULT_MIN_DISTANCE;
+  quickButtons.forEach(btn => btn.classList.remove('active'));
   document.querySelector('#btnExplore').classList.add('active');
   document.querySelector('#btnTop').classList.remove('active');
 };
@@ -230,11 +244,11 @@ function animate(now){
     targetLookAt.copy(worldPos);
   }
 
-  currentLookAt.lerp(targetLookAt, 0.08 * dt);
+  currentLookAt.lerp(targetLookAt, 0.09 * dt);
   controls.target.copy(currentLookAt);
 
   if(targetCamPos){
-    camera.position.lerp(targetCamPos, 0.06 * dt);
+    camera.position.lerp(targetCamPos, 0.075 * dt);
     if(camera.position.distanceTo(targetCamPos) < 0.2){
       targetCamPos = null;
     }
