@@ -2,7 +2,7 @@
   "path": "/solar-system/distance-scale/",
   "title": "Solar System Distance: Real vs. Compressed | Space Atlas",
   "description": "On a true linear scale, the inner planets crowd into the first few percent of the page. See why every model compresses distance.",
-  "canonical": "https://spaceatlas.edu/solar-system/distance-scale/",
+  "canonical": "https://saramjh.github.io/space_atlas_student/solar-system/distance-scale/",
   "ogTitle": "Solar System Distance Scale: Real vs. Compressed",
   "ogDescription": "True linear distance vs. the compressed scale Space Atlas's own 3D model uses — stacked so you can see exactly how much is compressed.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",

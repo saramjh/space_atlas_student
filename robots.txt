@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://spaceatlas.edu/sitemap.xml
+Sitemap: https://saramjh.github.io/space_atlas_student/sitemap.xml
