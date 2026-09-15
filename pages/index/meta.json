@@ -1,7 +1,7 @@
 {
   "path": "/",
   "title": "Space Atlas — Student Reference",
-  "description": "An interactive space-science reference for students in grades 4–8. Explore 3D planetary models, verify scale vs. distance, and trace evidence back to NASA, JPL, and ESA.",
+  "description": "An interactive space-science reference for grades 4-8. Explore 3D planetary models, verify scale vs. distance, and trace evidence to NASA, JPL, and ESA.",
   "canonical": "https://spaceatlas.edu/",
   "ogTitle": "Space Atlas — Student Reference (Grades 4–8)",
   "ogDescription": "Manipulate interactive 3D planetary models, compare diameters, and discover why space models require separate scales.",
