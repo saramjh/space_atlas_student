@@ -31,8 +31,12 @@ canvas.setAttribute('tabindex','0');
 canvas.setAttribute('aria-label','3D solar system camera. Use arrow keys to orbit.');
 controls.listenToKeyEvents(canvas);
 
-scene.add(new THREE.AmbientLight(0x778899, .55));
-const sunLight = new THREE.PointLight(0xffddb0, 2500, 140, 1.4); scene.add(sunLight);
+// Orbit distances here are compressed for visibility, not physically accurate,
+// so a realistic inverse-square light falloff makes far planets (Saturn,
+// Uranus, Neptune) go nearly black. Use decay:0 (no distance falloff) with a
+// strong ambient fill so every planet reads its color at any distance.
+scene.add(new THREE.AmbientLight(0x8f99a3, 2.4));
+const sunLight = new THREE.PointLight(0xffddb0, 4, 0, 0); scene.add(sunLight);
 
 const starGeo = new THREE.BufferGeometry();
 const stars=[]; for(let i=0;i<1100;i++){const r=70+Math.random()*90, t=Math.random()*Math.PI*2, p=Math.acos(2*Math.random()-1);stars.push(r*Math.sin(p)*Math.cos(t),r*Math.cos(p),r*Math.sin(p)*Math.sin(t));}
