@@ -1,42 +1,57 @@
 # Space Atlas — Student Reference
 
 Interactive space-science reference site for students in grades 4–8: a 3D solar
-system model, a planetary scale lab, and a guide to reading space visualizations
-critically, with links back to NASA/JPL/ESA sources.
+system model, a Moon-phases lab, a planetary scale lab, and a guide to reading
+space visualizations critically, with links back to NASA/JPL/ESA sources.
+
+Multi-page static site built with a small dependency-free Python script —
+no framework, no npm.
 
 ## Structure
 
 ```text
-space_atlas_student.html   Page markup only
+templates/
+  layout.html         <head> shell + {{NAV}}/{{CONTENT}}/{{FOOTER}} placeholders
+  nav.html            Header nav (desktop + mobile) — single source of truth
+  footer.html         Footer — single source of truth
+pages/
+  index/               → /
+  moon/phases/          → /moon/phases/
+    meta.json          Per-page <title>/description/OG/canonical/JSON-LD + entry script
+    content.html       Page body (goes inside <main>)
 assets/
-  css/style.css             All page styles
+  css/style.css        All page styles, shared across every page
   js/
-    planet-data.js          Planet facts, scale-lab data, quiz bank — the only
-                             place numbers need to change
-    scene.js                 3D solar system (Three.js)
-    interactions.js          Scale lab, quiz, and card-toggle UI logic
-    main.js                   Entry point (imports scene.js + interactions.js)
+    planet-data.js     Planet facts, scale-lab data, quiz bank — the only
+                        place solar-system numbers need to change
+    textures.js        Procedural canvas textures (planets + Moon), shared
+    three-base.js       Shared Three.js renderer/camera/controls/resize/
+                        animate-loop boilerplate used by every 3D module
+    scene.js            Home page's 3D solar system
+    interactions.js     Home page's scale lab / quiz / card-toggle logic
+    moon-phases.js       Moon Phases page's system view + Earth view + quiz
+    main.js              Home page's entry point
 robots.txt
-sitemap.xml
+build.py               Builds pages/** + templates/** into public/
 ```
 
-Edit `assets/js/planet-data.js` to update planetary facts — it's the single
-source of truth used by the 3D scene, the scale lab, and the quiz.
+To add a new page: create `pages/<path>/{meta.json,content.html}`, add any
+page-specific JS under `assets/js/`, and add a link in `templates/nav.html`
+once the page is ready to be discoverable. Run `python3 build.py`.
 
 ## Run locally
 
-No build step. Serve the folder over HTTP (the 3D scene uses ES modules,
-which don't load from `file://`):
-
 ```sh
-python3 -m http.server 8000
+python3 build.py
+python3 -m http.server 8000 --directory public
 ```
 
-Then open `http://localhost:8000/space_atlas_student.html`.
+Then open `http://localhost:8000/`. (The 3D scenes use ES modules, which
+don't load from `file://` — always serve over HTTP.)
 
 ## Deploy
 
-Push to `main`. `.github/workflows/gh-pages.yml` copies the HTML, CSS, JS,
-`assets/`, `robots.txt`, and `sitemap.xml` into a `public/` folder (also
-creating `index.html` from `space_atlas_student.html` so the site root
-resolves) and publishes it to GitHub Pages.
+Push to `main`. `.github/workflows/gh-pages.yml` runs `python3 build.py`
+(no extra setup — GitHub's `ubuntu-latest` runner has Python preinstalled)
+and publishes the resulting `public/` folder to GitHub Pages. `build.py`
+also regenerates `sitemap.xml` from the current page list.

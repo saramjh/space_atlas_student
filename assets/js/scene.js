@@ -1,40 +1,25 @@
 // 3D solar system model (hero section). Self-contained: reads/writes only
 // the #sceneShell subtree. Planet facts come from planet-data.js.
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { PLANETS } from './planet-data.js';
 import { getPlanetTexture } from './textures.js';
+import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
 
-const canvas = document.querySelector('#threeCanvas');
-const shell = document.querySelector('#sceneShell');
 const fallback = document.querySelector('#sceneFallback');
 const panel = document.querySelector('#planetPanel');
-
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0b1016);
-scene.fog = new THREE.Fog(0x0b1016, 55, 125);
-
-const camera = new THREE.PerspectiveCamera(44, 1, 0.1, 220);
-camera.position.set(0, 29, 57);
-
-const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
 
 const DEFAULT_MIN_DISTANCE = 22;
 const DEFAULT_CAM_POS = new THREE.Vector3(0, 29, 57);
 const TOP_CAM_POS = new THREE.Vector3(0, 72, .1);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; controls.dampingFactor = .055;
-controls.minDistance = DEFAULT_MIN_DISTANCE; controls.maxDistance = 100;
-controls.maxPolarAngle = Math.PI * .48;
-controls.target.set(0,0,0);
-canvas.setAttribute('tabindex','0');
+const { scene, camera, renderer, controls, shell, canvas } = createSceneBase({
+  canvasSelector: '#threeCanvas',
+  shellSelector: '#sceneShell',
+  cameraPos: DEFAULT_CAM_POS,
+  minDistance: DEFAULT_MIN_DISTANCE,
+  fog: { color: 0x0b1016, near: 55, far: 125 },
+});
 canvas.setAttribute('aria-label','3D solar system camera. Use arrow keys to orbit.');
-controls.listenToKeyEvents(canvas);
 
 // Orbit distances here are compressed for visibility, not physically accurate,
 // so a realistic inverse-square light falloff makes far planets (Saturn,
@@ -47,8 +32,6 @@ const starGeo = new THREE.BufferGeometry();
 const stars=[]; for(let i=0;i<1100;i++){const r=70+Math.random()*90, t=Math.random()*Math.PI*2, p=Math.acos(2*Math.random()-1);stars.push(r*Math.sin(p)*Math.cos(t),r*Math.cos(p),r*Math.sin(p)*Math.sin(t));}
 starGeo.setAttribute('position',new THREE.Float32BufferAttribute(stars,3));
 scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xdde6ef,size:.13,sizeAttenuation:true,transparent:true,opacity:.7})));
-
-function ring(radius, color=0x44515f){const pts=[];for(let i=0;i<128;i++){let a=i/128*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*radius,0,Math.sin(a)*radius));}const g=new THREE.BufferGeometry().setFromPoints(pts);return new THREE.LineLoop(g,new THREE.LineBasicMaterial({color,transparent:true,opacity:.46}));}
 
 // A 2D gradient wrapped onto a sphere's UV distorts badly at the poles
 // (looking straight down in Top view showed a flat dark disc instead of a
@@ -89,7 +72,7 @@ sunGlow.scale.set(16, 16, 1);
 sun.add(sunGlow);
 const planetGroup=new THREE.Group();scene.add(planetGroup);
 const selectable=[];
-function makePlanet(p,i){scene.add(ring(p.orbit));const pivot=new THREE.Group();planetGroup.add(pivot);const tex=getPlanetTexture(p.name);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,48,32),new THREE.MeshStandardMaterial(tex?{map:tex,roughness:.85,metalness:0}:{color:p.color,roughness:.85,metalness:0}));mesh.rotation.y=Math.random()*Math.PI*2;mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
+function makePlanet(p,i){scene.add(orbitRing(p.orbit));const pivot=new THREE.Group();planetGroup.add(pivot);const tex=getPlanetTexture(p.name);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,48,32),new THREE.MeshStandardMaterial(tex?{map:tex,roughness:.85,metalness:0}:{color:p.color,roughness:.85,metalness:0}));mesh.rotation.y=Math.random()*Math.PI*2;mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
 if(p.name==='Saturn'){const rg=new THREE.RingGeometry(4.1,5.5,64);const rm=new THREE.MeshBasicMaterial({color:0xb8a67e,side:THREE.DoubleSide,transparent:true,opacity:.65});const rings=new THREE.Mesh(rg,rm);rings.rotation.x=Math.PI/2.35;mesh.add(rings);} return {pivot,mesh,p};}
 const planets=PLANETS.map(makePlanet);
 
@@ -217,22 +200,9 @@ document.querySelector('#btnExplore').onclick=()=>{
   document.querySelector('#btnTop').classList.remove('active');
 };
 
-function resize(){
-  const w=shell.clientWidth,h=shell.clientHeight;
-  renderer.setSize(w,h,false);
-  camera.aspect=w/h;
-  camera.updateProjectionMatrix();
-}
-new ResizeObserver(resize).observe(shell);
-resize();
 fallback.style.display='none';
 
-let last=performance.now();
-function animate(now){
-  requestAnimationFrame(animate);
-  const dt=Math.min((now-last)/16.67, 2);
-  last=now;
-
+animateLoop((dt) => {
   if(moving){
     planets.forEach(o=>o.pivot.rotation.y += o.p.speed*dt);
     sun.rotation.y += .0015*dt;
@@ -256,5 +226,4 @@ function animate(now){
 
   controls.update();
   renderer.render(scene,camera);
-}
-animate(performance.now());
+});

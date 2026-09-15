@@ -21,20 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare publish folder
-        run: |
-          mkdir -p public
-          cp -R *.html public/ 2>/dev/null || true
-          cp -R *.css  public/ 2>/dev/null || true
-          cp -R *.js   public/ 2>/dev/null || true
-          cp -R *.txt  public/ 2>/dev/null || true
-          cp -R *.xml  public/ 2>/dev/null || true
-          cp -R assets public/ 2>/dev/null || true
-          cp -R img    public/ 2>/dev/null || true
-          # GitHub Pages needs an index.html at the site root
-          if [ ! -f public/index.html ] && [ -f public/space_atlas_student.html ]; then
-            cp public/space_atlas_student.html public/index.html
-          fi
+      - name: Build site
+        run: python3 build.py
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

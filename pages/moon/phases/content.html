@@ -1,0 +1,82 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Moon · Question</div>
+    <h1>Why does the Moon change shape?</h1>
+    <p class="lead">The Moon does not change shape. What changes is how much of its sunlit half we can see from Earth. Drag the slider below to move the Moon around Earth and watch both views update together.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="phase-lab" id="phaseLab">
+    <div class="phase-views">
+      <div class="phase-view-system" id="moonSceneShell" aria-label="Top-down Sun-Earth-Moon system model">
+        <div class="phase-view-label">System view — top-down</div>
+        <canvas id="moonCanvas"></canvas>
+      </div>
+      <div class="phase-view-earth">
+        <div class="phase-view-label">What you see from Earth</div>
+        <canvas id="moonEarthView" width="220" height="220" aria-label="Moon phase as seen from Earth"></canvas>
+        <div class="phase-name" id="phaseName">Full Moon</div>
+      </div>
+    </div>
+    <div class="phase-controls">
+      <input type="range" id="moonAngle" min="0" max="360" value="180" step="1" aria-label="Moon's position around Earth, in degrees" />
+      <div class="phase-hint">Drag to move the Moon around Earth. The system view is top-down; sunlight always comes from the left.</div>
+    </div>
+  </div>
+
+  <div class="phase-facts">
+    <div><strong>29.5 days</strong>One synodic month — new moon to new moon.</div>
+    <div><strong>8</strong>Named phases in one cycle.</div>
+    <div><strong>~5°</strong>The Moon's orbit is tilted, so eclipses don't happen every month (not shown here).</div>
+    <div><strong>Same side</strong>The Moon is tidally locked, so we always see the same face.</div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>This model compresses a few things to stay readable.</h2><p>Every visualization on Space Atlas states what has been simplified, so a model is never mistaken for the evidence itself.</p></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>Distance</h3><p>The real Earth–Moon distance is about 30 Earth diameters. Here it's compressed so the Moon stays visible next to Earth.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Tilt</h3><p>The Moon's orbit is tilted about 5° from Earth's orbit around the Sun. This model flattens that tilt, which is also why real eclipses are rarer than this diagram would suggest.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>Size</h3><p>Earth and the Moon are enlarged relative to the orbit so both stay clearly visible and clickable-scale.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>What most people get wrong about Moon phases.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>What Are the Moon's Phases?</b><span>NASA Space Place's explanation of the Sun-Earth-Moon geometry behind phases.</span></div><a href="https://spaceplace.nasa.gov/moon-phases/en/" target="_blank" rel="noreferrer">NASA Space Place ↗</a></li>
+        <li><div class="num">02</div><div><b>Moon: Facts</b><span>Diameter, orbit, and tidal-locking data used in this model.</span></div><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+      <p class="verify-line" style="margin-top:16px">Verified against <a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science, Moon facts ↗</a> · checked 2026</p>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Home</div><h3>Solar system model</h3><p>See the Moon's home system — the full 3D solar system with all eight planets.</p><p><a href="/">Back to Space Atlas ↗</a></p></article>
+    <article class="step"><div class="step-no">NASA</div><h3>Eyes on the Solar System</h3><p>A richer 3D simulation with real mission data and time controls.</p><p><a href="https://science.nasa.gov/eyes/" target="_blank" rel="noreferrer">NASA Eyes ↗</a></p></article>
+  </div>
+ </div>
+</section>

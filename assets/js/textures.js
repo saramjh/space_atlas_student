@@ -154,6 +154,7 @@ function earthTexture(seed) {
 
 const BUILDERS = {
   Mercury: () => crateredTexture('#9a958d', ['#6f6a62', '#b3ada3'], 1),
+  Moon: () => crateredTexture('#bcb8b0', ['#8f8a80', '#d6d2c8'], 9),
   Venus: () => swirlTexture('#c8a476', 2),
   Earth: () => earthTexture(3),
   Mars: () => crateredTexture('#b35b3f', ['#7d3b28', '#c97c58'], 4, { poles: true }),
