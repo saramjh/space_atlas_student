@@ -3,8 +3,8 @@
 
 Reads templates/layout.html + templates/nav.html + templates/footer.html,
 combines them with each pages/**/meta.json + content.html, and writes the
-result to public/<path>/index.html. Also copies assets/, robots.txt, and
-regenerates sitemap.xml from the same page list.
+result to public/<path>/index.html. Also copies assets/, robots.txt,
+generates search-index.json for client-side search, and regenerates sitemap.xml.
 
 Run: python3 build.py
 """
@@ -22,8 +22,6 @@ PUBLIC = ROOT / "public"
 # from a subpath, not the domain root — a plain "/assets/..." link resolves
 # against the *domain* root and 404s. SITE_BASE is prepended to every
 # internal absolute link (nav hrefs, stylesheet/favicon/script src).
-# Empty by default so a local `python3 build.py` + `http.server` (served at
-# the root) keeps working unchanged; CI sets SITE_BASE=/space_atlas_student.
 SITE_BASE = os.environ.get("SITE_BASE", "").rstrip("/")
 
 
@@ -87,6 +85,24 @@ def write_sitemap(pages):
     (PUBLIC / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
 
+def write_search_index(pages):
+    items = []
+    for meta, _ in pages:
+        path = meta.get("path", "/")
+        title = meta.get("title", "").split("|")[0].strip()
+        desc = meta.get("description", "")
+        kicker = path.strip("/").split("/")[0].replace("-", " ").title() if path != "/" else "Home"
+        items.append({
+            "path": path,
+            "title": title,
+            "desc": desc,
+            "kicker": kicker
+        })
+    target = PUBLIC / "assets" / "search-index.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def main():
     if PUBLIC.exists():
         shutil.rmtree(PUBLIC)
@@ -109,6 +125,7 @@ def main():
         shutil.copy(ROOT / "robots.txt", PUBLIC / "robots.txt")
 
     write_sitemap(pages)
+    write_search_index(pages)
 
     print(f"Built {len(pages)} page(s) into {PUBLIC}")
     for meta, _ in pages:

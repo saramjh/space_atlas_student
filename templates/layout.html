@@ -68,6 +68,21 @@
 </main>
 {{FOOTER}}
 
+<!-- Instant Topic Search Modal -->
+<div class="search-modal-backdrop" id="searchModal" hidden>
+  <div class="search-modal" role="dialog" aria-modal="true" aria-label="Search all topics">
+    <div class="search-box-row">
+      <span class="search-modal-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search 27 space topics... (e.g., tides, seasons, black holes, pluto)" autocomplete="off" />
+      <button class="search-modal-close" id="searchClose" aria-label="Close search">✕</button>
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="search-hint">Type any question, planet, or topic to instantly filter Space Atlas. Press <kbd>ESC</kbd> to exit.</div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="{{BASE}}/assets/js/search-modal.js"></script>
 {{SCRIPT}}
 </body>
 </html>

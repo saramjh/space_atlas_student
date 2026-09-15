@@ -2,11 +2,65 @@
   <div class="wrap header-row">
     <a class="brand" href="{{BASE}}/">SPACE ATLAS<small>STUDENT REFERENCE · GRADES 4–8</small></a>
     <nav aria-label="Primary">
-      <a href="{{BASE}}/">Solar system</a><a href="{{BASE}}/learn/not-to-scale/">Scale lab</a><a href="{{BASE}}/moon/phases/">Moon phases</a><a href="{{BASE}}/moon/eclipses/">Eclipses</a><a href="{{BASE}}/universe/scale/">Universe</a><a href="{{BASE}}/sources/space-resources-for-students/">Sources</a>
+      <a href="{{BASE}}/">Home</a>
+      <div class="nav-dropdown">
+        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Solar System <span class="caret">▾</span></button>
+        <div class="nav-drop-menu" role="menu">
+          <a href="{{BASE}}/solar-system/planet-types/" role="menuitem"><b>Planet Types</b><span>Rocky vs Gas vs Ice Giants</span></a>
+          <a href="{{BASE}}/solar-system/planet-size-comparison/" role="menuitem"><b>Planet Sizes</b><span>Scale comparison tool</span></a>
+          <a href="{{BASE}}/solar-system/distance-scale/" role="menuitem"><b>Distance Scale</b><span>Real vs compressed space</span></a>
+          <a href="{{BASE}}/solar-system/astronomical-unit/" role="menuitem"><b>Astronomical Unit</b><span>Measuring with AU</span></a>
+          <a href="{{BASE}}/solar-system/gravity-and-orbits/" role="menuitem"><b>Gravity & Orbits</b><span>Newton's cannonball physics</span></a>
+          <a href="{{BASE}}/solar-system/gravity-comparison/" role="menuitem"><b>Weight on Planets</b><span>Your mass on other worlds</span></a>
+          <a href="{{BASE}}/solar-system/temperature-comparison/" role="menuitem"><b>Planetary Temperatures</b><span>Why Venus beats Mercury</span></a>
+          <a href="{{BASE}}/solar-system/orbital-periods/" role="menuitem"><b>Orbital Periods</b><span>Calculate your planetary age</span></a>
+          <a href="{{BASE}}/solar-system/pluto-dwarf-planet/" role="menuitem"><b>Pluto & Dwarf Planets</b><span>IAU definition criteria</span></a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Earth & Moon <span class="caret">▾</span></button>
+        <div class="nav-drop-menu" role="menu">
+          <a href="{{BASE}}/moon/phases/" role="menuitem"><b>Moon Phases</b><span>Interactive 3D geometry</span></a>
+          <a href="{{BASE}}/moon/eclipses/" role="menuitem"><b>Solar & Lunar Eclipses</b><span>Orbital tilt & syzygy</span></a>
+          <a href="{{BASE}}/moon/tidal-locking/" role="menuitem"><b>Tidal Locking</b><span>Why we see one side</span></a>
+          <a href="{{BASE}}/moon/earth-moon-scale/" role="menuitem"><b>Earth-Moon True Scale</b><span>Size vs 384,400 km gap</span></a>
+          <a href="{{BASE}}/moon/tides/" role="menuitem"><b>Ocean Tides</b><span>Spring vs Neap tidal bulge</span></a>
+          <a href="{{BASE}}/earth/seasons/" role="menuitem"><b>Earth's Seasons</b><span>Axial tilt vs distance</span></a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Deep Space <span class="caret">▾</span></button>
+        <div class="nav-drop-menu" role="menu">
+          <a href="{{BASE}}/stars/life-cycle/" role="menuitem"><b>Star Life Cycle</b><span>Mass, fusion & supernovae</span></a>
+          <a href="{{BASE}}/black-holes/" role="menuitem"><b>Black Holes</b><span>Event horizon & singularity</span></a>
+          <a href="{{BASE}}/galaxies/milky-way/" role="menuitem"><b>The Milky Way</b><span>Where Earth is located</span></a>
+          <a href="{{BASE}}/galaxies/types/" role="menuitem"><b>Galaxy Types</b><span>Spiral, elliptical, irregular</span></a>
+          <a href="{{BASE}}/exoplanets/transit-method/" role="menuitem"><b>Exoplanet Transit</b><span>Kepler light curve lab</span></a>
+          <a href="{{BASE}}/astronomy/electromagnetic-spectrum/" role="menuitem"><b>EM Spectrum</b><span>Beyond visible light</span></a>
+          <a href="{{BASE}}/universe/light-year/" role="menuitem"><b>Light-Year</b><span>Distance through time</span></a>
+          <a href="{{BASE}}/universe/scale/" role="menuitem"><b>Universe Scale</b><span>Step-by-step cosmic zoom</span></a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Guides <span class="caret">▾</span></button>
+        <div class="nav-drop-menu" role="menu">
+          <a href="{{BASE}}/learn/not-to-scale/" role="menuitem"><b>Why Scale Diagrams Lie</b><span>How textbook models distort</span></a>
+          <a href="{{BASE}}/learn/read-space-images/" role="menuitem"><b>How to Read Space Images</b><span>Data compositing & color</span></a>
+          <a href="{{BASE}}/sources/space-resources-for-students/" role="menuitem"><b>NASA & ESA Sources</b><span>Which site to open for homework</span></a>
+        </div>
+      </div>
     </nav>
-    <div class="utility">English · metric units</div>
+    <div class="utility">
+      <button class="search-trigger" id="searchTrigger" title="Search all 27 topics (/)"><span class="search-icon">🔍</span> Search <kbd>/</kbd></button>
+    </div>
   </div>
   <nav class="nav-mobile wrap" aria-label="Primary mobile">
-    <a href="{{BASE}}/">Solar system</a><a href="{{BASE}}/learn/not-to-scale/">Scale lab</a><a href="{{BASE}}/moon/phases/">Moon phases</a><a href="{{BASE}}/moon/eclipses/">Eclipses</a><a href="{{BASE}}/universe/scale/">Universe</a><a href="{{BASE}}/sources/space-resources-for-students/">Sources</a>
+    <a href="{{BASE}}/">Home</a>
+    <a href="{{BASE}}/solar-system/planet-types/">Solar System</a>
+    <a href="{{BASE}}/moon/phases/">Moon</a>
+    <a href="{{BASE}}/earth/seasons/">Earth</a>
+    <a href="{{BASE}}/stars/life-cycle/">Stars</a>
+    <a href="{{BASE}}/galaxies/milky-way/">Galaxies</a>
+    <button class="search-trigger-mobile" id="searchTriggerMobile">🔍 Topics</button>
   </nav>
 </header>
