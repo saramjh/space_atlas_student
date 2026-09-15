@@ -1,0 +1,80 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Moon · Question</div>
+    <h1>Why don't we get an eclipse every month?</h1>
+    <p class="lead">A solar eclipse and a lunar eclipse are opposite alignments — but every month has both a new moon and a full moon, and we don't get an eclipse at every one. Turn on the Moon's real tilt below to see why.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="eclipse-lab" id="eclipseLab">
+    <div class="eclipse-view" id="eclipseShell" aria-label="Sun-Earth-Moon alignment model">
+      <canvas id="eclipseCanvas"></canvas>
+    </div>
+    <div class="eclipse-controls">
+      <button id="btnSolarPos">Jump to new moon (solar eclipse position)</button>
+      <button id="btnLunarPos">Jump to full moon (lunar eclipse position)</button>
+      <label><input type="checkbox" id="tiltToggle" /> Show the Moon's real ~5° tilt</label>
+    </div>
+    <input type="range" id="eclipseAngle" min="0" max="360" value="0" step="1" aria-label="Moon's position around Earth, in degrees" style="width:100%;margin:0 22px 0;accent-color:var(--accent)" />
+    <div class="eclipse-readout" id="eclipseReadout"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>What this model leaves out.</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>The nodes</h3><p>An eclipse needs new/full moon AND the Moon crossing Earth's orbital plane at one of two points called nodes. This model shows the tilt but not the exact node-crossing timing.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Distance and size</h3><p>Compressed like every model on this site — real eclipse geometry also depends on the Moon's and Sun's exact apparent size, which is why some solar eclipses are total and others are annular (a "ring of fire").</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Measurable fact</div><div><h2>How often, and how long.</h2></div></div>
+  <div class="phase-facts" style="margin-top:0">
+    <div><strong>2–5</strong>Solar eclipses somewhere on Earth per year.</div>
+    <div><strong>~5.1°</strong>Tilt of the Moon's orbit relative to Earth's orbit around the Sun.</div>
+    <div><strong>Total, partial, annular</strong>Three kinds of solar eclipse, depending on alignment and distance.</div>
+    <div><strong>~1.5 hrs</strong>Maximum duration of a total lunar eclipse's full (umbral) phase.</div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>Quick check.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>Solar vs. Lunar Eclipses</b><span>NASA's explanation of both eclipse types and why they're rare.</span></div><a href="https://science.nasa.gov/eclipses/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+      <p class="verify-line" style="margin-top:16px">Verified against <a href="https://science.nasa.gov/eclipses/" target="_blank" rel="noreferrer">NASA Science, eclipses ↗</a> · checked 2026</p>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Moon</div><h3>Moon phases</h3><p>The everyday version of this alignment — no tilt, just phase shape.</p><p><a href="{{BASE}}/moon/phases/">Moon phases ↗</a></p></article>
+    <article class="step"><div class="step-no">Home</div><h3>Solar system model</h3><p>Back to the full interactive 3D solar system.</p><p><a href="{{BASE}}/">Back to Space Atlas ↗</a></p></article>
+  </div>
+ </div>
+</section>

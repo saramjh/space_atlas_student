@@ -1,0 +1,81 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Solar system · Question</div>
+    <h1>Why does every solar system model compress distance?</h1>
+    <p class="lead">On a true linear scale, the four inner planets crowd into the first few percent of the page and everything else is empty space. Below, the same eight planets plotted twice: true linear distance, then the compressed scale this site's own 3D model actually uses.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Visual model</div><div><h2>True distance vs. the model's distance.</h2></div></div>
+
+  <div class="scale-compare">
+    <div class="dist-compare-label">True linear scale (0 – 30.05 AU)</div>
+    <div class="dist-track">
+      <div class="dist-dot" style="left:1.3%"></div><div class="dist-dot-label" style="left:1.3%">Me·Ve·Ea·Ma</div>
+      <div class="dist-dot" style="left:17.3%"></div><div class="dist-dot-label" style="left:17.3%">Jupiter</div>
+      <div class="dist-dot" style="left:31.9%"></div><div class="dist-dot-label" style="left:31.9%">Saturn</div>
+      <div class="dist-dot" style="left:63.9%"></div><div class="dist-dot-label" style="left:63.9%">Uranus</div>
+      <div class="dist-dot" style="left:100%"></div><div class="dist-dot-label" style="left:100%">Neptune</div>
+    </div>
+    <p class="scale-caption">Mercury, Venus, Earth, and Mars all land within the first 5% of the width — at this resolution they're a single blur, not four distinct dots.</p>
+
+    <div class="dist-compare-label">Space Atlas's 3D model scale (compressed)</div>
+    <div class="dist-track">
+      <div class="dist-dot" style="left:16.7%"></div><div class="dist-dot-label" style="left:16.7%">Mercury</div>
+      <div class="dist-dot" style="left:23.8%"></div><div class="dist-dot-label" style="left:23.8%">Venus</div>
+      <div class="dist-dot" style="left:31.1%"></div><div class="dist-dot-label" style="left:31.1%">Earth</div>
+      <div class="dist-dot" style="left:38.9%"></div><div class="dist-dot-label" style="left:38.9%">Mars</div>
+      <div class="dist-dot" style="left:53.3%"></div><div class="dist-dot-label" style="left:53.3%">Jupiter</div>
+      <div class="dist-dot" style="left:68.9%"></div><div class="dist-dot-label" style="left:68.9%">Saturn</div>
+      <div class="dist-dot" style="left:84.4%"></div><div class="dist-dot-label" style="left:84.4%">Uranus</div>
+      <div class="dist-dot" style="left:100%"></div><div class="dist-dot-label" style="left:100%">Neptune</div>
+    </div>
+    <p class="scale-caption">The <a href="{{BASE}}/">home page's 3D model</a> spreads the inner planets out to keep them individually clickable — at the cost of no longer being a true distance scale.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Compression is a trade-off, not a mistake.</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>Readable vs. accurate</h3><p>A true-to-scale model would make Mercury through Mars unclickable dots. Every interactive solar system model — including NASA's Eyes — makes this same trade-off.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>State it, don't hide it</h3><p>The honest move isn't to avoid compression — it's to say clearly that it's happening, which is why every 3D scene on this site labels "distances compressed."</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>Quick check.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>NASA's Eyes on the Solar System</b><span>Compare against a mission-grade 3D tool that makes the same compression trade-off.</span></div><a href="https://science.nasa.gov/eyes/" target="_blank" rel="noreferrer">NASA Eyes ↗</a></li>
+      </ol>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Convert</div><h3>Astronomical unit</h3><p>Turn these same distances into a scale you can walk.</p><p><a href="{{BASE}}/solar-system/astronomical-unit/">Astronomical unit ↗</a></p></article>
+    <article class="step"><div class="step-no">Learn</div><h3>Why diagrams aren't to scale</h3><p>The size side of the same trade-off.</p><p><a href="{{BASE}}/learn/not-to-scale/">Not to scale ↗</a></p></article>
+  </div>
+ </div>
+</section>

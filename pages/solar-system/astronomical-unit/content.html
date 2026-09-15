@@ -1,0 +1,60 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Solar system · Question</div>
+    <h1>What is an astronomical unit?</h1>
+    <p class="lead">An astronomical unit (AU) is the average distance from Earth to the Sun — about 150 million km. It's a convenient ruler for solar system distances, but hard to picture. Pick a real-world step size and see where every planet would actually be.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Visual model</div><div><h2>If 1 AU were this long, where would Neptune be?</h2></div></div>
+
+  <div class="scale-compare">
+    <div class="au-picker" id="auPicker">
+      <button data-cm="30">Your foot (30 cm)</button>
+      <button data-cm="75" class="active">One step (75 cm)</button>
+      <button data-cm="450">A car length (4.5 m)</button>
+      <button data-cm="9100">A football field (91 m)</button>
+    </div>
+    <div class="au-custom">
+      <label for="auCustomInput">Or set 1 AU = </label>
+      <input type="number" id="auCustomInput" value="75" min="1" max="100000" />
+      <span>cm</span>
+    </div>
+    <div class="au-track" id="auTrack">
+      <div class="au-dot" style="left:0%"></div><div class="au-dot-label" style="left:0%"><b>Mercury</b><span id="d0"></span></div>
+      <div class="au-dot" style="left:14.1%"></div><div class="au-dot-label" style="left:14.1%"><b>Venus</b><span id="d1"></span></div>
+      <div class="au-dot" style="left:21.7%"></div><div class="au-dot-label" style="left:21.7%"><b>Earth</b><span id="d2"></span></div>
+      <div class="au-dot" style="left:31.3%"></div><div class="au-dot-label" style="left:31.3%"><b>Mars</b><span id="d3"></span></div>
+      <div class="au-dot" style="left:59.6%"></div><div class="au-dot-label" style="left:59.6%"><b>Jupiter</b><span id="d4"></span></div>
+      <div class="au-dot" style="left:73.7%"></div><div class="au-dot-label" style="left:73.7%"><b>Saturn</b><span id="d5"></span></div>
+      <div class="au-dot" style="left:89.7%"></div><div class="au-dot-label" style="left:89.7%"><b>Uranus</b><span id="d6"></span></div>
+      <div class="au-dot" style="left:100%"></div><div class="au-dot-label" style="left:100%"><b>Neptune</b><span id="d7"></span></div>
+    </div>
+    <p class="scale-caption">Dot positions use a log scale so every planet stays visible; the distances printed above each dot are the real linear numbers at your chosen scale.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Measurable fact</div><div><h2>1 AU in a few units.</h2></div></div>
+  <div class="phase-facts" style="margin-top:0">
+    <div><strong>149.6 million km</strong>Average Earth-Sun distance.</div>
+    <div><strong>92.96 million mi</strong>The same distance in miles.</div>
+    <div><strong>~8.3 minutes</strong>How long sunlight takes to reach Earth.</div>
+    <div><strong>30.05 AU</strong>Neptune's average distance from the Sun.</div>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Learn</div><h3>Why diagrams aren't to scale</h3><p>See the same distances plotted against true planet sizes.</p><p><a href="{{BASE}}/learn/not-to-scale/">Not to scale ↗</a></p></article>
+    <article class="step"><div class="step-no">Home</div><h3>Solar system model</h3><p>Explore all eight planets in the interactive 3D model.</p><p><a href="{{BASE}}/">Back to Space Atlas ↗</a></p></article>
+  </div>
+ </div>
+</section>

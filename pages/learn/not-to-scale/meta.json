@@ -1,0 +1,12 @@
+{
+  "path": "/learn/not-to-scale/",
+  "title": "Why Solar System Diagrams Are Not to Scale | Space Atlas",
+  "description": "No diagram can show planet size and orbital distance accurately at the same time. Switch between size-to-scale and distance-to-scale views to see why.",
+  "canonical": "https://spaceatlas.edu/learn/not-to-scale/",
+  "ogTitle": "Why Solar System Diagrams Are Not to Scale",
+  "ogDescription": "Toggle between a size-accurate view and a distance-accurate view of the solar system — and see why no single diagram can be both.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Why Solar System Diagrams Are Not to Scale",
+  "jsonldDescription": "An interactive comparison of a size-accurate and a distance-accurate view of the solar system, showing why classroom diagrams must compress one or the other.",
+  "script": "/assets/js/not-to-scale.js"
+}

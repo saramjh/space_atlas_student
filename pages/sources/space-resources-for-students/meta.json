@@ -1,0 +1,12 @@
+{
+  "path": "/sources/space-resources-for-students/",
+  "title": "Best NASA Space Resources for Students | Space Atlas",
+  "description": "A guide to NASA Space Place, JPL Education, NASA's Eyes, NASA Science, and ESA — which one to open for which kind of space question.",
+  "canonical": "https://spaceatlas.edu/sources/space-resources-for-students/",
+  "ogTitle": "Best NASA Space Resources for Students",
+  "ogDescription": "NASA Space Place, JPL Education, NASA's Eyes, NASA Science, ESA — matched to the question you actually have.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Best NASA Space Resources for Students",
+  "jsonldDescription": "A decision guide to authoritative space-science resources for students in grades 4-8, organized by the kind of question they answer rather than ranked as a single best site.",
+  "script": null
+}

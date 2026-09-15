@@ -1,0 +1,12 @@
+{
+  "path": "/solar-system/planet-size-comparison/",
+  "title": "Planet Size Comparison Tool | Space Atlas",
+  "description": "Pick any two planets and see exactly how many times bigger one is than the other — by diameter and by volume.",
+  "canonical": "https://spaceatlas.edu/solar-system/planet-size-comparison/",
+  "ogTitle": "Planet Size Comparison Tool",
+  "ogDescription": "How much bigger is Jupiter than Earth, really? Pick two planets and compare diameter and volume directly.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Planet Size Comparison Tool",
+  "jsonldDescription": "An interactive tool for comparing any two planets' diameter and volume ratios directly.",
+  "script": "/assets/js/planet-size-comparison.js"
+}

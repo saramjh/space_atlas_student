@@ -1,0 +1,69 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Learn · Question</div>
+    <h1>Why aren't solar system diagrams drawn to scale?</h1>
+    <p class="lead">No single diagram can show planet size and orbital distance accurately at the same time. Switch between the two views below to see why — the same eight planets, drawn two honest but incompatible ways.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Visual model</div><div><h2>Pick one: size, or distance. Not both.</h2></div></div>
+
+  <div class="mode-toggle" role="tablist">
+    <button id="btnModeSize" class="active" aria-pressed="true">Size, to scale</button>
+    <button id="btnModeDistance" aria-pressed="false">Distance, to scale</button>
+  </div>
+
+  <div class="scale-compare">
+    <div class="mode-panel active" id="sizePanel">
+      <p class="scale-caption"><strong>Diameters are accurate here.</strong> Spacing between planets is arbitrary — just enough room to fit each ball. Jupiter really is about 11× Earth's diameter.</p>
+      <div class="planets-row" aria-label="Planets sized by true relative diameter, evenly spaced">
+        <div class="planet-item"><div class="ball" style="width:18px;height:18px;background:#77736f"></div><span>Mercury</span></div>
+        <div class="planet-item"><div class="ball" style="width:35px;height:35px;background:#c2a47d"></div><span>Venus</span></div>
+        <div class="planet-item"><div class="ball" style="width:37px;height:37px;background:#3e6f91"></div><span>Earth</span></div>
+        <div class="planet-item"><div class="ball" style="width:24px;height:24px;background:#a9513a"></div><span>Mars</span></div>
+        <div class="planet-item"><div class="ball" style="width:158px;height:158px;background:repeating-linear-gradient(0deg,#d3b991 0 13px,#a66d57 13px 22px,#e2c7a1 22px 32px)"></div><span>Jupiter</span></div>
+        <div class="planet-item"><div class="ball" style="width:132px;height:132px;background:#c9b589"></div><span>Saturn</span></div>
+        <div class="planet-item"><div class="ball" style="width:74px;height:74px;background:#76b5ba"></div><span>Uranus</span></div>
+        <div class="planet-item"><div class="ball" style="width:71px;height:71px;background:#477bb9"></div><span>Neptune</span></div>
+      </div>
+    </div>
+
+    <div class="mode-panel" id="distPanel">
+      <p class="scale-caption"><strong>Distances from the Sun are accurate here</strong> (on a compressed logarithmic scale, left to right). Every planet is drawn as the same small dot — at true relative size, the inner planets would be invisible pixels.</p>
+      <div class="scale-track" aria-label="Planets positioned by true distance from the Sun, on a logarithmic scale">
+        <div class="scale-dot" style="left:0%"></div><div class="scale-dot-label" style="left:0%">Mercury</div>
+        <div class="scale-dot" style="left:14.1%"></div><div class="scale-dot-label" style="left:14.1%">Venus</div>
+        <div class="scale-dot" style="left:21.7%"></div><div class="scale-dot-label" style="left:21.7%">Earth</div>
+        <div class="scale-dot" style="left:31.3%"></div><div class="scale-dot-label" style="left:31.3%">Mars</div>
+        <div class="scale-dot" style="left:59.6%"></div><div class="scale-dot-label" style="left:59.6%">Jupiter</div>
+        <div class="scale-dot" style="left:73.7%"></div><div class="scale-dot-label" style="left:73.7%">Saturn</div>
+        <div class="scale-dot" style="left:89.7%"></div><div class="scale-dot-label" style="left:89.7%">Uranus</div>
+        <div class="scale-dot" style="left:100%"></div><div class="scale-dot-label" style="left:100%">Neptune</div>
+      </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Even the "distance" view isn't fully honest.</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>Logarithmic, not linear</h3><p>On a true linear scale, Mercury through Mars would bunch up in the first few pixels and Neptune would be off-screen. The distance view above uses a log scale to keep every planet visible.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Orbits aren't circles</h3><p>Real orbits are ellipses, and this simplification (like most diagrams) treats distance as a single number rather than a range.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>2D, not 3D</h3><p>Planets don't orbit in exactly the same plane. This diagram, like almost every solar system diagram, flattens that out.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Home</div><h3>Solar system model</h3><p>See the same size/distance trade-off explained on the homepage's Scale Lab.</p><p><a href="{{BASE}}/">Back to Space Atlas ↗</a></p></article>
+    <article class="step"><div class="step-no">JPL</div><h3>Make a scale solar system</h3><p>Build a physical model and feel the size/distance trade-off in a hallway.</p><p><a href="https://www.jpl.nasa.gov/edu/resources/project/make-a-scale-solar-system/" target="_blank" rel="noreferrer">JPL Education ↗</a></p></article>
+  </div>
+ </div>
+</section>

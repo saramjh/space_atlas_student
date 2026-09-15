@@ -1,0 +1,67 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Solar system · Question</div>
+    <h1>How much bigger is Jupiter than Earth, really?</h1>
+    <p class="lead">"Jupiter is huge" doesn't tell you much. Pick any two planets below and see the exact diameter and volume ratio between them.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Visual model</div><div><h2>Pick two planets to compare.</h2></div></div>
+
+  <div class="scale-compare">
+    <div class="compare-picker">
+      <select id="planetA" aria-label="First planet"></select>
+      <span class="vs">vs</span>
+      <select id="planetB" aria-label="Second planet"></select>
+    </div>
+    <div class="compare-stage" id="compareStage"></div>
+    <div class="compare-stats" id="compareStats"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Two things this comparison leaves out.</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>Mass isn't shown</h3><p>Volume ratio is not the same as mass ratio — Saturn is less dense than water, so it has less mass than its volume alone would suggest.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Circles, not spheres</h3><p>This is a 2D comparison of diameters. The volume number is calculated (diameter ratio cubed), not drawn to scale.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>Quick check.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>Planet sizes and locations</b><span>Official NASA diameters used to compute every ratio on this page.</span></div><a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+      <p class="verify-line" style="margin-top:16px">Verified against <a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science, planet sizes ↗</a> · checked 2026</p>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Home</div><h3>Solar system model</h3><p>See all eight planets together in the interactive 3D model.</p><p><a href="{{BASE}}/">Back to Space Atlas ↗</a></p></article>
+    <article class="step"><div class="step-no">Learn</div><h3>Why diagrams aren't to scale</h3><p>Size is only half the story — see why distance can't be shown accurately at the same time.</p><p><a href="{{BASE}}/learn/not-to-scale/">Not to scale ↗</a></p></article>
+  </div>
+ </div>
+</section>
