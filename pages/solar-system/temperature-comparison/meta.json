@@ -1,0 +1,12 @@
+{
+  "path": "/solar-system/temperature-comparison/",
+  "title": "Planet Temperature Comparison: Why Venus Is Hotter Than Mercury | Space Atlas",
+  "description": "Mercury is closest to the Sun, but Venus is hotter. Compare average planet temperatures and see why atmosphere matters more than distance.",
+  "canonical": "https://spaceatlas.edu/solar-system/temperature-comparison/",
+  "ogTitle": "Why Is Venus Hotter Than Mercury?",
+  "ogDescription": "Mercury is closest to the Sun. Venus is hotter. A temperature comparison across all eight planets, and the atmosphere-not-distance explanation.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Planet Temperature Comparison",
+  "jsonldDescription": "A comparison of average planetary temperatures across the solar system, explaining why atmospheric greenhouse effect outweighs distance from the Sun.",
+  "script": "/assets/js/temperature-comparison.js"
+}

@@ -1,0 +1,12 @@
+{
+  "path": "/earth/seasons/",
+  "title": "Why Do We Have Seasons? (It's Not Distance From the Sun) | Space Atlas",
+  "description": "Earth is actually closest to the Sun in Northern Hemisphere winter. Seasons come from axial tilt, not distance — drag through a full orbit to see why.",
+  "canonical": "https://spaceatlas.edu/earth/seasons/",
+  "ogTitle": "Why Do We Have Seasons?",
+  "ogDescription": "Earth's axis stays pointed the same direction all year — drag through an orbit and watch why that alone causes summer and winter.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Why Do We Have Seasons?",
+  "jsonldDescription": "An interactive 3D model of Earth's fixed axial tilt through a full orbit, showing that seasons are caused by tilt rather than distance from the Sun.",
+  "script": "/assets/js/seasons.js"
+}

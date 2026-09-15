@@ -1,0 +1,12 @@
+{
+  "path": "/solar-system/gravity-and-orbits/",
+  "title": "Why Don't Planets Fall Into the Sun? | Space Atlas",
+  "description": "An orbit is a fall that keeps missing. Fire a cannonball at different speeds and see it crash, orbit, or escape — Newton's own thought experiment, interactive.",
+  "canonical": "https://spaceatlas.edu/solar-system/gravity-and-orbits/",
+  "ogTitle": "Why Don't Planets Fall Into the Sun?",
+  "ogDescription": "Newton's cannonball, interactive: launch at different speeds and see the exact line between crashing, orbiting, and escaping.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Why Don't Planets Fall Into the Sun?",
+  "jsonldDescription": "An interactive gravity simulation (Newton's cannonball) letting students launch a projectile at varying speeds to explore crashing, orbiting, and escape trajectories.",
+  "script": "/assets/js/gravity-and-orbits.js"
+}

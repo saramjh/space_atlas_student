@@ -1,0 +1,12 @@
+{
+  "path": "/black-holes/",
+  "title": "What Is a Black Hole? Event Horizon Explained | Space Atlas",
+  "description": "A black hole is not a cosmic vacuum cleaner — a labeled diagram of the event horizon, accretion disk, and singularity, and what each part actually means.",
+  "canonical": "https://spaceatlas.edu/black-holes/",
+  "ogTitle": "What Is a Black Hole?",
+  "ogDescription": "Event horizon, accretion disk, singularity — a labeled diagram of what a black hole actually is, and what it isn't.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "What Is a Black Hole?",
+  "jsonldDescription": "A labeled schematic explanation of a black hole's event horizon, accretion disk, and singularity, correcting the common misconception of black holes as cosmic vacuum cleaners.",
+  "script": "/assets/js/black-holes.js"
+}

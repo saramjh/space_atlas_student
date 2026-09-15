@@ -1,0 +1,12 @@
+{
+  "path": "/solar-system/orbital-periods/",
+  "title": "How Old Would You Be on Another Planet? Orbital Periods Explained | Space Atlas",
+  "description": "A \"year\" is just one orbit around the Sun — and it takes wildly different amounts of time depending on the planet. Enter your age and see it recalculated for all eight.",
+  "canonical": "https://spaceatlas.edu/solar-system/orbital-periods/",
+  "ogTitle": "How Old Would You Be on Another Planet?",
+  "ogDescription": "A year is just one orbit — enter your age and see how old you'd be on Mercury, Mars, or Neptune.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Orbital Periods: How Old Would You Be on Another Planet?",
+  "jsonldDescription": "An interactive calculator converting a user's Earth age into their equivalent age on every planet, based on each planet's orbital period.",
+  "script": "/assets/js/orbital-periods.js"
+}

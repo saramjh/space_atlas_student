@@ -1,0 +1,64 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Solar system · Question</div>
+    <h1>How much would you weigh on Mars?</h1>
+    <p class="lead">Your mass doesn't change from planet to planet — but your weight does, because weight depends on gravity. Enter your weight once and see it recalculated for every planet.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Visual model</div><div><h2>Your weight, everywhere.</h2></div></div>
+  <div class="scale-compare">
+    <div class="weight-input">
+      <input type="number" id="weightInput" value="45" min="1" max="500" />
+      <select id="weightUnit"><option value="kg">kg</option><option value="lb">lb</option></select>
+      <span style="font-size:12px;color:var(--muted)">on Earth</span>
+    </div>
+    <div class="weight-grid" id="weightGrid"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Why isn't this just "bigger planet, more gravity"?</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>Density matters too</h3><p>Saturn is bigger than Earth but less dense than water — its surface gravity (1.07×) is barely more than Earth's, while much smaller Mercury and much larger Neptune land close together too.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>"Surface" is fuzzy on gas giants</h3><p>Jupiter, Saturn, Uranus, and Neptune have no solid surface — these numbers use the gravity at the visible cloud tops.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>Quick check.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>Planetary Fact Sheet</b><span>Surface gravity values used in this calculator.</span></div><a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank" rel="noreferrer">NASA NSSDC ↗</a></li>
+      </ol>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Orbits</div><h3>Why don't planets fall into the Sun?</h3><p>Gravity's other job: keeping planets in orbit instead of pulling them straight in.</p><p><a href="{{BASE}}/solar-system/gravity-and-orbits/">Gravity and orbits ↗</a></p></article>
+    <article class="step"><div class="step-no">Home</div><h3>Solar system model</h3><p>Back to the interactive 3D solar system.</p><p><a href="{{BASE}}/">Back to Space Atlas ↗</a></p></article>
+  </div>
+ </div>
+</section>

@@ -1,0 +1,80 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Solar system · Question</div>
+    <h1>Why don't planets fall into the Sun?</h1>
+    <p class="lead">They are falling — they're just moving sideways fast enough to keep missing. This is the same thought experiment Isaac Newton used: fire a cannonball from a very tall mountain and see what happens at different speeds.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Visual model</div><div><h2>Launch the cannonball.</h2></div></div>
+  <div class="orbit-sandbox" id="orbitSandbox">
+    <div class="orbit-canvas-wrap" id="orbitShell">
+      <canvas id="orbitCanvas"></canvas>
+      <div class="orbit-status" id="orbitStatus">Ready</div>
+    </div>
+    <div class="orbit-controls">
+      <button id="orbitLaunch">Launch</button>
+      <input type="range" id="orbitSpeed" min="0.5" max="6" step="0.1" value="2.6" />
+      <span class="speed-val" id="orbitSpeedVal">2.6</span>
+      <button id="orbitReset" style="background:transparent;color:var(--ink)">Reset trail</button>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>What this sandbox leaves out.</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>One body, not many</h3><p>Real orbits are affected by every other mass nearby — the Moon, other planets, Jupiter's pull. This sandbox has just one central mass.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>No air resistance</h3><p>Newton's original thought experiment imagined firing above the atmosphere for exactly this reason — air drag would slow a real cannonball long before it could orbit.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Measurable fact</div><div><h2>Real orbital speeds.</h2></div></div>
+  <div class="phase-facts" style="margin-top:0">
+    <div><strong>~7.8 km/s</strong>Speed needed for a low Earth orbit.</div>
+    <div><strong>~11.2 km/s</strong>Earth's escape velocity — enough to leave and never come back.</div>
+    <div><strong>~30 km/s</strong>Earth's own speed orbiting the Sun.</div>
+    <div><strong>4.2 billion years</strong>Roughly how long gravity has held the solar system together.</div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>Quick check.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>Newton's Cannonball</b><span>The original thought experiment this sandbox is based on.</span></div><a href="https://science.nasa.gov/learn/basics-of-space-flight/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Weight</div><h3>How much would you weigh on Mars?</h3><p>Gravity's other everyday effect.</p><p><a href="{{BASE}}/solar-system/gravity-comparison/">Gravity comparison ↗</a></p></article>
+    <article class="step"><div class="step-no">Home</div><h3>Solar system model</h3><p>See real orbits in the interactive 3D solar system.</p><p><a href="{{BASE}}/">Back to Space Atlas ↗</a></p></article>
+  </div>
+ </div>
+</section>
