@@ -1,0 +1,12 @@
+{
+  "path": "/moon/tides/",
+  "title": "How Do Tides Work? Spring Tides vs. Neap Tides | Space Atlas",
+  "description": "Tides come from a stretching effect, not a simple pull — Earth bulges on both the near and far side from the Moon. See how the Sun adds to or cancels that effect.",
+  "canonical": "https://spaceatlas.edu/moon/tides/",
+  "ogTitle": "How Do Tides Work?",
+  "ogDescription": "Why are there two high tides a day, not one? And why are spring tides stronger than neap tides? A force diagram, not a photo.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "How Do Tides Work?",
+  "jsonldDescription": "A force-diagram explanation of tidal bulges on both the near and far sides of Earth, and how spring and neap tides result from the Sun and Moon's relative alignment.",
+  "script": "/assets/js/tides.js"
+}

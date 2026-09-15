@@ -1,0 +1,12 @@
+{
+  "path": "/galaxies/milky-way/",
+  "title": "Where Are We in the Milky Way Galaxy? | Space Atlas",
+  "description": "Earth isn't near the center of the galaxy, or anywhere special in it. Zoom out from the solar system to find our actual address in the Milky Way.",
+  "canonical": "https://spaceatlas.edu/galaxies/milky-way/",
+  "ogTitle": "Where Are We in the Milky Way Galaxy?",
+  "ogDescription": "About 26,000 light-years from the center, in a minor spiral arm — our actual cosmic address.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Where Are We in the Milky Way Galaxy?",
+  "jsonldDescription": "A step-by-step zoom-out from the solar system to the Milky Way galaxy, locating Earth's position within the Orion Arm.",
+  "script": "/assets/js/milky-way.js"
+}

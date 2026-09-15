@@ -1,0 +1,12 @@
+{
+  "path": "/moon/tidal-locking/",
+  "title": "Why Do We Always See the Same Side of the Moon? | Space Atlas",
+  "description": "The Moon rotates — just once per orbit, exactly matching its trip around Earth. That match is called tidal locking. Toggle it off to see what a non-locked Moon would look like.",
+  "canonical": "https://spaceatlas.edu/moon/tidal-locking/",
+  "ogTitle": "Why Do We Always See the Same Side of the Moon?",
+  "ogDescription": "Toggle tidal locking on and off and watch a marker on the Moon's surface to see exactly why we only ever see one face.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Why Do We Always See the Same Side of the Moon?",
+  "jsonldDescription": "An interactive model comparing a tidally locked Moon to a hypothetical non-locked Moon, using a visible surface marker to show rotation relative to orbit.",
+  "script": "/assets/js/tidal-locking.js"
+}

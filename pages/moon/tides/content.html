@@ -1,0 +1,95 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Moon · Question</div>
+    <h1>Why are there two high tides a day, not one?</h1>
+    <p class="lead">If tides were just the Moon "pulling" water toward it, there would be one high tide a day, on the side facing the Moon. There are actually two — because tides come from stretching, not simple pulling.</p>
+  </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Visual model</div><div><h2>Spring tides vs. neap tides.</h2></div></div>
+
+  <div class="mode-toggle">
+    <button id="btnSpring" class="active">Spring tide (Sun + Moon aligned)</button>
+    <button id="btnNeap">Neap tide (Sun + Moon at 90°)</button>
+  </div>
+
+  <div class="scale-compare">
+    <div class="mode-panel active" id="springPanel">
+      <div class="tide-diagram">
+        <svg viewBox="0 0 300 200" aria-label="Spring tide: Sun and Moon aligned, tidal bulges reinforce">
+          <ellipse cx="150" cy="100" rx="72" ry="52" fill="#3e6f91"/>
+          <ellipse cx="150" cy="100" rx="72" ry="52" fill="none" stroke="#8fb8d4" stroke-width="1"/>
+          <circle cx="248" cy="100" r="14" fill="#bcb8b0"/>
+          <text x="248" y="128" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" fill="#e9edf0">MOON</text>
+          <circle cx="20" cy="100" r="10" fill="#f5c15c"/>
+          <text x="20" y="122" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" fill="#e9edf0">SUN</text>
+          <path d="M262 100 L280 100 M275 95 L280 100 L275 105" stroke="#e9edf0" fill="none" stroke-width="1.4"/>
+          <path d="M38 100 L20 100 M25 95 L20 100 L25 105" stroke="#e9edf0" fill="none" stroke-width="1.4"/>
+        </svg>
+      </div>
+      <p class="scale-caption">Sun and Moon pull along the same line, reinforcing the stretch on both sides of Earth — the highest high tides and lowest low tides of the month.</p>
+    </div>
+    <div class="mode-panel" id="neapPanel">
+      <div class="tide-diagram">
+        <svg viewBox="0 0 300 200" aria-label="Neap tide: Sun and Moon at right angles, tidal bulges partially cancel">
+          <ellipse cx="150" cy="100" rx="60" ry="56" fill="#3e6f91" transform="rotate(-20 150 100)"/>
+          <ellipse cx="150" cy="100" rx="60" ry="56" fill="none" stroke="#8fb8d4" stroke-width="1" transform="rotate(-20 150 100)"/>
+          <circle cx="248" cy="100" r="14" fill="#bcb8b0"/>
+          <text x="248" y="128" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" fill="#e9edf0">MOON</text>
+          <circle cx="150" cy="20" r="10" fill="#f5c15c"/>
+          <text x="150" y="42" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" fill="#e9edf0">SUN</text>
+          <path d="M262 100 L280 100 M275 95 L280 100 L275 105" stroke="#e9edf0" fill="none" stroke-width="1.4"/>
+          <path d="M150 38 L150 20 M145 25 L150 20 L155 25" stroke="#e9edf0" fill="none" stroke-width="1.4"/>
+        </svg>
+      </div>
+      <p class="scale-caption">Sun and Moon pull at right angles to each other, partially canceling out — the smallest difference between high and low tide in the month.</p>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Why two bulges, not one?</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>Near side: pulled harder</h3><p>Ocean water on the side facing the Moon is pulled more strongly than Earth's center, stretching a bulge toward the Moon.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Far side: left behind</h3><p>Water on the far side is pulled less than Earth's center is, so it's effectively "left behind" — stretching a second bulge away from the Moon.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>Earth rotates through both</h3><p>As Earth spins once a day, most coastlines pass through both bulges — that's why most places get roughly two high tides every 24 hours.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>Quick check.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>Tides</b><span>NASA's explanation of tidal forces and the two-bulge effect.</span></div><a href="https://science.nasa.gov/earth/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Moon</div><h3>Moon phases</h3><p>Spring tides happen at new moon and full moon — see why.</p><p><a href="{{BASE}}/moon/phases/">Moon phases ↗</a></p></article>
+    <article class="step"><div class="step-no">Moon</div><h3>Tidal locking</h3><p>The Moon's own rotation was shaped by this same tidal force.</p><p><a href="{{BASE}}/moon/tidal-locking/">Tidal locking ↗</a></p></article>
+  </div>
+ </div>
+</section>

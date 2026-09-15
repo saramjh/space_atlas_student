@@ -1,0 +1,67 @@
+<section class="page-intro">
+  <div class="wrap">
+    <div class="kicker">Moon · Question</div>
+    <h1>Why do we always see the same side of the Moon?</h1>
+    <p class="lead">The Moon does rotate — it's not frozen in place. It just rotates exactly once per orbit, so the same face always points at Earth. Watch the red marker on the Moon's surface below to see the difference.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="eclipse-lab" id="lockLab">
+    <div class="eclipse-view" id="lockShell" aria-label="Earth-Moon system with a tracked surface marker">
+      <canvas id="lockCanvas"></canvas>
+      <div class="orbit-status" id="lockStatus" style="left:auto;right:16px">Tidally locked</div>
+    </div>
+    <div class="eclipse-controls">
+      <button id="btnLocked" class="active">Tidally locked (real)</button>
+      <button id="btnUnlocked">Not locked (hypothetical)</button>
+    </div>
+    <input type="range" id="lockAngle" min="0" max="360" value="0" step="1" aria-label="Moon's position in orbit" style="width:100%;margin:0 22px 18px;accent-color:var(--accent)" />
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Why did this happen in the first place?</h2></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>It wasn't always this way</h3><p>Earth's gravity gradually slowed the Moon's rotation over hundreds of millions of years (tidal friction) until it locked into this 1:1 match.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Not unique to the Moon</h3><p>Tidal locking happens throughout the solar system — many moons of Jupiter and Saturn are locked to their planets the same way.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>Quick check.</h2></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz" style="border-right:0">
+      <div class="scale-quiz" style="margin-top:0;border-top:0;padding-top:0">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>Moon: Facts</b><span>NASA's explanation of tidal locking (synchronous rotation).</span></div><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+    </aside>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="border-bottom:0">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
+  <div class="learning-grid" style="border-top:1px solid var(--rule)">
+    <article class="step"><div class="step-no">Moon</div><h3>Moon phases</h3><p>A different consequence of the same Earth-Moon geometry.</p><p><a href="{{BASE}}/moon/phases/">Moon phases ↗</a></p></article>
+    <article class="step"><div class="step-no">Scale</div><h3>True Earth-Moon distance</h3><p>See the real gap between Earth and the Moon, to scale.</p><p><a href="{{BASE}}/moon/earth-moon-scale/">Earth-Moon scale ↗</a></p></article>
+  </div>
+ </div>
+</section>

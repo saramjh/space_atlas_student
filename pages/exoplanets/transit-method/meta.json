@@ -1,0 +1,12 @@
+{
+  "path": "/exoplanets/transit-method/",
+  "title": "How Do We Find Exoplanets? The Transit Method | Space Atlas",
+  "description": "Most known exoplanets have never been directly photographed. See how astronomers detect a planet by watching its star's brightness dip as it passes in front.",
+  "canonical": "https://spaceatlas.edu/exoplanets/transit-method/",
+  "ogTitle": "How Do We Find Exoplanets? The Transit Method",
+  "ogDescription": "Drag a planet across a star and watch the brightness dip that's how most exoplanets are actually found.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "How Do We Find Exoplanets? The Transit Method",
+  "jsonldDescription": "An interactive simulation of the exoplanet transit detection method, showing a star's brightness curve dipping as an orbiting planet passes in front of it.",
+  "script": "/assets/js/transit-method.js"
+}
