@@ -85,7 +85,7 @@ def git_lastmod_for_page(meta):
     source_dir = PAGES / ("index" if path == "/" else path.strip("/"))
     try:
         result = subprocess.run(
-            ["git", "log", "-1", "--format=%cs", "--", str(source_dir.relative_to(ROOT))],
+            ["git", "log", "-1", "--format=%cI", "--", str(source_dir.relative_to(ROOT))],
             cwd=ROOT,
             check=True,
             capture_output=True,
