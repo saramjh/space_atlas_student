@@ -11,6 +11,7 @@ Run: python3 build.py
 import json
 import os
 import shutil
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -69,13 +70,45 @@ def out_path_for(meta):
     return PUBLIC / path.strip("/") / "index.html"
 
 
+def git_lastmod_for_page(meta):
+    """Return the last meaningful source-change date for one generated page.
+
+    Sitemap lastmod must describe the page, not the sitemap build time.
+    Use the latest commit touching that page's source directory. An explicit
+    meta.json lastmod value remains available as an override.
+    """
+    explicit = meta.get("lastmod")
+    if explicit:
+        return explicit
+
+    path = meta.get("path", "/")
+    source_dir = PAGES / ("index" if path == "/" else path.strip("/"))
+    try:
+        result = subprocess.run(
+            ["git", "log", "-1", "--format=%cs", "--", str(source_dir.relative_to(ROOT))],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        value = result.stdout.strip()
+        return value or None
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        return None
+
+
 def write_sitemap(pages):
     urls = []
     for meta, _ in pages:
         loc = meta.get("canonical")
         if not loc:
             continue
-        urls.append(f"  <url>\n    <loc>{loc}</loc>\n    <changefreq>monthly</changefreq>\n  </url>")
+        lines = ["  <url>", f"    <loc>{loc}</loc>"]
+        lastmod = git_lastmod_for_page(meta)
+        if lastmod:
+            lines.append(f"    <lastmod>{lastmod}</lastmod>")
+        lines.append("  </url>")
+        urls.append("\n".join(lines))
     sitemap = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
