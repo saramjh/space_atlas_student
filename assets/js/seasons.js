@@ -8,7 +8,7 @@ import { getPlanetTexture } from './textures.js';
 const ORBIT_RADIUS = 10;
 // Real tilt is 23.5°; kept close to real here (unlike the eclipse page's
 // exaggerated tilt) since the effect is visible at this scale already.
-const TILT_RAD = (23.5 * Math.PI) / 180;
+let currentTiltDeg = 23.5;
 
 const { scene, camera, controls, renderer, canvas } = createSceneBase({
   canvasSelector: '#seasonCanvas',
@@ -43,7 +43,12 @@ scene.add(earth);
 
 // Axis direction is fixed in world space: tilted toward +X, constant for
 // every orbital position — this is the whole point being demonstrated.
-const axisDir = new THREE.Vector3(Math.sin(TILT_RAD), Math.cos(TILT_RAD), 0).normalize();
+function axisDirectionForTilt(tiltDeg) {
+  const tiltRad = (tiltDeg * Math.PI) / 180;
+  return new THREE.Vector3(Math.sin(tiltRad), Math.cos(tiltRad), 0).normalize();
+}
+
+const axisDir = axisDirectionForTilt(currentTiltDeg);
 const axisGeo = new THREE.BufferGeometry().setFromPoints([
   axisDir.clone().multiplyScalar(-2.6), axisDir.clone().multiplyScalar(2.6),
 ]);
@@ -52,6 +57,28 @@ earth.add(axisLine);
 
 const slider = document.querySelector('#seasonAngle');
 const readout = document.querySelector('#seasonVal');
+const tiltReal = document.querySelector('#tiltReal');
+const tiltZero = document.querySelector('#tiltZero');
+const experimentReadout = document.querySelector('#seasonExperiment');
+
+function updateAxisTilt(tiltDeg) {
+  currentTiltDeg = tiltDeg;
+  const dir = axisDirectionForTilt(tiltDeg);
+  const points = [
+    dir.clone().multiplyScalar(-2.6),
+    dir.clone().multiplyScalar(2.6),
+  ];
+  axisLine.geometry.dispose();
+  axisLine.geometry = new THREE.BufferGeometry().setFromPoints(points);
+  tiltReal?.classList.toggle('active', tiltDeg === 23.5);
+  tiltZero?.classList.toggle('active', tiltDeg === 0);
+  if (experimentReadout) {
+    experimentReadout.textContent = tiltDeg === 0
+      ? '0° tilt: this model has no strong seasonal contrast as Earth moves around the Sun.'
+      : '23.5° tilt: seasonal contrast changes as Earth orbits the Sun.';
+  }
+  applyAngle(Number(slider.value));
+}
 
 function seasonForAngle(deg) {
   const a = ((deg % 360) + 360) % 360;
@@ -64,10 +91,24 @@ function seasonForAngle(deg) {
 function applyAngle(deg) {
   const theta = (deg * Math.PI) / 180;
   earth.position.set(Math.cos(theta) * ORBIT_RADIUS, 0, Math.sin(theta) * ORBIT_RADIUS);
-  readout.textContent = seasonForAngle(deg);
+  readout.textContent = currentTiltDeg === 0 ? 'No strong seasons' : seasonForAngle(deg);
 }
 
-slider.addEventListener('input', () => applyAngle(Number(slider.value)));
+slider.addEventListener('input', () => {
+  document.querySelectorAll('[data-season-angle]').forEach((button) => button.classList.remove('active'));
+  applyAngle(Number(slider.value));
+});
+document.querySelectorAll('[data-season-angle]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const angle = Number(button.dataset.seasonAngle);
+    slider.value = String(angle);
+    document.querySelectorAll('[data-season-angle]').forEach((b) => b.classList.remove('active'));
+    button.classList.add('active');
+    applyAngle(angle);
+  });
+});
+tiltReal?.addEventListener('click', () => updateAxisTilt(23.5));
+tiltZero?.addEventListener('click', () => updateAxisTilt(0));
 applyAngle(Number(slider.value));
 
 animateLoop(() => {

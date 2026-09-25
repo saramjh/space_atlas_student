@@ -1,3 +1,4 @@
+import { PLANETS } from './planet-data.js';
 import { initQuiz } from './quiz-widget.js';
 
 initQuiz([
@@ -24,3 +25,28 @@ initQuiz([
     wrong: "A compressed model still preserves order — which planet is closer or farther. It's the exact numbers that get lost, which is why this site always states the real numbers separately.",
   },
 ], {});
+
+
+const modelEarthDistance = document.querySelector('#modelEarthDistance');
+const modelDistanceUnit = document.querySelector('#modelDistanceUnit');
+const modelDistanceGrid = document.querySelector('#modelDistanceGrid');
+
+function renderModelDistances() {
+  if (!modelEarthDistance || !modelDistanceUnit || !modelDistanceGrid) return;
+  const earthDistance = Math.max(0, Number(modelEarthDistance.value) || 0);
+  const unit = modelDistanceUnit.value;
+  modelDistanceGrid.innerHTML = PLANETS.map((planet) => {
+    const au = Number.parseFloat(planet.au);
+    const distance = earthDistance * au;
+    const digits = distance >= 100 ? 0 : distance >= 10 ? 1 : 2;
+    return `<div class="weight-cell${planet.name === 'Earth' ? ' you' : ''}">
+      <div class="planet">${planet.name}</div>
+      <div class="val">${distance.toFixed(digits)} ${unit}</div>
+      <div class="sub">${planet.au} from the Sun</div>
+    </div>`;
+  }).join('');
+}
+
+modelEarthDistance?.addEventListener('input', renderModelDistances);
+modelDistanceUnit?.addEventListener('change', renderModelDistances);
+renderModelDistances();

@@ -87,6 +87,7 @@ function phaseNameForDegrees(deg) {
 const earthViewCanvas = document.querySelector('#moonEarthView');
 const earthViewCtx = earthViewCanvas.getContext('2d');
 const phaseNameEl = document.querySelector('#phaseName');
+const phaseMetricsEl = document.querySelector('#phaseMetrics');
 
 function drawEarthView(thetaRad) {
   const size = earthViewCanvas.width;
@@ -121,9 +122,26 @@ function applyAngle(deg) {
   moon.position.set(pos.x, 0, pos.z);
   drawEarthView(theta);
   phaseNameEl.textContent = phaseNameForDegrees(deg);
+  if (phaseMetricsEl) {
+    const illuminated = ((1 - Math.cos(theta)) / 2) * 100;
+    const day = (deg / 360) * 29.53059;
+    phaseMetricsEl.textContent = `Day ${day.toFixed(1)} of 29.5 · ${illuminated.toFixed(0)}% illuminated as seen from Earth`;
+  }
 }
 
-slider.addEventListener('input', () => applyAngle(Number(slider.value)));
+slider.addEventListener('input', () => {
+  document.querySelectorAll('[data-moon-angle]').forEach((button) => button.classList.remove('active'));
+  applyAngle(Number(slider.value));
+});
+document.querySelectorAll('[data-moon-angle]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const angle = Number(button.dataset.moonAngle);
+    slider.value = String(angle);
+    document.querySelectorAll('[data-moon-angle]').forEach((b) => b.classList.remove('active'));
+    button.classList.add('active');
+    applyAngle(angle);
+  });
+});
 applyAngle(Number(slider.value));
 
 animateLoop(() => {

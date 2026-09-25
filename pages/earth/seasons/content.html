@@ -1,9 +1,9 @@
-<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Earth & Moon</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Why Do We Have Seasons?</span></div>
+<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Earth & Moon</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Seasons Simulator</span></div>
 <section class="page-intro">
   <div class="wrap">
     <div class="kicker">Earth · Question</div>
-    <h1>Why do we have seasons?</h1>
-    <p class="lead">Earth is actually a little closer to the Sun during Northern Hemisphere winter, not farther. Seasons come from Earth's tilt, not its distance. Drag through a full orbit below to see why.</p>
+    <h1>Interactive seasons simulator: why Earth has seasons</h1>
+    <p class="lead">Earth is actually a little closer to the Sun during Northern Hemisphere winter. Seasons come from the <strong>23.5° axial tilt</strong>, not distance. Move through the year, jump to solstices and equinoxes, then switch the tilt to 0° and compare.</p>
   </div>
 </section>
 
@@ -21,7 +21,29 @@
     <div class="season-controls">
       <input type="range" id="seasonAngle" min="0" max="360" value="180" step="1" aria-label="Earth's position in its orbit" />
       <div class="season-months"><span>Mar</span><span>Jun</span><span>Sep</span><span>Dec</span><span>Mar</span></div>
+      <div class="query-preset-row" aria-label="Jump to a season">
+        <button type="button" data-season-angle="90">March equinox</button>
+        <button type="button" data-season-angle="180">June solstice</button>
+        <button type="button" data-season-angle="270">September equinox</button>
+        <button type="button" data-season-angle="0">December solstice</button>
+      </div>
+      <div class="query-preset-row" aria-label="Compare Earth's axial tilt">
+        <button type="button" id="tiltReal" class="active">Earth tilt: 23.5°</button>
+        <button type="button" id="tiltZero">Compare: 0° tilt</button>
+      </div>
+      <div class="tool-readout" id="seasonExperiment" aria-live="polite">23.5° tilt: seasonal contrast changes as Earth orbits the Sun.</div>
     </div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Try the simulator</div><div><h2>Test the two explanations for seasons.</h2><p>A useful model should let you test the common "distance" explanation against the axial-tilt explanation.</p></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>June vs December</h3><p>Jump between the two solstices. Earth's axis keeps pointing in the same direction in space while the Northern Hemisphere alternately leans toward and away from the Sun.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Set axial tilt to 0°</h3><p>With no axial tilt, the strong seasonal pattern disappears in this model even though Earth's distance from the Sun still changes through the orbit.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>Check the distance claim</h3><p>Earth reaches perihelion in early January, during Northern Hemisphere winter. That is the opposite of what "closer means summer" predicts.</p></article>
   </div>
  </div>
 </section>

@@ -1,12 +1,12 @@
 {
   "path": "/moon/tidal-locking/",
-  "title": "Why We Always See the Same Side of the Moon | Space Atlas",
-  "description": "The Moon rotates once per orbit, exactly matching its trip around Earth. That match is called tidal locking. Toggle it off to compare.",
+  "title": "Tidal Locking Simulator — Why We See One Moon Face | Space Atlas",
+  "description": "Use a tidal locking simulator to compare the real Moon with a non-locked Moon and see why the same lunar face stays pointed at Earth.",
   "canonical": "https://saramjh.github.io/space_atlas_student/moon/tidal-locking/",
-  "ogTitle": "Why Do We Always See the Same Side of the Moon?",
-  "ogDescription": "Toggle tidal locking on and off and watch a marker on the Moon's surface to see exactly why we only ever see one face.",
+  "ogTitle": "Tidal Locking Simulator — Why We See One Side of the Moon",
+  "ogDescription": "Toggle tidal locking on and off and track a surface marker to see synchronous rotation happen.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
-  "jsonldName": "Why Do We Always See the Same Side of the Moon?",
-  "jsonldDescription": "An interactive model comparing a tidally locked Moon to a hypothetical non-locked Moon, using a visible surface marker to show rotation relative to orbit.",
+  "jsonldName": "Interactive Tidal Locking Simulator",
+  "jsonldDescription": "An interactive Moon tidal-locking simulator comparing synchronous rotation with a hypothetical non-locked Moon.",
   "script": "/assets/js/tidal-locking.js"
 }

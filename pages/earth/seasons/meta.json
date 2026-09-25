@@ -1,12 +1,12 @@
 {
   "path": "/earth/seasons/",
-  "title": "Why Do We Have Seasons? | Space Atlas",
-  "description": "Earth is closest to the Sun in Northern winter. Seasons come from axial tilt, not distance — drag through an orbit to see why.",
+  "title": "Seasons Simulator — Earth Tilt & Orbit | Space Atlas",
+  "description": "Use an interactive seasons simulator to move Earth through its orbit, jump to solstices and equinoxes, and compare 23.5° tilt with 0° tilt.",
   "canonical": "https://saramjh.github.io/space_atlas_student/earth/seasons/",
-  "ogTitle": "Why Do We Have Seasons?",
-  "ogDescription": "Earth's axis stays pointed the same direction all year — drag through an orbit and watch why that alone causes summer and winter.",
+  "ogTitle": "Interactive Seasons Simulator — Earth Tilt & Orbit",
+  "ogDescription": "Move Earth through the year and switch axial tilt on or off to see why tilt—not distance—causes the seasons.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
-  "jsonldName": "Why Do We Have Seasons?",
-  "jsonldDescription": "An interactive 3D model of Earth's fixed axial tilt through a full orbit, showing that seasons are caused by tilt rather than distance from the Sun.",
+  "jsonldName": "Interactive Seasons and Earth Tilt Simulator",
+  "jsonldDescription": "An interactive model of Earth's orbit and axial tilt with solstice/equinox presets and a zero-tilt comparison.",
   "script": "/assets/js/seasons.js"
 }

@@ -1,9 +1,9 @@
-<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Earth & Moon</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Moon Phases Explained with a 3D Model</span></div>
+<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Earth & Moon</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Moon Phase Simulator</span></div>
 <section class="page-intro">
   <div class="wrap">
     <div class="kicker">Moon · Question</div>
-    <h1>Why does the Moon change shape?</h1>
-    <p class="lead">The Moon does not change shape. What changes is how much of its sunlit half we can see from Earth. Drag the slider below to move the Moon around Earth and watch both views update together.</p>
+    <h1>Moon phase simulator: why the Moon changes shape</h1>
+    <p class="lead">The Moon does not change shape. Half is always lit by the Sun; what changes is how much of that lit half we can see from Earth. Drag the orbit slider or jump to a major phase and compare both views.</p>
   </div>
 </section>
 
@@ -23,6 +23,13 @@
     </div>
     <div class="phase-controls">
       <input type="range" id="moonAngle" min="0" max="360" value="180" step="1" aria-label="Moon's position around Earth, in degrees" />
+      <div class="query-preset-row" aria-label="Jump to a Moon phase">
+        <button type="button" data-moon-angle="0">New Moon</button>
+        <button type="button" data-moon-angle="90">First Quarter</button>
+        <button type="button" data-moon-angle="180">Full Moon</button>
+        <button type="button" data-moon-angle="270">Last Quarter</button>
+      </div>
+      <div class="tool-readout" id="phaseMetrics" aria-live="polite"></div>
       <div class="phase-hint">Drag to move the Moon around Earth. The system view is top-down; sunlight always comes from the left.</div>
     </div>
   </div>
@@ -32,6 +39,17 @@
     <div><strong>8</strong>Named phases in one cycle.</div>
     <div><strong>~5°</strong>The Moon's orbit is tilted, so eclipses don't happen every month (not shown here).</div>
     <div><strong>Same side</strong>The Moon is tidally locked, so we always see the same face.</div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Try the simulator</div><div><h2>Three experiments that explain Moon phases.</h2><p>Change one thing at a time and use the Earth view to test your prediction.</p></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">01</div><h3>New → full Moon</h3><p>Jump to New Moon, then Full Moon. The Moon itself stays half sunlit; only the viewing geometry changes.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Quarter does not mean 25% lit</h3><p>At first and last quarter, roughly half of the visible disk is illuminated. "Quarter" describes the Moon's position in the cycle.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>Separate phases from eclipses</h3><p>Ordinary phases happen every month. Earth's shadow only causes a lunar eclipse when the Sun, Earth, and Moon line up closely enough.</p></article>
   </div>
  </div>
 </section>

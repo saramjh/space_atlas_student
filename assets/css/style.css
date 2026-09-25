@@ -430,3 +430,9 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .next-series-card{transition:all .15s ease}
 .next-series-card:hover{background:rgba(0,0,0,0.05)!important;border-color:var(--accent)!important}
 
+
+
+.query-preset-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.query-preset-row button{font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:7px 11px;border:1px solid var(--rule);background:#fff;color:var(--ink);cursor:pointer;border-radius:3px}
+.query-preset-row button:hover,.query-preset-row button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tool-readout{margin-top:12px;font:500 12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}

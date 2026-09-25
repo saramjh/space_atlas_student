@@ -1,10 +1,28 @@
-<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Solar System</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Solar System Distance: Real vs. Compressed</span></div>
+<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Solar System</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Solar System Scale Model</span></div>
 <section class="page-intro">
   <div class="wrap">
     <div class="kicker">Solar system · Question</div>
-    <h1>Why does every solar system model compress distance?</h1>
-    <p class="lead">On a true linear scale, the four inner planets crowd into the first few percent of the page and everything else is empty space. Below, the same eight planets plotted twice: true linear distance, then the compressed scale this site's own 3D model actually uses.</p>
+    <h1>Solar system scale model: real planet distances</h1>
+    <p class="lead">Choose how far Earth sits from the Sun in your model. Because Earth is 1 AU away, the same number becomes a simple ruler for every other planet — then compare that true scale with the compressed layout used by interactive diagrams.</p>
   </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Scale calculator</div><div><h2>Build a walkable solar system scale model.</h2><p>Set the Earth–Sun distance. The calculator multiplies that distance by each planet's average orbital distance in AU.</p></div></div>
+  <div class="scale-compare">
+    <div class="weight-input">
+      <input type="number" id="modelEarthDistance" value="1" min="0.01" max="10000" step="0.01" inputmode="decimal" />
+      <select id="modelDistanceUnit" aria-label="Model distance unit">
+        <option value="m">m</option>
+        <option value="ft">ft</option>
+      </select>
+      <span style="font-size:12px;color:var(--muted)">Sun → Earth (1 AU)</span>
+    </div>
+    <div class="weight-grid" id="modelDistanceGrid" aria-live="polite"></div>
+    <p class="scale-caption">Example: if Earth is 1 meter from the Sun, Jupiter belongs 5.20 m away and Neptune 30.05 m away.</p>
+  </div>
+ </div>
 </section>
 
 <section class="section">

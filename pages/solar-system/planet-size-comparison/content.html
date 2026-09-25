@@ -2,8 +2,8 @@
 <section class="page-intro">
   <div class="wrap">
     <div class="kicker">Solar system · Question</div>
-    <h1>How much bigger is Jupiter than Earth, really?</h1>
-    <p class="lead">"Jupiter is huge" doesn't tell you much. Pick any two planets below and see the exact diameter and volume ratio between them.</p>
+    <h1>Interactive planet size comparison</h1>
+    <p class="lead">Compare any two planets on the same diameter scale. Start with Earth vs Jupiter, Mars, or Venus, then see how a modest diameter difference becomes a much larger volume difference.</p>
   </div>
 </section>
 
@@ -17,8 +17,25 @@
       <span class="vs">vs</span>
       <select id="planetB" aria-label="Second planet"></select>
     </div>
+    <div class="query-preset-row" aria-label="Popular planet size comparisons">
+      <button type="button" data-planet-a="2" data-planet-b="4">Earth vs Jupiter</button>
+      <button type="button" data-planet-a="2" data-planet-b="3">Earth vs Mars</button>
+      <button type="button" data-planet-a="2" data-planet-b="1">Earth vs Venus</button>
+      <button type="button" data-planet-a="2" data-planet-b="5">Earth vs Saturn</button>
+    </div>
     <div class="compare-stage" id="compareStage"></div>
     <div class="compare-stats" id="compareStats"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">Quick answers</div><div><h2>Popular planet size comparisons.</h2><p>These common comparisons are useful anchors before trying your own pair above.</p></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">Jupiter vs Earth</div><h3>11.21× wider</h3><p>Jupiter's diameter is about 11.21 Earth diameters. Because volume grows with the cube of diameter, its sphere-model volume is about 1,321 Earths.</p></article>
+    <article class="step"><div class="step-no">Mars vs Earth</div><h3>0.53× Earth's diameter</h3><p>Mars is just over half as wide as Earth, but only about 15% of Earth's volume.</p></article>
+    <article class="step"><div class="step-no">Venus vs Earth</div><h3>0.95× Earth's diameter</h3><p>Venus is genuinely close to Earth in size even though its atmosphere and surface conditions are radically different.</p></article>
   </div>
  </div>
 </section>

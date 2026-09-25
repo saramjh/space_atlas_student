@@ -1,12 +1,12 @@
 {
   "path": "/solar-system/gravity-comparison/",
-  "title": "How Much Would You Weigh on Mars? | Space Atlas",
-  "description": "Enter your weight and see what it would be on every planet — gravity, not distance from the Sun, decides how heavy you feel.",
+  "title": "Mars Weight Calculator — Weight on Every Planet | Space Atlas",
+  "description": "Use this Mars weight calculator to see your weight on all eight planets. Enter kg or lb once and compare each planet's gravity instantly.",
   "canonical": "https://saramjh.github.io/space_atlas_student/solar-system/gravity-comparison/",
-  "ogTitle": "How Much Would You Weigh on Mars?",
-  "ogDescription": "A planet gravity calculator: enter your weight once, see it recalculated for all eight planets.",
+  "ogTitle": "Mars Weight Calculator — Your Weight on Every Planet",
+  "ogDescription": "Enter your Earth weight once and compare your weight on Mars, Jupiter, Saturn, and every planet.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
-  "jsonldName": "Planet Gravity Weight Calculator",
-  "jsonldDescription": "An interactive calculator converting a user's weight to what it would be on each planet, based on relative surface gravity.",
+  "jsonldName": "Mars Weight Calculator and Planet Weight Comparison",
+  "jsonldDescription": "An interactive planet weight calculator that converts an Earth scale reading to Mars and all eight planets using relative surface gravity.",
   "script": "/assets/js/gravity-comparison.js"
 }

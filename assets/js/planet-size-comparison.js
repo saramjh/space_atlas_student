@@ -56,6 +56,15 @@ function render() {
 
 selA.addEventListener('change', render);
 selB.addEventListener('change', render);
+document.querySelectorAll('[data-planet-a][data-planet-b]').forEach((button) => {
+  button.addEventListener('click', () => {
+    selA.value = button.dataset.planetA;
+    selB.value = button.dataset.planetB;
+    document.querySelectorAll('[data-planet-a][data-planet-b]').forEach((b) => b.classList.remove('active'));
+    button.classList.add('active');
+    render();
+  });
+});
 render();
 
 initQuiz([
