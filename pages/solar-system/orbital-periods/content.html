@@ -1,8 +1,8 @@
-<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Solar System</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">How Old Would You Be on Another Planet?</span></div>
+<div class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <span>Solar System</span> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Age on Other Planets Calculator</span></div>
 <section class="page-intro">
   <div class="wrap">
     <div class="kicker">Solar system · Question</div>
-    <h1>How old would you be on another planet?</h1>
+    <h1>Age on other planets calculator: how old would you be?</h1>
     <p class="lead">A "year" just means one full orbit around the Sun — and that takes wildly different amounts of time depending which planet you're standing on. Enter your age below to find out.</p>
   </div>
 </section>
@@ -15,7 +15,16 @@
       <input type="number" id="ageInput" value="12" min="0" max="120" />
       <span style="font-size:12px;color:var(--muted)">years old on Earth</span>
     </div>
-    <div class="weight-grid" id="ageGrid"></div>
+    <div class="weight-grid" id="ageGrid">
+      <div class="weight-cell"><div class="planet">Mercury</div><div class="val">50</div><div class="sub">Mercury years old</div></div>
+      <div class="weight-cell"><div class="planet">Venus</div><div class="val">19</div><div class="sub">Venus years old</div></div>
+      <div class="weight-cell you"><div class="planet">Earth</div><div class="val">12</div><div class="sub">Earth years old</div></div>
+      <div class="weight-cell"><div class="planet">Mars</div><div class="val">6.4</div><div class="sub">Mars years old</div></div>
+      <div class="weight-cell"><div class="planet">Jupiter</div><div class="val">1.0</div><div class="sub">Jupiter years old</div></div>
+      <div class="weight-cell"><div class="planet">Saturn</div><div class="val">0.4</div><div class="sub">Saturn years old</div></div>
+      <div class="weight-cell"><div class="planet">Uranus</div><div class="val">0.1</div><div class="sub">Uranus years old</div></div>
+      <div class="weight-cell"><div class="planet">Neptune</div><div class="val">0.1</div><div class="sub">Neptune years old</div></div>
+    </div>
   </div>
  </div>
 </section>
@@ -23,7 +32,27 @@
 <section class="section">
  <div class="wrap">
   <div class="section-head"><div class="section-id">Measurable fact</div><div><h2>Orbital periods, in Earth time.</h2></div></div>
-  <ul class="ly-ladder" id="periodLadder"></ul>
+  <ul class="ly-ladder" id="periodLadder">
+    <li><b>88 Earth days</b><span>Mercury's orbital period (one "year")</span></li>
+    <li><b>225 Earth days</b><span>Venus's orbital period (one "year")</span></li>
+    <li><b>1.0 Earth years</b><span>Earth's orbital period (one "year")</span></li>
+    <li><b>1.9 Earth years</b><span>Mars's orbital period (one "year")</span></li>
+    <li><b>11.9 Earth years</b><span>Jupiter's orbital period (one "year")</span></li>
+    <li><b>29.5 Earth years</b><span>Saturn's orbital period (one "year")</span></li>
+    <li><b>84.0 Earth years</b><span>Uranus's orbital period (one "year")</span></li>
+    <li><b>164.8 Earth years</b><span>Neptune's orbital period (one "year")</span></li>
+  </ul>
+ </div>
+</section>
+
+<section class="section">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">How it works</div><div><h2>Same elapsed time, different length of a year.</h2><p>The calculator changes the unit used to count your age; it does not change how much time has actually passed.</p></div></div>
+  <div class="learning-grid">
+    <article class="step"><div class="step-no">Formula</div><h3>Earth age × 365.25 ÷ planet year</h3><p>First convert your Earth age to Earth days, then divide by that planet's orbital period in days. A shorter orbit produces more planet-years in the same elapsed time.</p></article>
+    <article class="step"><div class="step-no">Example</div><h3>12 Earth years ≈ 6.4 Mars years</h3><p>Mars takes about 687 Earth days to orbit the Sun, so a 12-year-old on Earth has lived through only about 6.4 Martian years.</p></article>
+    <article class="step"><div class="step-no">Meaning</div><h3>Your biology does not change</h3><p>This is a calendar comparison, not a claim that people age faster or slower on different planets. The same elapsed time is being counted with different orbital clocks.</p></article>
+  </div>
  </div>
 </section>
 

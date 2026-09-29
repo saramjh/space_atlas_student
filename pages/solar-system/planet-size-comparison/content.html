@@ -23,8 +23,15 @@
       <button type="button" data-planet-a="2" data-planet-b="1">Earth vs Venus</button>
       <button type="button" data-planet-a="2" data-planet-b="5">Earth vs Saturn</button>
     </div>
-    <div class="compare-stage" id="compareStage"></div>
-    <div class="compare-stats" id="compareStats"></div>
+    <div class="compare-stage" id="compareStage">
+      <div class="compare-planet"><div class="ball" style="width:40px;height:40px;background:#477e9d"></div><span>Earth</span></div>
+      <div class="compare-planet"><div class="ball" style="width:220px;height:220px;background:#c9a681"></div><span>Jupiter</span></div>
+    </div>
+    <div class="compare-stats" id="compareStats">
+      <div><strong>11.21×</strong><span>Jupiter's equatorial diameter vs Earth's</span></div>
+      <div><strong>1321×</strong><span>Jupiter's volume vs Earth's</span></div>
+      <div><strong>1321</strong><span>Earths that fit inside Jupiter by volume</span></div>
+    </div>
   </div>
  </div>
 </section>
@@ -45,7 +52,7 @@
   <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Two things this comparison leaves out.</h2></div></div>
   <div class="learning-grid">
     <article class="step"><div class="step-no">01</div><h3>Mass isn't shown</h3><p>Volume ratio is not the same as mass ratio — Saturn is less dense than water, so it has less mass than its volume alone would suggest.</p></article>
-    <article class="step"><div class="step-no">02</div><h3>Circles, not spheres</h3><p>This is a 2D comparison of diameters. The volume number is calculated (diameter ratio cubed), not drawn to scale.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Circles, not spheres</h3><p>The circles compare NASA equatorial diameters. Volume ratios use NASA mean-radius values, so flattened gas giants are not treated as perfect spheres based on equatorial width alone.</p></article>
   </div>
  </div>
 </section>
@@ -66,7 +73,8 @@
     <aside class="source-panel">
       <h3>Evidence</h3>
       <ol>
-        <li><div class="num">01</div><div><b>Planet sizes and locations</b><span>Official NASA diameters used to compute every ratio on this page.</span></div><a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">01</div><div><b>Planet sizes and locations</b><span>NASA equatorial diameters used for the visual size comparison.</span></div><a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">02</div><div><b>Solar System Sizes</b><span>NASA mean-radius values used for volume comparisons.</span></div><a href="https://science.nasa.gov/resource/solar-system-sizes/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
       </ol>
       <p class="verify-line" style="margin-top:16px">Verified against <a href="https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/" target="_blank" rel="noreferrer">NASA Science, planet sizes ↗</a> · checked 2026</p>
     </aside>

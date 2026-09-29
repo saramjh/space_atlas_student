@@ -17,15 +17,18 @@ export const PLANETS = [
   {name:'Neptune',diameter:'49,528 km',distance:'4.5 billion km',au:'30.05 AU',r:1.72,orbit:45,color:0x4b72b9,speed:.0012,desc:'The most distant major planet, an ice giant with extremely fast winds.',gravity:1.14,tempC:-200,periodDays:60190}
 ];
 
+// ratio uses NASA equatorial diameters. volumeEarths uses NASA mean-radius
+// values cubed relative to Earth, which tracks actual planetary volume rather
+// than cubing equatorial diameters (important for oblate gas giants).
 export const SCALE_DATA = [
-  {name:'Mercury', ratio:'0.38×', earths:'0.055 Earths', detail:'Diameter is 4,879 km. You could fit about 18 Mercurys inside Earth by volume.'},
-  {name:'Venus', ratio:'0.95×', earths:'0.86 Earths', detail:'Diameter is 12,104 km. Nearly identical in size to Earth ("Earth\'s twin"), but with extreme greenhouse heat.'},
-  {name:'Earth', ratio:'1.00×', earths:'1.00 Earth (Baseline)', detail:'Diameter is 12,756 km. Our standard reference for planetary scale.'},
-  {name:'Mars', ratio:'0.53×', earths:'0.15 Earths', detail:'Diameter is 6,792 km. Just over half the width of Earth; about 6.6 Mars volumes fit inside Earth.'},
-  {name:'Jupiter', ratio:'11.21×', earths:'1,321 Earths', detail:'Diameter is 142,984 km. Over 11 Earths lined up end-to-end, and over 1,300 Earths could fit inside its volume!'},
-  {name:'Saturn', ratio:'9.45×', earths:'764 Earths', detail:'Diameter is 120,536 km (excluding rings). Rings span up to 282,000 km, yet are only tens of meters thick.'},
-  {name:'Uranus', ratio:'4.01×', earths:'63 Earths', detail:'Diameter is 51,118 km. An ice giant wide enough to hold about 63 Earths inside.'},
-  {name:'Neptune', ratio:'3.88×', earths:'58 Earths', detail:'Diameter is 49,528 km. Slightly smaller in diameter than Uranus, but more massive, holding ~58 Earth volumes.'}
+  {name:'Mercury', ratio:'0.38×', volumeEarths:0.0562, earths:'0.056 Earths', detail:'Diameter is 4,879 km. You could fit about 18 Mercurys inside Earth by volume.'},
+  {name:'Venus', ratio:'0.95×', volumeEarths:0.8572, earths:'0.86 Earths', detail:'Diameter is 12,104 km. Nearly identical in size to Earth ("Earth\'s twin"), but with extreme greenhouse heat.'},
+  {name:'Earth', ratio:'1.00×', volumeEarths:1, earths:'1.00 Earth (Baseline)', detail:'Diameter is 12,756 km. Our standard reference for planetary scale.'},
+  {name:'Mars', ratio:'0.53×', volumeEarths:0.1507, earths:'0.15 Earths', detail:'Diameter is 6,792 km. Just over half the width of Earth; about 6.6 Mars volumes fit inside Earth.'},
+  {name:'Jupiter', ratio:'11.21×', volumeEarths:1321.34, earths:'1,321 Earths', detail:'Diameter is 142,984 km. Over 11 Earths lined up end-to-end, and about 1,321 Earth volumes fit inside it.'},
+  {name:'Saturn', ratio:'9.45×', volumeEarths:763.59, earths:'764 Earths', detail:'Diameter is 120,536 km (excluding rings). Rings span up to 282,000 km, yet are only tens of meters thick.'},
+  {name:'Uranus', ratio:'4.01×', volumeEarths:63.09, earths:'63 Earths', detail:'Diameter is 51,118 km. An ice giant with about 63 Earth volumes.'},
+  {name:'Neptune', ratio:'3.88×', volumeEarths:57.72, earths:'58 Earths', detail:'Diameter is 49,528 km. Slightly smaller in diameter than Uranus, with about 58 Earth volumes.'}
 ];
 
 export const QUIZ_BANK = [

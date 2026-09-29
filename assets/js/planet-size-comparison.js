@@ -45,10 +45,10 @@ function render() {
   const smaller = rb >= ra ? a : b;
   const biggerR = Math.max(ra, rb), smallerR = Math.min(ra, rb);
   const diameterRatio = biggerR / smallerR;
-  const volumeRatio = Math.pow(diameterRatio, 3);
+  const volumeRatio = bigger.volumeEarths / smaller.volumeEarths;
 
   stats.innerHTML = `
-    <div><strong>${diameterRatio.toFixed(2)}×</strong><span>${bigger.name}'s diameter vs ${smaller.name}'s</span></div>
+    <div><strong>${diameterRatio.toFixed(2)}×</strong><span>${bigger.name}'s equatorial diameter vs ${smaller.name}'s</span></div>
     <div><strong>${volumeRatio.toFixed(volumeRatio > 100 ? 0 : 1)}×</strong><span>${bigger.name}'s volume vs ${smaller.name}'s</span></div>
     <div><strong>${volumeRatio.toFixed(volumeRatio > 100 ? 0 : 1)}</strong><span>${smaller.name}s that fit inside ${bigger.name} by volume</span></div>
   `;
