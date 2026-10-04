@@ -56,6 +56,28 @@ def render_page(layout, nav, footer, meta, content):
         "{{JSONLD_DESCRIPTION}}": meta.get("jsonldDescription", meta.get("description", "")),
         "{{BASE}}": SITE_BASE,
     }
+    extra_jsonld = ""
+    if "faq" in meta and meta["faq"]:
+        faq_entities = [
+            {
+                "@type": "Question",
+                "name": item.get("q", ""),
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.get("a", "")
+                }
+            }
+            for item in meta["faq"]
+        ]
+        faq_obj = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq_entities
+        }
+        extra_jsonld = f'<script type="application/ld+json">\n{json.dumps(faq_obj, indent=2, ensure_ascii=False)}\n</script>'
+
+    tokens["{{EXTRA_JSONLD}}"] = extra_jsonld
+
     for token, value in tokens.items():
         html = html.replace(token, value)
     script_tag = f'<script type="module" src="{SITE_BASE}{meta["script"]}"></script>' if meta.get("script") else ""

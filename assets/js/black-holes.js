@@ -9,8 +9,8 @@ initQuiz([
       { label: 'It absorbs all color like a black object' },
       { label: 'It is painted black by astronomers on diagrams' },
     ],
-    right: "A black hole's gravity is so strong that past a boundary called the event horizon, the escape velocity exceeds the speed of light — so no light, and nothing else, can get back out.",
-    wrong: "It's about escape velocity: past the event horizon, gravity is strong enough that not even light — the fastest thing there is — can escape.",
+    right: "The event horizon is a one-way causal boundary: after crossing inward, every future-directed path remains inside, so even light cannot return to the outside universe.",
+    wrong: "The key boundary is the event horizon. Once light or matter crosses inward, it cannot send a signal back to the outside universe.",
   },
   {
     q: 'Do black holes actively "suck in" everything in the galaxy like a vacuum cleaner?',

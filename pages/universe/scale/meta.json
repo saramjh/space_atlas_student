@@ -1,12 +1,26 @@
 {
   "path": "/universe/scale/",
-  "title": "How Big Is the Universe? A Scale Walkthrough | Space Atlas",
-  "description": "Step from your own height out to the observable universe, eight zoom-outs at a time — and see exactly how many times bigger each jump is.",
+  "title": "Scale of the Universe — Interactive Size Walkthrough | Space Atlas",
+  "description": "Explore the scale of the universe from human size to Earth, the Moon, nearby stars, the Milky Way, and the 93-billion-light-year observable universe.",
   "canonical": "https://saramjh.github.io/space_atlas_student/universe/scale/",
-  "ogTitle": "How Big Is the Universe? A Scale Walkthrough",
-  "ogDescription": "From your height to the observable universe in eight steps — each one a bigger jump than the last.",
+  "ogTitle": "Scale of the Universe — Interactive Size Walkthrough",
+  "ogDescription": "Eight interactive scale steps from human size to the observable universe, with the size jump explained at every step.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
-  "jsonldName": "How Big Is the Universe? A Scale Walkthrough",
-  "jsonldDescription": "A stepwise zoom-out from human scale to the observable universe, showing the multiplicative jump in size at each step.",
-  "script": "/assets/js/universe-scale.js"
+  "jsonldName": "Scale of the Universe — Interactive Size Walkthrough",
+  "jsonldDescription": "An interactive scale-of-the-universe walkthrough from human size to the observable universe, with explicit units and relative size jumps.",
+  "script": "/assets/js/universe-scale.js",
+  "faq": [
+    {
+      "q": "How can the observable universe be about 93 billion light-years across if the universe is about 13.8 billion years old?",
+      "a": "Because the universe has expanded while the light was traveling. The matter that emitted the oldest light we can observe is now roughly 46 billion light-years away in comoving distance, so the observable region is about 93 billion light-years across."
+    },
+    {
+      "q": "Is the observable universe the entire universe?",
+      "a": "No. The observable universe is the region from which signals have had time to reach us. Observations do not establish the total size of the full universe, which may extend far beyond the observable region."
+    },
+    {
+      "q": "How does the Milky Way compare with the observable universe?",
+      "a": "Using a rounded Milky Way diameter of about 100,000 light-years and an observable-universe diameter of about 93 billion light-years, the observable universe is roughly 930,000 times wider."
+    }
+  ]
 }

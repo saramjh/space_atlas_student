@@ -1,12 +1,12 @@
 {
   "path": "/moon/phases/",
   "title": "Moon Phase Simulator — Interactive 3D Model | Space Atlas",
-  "description": "Use an interactive Moon phase simulator to move the Moon around Earth, jump to each major phase, and see the illuminated view from Earth.",
+  "description": "Explore an interactive 3D lunar phases model: move the Moon around Earth, jump to each major phase, and compare orbital position with the illuminated view from Earth.",
   "canonical": "https://saramjh.github.io/space_atlas_student/moon/phases/",
   "ogTitle": "Moon Phase Simulator — Interactive 3D Model",
   "ogDescription": "Drag the Moon around Earth, jump to new, quarter, and full Moon, and compare orbit position with the phase seen from Earth.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
-  "jsonldName": "Interactive Moon Phase Simulator",
-  "jsonldDescription": "An interactive Sun-Earth-Moon simulator showing orbit position, phase name, illuminated fraction, and the Moon's appearance from Earth.",
+  "jsonldName": "Interactive 3D Moon Phase Simulator and Lunar Phases Model",
+  "jsonldDescription": "An interactive 3D lunar phases model showing the Sun-Earth-Moon geometry, phase name, illuminated fraction, and the Moon's appearance from Earth.",
   "script": "/assets/js/moon-phases.js"
 }

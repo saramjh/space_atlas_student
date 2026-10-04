@@ -8,5 +8,19 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Interactive Seasons and Earth Tilt Simulator",
   "jsonldDescription": "An interactive model of Earth's orbit and axial tilt with solstice/equinox presets and a zero-tilt comparison.",
-  "script": "/assets/js/seasons.js"
+  "script": "/assets/js/seasons.js",
+  "faq": [
+    {
+      "q": "Does Earth's distance from the Sun cause the seasons?",
+      "a": "No. Earth's slightly elliptical orbit changes incoming solar energy somewhat, but that change affects the whole planet at once. Earth's axial tilt is the dominant cause of the familiar opposite seasons in the Northern and Southern Hemispheres because it changes sunlight angle and day length."
+    },
+    {
+      "q": "Why does Earth's axial tilt cause seasons?",
+      "a": "When a hemisphere tilts toward the Sun, sunlight arrives more directly and daylight lasts longer. When it tilts away, sunlight arrives at a shallower angle and daylight is shorter. Earth is currently tilted about 23.4 degrees relative to its orbital plane."
+    },
+    {
+      "q": "What would happen if Earth had no axial tilt?",
+      "a": "The strong tilt-driven seasonal cycle would largely disappear. Earth's orbital eccentricity would still create a smaller global annual variation in incoming solar energy, so temperatures and weather would not become perfectly constant."
+    }
+  ]
 }

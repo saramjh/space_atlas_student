@@ -1,12 +1,26 @@
 {
   "path": "/black-holes/",
-  "title": "What Is a Black Hole? Event Horizon Explained | Space Atlas",
-  "description": "A black hole is not a cosmic vacuum cleaner — a labeled diagram of the event horizon, accretion disk, and singularity, and what each part actually means.",
+  "title": "Black Hole Diagram: Event Horizon, Disk & Shadow | Space Atlas",
+  "description": "Explore a labeled black hole diagram showing the event horizon, black-hole shadow, photon ring, accretion disk, and singularity, with each feature explained.",
   "canonical": "https://saramjh.github.io/space_atlas_student/black-holes/",
-  "ogTitle": "What Is a Black Hole?",
-  "ogDescription": "Event horizon, accretion disk, singularity — a labeled diagram of what a black hole actually is, and what it isn't.",
+  "ogTitle": "Black Hole Diagram — Event Horizon, Disk & Shadow",
+  "ogDescription": "A labeled student diagram of a black hole, including the event horizon, shadow, photon-ring light paths, accretion disk, and singularity.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
-  "jsonldName": "What Is a Black Hole?",
-  "jsonldDescription": "A labeled schematic explanation of a black hole's event horizon, accretion disk, and singularity, correcting the common misconception of black holes as cosmic vacuum cleaners.",
-  "script": "/assets/js/black-holes.js"
+  "jsonldName": "Black Hole Diagram: Event Horizon, Disk and Shadow",
+  "jsonldDescription": "A labeled educational black-hole diagram explaining the event horizon, black-hole shadow, photon ring, accretion disk, and the theoretical central singularity.",
+  "script": "/assets/js/black-holes.js",
+  "faq": [
+    {
+      "q": "What parts are usually labeled on a black hole diagram?",
+      "a": "There is no single official four-part list. Student diagrams commonly label the event horizon, black-hole shadow, accretion disk, and central singularity; more detailed diagrams may also show the photon sphere or photon rings, corona, and jets."
+    },
+    {
+      "q": "Does a black hole suck in everything like a vacuum cleaner?",
+      "a": "No. Far from the event horizon, a black hole's gravity behaves like the gravity of any other object with the same mass. Objects can orbit a black hole without falling in."
+    },
+    {
+      "q": "What did the Event Horizon Telescope image?",
+      "a": "The Event Horizon Telescope reconstructed radio images of hot emission around M87* and Sagittarius A*, revealing a bright ring surrounding a central dark shadow consistent with general relativity. It did not directly photograph a physical event-horizon surface or a singularity."
+    }
+  ]
 }
