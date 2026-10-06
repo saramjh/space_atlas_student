@@ -32,10 +32,10 @@ export function initQuiz(bank, ids = {}) {
         });
         feedbackEl.style.display = 'block';
         if (opt.correct) {
-          feedbackEl.innerHTML = `<span style="color:#2b663b;font-weight:600">✓ Correct!</span> ${item.right}`;
+          feedbackEl.innerHTML = `<span class="quiz-feedback-label correct">✓ Correct!</span> ${item.right}`;
         } else {
           b.classList.add('wrong');
-          feedbackEl.innerHTML = `<span style="color:#ad4327;font-weight:600">Think further:</span> ${item.wrong}`;
+          feedbackEl.innerHTML = `<span class="quiz-feedback-label wrong">Think further:</span> ${item.wrong}`;
         }
         retryEl.hidden = false;
       };

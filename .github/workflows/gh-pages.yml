@@ -26,7 +26,13 @@ jobs:
       - name: Build site
         env:
           SITE_BASE: /space_atlas_student
+          ADSENSE_ENABLED: "1"
         run: python3 build.py
+
+      - name: Verify generated site
+        run: |
+          python3 ci/verify_build.py
+          for file in assets/js/*.js; do node --check "$file"; done
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
 import { getPlanetTexture } from './textures.js';
+import { initQuiz } from './quiz-widget.js';
 
 const MOON_ORBIT_RADIUS = 9;
 
@@ -150,9 +151,7 @@ animateLoop(() => {
   renderer.render(scene, camera);
 });
 
-// Misconception-check quiz — same pattern as the home page's Scale Lab
-// quiz (assets/js/interactions.js), duplicated rather than imported so this
-// page's script stays self-contained and independently cacheable.
+// Misconception-check quiz uses the shared quiz owner.
 const QUIZ_BANK = [
   {
     q: 'What actually changes to cause Moon phases?',
@@ -188,42 +187,4 @@ const QUIZ_BANK = [
     wrong: "The Moon rotates, just once per orbit — that exact match (tidal locking) is why the same side always faces Earth.",
   },
 ];
-let quizIndex = 0;
-const quizQuestion = document.querySelector('#quizQuestion');
-const quizOptions = document.querySelector('#quizOptions');
-const quizFeedback = document.querySelector('#quizFeedback');
-const quizRetry = document.querySelector('#quizRetry');
-
-function renderQuiz() {
-  const item = QUIZ_BANK[quizIndex];
-  quizQuestion.textContent = item.q;
-  quizFeedback.style.display = 'none';
-  quizFeedback.innerHTML = '';
-  quizRetry.hidden = true;
-  quizOptions.innerHTML = '';
-  item.options.forEach((opt) => {
-    const b = document.createElement('button');
-    b.textContent = opt.label;
-    b.dataset.correct = opt.correct ? '1' : '0';
-    b.onclick = () => {
-      quizOptions.querySelectorAll('button').forEach((bt) => {
-        bt.disabled = true;
-        if (bt.dataset.correct === '1') bt.classList.add('correct');
-      });
-      quizFeedback.style.display = 'block';
-      if (opt.correct) {
-        quizFeedback.innerHTML = `<span style="color:#2b663b;font-weight:600">✓ Correct!</span> ${item.right}`;
-      } else {
-        b.classList.add('wrong');
-        quizFeedback.innerHTML = `<span style="color:#ad4327;font-weight:600">Think further:</span> ${item.wrong}`;
-      }
-      quizRetry.hidden = false;
-    };
-    quizOptions.appendChild(b);
-  });
-}
-quizRetry.onclick = () => {
-  quizIndex = (quizIndex + 1) % QUIZ_BANK.length;
-  renderQuiz();
-};
-renderQuiz();
+initQuiz(QUIZ_BANK);

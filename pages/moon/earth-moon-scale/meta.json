@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Earth and the Moon, Drawn to True Scale",
   "jsonldDescription": "A true-to-scale diagram of the Earth-Moon system showing both relative size and relative distance accurately at the same time.",
-  "script": "/assets/js/earth-moon-scale.js"
+  "script": "/assets/js/earth-moon-scale.js",
+  "learningResourceType": "Interactive Diagram",
+  "interactivityType": "mixed"
 }

@@ -22,5 +22,7 @@
       "q": "What did the Event Horizon Telescope image?",
       "a": "The Event Horizon Telescope reconstructed radio images of hot emission around M87* and Sagittarius A*, revealing a bright ring surrounding a central dark shadow consistent with general relativity. It did not directly photograph a physical event-horizon surface or a singularity."
     }
-  ]
+  ],
+  "learningResourceType": "Diagram",
+  "interactivityType": "mixed"
 }

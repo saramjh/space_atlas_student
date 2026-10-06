@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESCRIPTION}}" />
+<meta name="robots" content="max-image-preview:large" />
 <link rel="canonical" href="{{CANONICAL}}" />
 <link rel="icon" type="image/svg+xml" href="{{BASE}}/assets/favicon.svg" />
 
@@ -19,25 +20,8 @@
 <meta name="twitter:description" content="{{OG_DESCRIPTION}}" />
 <meta name="twitter:image" content="{{OG_IMAGE}}" />
 
-<!-- Schema.org Educational Resource -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LearningResource",
-  "name": "{{JSONLD_NAME}}",
-  "description": "{{JSONLD_DESCRIPTION}}",
-  "educationalLevel": "Grades 4-8",
-  "learningResourceType": "Interactive Simulation",
-  "interactivityType": "mixed",
-  "inLanguage": "en",
-  "keywords": "solar system, astronomy, 3D simulation, planetary scale, NASA, science education",
-  "audience": {
-    "@type": "EducationalAudience",
-    "educationalRole": "student"
-  }
-}
-</script>
-{{EXTRA_JSONLD}}
+<!-- Structured data is generated from each page's metadata. -->
+{{STRUCTURED_DATA}}
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4DYFKSNFBG"></script>
@@ -48,9 +32,7 @@
   gtag('config', 'G-4DYFKSNFBG', { content_group: 'Space Atlas' });
 </script>
 
-<!-- Google AdSense Script -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4410729598083068"
-     crossorigin="anonymous"></script>
+{{ADSENSE_HEAD}}
 
 <link rel="stylesheet" href="{{BASE}}/assets/css/style.css" />
 <script type="importmap">
@@ -74,7 +56,7 @@
   <div class="search-modal" role="dialog" aria-modal="true" aria-label="Search all topics">
     <div class="search-box-row">
       <span class="search-modal-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="Search 27 space topics... (e.g., tides, seasons, black holes, pluto)" autocomplete="off" />
+      <input type="text" id="searchInput" placeholder="Search {{TOPIC_COUNT}} space topics... (e.g., tides, seasons, black holes, pluto)" autocomplete="off" />
       <button class="search-modal-close" id="searchClose" aria-label="Close search">✕</button>
     </div>
     <div class="search-results" id="searchResults">
@@ -83,6 +65,7 @@
   </div>
 </div>
 
+<script type="module" src="{{BASE}}/assets/js/nav.js"></script>
 <script type="module" src="{{BASE}}/assets/js/search-modal.js"></script>
 {{SCRIPT}}
 </body>

@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "The Electromagnetic Spectrum in Astronomy",
   "jsonldDescription": "An interactive tool for exploring the electromagnetic spectrum from radio to gamma rays, with real astronomical examples observed in each band.",
-  "script": "/assets/js/electromagnetic-spectrum.js"
+  "script": "/assets/js/electromagnetic-spectrum.js",
+  "learningResourceType": "Interactive Visualization",
+  "interactivityType": "mixed"
 }

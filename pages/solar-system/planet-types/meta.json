@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Rocky Planets vs. Gas Giants vs. Ice Giants",
   "jsonldDescription": "A comparison of the three main planetary structure types in the solar system with labeled internal cross-sections.",
-  "script": "/assets/js/planet-types.js"
+  "script": "/assets/js/planet-types.js",
+  "learningResourceType": "Reference",
+  "interactivityType": "mixed"
 }

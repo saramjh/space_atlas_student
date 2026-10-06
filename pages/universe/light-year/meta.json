@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "What Is a Light-Year?",
   "jsonldDescription": "An explanation of the light-year as a unit of distance, with an interactive tool showing how far back in time starlight left its source.",
-  "script": "/assets/js/light-year.js"
+  "script": "/assets/js/light-year.js",
+  "learningResourceType": "Interactive Reference",
+  "interactivityType": "mixed"
 }

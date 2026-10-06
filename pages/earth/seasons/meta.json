@@ -22,5 +22,7 @@
       "q": "What would happen if Earth had no axial tilt?",
       "a": "The strong tilt-driven seasonal cycle would largely disappear. Earth's orbital eccentricity would still create a smaller global annual variation in incoming solar energy, so temperatures and weather would not become perfectly constant."
     }
-  ]
+  ],
+  "learningResourceType": "Interactive Simulation",
+  "interactivityType": "mixed"
 }

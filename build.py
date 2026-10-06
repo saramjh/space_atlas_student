@@ -24,6 +24,8 @@ PUBLIC = ROOT / "public"
 # against the *domain* root and 404s. SITE_BASE is prepended to every
 # internal absolute link (nav hrefs, stylesheet/favicon/script src).
 SITE_BASE = os.environ.get("SITE_BASE", "").rstrip("/")
+ADSENSE_ENABLED = os.environ.get("ADSENSE_ENABLED", "").lower() in {"1", "true", "yes"}
+SITE_URL = "https://saramjh.github.io/space_atlas_student/"
 
 
 def read(path):
@@ -38,58 +40,6 @@ def load_pages():
         content = read(page_dir / "content.html")
         pages.append((meta, content))
     return pages
-
-
-def render_page(layout, nav, footer, meta, content):
-    html = layout
-    html = html.replace("{{NAV}}", nav)
-    html = html.replace("{{FOOTER}}", footer)
-    html = html.replace("{{CONTENT}}", content)
-    tokens = {
-        "{{TITLE}}": meta.get("title", ""),
-        "{{DESCRIPTION}}": meta.get("description", ""),
-        "{{CANONICAL}}": meta.get("canonical", ""),
-        "{{OG_TITLE}}": meta.get("ogTitle", meta.get("title", "")),
-        "{{OG_DESCRIPTION}}": meta.get("ogDescription", meta.get("description", "")),
-        "{{OG_IMAGE}}": meta.get("ogImage", ""),
-        "{{JSONLD_NAME}}": meta.get("jsonldName", meta.get("title", "")),
-        "{{JSONLD_DESCRIPTION}}": meta.get("jsonldDescription", meta.get("description", "")),
-        "{{BASE}}": SITE_BASE,
-    }
-    extra_jsonld = ""
-    if "faq" in meta and meta["faq"]:
-        faq_entities = [
-            {
-                "@type": "Question",
-                "name": item.get("q", ""),
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": item.get("a", "")
-                }
-            }
-            for item in meta["faq"]
-        ]
-        faq_obj = {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": faq_entities
-        }
-        extra_jsonld = f'<script type="application/ld+json">\n{json.dumps(faq_obj, indent=2, ensure_ascii=False)}\n</script>'
-
-    tokens["{{EXTRA_JSONLD}}"] = extra_jsonld
-
-    for token, value in tokens.items():
-        html = html.replace(token, value)
-    script_tag = f'<script type="module" src="{SITE_BASE}{meta["script"]}"></script>' if meta.get("script") else ""
-    html = html.replace("{{SCRIPT}}", script_tag)
-    return html
-
-
-def out_path_for(meta):
-    path = meta["path"]
-    if path == "/":
-        return PUBLIC / "index.html"
-    return PUBLIC / path.strip("/") / "index.html"
 
 
 def git_lastmod_for_page(meta):
@@ -119,6 +69,127 @@ def git_lastmod_for_page(meta):
         return None
 
 
+def build_structured_data(meta):
+    canonical = meta.get("canonical", "")
+    resource = {
+        "@type": "LearningResource",
+        "@id": f"{canonical}#learning-resource",
+        "url": canonical,
+        "name": meta.get("jsonldName", meta.get("title", "")),
+        "description": meta.get("jsonldDescription", meta.get("description", "")),
+        "educationalLevel": "Grades 4–8",
+        "learningResourceType": meta.get("learningResourceType", "Reference"),
+        "interactivityType": meta.get("interactivityType", "mixed"),
+        "inLanguage": "en",
+        "isAccessibleForFree": True,
+        "audience": {
+            "@type": "EducationalAudience",
+            "educationalRole": "student",
+        },
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Space Atlas",
+            "url": SITE_URL,
+        },
+    }
+    if meta.get("ogImage"):
+        resource["image"] = meta["ogImage"]
+
+    lastmod = git_lastmod_for_page(meta)
+    if lastmod:
+        resource["dateModified"] = lastmod
+
+    graph = [resource]
+
+    if meta.get("path") != "/":
+        graph.append({
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Space Atlas",
+                    "item": SITE_URL,
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": meta.get("jsonldName", meta.get("title", "")),
+                    "item": canonical,
+                },
+            ],
+        })
+
+    if meta.get("faq"):
+        graph.append({
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": item.get("q", ""),
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": item.get("a", ""),
+                    },
+                }
+                for item in meta["faq"]
+            ],
+        })
+
+    payload = {"@context": "https://schema.org", "@graph": graph}
+    return (
+        '<script type="application/ld+json">\n'
+        + json.dumps(payload, indent=2, ensure_ascii=False)
+        + "\n</script>"
+    )
+
+
+def adsense_head():
+    if not ADSENSE_ENABLED:
+        return ""
+    return (
+        '<script async src="https://pagead2.googlesyndication.com/pagead/js/'
+        'adsbygoogle.js?client=ca-pub-4410729598083068" crossorigin="anonymous"></script>'
+    )
+
+
+def render_page(layout, nav, footer, meta, content, ad_slot, topic_count):
+    html = layout
+    html = html.replace("{{NAV}}", nav)
+    html = html.replace("{{FOOTER}}", footer)
+    html = html.replace("{{CONTENT}}", content)
+    tokens = {
+        "{{TITLE}}": meta.get("title", ""),
+        "{{DESCRIPTION}}": meta.get("description", ""),
+        "{{CANONICAL}}": meta.get("canonical", ""),
+        "{{OG_TITLE}}": meta.get("ogTitle", meta.get("title", "")),
+        "{{OG_DESCRIPTION}}": meta.get("ogDescription", meta.get("description", "")),
+        "{{OG_IMAGE}}": meta.get("ogImage", ""),
+        "{{BASE}}": SITE_BASE,
+        "{{TOPIC_COUNT}}": str(topic_count),
+        "{{STRUCTURED_DATA}}": build_structured_data(meta),
+        "{{ADSENSE_HEAD}}": adsense_head(),
+        "{{AD_SLOT}}": ad_slot if ADSENSE_ENABLED else "",
+    }
+    for token, value in tokens.items():
+        html = html.replace(token, value)
+
+    script_tag = (
+        f'<script type="module" src="{SITE_BASE}{meta["script"]}"></script>'
+        if meta.get("script")
+        else ""
+    )
+    html = html.replace("{{SCRIPT}}", script_tag)
+    return html
+
+
+def out_path_for(meta):
+    path = meta["path"]
+    if path == "/":
+        return PUBLIC / "index.html"
+    return PUBLIC / path.strip("/") / "index.html"
+
+
 def write_sitemap(pages):
     urls = []
     for meta, _ in pages:
@@ -146,12 +217,16 @@ def write_search_index(pages):
         path = meta.get("path", "/")
         title = meta.get("title", "").split("|")[0].strip()
         desc = meta.get("description", "")
-        kicker = path.strip("/").split("/")[0].replace("-", " ").title() if path != "/" else "Home"
+        kicker = (
+            path.strip("/").split("/")[0].replace("-", " ").title()
+            if path != "/"
+            else "Home"
+        )
         items.append({
             "path": path,
             "title": title,
             "desc": desc,
-            "kicker": kicker
+            "kicker": kicker,
         })
     target = PUBLIC / "assets" / "search-index.json"
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -166,10 +241,12 @@ def main():
     layout = read(TEMPLATES / "layout.html")
     nav = read(TEMPLATES / "nav.html")
     footer = read(TEMPLATES / "footer.html")
+    ad_slot = read(TEMPLATES / "ad-slot.html")
 
     pages = load_pages()
+    topic_count = len(pages)
     for meta, content in pages:
-        html = render_page(layout, nav, footer, meta, content)
+        html = render_page(layout, nav, footer, meta, content, ad_slot, topic_count)
         out_path = out_path_for(meta)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(html, encoding="utf-8")

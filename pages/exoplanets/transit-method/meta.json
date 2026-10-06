@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Exoplanet Transit Simulator — Interactive Light Curve",
   "jsonldDescription": "An interactive simulation of the exoplanet transit detection method, showing a star's brightness curve dipping as an orbiting planet passes in front of it.",
-  "script": "/assets/js/transit-method.js"
+  "script": "/assets/js/transit-method.js",
+  "learningResourceType": "Interactive Simulation",
+  "interactivityType": "mixed"
 }

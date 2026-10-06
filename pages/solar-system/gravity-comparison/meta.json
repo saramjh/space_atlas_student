@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Mars Weight Calculator and Planet Weight Comparison",
   "jsonldDescription": "An interactive planet weight calculator that converts an Earth scale reading to Mars and all eight planets using relative surface gravity.",
-  "script": "/assets/js/gravity-comparison.js"
+  "script": "/assets/js/gravity-comparison.js",
+  "learningResourceType": "Interactive Calculator",
+  "interactivityType": "mixed"
 }

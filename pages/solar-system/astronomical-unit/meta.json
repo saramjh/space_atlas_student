@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "What Is an Astronomical Unit (AU)?",
   "jsonldDescription": "An interactive tool converting the astronomical unit into a chosen real-world step size, showing where each planet would land at that scale.",
-  "script": "/assets/js/astronomical-unit.js"
+  "script": "/assets/js/astronomical-unit.js",
+  "learningResourceType": "Interactive Calculator",
+  "interactivityType": "mixed"
 }

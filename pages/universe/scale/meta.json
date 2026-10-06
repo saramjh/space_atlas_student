@@ -22,5 +22,7 @@
       "q": "How does the Milky Way compare with the observable universe?",
       "a": "Using a rounded Milky Way diameter of about 100,000 light-years and an observable-universe diameter of about 93 billion light-years, the observable universe is roughly 930,000 times wider."
     }
-  ]
+  ],
+  "learningResourceType": "Interactive Visualization",
+  "interactivityType": "mixed"
 }

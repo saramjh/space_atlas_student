@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Star Life Cycle",
   "jsonldDescription": "A branching walkthrough of stellar evolution, comparing a Sun-like star's life cycle to a massive star's life cycle and explaining why initial mass determines the outcome.",
-  "script": "/assets/js/star-life-cycle.js"
+  "script": "/assets/js/star-life-cycle.js",
+  "learningResourceType": "Interactive Diagram",
+  "interactivityType": "mixed"
 }

@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Planet Temperature Comparison",
   "jsonldDescription": "A comparison of average planetary temperatures across the solar system, explaining why atmospheric greenhouse effect outweighs distance from the Sun.",
-  "script": "/assets/js/temperature-comparison.js"
+  "script": "/assets/js/temperature-comparison.js",
+  "learningResourceType": "Interactive Comparison",
+  "interactivityType": "mixed"
 }

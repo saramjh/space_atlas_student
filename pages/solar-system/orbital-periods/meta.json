@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Age on Other Planets Calculator",
   "jsonldDescription": "An interactive calculator converting a user's Earth age into their equivalent age on every planet, based on each planet's orbital period.",
-  "script": "/assets/js/orbital-periods.js"
+  "script": "/assets/js/orbital-periods.js",
+  "learningResourceType": "Interactive Calculator",
+  "interactivityType": "mixed"
 }

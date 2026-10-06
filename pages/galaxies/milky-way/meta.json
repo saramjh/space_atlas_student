@@ -8,5 +8,7 @@
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Where Are We in the Milky Way Galaxy?",
   "jsonldDescription": "A step-by-step zoom-out from the solar system to the Milky Way galaxy, locating Earth's position within the Orion Arm.",
-  "script": "/assets/js/milky-way.js"
+  "script": "/assets/js/milky-way.js",
+  "learningResourceType": "Interactive Visualization",
+  "interactivityType": "mixed"
 }
