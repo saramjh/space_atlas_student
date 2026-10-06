@@ -10,5 +10,6 @@
   "jsonldDescription": "An interactive planet weight calculator that converts an Earth scale reading to Mars and all eight planets using relative surface gravity.",
   "script": "/assets/js/gravity-comparison.js",
   "learningResourceType": "Interactive Calculator",
-  "interactivityType": "mixed"
+  "interactivityType": "mixed",
+  "secondaryAd": true
 }

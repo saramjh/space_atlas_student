@@ -10,5 +10,6 @@
   "jsonldDescription": "An interactive calculator converting a user's Earth age into their equivalent age on every planet, based on each planet's orbital period.",
   "script": "/assets/js/orbital-periods.js",
   "learningResourceType": "Interactive Calculator",
-  "interactivityType": "mixed"
+  "interactivityType": "mixed",
+  "secondaryAd": true
 }

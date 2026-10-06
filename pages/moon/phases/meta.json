@@ -10,5 +10,6 @@
   "jsonldDescription": "An interactive 3D lunar phases model showing the Sun-Earth-Moon geometry, phase name, illuminated fraction, and the Moon's appearance from Earth.",
   "script": "/assets/js/moon-phases.js",
   "learningResourceType": "Interactive Simulation",
-  "interactivityType": "mixed"
+  "interactivityType": "mixed",
+  "secondaryAd": true
 }

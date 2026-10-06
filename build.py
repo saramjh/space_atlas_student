@@ -26,6 +26,8 @@ PUBLIC = ROOT / "public"
 SITE_BASE = os.environ.get("SITE_BASE", "").rstrip("/")
 ADSENSE_ENABLED = os.environ.get("ADSENSE_ENABLED", "").lower() in {"1", "true", "yes"}
 SITE_URL = "https://saramjh.github.io/space_atlas_student/"
+ADSENSE_PRIMARY_SLOT = "2983244729"
+ADSENSE_SECONDARY_SLOT = "1670163057"
 
 
 def read(path):
@@ -153,6 +155,16 @@ def adsense_head():
     )
 
 
+def render_ad_slot(template, slot_id, position):
+    if not ADSENSE_ENABLED:
+        return ""
+    return (
+        template
+        .replace("{{AD_SLOT_ID}}", slot_id)
+        .replace("{{AD_POSITION}}", position)
+    )
+
+
 def render_page(layout, nav, footer, meta, content, ad_slot, topic_count):
     html = layout
     html = html.replace("{{NAV}}", nav)
@@ -169,7 +181,12 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count):
         "{{TOPIC_COUNT}}": str(topic_count),
         "{{STRUCTURED_DATA}}": build_structured_data(meta),
         "{{ADSENSE_HEAD}}": adsense_head(),
-        "{{AD_SLOT}}": ad_slot if ADSENSE_ENABLED else "",
+        "{{AD_PRIMARY}}": render_ad_slot(ad_slot, ADSENSE_PRIMARY_SLOT, "primary"),
+        "{{AD_SECONDARY}}": (
+            render_ad_slot(ad_slot, ADSENSE_SECONDARY_SLOT, "secondary")
+            if meta.get("secondaryAd")
+            else ""
+        ),
     }
     for token, value in tokens.items():
         html = html.replace(token, value)

@@ -10,5 +10,6 @@
   "jsonldDescription": "A guide for students to distinguish an observed image, a model or simulation, and an artist's illustration in space-science media.",
   "script": "/assets/js/read-space-images.js",
   "learningResourceType": "Guide",
-  "interactivityType": "mixed"
+  "interactivityType": "mixed",
+  "secondaryAd": true
 }

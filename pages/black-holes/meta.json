@@ -24,5 +24,6 @@
     }
   ],
   "learningResourceType": "Diagram",
-  "interactivityType": "mixed"
+  "interactivityType": "mixed",
+  "secondaryAd": true
 }

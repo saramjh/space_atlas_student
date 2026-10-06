@@ -10,5 +10,6 @@
   "jsonldDescription": "A visual and interactive space-science reference designed for students in grades 4–8 to explore planetary sizes, orbital distances, and observational evidence.",
   "script": "/assets/js/main.js",
   "learningResourceType": "Interactive Reference",
-  "interactivityType": "mixed"
+  "interactivityType": "mixed",
+  "secondaryAd": true
 }

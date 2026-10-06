@@ -8,6 +8,7 @@ import re
 import sys
 
 PUBLIC = Path("public")
+SOURCE_PAGES = Path("pages")
 SITE_PREFIX = "/space_atlas_student"
 
 
@@ -70,6 +71,15 @@ monetized = any(
     for page in pages
 )
 
+secondary_pages = set()
+for meta_path in SOURCE_PAGES.rglob("meta.json"):
+    meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    if not meta.get("secondaryAd"):
+        continue
+    path = meta.get("path", "/")
+    rel = "index.html" if path == "/" else f"{path.strip('/')}/index.html"
+    secondary_pages.add(rel)
+
 for page in pages:
     text = page.read_text(encoding="utf-8")
     rel = page.relative_to(PUBLIC)
@@ -79,10 +89,21 @@ for page in pages:
     if monetized:
         if text.count("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js") != 1:
             errors.append(f"{rel}: expected one AdSense loader")
-        if text.count('data-ad-slot="5573301932"') != 1:
-            errors.append(f"{rel}: expected one manual AdSense unit")
-        if text.count('data-ad-format="horizontal"') != 1:
-            errors.append(f"{rel}: manual AdSense unit must use horizontal format")
+        primary_count = text.count('data-ad-slot="2983244729"')
+        secondary_count = text.count('data-ad-slot="1670163057"')
+        expected_secondary = rel.as_posix() in secondary_pages
+        if primary_count != 1:
+            errors.append(f"{rel}: expected one primary AdSense unit")
+        if secondary_count != int(expected_secondary):
+            errors.append(
+                f"{rel}: expected {int(expected_secondary)} secondary AdSense unit(s), "
+                f"got {secondary_count}"
+            )
+        expected_horizontal = 1 + int(expected_secondary)
+        if text.count('data-ad-format="horizontal"') != expected_horizontal:
+            errors.append(
+                f"{rel}: expected {expected_horizontal} horizontal AdSense unit(s)"
+            )
 
     parser = AuditParser()
     parser.feed(text)
