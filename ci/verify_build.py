@@ -63,11 +63,26 @@ pages = sorted(PUBLIC.rglob("index.html"))
 if len(pages) != 27:
     errors.append(f"expected 27 generated pages, got {len(pages)}")
 
+# Production builds contain the AdSense loader; local/default builds deliberately do not.
+# When monetization is enabled, keep the site on the controlled one-slot contract.
+monetized = any(
+    "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" in page.read_text(encoding="utf-8")
+    for page in pages
+)
+
 for page in pages:
     text = page.read_text(encoding="utf-8")
     rel = page.relative_to(PUBLIC)
     if re.search(r"\{\{[A-Z_]+\}\}", text):
         errors.append(f"{rel}: unresolved template token")
+
+    if monetized:
+        if text.count("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js") != 1:
+            errors.append(f"{rel}: expected one AdSense loader")
+        if text.count('data-ad-slot="5573301932"') != 1:
+            errors.append(f"{rel}: expected one manual AdSense unit")
+        if text.count('data-ad-format="horizontal"') != 1:
+            errors.append(f"{rel}: manual AdSense unit must use horizontal format")
 
     parser = AuditParser()
     parser.feed(text)
