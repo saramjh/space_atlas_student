@@ -99,10 +99,18 @@ for page in pages:
                 f"{rel}: expected {int(expected_secondary)} secondary AdSense unit(s), "
                 f"got {secondary_count}"
             )
-        expected_horizontal = 1 + int(expected_secondary)
-        if text.count('data-ad-format="horizontal"') != expected_horizontal:
+        if 'data-ad-format=' in text:
+            errors.append(f"{rel}: exact-size AdSense units must not use data-ad-format")
+        if 'data-full-width-responsive=' in text:
             errors.append(
-                f"{rel}: expected {expected_horizontal} horizontal AdSense unit(s)"
+                f"{rel}: exact-size AdSense units must not use data-full-width-responsive"
+            )
+        if text.count('class="adsbygoogle space_atlas_ad_primary"') != 1:
+            errors.append(f"{rel}: expected one exact-size primary ad class")
+        expected_secondary_class = int(expected_secondary)
+        if text.count('class="adsbygoogle space_atlas_ad_secondary"') != expected_secondary_class:
+            errors.append(
+                f"{rel}: expected {expected_secondary_class} exact-size secondary ad class(es)"
             )
 
     parser = AuditParser()

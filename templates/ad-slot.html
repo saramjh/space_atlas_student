@@ -1,10 +1,12 @@
+<style>
+.space_atlas_ad_{{AD_POSITION}}{display:block;width:320px;height:100px}
+@media(min-width:600px){.space_atlas_ad_{{AD_POSITION}}{width:468px;height:60px}}
+@media(min-width:800px){.space_atlas_ad_{{AD_POSITION}}{width:100%;max-width:970px;height:90px}}
+</style>
 <aside class="ad-slot-wrapper" aria-label="Advertisement" data-ad-position="{{AD_POSITION}}">
   <span class="ad-label">Advertisements</span>
-  <ins class="adsbygoogle"
-       style="display:block;min-width:300px;min-height:90px;width:100%"
+  <ins class="adsbygoogle space_atlas_ad_{{AD_POSITION}}"
        data-ad-client="ca-pub-4410729598083068"
-       data-ad-slot="{{AD_SLOT_ID}}"
-       data-ad-format="horizontal"
-       data-full-width-responsive="true"></ins>
+       data-ad-slot="{{AD_SLOT_ID}}"></ins>
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </aside>
