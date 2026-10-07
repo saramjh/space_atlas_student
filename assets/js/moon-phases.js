@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
 import { getPlanetTexture } from './textures.js';
 import { initQuiz } from './quiz-widget.js';
+import { initTeacherDistribution } from './teacher-distribution.js';
 
 const MOON_ORBIT_RADIUS = 9;
 
@@ -188,3 +189,4 @@ const QUIZ_BANK = [
   },
 ];
 initQuiz(QUIZ_BANK);
+initTeacherDistribution('moon_phases');

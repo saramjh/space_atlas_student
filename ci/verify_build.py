@@ -71,6 +71,20 @@ monetized = any(
     for page in pages
 )
 
+teacher_experiment_pages = {
+    "earth/seasons/index.html",
+    "moon/phases/index.html",
+    "universe/scale/index.html",
+}
+teacher_helper = PUBLIC / "assets" / "js" / "teacher-distribution.js"
+if not teacher_helper.exists():
+    errors.append("missing teacher-distribution.js experiment helper")
+else:
+    helper_text = teacher_helper.read_text(encoding="utf-8")
+    for event_name in ("model_interact", "evidence_open", "classroom_share"):
+        if event_name not in helper_text:
+            errors.append(f"teacher-distribution.js: missing {event_name} event")
+
 secondary_pages = set()
 for meta_path in SOURCE_PAGES.rglob("meta.json"):
     meta = json.loads(meta_path.read_text(encoding="utf-8"))
@@ -85,6 +99,19 @@ for page in pages:
     rel = page.relative_to(PUBLIC)
     if re.search(r"\{\{[A-Z_]+\}\}", text):
         errors.append(f"{rel}: unresolved template token")
+
+    is_teacher_experiment = rel.as_posix() in teacher_experiment_pages
+    if is_teacher_experiment:
+        if text.count('class="section teacher-use-section"') != 1:
+            errors.append(f"{rel}: expected one teacher-use experiment section")
+        if text.count('data-growth-model') != 1:
+            errors.append(f"{rel}: expected one tracked model")
+        if text.count('data-teacher-share') != 1:
+            errors.append(f"{rel}: expected one Classroom share control")
+        if text.count('id="evidence"') != 1:
+            errors.append(f"{rel}: expected one evidence anchor")
+    elif 'teacher-use-section' in text or 'data-teacher-share' in text:
+        errors.append(f"{rel}: teacher experiment leaked to a non-target page")
 
     if monetized:
         if text.count("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js") != 1:

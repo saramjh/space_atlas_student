@@ -253,3 +253,17 @@ For each future intervention append:
 - Observation window:
 - Result:
 - Decision: RETAIN / ITERATE / REVERT / ESCALATE
+
+---
+### INT-2026-10-07-B
+- Milestone: M3 / M4 pre-validation
+- Bottleneck: Distribution / authority
+- Observation: Path-isolated recent traffic is still small, while non-search referrals already exist. Teacher distribution can therefore be tested cheaply before any broad educator-product investment.
+- Evidence: Recent measurement showed roughly 77 Space Atlas sessions in the current comparison window, with identifiable ChatGPT referral materially ahead of Google organic. Existing flagship pages already provide interactive models and evidence links.
+- Hypothesis: A small teacher-facing distribution surface on proven/traction pages can create attributable classroom sharing and model use without a site-wide educator portal.
+- Intervention: Add a compact teacher-use block, Google Classroom share path, and GA4 events (model_interact, evidence_open, classroom_share) only to Earth Seasons, Moon Phases, and Universe Scale.
+- Expected metric: Over 14 days, at least 20 attributable educator-distribution sessions and either at least 2 classroom_share events or a clearly attributable classroom-sized referral burst; compare model_interact rate with the site baseline.
+- Guardrail: No educator portal, no paid acquisition, no expansion to the other 24 pages, no new dependency, no added ad density, and no change to existing URLs.
+- Observation window: 2026-10-07 through 2026-10-21.
+- Result: Pending.
+- Decision: PENDING — scale only after the threshold is met.

@@ -445,3 +445,14 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .query-preset-row button{font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:7px 11px;border:1px solid var(--rule);background:#fff;color:var(--ink);cursor:pointer;border-radius:3px}
 .query-preset-row button:hover,.query-preset-row button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .tool-readout{margin-top:12px;font:500 12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+
+/* Teacher-distribution validation: compact, limited to the three flagship pages. */
+.teacher-use-section{padding-top:52px;padding-bottom:52px}
+.teacher-use-list{margin:0;border-top:2px solid var(--ink)}
+.teacher-use-list>div{display:grid;grid-template-columns:190px 1fr;gap:26px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.teacher-use-list dt{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.teacher-use-list dd{margin:0;font-size:13px;line-height:1.55;color:var(--ink);max-width:780px}
+.teacher-use-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:20px}
+.teacher-use-actions a{font-size:12px;text-decoration:none;border-bottom:1px solid #8d8980}
+.teacher-classroom-share{font-weight:600}
+@media(max-width:620px){.teacher-use-list>div{grid-template-columns:1fr;gap:5px}.teacher-use-section{padding-top:38px;padding-bottom:38px}}

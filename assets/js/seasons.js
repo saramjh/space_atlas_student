@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
 import { getPlanetTexture } from './textures.js';
+import { initTeacherDistribution } from './teacher-distribution.js';
 
 const ORBIT_RADIUS = 10;
 // Real tilt is 23.5°; kept close to real here (unlike the eclipse page's
@@ -115,3 +116,4 @@ animateLoop(() => {
   controls.update();
   renderer.render(scene, camera);
 });
+initTeacherDistribution('seasons');

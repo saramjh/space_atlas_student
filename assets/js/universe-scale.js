@@ -1,4 +1,5 @@
 import { initQuiz } from './quiz-widget.js';
+import { initTeacherDistribution } from './teacher-distribution.js';
 
 const STEPS = [
   { title: 'You', size: '~1.7 m tall', desc: 'Everything else on this ladder is measured relative to something you already understand: your own height.' },
@@ -64,3 +65,4 @@ initQuiz([
     wrong: 'Each zoom-out step here jumps by thousands of times or more — the scale grows explosively at each step, not steadily.',
   },
 ], {});
+initTeacherDistribution('universe_scale');
