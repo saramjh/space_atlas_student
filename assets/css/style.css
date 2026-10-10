@@ -584,3 +584,39 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .provenance-method .provenance-credit{font-size:11px;margin:20px 0 0}
 .provenance-credit a{text-decoration:underline;text-underline-offset:3px;color:var(--ink)}
 @media(max-width:620px){.image-provenance-lab{margin-top:34px;padding-top:24px}.provenance-controls{gap:5px}.provenance-controls button{font-size:10px;padding:9px 10px}.provenance-readout{min-height:220px}.provenance-readout h4{font-size:23px}.provenance-method table{min-width:620px}}
+
+
+/* Planet exterior: opt-in WebGL supplement to sourced internal cross-sections. */
+.ptype-surface-lab{margin-top:42px;padding-top:32px;border-top:2px solid var(--ink)}
+.ptype-surface-intro .kicker{margin-bottom:10px}
+.ptype-surface-intro h3{font:600 clamp(25px,3vw,34px)/1.12 Georgia,serif;max-width:800px;margin:0 0 12px}
+.ptype-surface-intro p{font-size:13px;line-height:1.65;color:var(--muted);max-width:850px;margin:0 0 18px}
+.ptype-surface-intro strong{color:var(--ink)}
+.ptype-surface-start{font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--ink);color:#fff;padding:12px 18px;border:1px solid var(--ink);cursor:pointer;border-radius:2px;min-height:44px}
+.ptype-surface-interface[hidden],.ptype-surface-start[hidden]{display:none}
+.ptype-surface-interface{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,1fr);column-gap:24px;margin:18px 0}
+.ptype-surface-picker{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.ptype-surface-picker button{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;background:transparent;color:var(--ink);padding:10px 17px;min-width:80px;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.ptype-surface-picker button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ptype-surface-picker button:hover{border-color:var(--ink)}
+.ptype-surface-lab button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.ptype-surface-stage{min-width:0;background:#0b1016;color:#dbe2e9}
+.ptype-surface-viewport{height:320px;position:relative}
+.ptype-surface-viewport canvas{display:block;width:100%;height:100%;touch-action:pan-y}
+.ptype-surface-stage-footer{border-top:1px solid #354351;padding:11px 15px;display:flex;gap:14px;align-items:center;justify-content:space-between}
+.ptype-surface-stage-footer span{font:500 10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#b9c8d1;max-width:300px}
+.ptype-surface-rotate{display:flex;gap:5px;white-space:nowrap}
+.ptype-surface-rotate button{background:transparent;color:#f5f4f1;border:1px solid #8294a1;border-radius:2px;padding:7px 10px;font-size:12px;cursor:pointer}
+.ptype-surface-rotate button:hover{background:#263542}
+.ptype-surface-fact{border-top:2px solid var(--ink);padding:18px 0 12px;min-width:0}
+.ptype-surface-label{font:600 10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);margin-bottom:9px;text-transform:uppercase}
+.ptype-surface-fact h4{font:600 25px/1.15 Georgia,serif;margin:0 0 13px}
+.ptype-surface-fact p{font-size:12px;line-height:1.65;margin:0 0 13px;color:var(--ink)}
+.ptype-surface-fact .ptype-surface-evidence{font-size:11px;color:var(--muted);border-left:2px solid var(--accent);padding-left:11px}
+.ptype-surface-fallback{font-size:11px;line-height:1.6;color:var(--muted);margin:14px 0}
+.ptype-surface-sources{margin-top:20px;padding-top:14px;border-top:1px solid var(--rule)}
+.ptype-surface-sources h4{font:600 18px Georgia,serif;margin:0 0 9px}
+.ptype-surface-sources p{font-size:11px;line-height:1.7;color:var(--muted);max-width:980px;margin:0 0 10px}
+.ptype-surface-sources a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.ptype-surface-interface{grid-template-columns:1fr;gap:17px}.ptype-surface-picker{grid-column:1;margin:0}.ptype-surface-viewport{height:300px}.ptype-surface-fact{padding-top:15px}.ptype-surface-stage-footer{flex-wrap:wrap}}
+@media(max-width:390px){.ptype-surface-picker button{min-width:0;flex:1;padding:10px 11px}.ptype-surface-viewport{height:255px}}

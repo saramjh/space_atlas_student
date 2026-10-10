@@ -42,6 +42,9 @@ Order of authority: observed project code and runtime → current project decisi
 - Respect `prefers-reduced-motion`. Never autoplay continuous non-essential motion. Offer Pause/Stop for user-initiated motion, stop when tab is hidden, avoid flicker and excessive animation loops.
 - Reserve space before dynamic output; ensure no horizontal overflow at 320/390px or breakpoint regressions. Provide readable static values when JS is absent or fails.
 - Reuse existing `assets/css/style.css`, `pages/**/content.html`, `assets/js/<topic>.js` and existing quiz source. One page-specific component is preferable to a premature generic animation framework.
+- **3D versus 2D:** choose the representation based on what can genuinely be learned. A globe and orbiting camera can teach viewpoint, silhouette, illumination and visible exterior appearance. A sourced 2D section or true-scale ruler is often clearer for interiors, dimensions and evidence uncertainty. Do not convert every model to 3D merely for realism.
+- 3D planetary appearances require provenance for each texture: distinguish observed composites, processed mosaics and wholly illustrative global reconstructions. A detailed globe is not evidence that the whole surface, current weather or the deep interior has been directly photographed.
+- On content pages, interactive 3D should be opt-in, loaded only on explicit user action, run without a perpetual render loop where possible, provide keyboard rotation / reset and gracefully preserve the 2D/source-based experience when WebGL is missing.
 
 ## 6. Skill/tool selection, already present
 

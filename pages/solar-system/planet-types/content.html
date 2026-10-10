@@ -83,6 +83,45 @@
     <p>Rocky planets have solid crusts above rocky mantles and metal-rich cores. Jupiter and Saturn have no solid landing surface, and hydrogen changes state under immense pressure. Uranus and Neptune contain hot, dense water-, ammonia- and methane-bearing fluids — “ice” names their ingredients, not their temperature or state.</p>
     <p>The rings do <strong>not</strong> indicate comparable depths: Earth's interiors are investigated with seismic waves, whereas giant-planet interiors are reconstructed from spacecraft gravity, magnetic-field and other measurements. Jupiter's central heavy-element-rich region may be diffuse rather than a small solid ball.</p>
   </div>
+
+  <section class="ptype-surface-lab" id="planetSurfaceLab" aria-labelledby="ptypeSurfaceTitle">
+    <div class="ptype-surface-intro">
+      <div class="kicker">3D observation lab · Exterior versus interior</div>
+      <h3 id="ptypeSurfaceTitle">What can a planet's appearance actually tell us?</h3>
+      <p>Compare a three-dimensional globe with the internal models above. You can see Earth's land and oceans or the cloud patterns of giant planets, but <strong>even a convincing 3D surface cannot show a giant planet's core</strong>. Rotate the globes to inspect what the images do — and do not — establish.</p>
+      <button type="button" id="ptype3DStart" class="ptype-surface-start" hidden>Explore planetary surfaces in 3D ↗</button>
+    </div>
+    <div class="ptype-surface-interface" id="ptype3DInterface" hidden>
+      <div class="ptype-surface-picker" role="group" aria-label="Choose a planet exterior">
+        <button type="button" data-planet-surface="earth" data-texture="{{BASE}}/assets/images/planet-earth-nasa.webp" aria-pressed="true">Earth</button>
+        <button type="button" data-planet-surface="jupiter" data-texture="{{BASE}}/assets/images/planet-jupiter-jpl.webp" aria-pressed="false">Jupiter</button>
+        <button type="button" data-planet-surface="neptune" data-texture="{{BASE}}/assets/images/planet-neptune-reconstruction-jpl.webp" aria-pressed="false">Neptune</button>
+      </div>
+      <div class="ptype-surface-stage">
+        <div class="ptype-surface-viewport"><canvas id="ptype3DCanvas" role="img" aria-label="3D planet exterior, drag to turn. Planet appearance is representative; sizes and lighting are not to scale."></canvas></div>
+        <div class="ptype-surface-stage-footer">
+          <span>Drag to inspect · Conceptual lighting · Identical display diameter, not to scale</span>
+          <div class="ptype-surface-rotate" role="group" aria-label="Keyboard-accessible planet rotation">
+            <button type="button" data-planet-rotate="-1" aria-label="Rotate planet left">←</button>
+            <button type="button" data-planet-rotate="1" aria-label="Rotate planet right">→</button>
+            <button type="button" id="ptype3DReset">Reset view</button>
+          </div>
+        </div>
+      </div>
+      <div class="ptype-surface-fact" aria-live="polite" aria-atomic="true">
+        <div class="ptype-surface-label" id="ptype3DStatus">Earth · NASA Blue Marble montage</div>
+        <h4 id="ptype3DTitle">Land and oceans: a real solid surface</h4>
+        <p id="ptype3DDescription">Earth's land and oceans are observable from space. Its mantle and core, however, require evidence beyond ordinary photographs, including seismic measurements.</p>
+        <p class="ptype-surface-evidence" id="ptype3DProvenance">NASA GSFC Blue Marble; multi-observation global composite, not a single instant or raw image.</p>
+      </div>
+    </div>
+    <p class="ptype-surface-fallback" id="ptype3DFallback">The cross-sections and scientific descriptions above remain available without 3D. Globe texture maps are representative visualizations, not measurements of the interior.</p>
+    <div class="ptype-surface-sources">
+      <h4>Texture provenance and limits</h4>
+      <p><strong>Earth:</strong> <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA GSFC Blue Marble imagery</a>, assembled from satellite observations. <strong>Jupiter:</strong> <a href="https://maps.jpl.nasa.gov/tmaps/jupiter.html" target="_blank" rel="noreferrer">NASA/JPL-Caltech Voyager-derived atmosphere map</a>, a dated representative cloud mosaic, not today's exact weather. <strong>Neptune:</strong> <a href="https://maps.jpl.nasa.gov/tmaps/neptune.html" target="_blank" rel="noreferrer">JPL-Caltech Don Davis visual reconstruction</a>; its textured clouds are <strong>illustrated, not an observed complete planetary map</strong>.</p>
+      <p>Texture images are downsampled and optimized from these credited sources. Globe sizes, rotation controls and lighting are educational presentation choices; they do not represent physical diameter, actual spin period, live weather, or measured interior boundaries.</p>
+    </div>
+  </section>
  </div>
 </section>
 

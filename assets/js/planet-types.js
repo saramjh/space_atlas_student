@@ -40,6 +40,83 @@ if (explorer) {
   });
 }
 
+// High-quality 3D globe is supplementary. Loading Three.js + three planet maps
+// is deferred until explicit user action; 2D evidence remains readable otherwise.
+const surfaceLab = document.querySelector('#planetSurfaceLab');
+if (surfaceLab) {
+  const launch = surfaceLab.querySelector('#ptype3DStart');
+  const panel = surfaceLab.querySelector('#ptype3DInterface');
+  const fallback = surfaceLab.querySelector('#ptype3DFallback');
+  const choices = [...surfaceLab.querySelectorAll('[data-planet-surface]')];
+  const surfaceDetails = {
+    earth: {
+      status: 'Earth · NASA Blue Marble',
+      title: 'Land and oceans: a real solid surface',
+      description: "Earth's land and oceans are observable from orbit. Ordinary exterior photographs still cannot show the mantle and core; seismic evidence is necessary.",
+      source: 'NASA GSFC multi-observation Blue Marble composite. The texture combines satellite data, not a single camera snapshot.',
+    },
+    jupiter: {
+      status: 'Jupiter · NASA/JPL-Caltech Voyager mosaic',
+      title: 'Atmospheric bands, not a solid surface',
+      description: "Jupiter's swirling bright and dark bands are clouds. Orbiting the 3D globe reveals a representative atmospheric appearance, not a solid surface or an image of its diffuse deep center.",
+      source: 'JPL-Caltech map assembled from Voyager observations and processing. Clouds change over time; this is not current weather.',
+    },
+    neptune: {
+      status: 'Neptune · JPL-Caltech / Don Davis reconstruction',
+      title: 'A striking blue globe is not a complete observation',
+      description: "Neptune's atmosphere can be observed, but the full-cloud texture used here is an artistic reconstruction, not a global observed map. Its colors and swirls should not be used to infer the deep hot-fluid layers.",
+      source: 'Illustrated planetary texture by Don Davis (JPL-Caltech), explicitly labeled fictional/representative in the NASA/JPL map catalog.',
+    },
+  };
+
+  launch.hidden = false;
+  let controller;
+  let ready = false;
+  function selected(name) {
+    const choice = choices.find((button) => button.dataset.planetSurface === name);
+    if (!choice || !controller) return;
+    choices.forEach((button) => button.setAttribute('aria-pressed', String(button === choice)));
+    const info = surfaceDetails[name];
+    surfaceLab.querySelector('#ptype3DStatus').textContent = info.status;
+    surfaceLab.querySelector('#ptype3DTitle').textContent = info.title;
+    surfaceLab.querySelector('#ptype3DDescription').textContent = info.description;
+    surfaceLab.querySelector('#ptype3DProvenance').textContent = info.source;
+    controller.choose({ name, textureUrl: choice.dataset.texture });
+  }
+
+  launch.addEventListener('click', async () => {
+    if (ready) return;
+    launch.disabled = true;
+    launch.textContent = 'Preparing 3D view…';
+    try {
+      const { createPlanetSurface3D } = await import('./planet-surface-3d.js');
+      controller = createPlanetSurface3D({
+        canvas: surfaceLab.querySelector('#ptype3DCanvas'),
+        stage: surfaceLab.querySelector('.ptype-surface-viewport'),
+        onError: () => { fallback.textContent = 'Planet image could not be loaded. The 2D diagrams and scientific sources remain available.'; },
+      });
+      panel.hidden = false;
+      ready = true;
+      launch.hidden = true;
+      controller.resize();
+      selected('earth');
+    } catch (error) {
+      launch.hidden = true;
+      fallback.textContent = 'This browser could not start WebGL. The 2D evidence diagrams and source links remain available.';
+      console.warn('3D globe unavailable:', error);
+    }
+  });
+  choices.forEach((button) => {
+    button.addEventListener('click', () => selected(button.dataset.planetSurface));
+  });
+  surfaceLab.querySelectorAll('[data-planet-rotate]').forEach((button) => {
+    button.addEventListener('click', () => { if (controller) controller.rotate(Number(button.dataset.planetRotate)); });
+  });
+  surfaceLab.querySelector('#ptype3DReset').addEventListener('click', () => {
+    if (controller) controller.reset();
+  });
+}
+
 initQuiz([
   {
     q: 'Do gas giants like Jupiter have a solid surface you could stand on?',
