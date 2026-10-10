@@ -374,14 +374,57 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .bh-legend b{font-size:13px;display:block;margin-bottom:2px}
 .bh-legend span{font-size:12px;color:var(--muted)}
 
-/* Electromagnetic spectrum page */
-.spectrum-bar{height:36px;border-radius:3px;background:linear-gradient(90deg,#7a3fa0,#3e6f91,#3fa066,#e0c23f,#e08a3f,#bd4c2f,#7a2020);position:relative;margin-top:20px}
-.spectrum-visible{position:absolute;top:-6px;bottom:-6px;border:2px solid #fff;border-radius:3px;pointer-events:none}
-.spectrum-slider{width:100%;margin-top:14px;accent-color:var(--ink)}
-.spectrum-labels{display:flex;justify-content:space-between;font:500 9px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin-top:4px}
-.spectrum-readout{border-top:1px solid #aaa59a;margin-top:20px;padding-top:18px}
+/* Electromagnetic spectrum: log-spaced, physically meaningful ruler. */
+.spectrum-explainer{font-size:13px;max-width:790px;color:var(--muted);margin:0 0 20px}
+.spectrum-explainer strong{color:var(--ink)}
+.spectrum-band-picker{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+.spectrum-band-picker button{background:transparent;color:var(--ink);border:1px solid #b7b2a6;padding:8px 13px;border-radius:2px;font-size:12px;cursor:pointer}
+.spectrum-band-picker button:hover{border-color:var(--ink)}
+.spectrum-band-picker button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.spectrum-band-picker button:focus-visible,.spectrum-signal button:focus-visible,.spectrum-slider:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.spectrum-log-track{position:relative;display:flex;height:40px;border:1px solid #252d37;background:#151c25;isolation:isolate}
+.spectrum-segment{height:100%;border-right:1px solid rgba(255,255,255,.18)}
+.spectrum-radio{width:14.2857%;background:#343f67}
+.spectrum-microwave{width:14.2857%;background:#52517a}
+.spectrum-infrared{width:22.535%;background:#81526e}
+.spectrum-optical{width:1.736%;min-width:0;background:linear-gradient(90deg,#a6505b,#cf8052,#dbc95e,#76b488,#6f8dcb,#8a65ae)}
+.spectrum-uv{width:11.443%;background:#644f8b}
+.spectrum-xray{width:21.4286%;background:#3c6684}
+.spectrum-gamma{flex:1;background:#34546c;border-right:none}
+.spectrum-cursor{position:absolute;z-index:1;top:-6px;bottom:-6px;width:2px;background:#fff;box-shadow:0 0 0 1px #101419,0 0 0 3px #fff;pointer-events:none;left:51.85%;transition:left .12s ease-out}
+.spectrum-ticks{height:23px;position:relative;font:500 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin-top:7px}
+.spectrum-ticks span{position:absolute;white-space:nowrap;transform:translateX(-50%)}
+.spectrum-ticks span:nth-child(1){left:0;transform:none}
+.spectrum-ticks span:nth-child(2){left:28.5714%}
+.spectrum-ticks span:nth-child(3){left:57.1429%}
+.spectrum-ticks span:nth-child(4){left:85.7143%}
+.spectrum-ticks span:nth-child(5){right:0;transform:none}
+.spectrum-slider-label{display:block;font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin:9px 0}
+.spectrum-slider{width:100%;display:block;margin:0 0 22px;accent-color:var(--ink);cursor:pointer}
+.spectrum-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:22px}
+.spectrum-facts div{padding:14px 8px 16px 0;min-width:0}
+.spectrum-facts span{display:block;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);letter-spacing:.03em;margin-bottom:5px}
+.spectrum-facts output{font:600 clamp(17px,2.5vw,26px)/1.15 Georgia,serif;font-variant-numeric:tabular-nums}
+.spectrum-signal{background:var(--space2);color:#f4f2ec;padding:18px 20px 14px}
+.spectrum-signal-head{display:flex;justify-content:space-between;align-items:center;gap:15px;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.03em}
+.spectrum-signal button{border:1px solid #96a1ad;background:transparent;color:#f4f2ec;padding:7px 11px;cursor:pointer;font-size:11px;border-radius:2px}
+.spectrum-signal button:hover:not(:disabled){background:#334354}
+.spectrum-signal button:disabled{opacity:.55;cursor:not-allowed}
+.spectrum-signal svg{display:block;width:100%;height:116px;margin:8px 0 1px}
+.spectrum-signal p{font-size:11px;color:#c4ccd2;line-height:1.5;margin:4px 0 0}
+.spectrum-readout{border-top:1px solid #aaa59a;margin-top:20px;padding-top:18px;min-height:104px}
 .spectrum-readout .band{font:600 24px Georgia,serif}
-.spectrum-readout p{font-size:13px;color:var(--ink);max-width:600px;margin:8px 0 0}
+.spectrum-readout p{font-size:13px;color:var(--ink);max-width:750px;margin:8px 0 0}
+.spectrum-reference{margin-top:30px}
+.spectrum-reference h3{font:600 20px Georgia,serif;margin:0 0 6px}
+.spectrum-reference p{font-size:12px;color:var(--muted);margin:0 0 16px;max-width:700px}
+.spectrum-table-scroll{overflow-x:auto}
+.spectrum-reference table{border-collapse:collapse;width:100%;font-size:12px;text-align:left}
+.spectrum-reference th,.spectrum-reference td{padding:10px 14px 10px 0;border-top:1px solid var(--rule)}
+.spectrum-reference thead th{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;color:var(--muted)}
+.spectrum-reference tbody th{font-weight:600}
+@media(max-width:620px){.spectrum-band-picker{gap:5px}.spectrum-band-picker button{padding:7px 9px;font-size:11px}.spectrum-signal{padding:15px}.spectrum-ticks{font-size:9px}.spectrum-ticks span:nth-child(3){display:none}.spectrum-facts div{padding-right:5px}.spectrum-facts output{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.spectrum-cursor{transition:none}}
 
 /* Planet types page */
 .ptype-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}

@@ -32,6 +32,7 @@ jobs:
       - name: Verify generated site
         run: |
           python3 ci/verify_build.py
+          node ci/verify_spectrum.mjs
           for file in assets/js/*.js; do node --check "$file"; done
 
       - name: Upload Pages artifact

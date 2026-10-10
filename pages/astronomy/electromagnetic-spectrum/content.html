@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Astronomy · Question</div>
     <h1>Is visible light all there is to see in space?</h1>
-    <p class="lead">Your eyes detect only a tiny sliver of the electromagnetic spectrum. Most of what space telescopes actually observe — radio waves, infrared, X-rays — is completely invisible to us. Drag across the bar to explore each band.</p>
+    <p class="lead">Your eyes detect only a tiny sliver of the electromagnetic spectrum. Astronomers study radio, infrared, X-ray, and other light invisible to us. Select a band or explore the logarithmic wavelength scale to see what changes — and why.</p>
   </div>
 </section>
 
@@ -11,12 +11,65 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Drag across the spectrum.</h2></div></div>
   <div class="scale-compare">
-    <div class="spectrum-bar" id="spectrumBar"></div>
-    <input type="range" id="spectrumSlider" class="spectrum-slider" min="0" max="6" step="1" value="3" aria-label="Electromagnetic spectrum band" />
-    <div class="spectrum-labels"><span>Radio</span><span>Microwave</span><span>Infrared</span><span>Visible</span><span>Ultraviolet</span><span>X-ray</span><span>Gamma ray</span></div>
-    <div class="spectrum-readout">
-      <div class="band" id="spectrumBand"></div>
-      <p id="spectrumDesc"></p>
+    <div class="spectrum-explorer" data-spectrum-explorer>
+      <p class="spectrum-explainer">Choose a band or move through wavelengths. This ruler is <strong>logarithmic</strong>: equal distances represent equal factors of ten, not equal wavelength differences.</p>
+      <div class="spectrum-band-picker" role="group" aria-label="Select a representative wavelength">
+        <button type="button" data-spectrum-sample="1">Radio</button>
+        <button type="button" data-spectrum-sample="0.01">Microwave</button>
+        <button type="button" data-spectrum-sample="0.00001">Infrared</button>
+        <button type="button" data-spectrum-sample="0.00000055" aria-pressed="true">Visible</button>
+        <button type="button" data-spectrum-sample="0.0000001">UV</button>
+        <button type="button" data-spectrum-sample="0.000000001">X-ray</button>
+        <button type="button" data-spectrum-sample="0.000000000001">Gamma</button>
+      </div>
+      <div class="spectrum-log-track" aria-hidden="true">
+        <div class="spectrum-segment spectrum-radio"></div>
+        <div class="spectrum-segment spectrum-microwave"></div>
+        <div class="spectrum-segment spectrum-infrared"></div>
+        <div class="spectrum-segment spectrum-optical"></div>
+        <div class="spectrum-segment spectrum-uv"></div>
+        <div class="spectrum-segment spectrum-xray"></div>
+        <div class="spectrum-segment spectrum-gamma"></div>
+        <div class="spectrum-cursor" id="spectrumCursor"></div>
+      </div>
+      <div class="spectrum-ticks" aria-hidden="true"><span>10 m</span><span>1 mm</span><span>100 nm</span><span>0.01 nm</span><span>0.1 pm</span></div>
+      <label class="spectrum-slider-label" for="spectrumSlider">Explore wavelength: longer / lower energy → shorter / higher energy</label>
+      <input type="range" id="spectrumSlider" class="spectrum-slider" min="0" max="1400" step="1" value="726" aria-label="Wavelength, logarithmic scale" />
+      <div class="spectrum-facts" aria-label="Calculated light properties">
+        <div><span>Wavelength</span><output id="spectrumWavelength" for="spectrumSlider">550 nm</output></div>
+        <div><span>Frequency</span><output id="spectrumFrequency" for="spectrumSlider">546 THz</output></div>
+        <div><span>Photon energy</span><output id="spectrumEnergy" for="spectrumSlider">2.26 eV</output></div>
+      </div>
+      <div class="spectrum-signal">
+        <div class="spectrum-signal-head"><span>Wave relationship · conceptual preview</span><button type="button" id="spectrumWaveToggle" aria-pressed="false">Play motion</button></div>
+        <svg viewBox="0 0 640 110" role="img" aria-labelledby="spectrumWaveTitle spectrumWaveDesc" preserveAspectRatio="none">
+          <title id="spectrumWaveTitle">Example electromagnetic wave</title>
+          <desc id="spectrumWaveDesc">Wave cycles increase toward shorter selected wavelengths. The preview is illustrative, not drawn to the ruler's physical scale.</desc>
+          <line x1="0" y1="55" x2="640" y2="55" stroke="#52616e" stroke-dasharray="4 6" />
+          <path id="spectrumWave" d="M0 55 L640 55" fill="none" stroke="#a9d7e8" stroke-width="3" stroke-linejoin="round" />
+        </svg>
+        <p>Illustrative wave only — cycle count is <strong>not to scale</strong>. Numeric values above use the physical wavelength, with frequency = c / λ and photon energy = h × frequency.</p>
+      </div>
+      <div class="spectrum-readout">
+        <div class="band" id="spectrumBand">Visible light</div>
+        <p id="spectrumDesc">The narrow band your eyes detect — the only part of this whole spectrum humans can see without an instrument.</p>
+      </div>
+    </div>
+    <div class="spectrum-reference">
+      <h3>Approximate wavelength ranges</h3>
+      <p>NASA's reference ranges are approximate; band boundaries are conventions, not physical walls. Radio extends beyond the left edge and gamma rays beyond the right.</p>
+      <div class="spectrum-table-scroll"><table>
+        <thead><tr><th scope="col">Band</th><th scope="col">Approximate wavelength</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Radio</th><td>Longer than 0.1 m</td></tr>
+          <tr><th scope="row">Microwave</th><td>1 mm – 0.1 m</td></tr>
+          <tr><th scope="row">Infrared</th><td>700 nm – 1 mm</td></tr>
+          <tr><th scope="row">Visible</th><td>400 – 700 nm</td></tr>
+          <tr><th scope="row">Ultraviolet</th><td>10 – 400 nm</td></tr>
+          <tr><th scope="row">X-ray</th><td>0.01 – 10 nm</td></tr>
+          <tr><th scope="row">Gamma ray</th><td>Shorter than 0.01 nm</td></tr>
+        </tbody>
+      </table></div>
     </div>
   </div>
  </div>
@@ -51,6 +104,7 @@
       <h3>Evidence</h3>
       <ol>
         <li><div class="num">01</div><div><b>Electromagnetic Spectrum</b><span>NASA's introduction to the full spectrum and its uses.</span></div><a href="https://science.nasa.gov/ems/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">02</div><div><b>Wavelength, Frequency, and Energy</b><span>NASA GSFC's approximate band limits, used for this logarithmic model and reference table.</span></div><a href="https://imagine.gsfc.nasa.gov/science/toolbox/spectrum_chart.html" target="_blank" rel="noreferrer">NASA GSFC ↗</a></li>
       </ol>
     </aside>
   </div>
