@@ -380,6 +380,7 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .life-navigation{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;margin-top:20px}
 .life-navigation button{font-size:12px;background:transparent;color:#fff;border:1px solid #95a7b5;padding:10px 13px;cursor:pointer;border-radius:2px}
 .life-navigation button:hover:not(:disabled){background:#364b59}
+.life-navigation button.life-switch{border-color:#a9c2d6;background:#2c4251;font-weight:600}
 .life-navigation button:disabled{opacity:.35;cursor:not-allowed}
 .life-model-note{font-size:11px;color:var(--muted);line-height:1.6;margin:17px 0 0;max-width:840px}
 @media(max-width:850px){.life-stages{grid-template-columns:repeat(3,minmax(0,1fr))}}

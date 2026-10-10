@@ -29,6 +29,7 @@ const description = document.querySelector('#lifeStageDescription');
 const cause = document.querySelector('#lifeStageCause');
 const previous = document.querySelector('#lifePrevious');
 const next = document.querySelector('#lifeNext');
+const switchMass = document.querySelector('#lifeSwitchMass');
 let selectedMass = 'sun';
 let stageIndex = 0;
 
@@ -51,6 +52,7 @@ function render(rebuildSteps = false) {
   cause.textContent = `Key process: ${stage.cause}`;
   previous.disabled = stageIndex === 0;
   next.disabled = stageIndex === path.length - 1;
+  switchMass.textContent = `Compare this stage: ${selectedMass === 'sun' ? 'massive star' : 'Sun-like star'} ↔`;
   toggle.querySelectorAll('[data-mass]').forEach((btn) => {
     const active = btn.dataset.mass === selectedMass;
     btn.classList.toggle('active', active);
@@ -63,6 +65,10 @@ toggle.addEventListener('click', (event) => {
   if (!btn || !toggle.contains(btn)) return;
   selectedMass = btn.dataset.mass;
   // Preserve the matching stage while rebuilding this alternate path.
+  render(true);
+});
+switchMass.addEventListener('click', () => {
+  selectedMass = selectedMass === 'sun' ? 'massive' : 'sun';
   render(true);
 });
 stages.addEventListener('click', (event) => {
