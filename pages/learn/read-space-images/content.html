@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Learn · Question</div>
     <h1>Is that space photo actually a photo?</h1>
-    <p class="lead">A photograph, an artist's concept, a simulation, and a scientific diagram can all be useful — but they do not make the same claim. Tap each card below for a real example.</p>
+    <p class="lead">An observation, a simulation, and an artist's concept can all help explain space — but they provide different kinds of evidence. Examine the categories, then compare real Hubble and Webb observations of the same region.</p>
   </div>
 </section>
 
@@ -20,8 +20,9 @@
         <g class="viz-scan-line"><rect x="0" y="0" width="14" height="84" fill="#8fb8d4" opacity=".22"/></g>
       </svg></div>
       <code>OBSERVATION</code><h3>Recorded by an instrument</h3><p>Ask which telescope, spacecraft, wavelength, date, and processing steps produced the image or measurement.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
+      <details class="truth-disclosure"><summary><span class="truth-hint">Open example ↓</span></summary>
       <div class="truth-example">Example: Hubble's photo of Jupiter combines several exposures taken through separate color filters, then aligned and color-composited — it is real data, but the final color image is assembled, not a single snapshot.</div>
+      </details>
     </article>
     <article class="truth">
       <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
@@ -31,8 +32,9 @@
         <g class="viz-orbit-group"><circle cx="80" cy="42" r="3" fill="#bd4c2f"/></g>
       </svg></div>
       <code>MODEL / SIMULATION</code><h3>A calculation made visible</h3><p>Ask which variables were simplified, whether time or distance is compressed, and which data constrain the model.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: every 3D scene on Space Atlas is a model — planet sizes and Moon distances are exaggerated so small worlds stay visible and clickable. The motion is real, but sped up and compressed.</div>
+      <details class="truth-disclosure"><summary><span class="truth-hint">Open example ↓</span></summary>
+      <div class="truth-example">Example: Space Atlas 3D scenes are explanatory models, not telescope measurements. Planet sizes, distances and motion may be adjusted to make relationships visible; consult each model's scale note.</div>
+      </details>
     </article>
     <article class="truth">
       <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
@@ -41,9 +43,53 @@
         <circle cx="38" cy="24" r="2.4" fill="#d29b42"/><circle cx="72" cy="20" r="2.4" fill="#bd4c2f"/>
       </svg></div>
       <code>ILLUSTRATION</code><h3>An explanation, not a photograph</h3><p>Useful for things we cannot photograph directly. A trustworthy source should label an artist's concept or schematic clearly.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: images of a black hole's accretion disk or an exoplanet's surface are usually artist's concepts built from indirect data — no camera has ever photographed either directly in visible light.</div>
+      <details class="truth-disclosure"><summary><span class="truth-hint">Open example ↓</span></summary>
+      <div class="truth-example">Example: a detailed landscape view of a distant exoplanet is an artist's concept, not a resolved surface photograph. Black-hole environments can be observed, including at radio wavelengths, but dramatic side-on cutaway scenes are often scientific visualizations.</div>
+      </details>
     </article>
+  </div>
+  <div class="image-provenance-lab" id="imageProvenanceLab" data-view="compare">
+    <div class="provenance-intro">
+      <div>
+        <div class="kicker">Evidence lab · One sky region</div>
+        <h3>Same pillars. Different light.</h3>
+        <p>The Pillars of Creation are a star-forming region in the Eagle Nebula. These <strong>real telescope observations</strong> were made with different instruments and filters — and at different times. Select either view to inspect the evidence.</p>
+      </div>
+    </div>
+    <div class="provenance-controls" role="group" aria-label="Select telescope view" hidden>
+      <button type="button" data-provenance-view="compare" aria-pressed="true">Compare both</button>
+      <button type="button" data-provenance-view="hubble" aria-pressed="false">Hubble · visible</button>
+      <button type="button" data-provenance-view="webb" aria-pressed="false">Webb · infrared</button>
+    </div>
+    <figure class="provenance-figure">
+      <div class="provenance-viewport">
+        <img src="{{BASE}}/assets/images/pillars-hubble-webb-compare.webp" width="1600" height="773" loading="lazy" decoding="async" alt="Two NASA telescope views of the Pillars of Creation: Hubble's visible-light composite on the left, showing opaque dusty pillars, and Webb's near-infrared composite on the right, revealing many more stars through thinner-looking dust." />
+      </div>
+      <figcaption>Left: Hubble WFC3/UVIS, visible wavelengths, 2014. Right: Webb NIRCam, near infrared, 2022. Cropped and optimized from NASA's official side-by-side composite. <strong>Both images use assigned display colors.</strong></figcaption>
+    </figure>
+    <div class="provenance-readout" aria-live="polite" aria-atomic="true">
+      <p class="provenance-readout-label" id="provenanceInstrument">Hubble WFC3/UVIS + Webb NIRCam</p>
+      <h4 id="provenanceTitle">What changes when we observe different wavelengths?</h4>
+      <p id="provenanceExplanation">On the left, Hubble emphasizes dusty pillars. On the right, Webb's near-infrared data reveals more stars and details within the dust. The difference is about wavelength and instruments — <strong>not a before-and-after change over eight years</strong>.</p>
+      <p id="provenanceFilters">These are processed composites of multiple monochrome filter exposures, not single natural-color camera snapshots.</p>
+    </div>
+    <div class="provenance-method">
+      <h4>Check the evidence behind the picture</h4>
+      <div class="provenance-table-scroll">
+        <table>
+          <thead><tr><th scope="col">Question</th><th scope="col">Hubble · left</th><th scope="col">Webb · right</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">What kind of image?</th><td>Instrument observation, processed composite</td><td>Instrument observation, processed composite</td></tr>
+            <tr><th scope="row">Instrument</th><td>WFC3/UVIS</td><td>NIRCam</td></tr>
+            <tr><th scope="row">Observed</th><td>September 2014</td><td>14 August 2022</td></tr>
+            <tr><th scope="row">Filters &amp; mapped hues</th><td>F502N → blue; F657N → green; F673N → red</td><td>F090W → purple; F187N → blue; F200W → cyan; F335M → yellow; F444W → orange; F470N → red</td></tr>
+            <tr><th scope="row">What becomes clearer?</th><td>Thick dust structures</td><td>More young stars seen through dusty regions</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The telescope detectors record light through filters. Image processors assign visible display colors to those data layers, register them, and combine them. <strong>A color assignment is not evidence that the object emits that visible color to human eyes.</strong> The views also differ in resolution, exposure and image processing.</p>
+      <p class="provenance-credit">Source and image credit: NASA, ESA, CSA, STScI, Hubble Heritage Project. Image processing: Joseph DePasquale (STScI), Anton Koekemoer (STScI), Alyssa Pagan (STScI). Space Atlas optimized the official composite for delivery; NASA and its partners do not endorse Space Atlas. <a href="https://science.nasa.gov/asset/webb/pillars-of-creation-hubble-and-webb-images-side-by-side/" target="_blank" rel="noreferrer">View NASA's image, observation dates and filter metadata ↗</a></p>
+    </div>
   </div>
  </div>
 </section>
@@ -56,7 +102,7 @@
   <div class="learning-grid">
     <article class="step"><div class="step-no">01</div><h3>False color</h3><p>Many NASA images use "false color" — mapping infrared, X-ray, or radio data onto colors human eyes can see. The colors are not what your eye would see.</p></article>
     <article class="step"><div class="step-no">02</div><h3>Compositing</h3><p>A single "photo" is often several exposures through different filters, stacked and aligned in software before publication.</p></article>
-    <article class="step"><div class="step-no">03</div><h3>Scale and crop</h3><p>Captions rarely restate it, but nearly every published image is cropped, rotated, or rescaled for readability.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>Scale and crop</h3><p>Published images may be cropped, rotated, enhanced, or rescaled to communicate a specific result. Check an original release's full image and caption before interpreting what lies outside the frame.</p></article>
   </div>
  </div>
 </section>
@@ -78,7 +124,9 @@
       <h3>Evidence</h3>
       <ol>
         <li><div class="num">01</div><div><b>Why do some NASA images look fake?</b><span>NASA's own explanation of false color and image processing.</span></div><a href="https://science.nasa.gov/mission/hubble/science/behind-the-pictures/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
-        <li><div class="num">02</div><div><b>NASA's Eyes on the Solar System</b><span>An explicit, labeled simulation you can compare against real photos.</span></div><a href="https://science.nasa.gov/eyes/" target="_blank" rel="noreferrer">NASA Eyes ↗</a></li>
+        <li><div class="num">02</div><div><b>Pillars of Creation: Hubble and Webb</b><span>NASA's actual side-by-side observation, filter mapping, exposure dates and full credit.</span></div><a href="https://science.nasa.gov/asset/webb/pillars-of-creation-hubble-and-webb-images-side-by-side/" target="_blank" rel="noreferrer">NASA Images ↗</a></li>
+        <li><div class="num">03</div><div><b>How Webb's full-color images are made</b><span>Why instrument filter values are assigned visible display colors.</span></div><a href="https://science.nasa.gov/mission/webb/science-overview/science-explainers/how-are-webbs-full-color-images-made/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">04</div><div><b>NASA's Eyes on the Solar System</b><span>A labeled visualization you can compare with actual instrument observations.</span></div><a href="https://science.nasa.gov/eyes/" target="_blank" rel="noreferrer">NASA Eyes ↗</a></li>
       </ol>
     </aside>
   </div>
