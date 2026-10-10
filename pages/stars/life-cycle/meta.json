@@ -1,13 +1,13 @@
 {
   "path": "/stars/life-cycle/",
   "title": "Star Life Cycle: Why Mass Decides Its Fate | Space Atlas",
-  "description": "Every star is born the same way. What it becomes at the end — white dwarf, neutron star, or black hole — depends entirely on how much mass it started with.",
+  "description": "Explore how stellar mass influences fusion, lifetimes and possible white dwarf, neutron star or black hole endings, with an interactive stage-by-stage comparison.",
   "canonical": "https://saramjh.github.io/space_atlas_student/stars/life-cycle/",
   "ogTitle": "Star Life Cycle: Why Mass Decides a Star's Fate",
   "ogDescription": "Two stars, same birth, completely different deaths — toggle between a Sun-like star and a massive star's life cycle.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
   "jsonldName": "Star Life Cycle",
-  "jsonldDescription": "A branching walkthrough of stellar evolution, comparing a Sun-like star's life cycle to a massive star's life cycle and explaining why initial mass determines the outcome.",
+  "jsonldDescription": "An interactive, evidence-based comparison of representative Sun-like and massive stellar evolution stages, fuel use, lifetimes, and possible final remnants.",
   "script": "/assets/js/star-life-cycle.js",
   "learningResourceType": "Interactive Diagram",
   "interactivityType": "mixed"

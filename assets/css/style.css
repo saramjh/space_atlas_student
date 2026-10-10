@@ -353,17 +353,37 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .season-controls input[type="range"]{width:100%;accent-color:var(--accent)}
 .season-months{display:flex;justify-content:space-between;font:500 9px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin-top:6px}
 
-/* Star life-cycle page */
-.mass-toggle{display:flex;gap:8px;margin-bottom:20px;justify-content:center}
-.mass-toggle button{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:9px 16px;border:1px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer;border-radius:3px}
+/* Stellar pathways: sequential stage comparison, never a time-proportional animation. */
+.life-explainer{font-size:14px;margin:0 0 20px;max-width:790px;line-height:1.6}
+.mass-toggle{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.mass-toggle button{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:10px 15px;border:1px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer;border-radius:3px}
 .mass-toggle button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-.life-stages{display:flex;flex-wrap:wrap;justify-content:center;gap:0;align-items:center}
-.life-stage{display:flex;flex-direction:column;align-items:center;gap:8px;width:130px;text-align:center}
-.life-stage .dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink)}
-.life-stage .lbl{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace}
-.life-stage .desc{font-size:10px;color:var(--muted)}
-.life-arrow{color:var(--muted);font-size:18px;padding:0 4px}
-@media(max-width:780px){.life-stages{flex-direction:column}.life-arrow{transform:rotate(90deg)}}
+.mass-toggle button:focus-visible,.life-stage:focus-visible,.life-navigation button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.life-duration-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:0 0 10px}
+.life-duration-compare div{border-top:1px solid var(--rule);padding:13px 0 5px}
+.life-duration-compare span{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);display:block;margin-bottom:8px}
+.life-duration-compare strong{font:600 clamp(20px,2.5vw,30px) Georgia,serif}
+.life-timescale-note{font-size:11px;line-height:1.6;color:var(--muted);margin:0 0 23px}
+.life-stages{list-style:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:stretch;counter-reset:stellar-stage;padding:0;margin:0 0 24px}
+.life-stages li{min-width:0;counter-increment:stellar-stage}
+.life-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;height:100%;min-height:119px;text-align:center;border:1px solid var(--rule);background:transparent;padding:13px 7px;cursor:pointer;color:var(--ink);border-radius:2px}
+.life-stage:before{content:counter(stellar-stage,decimal-leading-zero);align-self:flex-start;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.life-stage:hover{border-color:var(--ink)}
+.life-stage.active{border:2px solid var(--ink);background:#e0dbd0;padding:12px 6px}
+.life-stage .dot{width:32px;height:32px;background:var(--life-color);border:2px solid var(--ink);border-radius:50%;display:block;flex-shrink:0}
+.life-stage .lbl{font:600 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace}
+.life-stage-panel{background:var(--space2);color:#f4f2ec;padding:25px 28px 21px;min-height:221px}
+.life-stage-count{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:#b8c6d1;letter-spacing:.08em;text-transform:uppercase}
+.life-stage-panel h3{font:600 27px Georgia,serif;margin:11px 0 12px}
+.life-stage-panel p{font-size:13px;line-height:1.6;max-width:800px;margin:0 0 12px;color:#e0e5eb}
+.life-stage-panel .life-cause{color:#bad1dd;font-size:12px}
+.life-navigation{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;margin-top:20px}
+.life-navigation button{font-size:12px;background:transparent;color:#fff;border:1px solid #95a7b5;padding:10px 13px;cursor:pointer;border-radius:2px}
+.life-navigation button:hover:not(:disabled){background:#364b59}
+.life-navigation button:disabled{opacity:.35;cursor:not-allowed}
+.life-model-note{font-size:11px;color:var(--muted);line-height:1.6;margin:17px 0 0;max-width:840px}
+@media(max-width:850px){.life-stages{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.life-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.life-stage{min-height:100px}.life-duration-compare{grid-template-columns:1fr;gap:4px}.life-stage-panel{padding:20px 17px}.life-stage-panel h3{font-size:24px}}
 
 /* Black holes page — labeled schematic */
 .bh-diagram{background:var(--space);padding:20px}
@@ -426,14 +446,33 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 @media(max-width:620px){.spectrum-band-picker{gap:5px}.spectrum-band-picker button{padding:7px 9px;font-size:11px}.spectrum-signal{padding:15px}.spectrum-ticks{font-size:9px}.spectrum-ticks span:nth-child(3){display:none}.spectrum-facts div{padding-right:5px}.spectrum-facts output{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.spectrum-cursor{transition:none}}
 
-/* Planet types page */
-.ptype-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.ptype-card{border-top:2px solid var(--ink);padding:18px 0}
-.ptype-card svg{width:100%;height:140px;display:block;margin-bottom:14px}
-.ptype-card h3{font:600 18px Georgia,serif;margin:0 0 6px}
-.ptype-card ul{margin:10px 0 0;padding:0 0 0 16px;font-size:11px;color:var(--muted)}
-.ptype-card li{margin-bottom:4px}
-@media(max-width:780px){.ptype-grid{grid-template-columns:1fr}}
+/* Planet interiors: representative layers compared at the same conceptual depth. */
+.ptype-intro{font-size:14px;max-width:780px;margin:0 0 19px}
+.ptype-controls{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.ptype-controls button{border:1px solid var(--rule);background:transparent;color:var(--ink);padding:9px 14px;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;border-radius:2px;cursor:pointer}
+.ptype-controls button:hover{border-color:var(--ink)}
+.ptype-controls button[aria-pressed=true]{color:#fff;background:var(--ink);border-color:var(--ink)}
+.ptype-controls button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.ptype-caveat{font-size:12px;color:var(--muted);margin:0 0 24px;max-width:850px}
+.ptype-caveat strong{color:var(--ink)}
+.ptype-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.ptype-card{border-top:2px solid var(--ink);padding:17px 0;min-width:0}
+.ptype-card svg{width:100%;height:160px;display:block;margin:0 0 13px;background:var(--space2)}
+.ptype-card h3{font:600 21px Georgia,serif;margin:0 0 5px}
+.ptype-card h3 small{display:block;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin-top:5px}
+.ptype-family{font-size:12px;color:var(--muted);margin:0 0 20px}
+.ptype-target{fill:none;stroke:#fff;stroke-width:2.5;stroke-dasharray:4 3;opacity:0;transition:opacity .18s ease}
+.ptype-card[data-focus=outer] .ptype-target-outer,.ptype-card[data-focus=deep] .ptype-target-deep,.ptype-card[data-focus=center] .ptype-target-center{opacity:1}
+.ptype-detail{border-top:1px solid var(--rule);padding-top:15px}
+.ptype-detail h4{font:600 18px Georgia,serif;margin:0 0 9px}
+.ptype-detail p{font-size:12px;line-height:1.55;color:var(--ink);margin:0 0 12px}
+.ptype-detail .ptype-evidence{font-size:11px;color:var(--muted);border-left:2px solid var(--accent);padding-left:9px}
+.ptype-static-guide{border-top:1px solid var(--rule);margin-top:24px;padding-top:18px}
+.ptype-static-guide h3{font:600 20px Georgia,serif;margin:0 0 10px}
+.ptype-static-guide p{font-size:13px;line-height:1.6;max-width:950px;margin:0 0 12px;color:var(--muted)}
+@media(max-width:780px){.ptype-grid{grid-template-columns:1fr;gap:16px}.ptype-card{display:grid;grid-template-columns:140px 1fr;column-gap:18px}.ptype-card svg{grid-row:span 3;height:140px}.ptype-card .ptype-detail{grid-column:1/-1;margin-top:8px}.ptype-family{margin-bottom:12px}}
+@media(max-width:420px){.ptype-card{grid-template-columns:110px 1fr;column-gap:14px}.ptype-card svg{height:130px}.ptype-card h3{font-size:19px}.ptype-controls button{padding:8px 9px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.ptype-target{transition:none}}
 
 /* Earth-Moon true scale page */
 .emscale-outer{position:relative}

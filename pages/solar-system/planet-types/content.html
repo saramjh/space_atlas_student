@@ -10,50 +10,78 @@
 <section class="section">
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Three cross-sections.</h2></div></div>
-  <div class="ptype-grid">
-    <div class="ptype-card">
-      <svg viewBox="0 0 200 140" aria-label="Cross-section of a terrestrial planet">
-        <circle cx="100" cy="70" r="62" fill="#8b6a4a"/>
-        <circle cx="100" cy="70" r="42" fill="#c9724a"/>
-        <circle cx="100" cy="70" r="20" fill="#f0a840"/>
-      </svg>
-      <h3>Terrestrial (rocky)</h3>
-      <p style="font-size:12px;color:var(--muted)">Mercury, Venus, Earth, Mars</p>
-      <ul>
-        <li>Solid rocky crust and mantle</li>
-        <li>Dense metal (mostly iron) core</li>
-        <li>Small, dense, few or no moons</li>
-      </ul>
+  <div class="ptype-explorer" id="planetInteriorExplorer">
+    <p class="ptype-intro">Compare three representative interiors: <strong>Earth</strong>, <strong>Jupiter</strong>, and <strong>Neptune</strong>. Choose a region to see what changes from one type to the next.</p>
+    <div class="ptype-controls" role="group" aria-label="Compare the same interior region across planet types">
+      <button type="button" data-planet-depth="outer" aria-pressed="true">01 · Outer region</button>
+      <button type="button" data-planet-depth="deep" aria-pressed="false">02 · Deeper layers</button>
+      <button type="button" data-planet-depth="center" aria-pressed="false">03 · Center</button>
     </div>
-    <div class="ptype-card">
-      <svg viewBox="0 0 200 140" aria-label="Cross-section of a gas giant">
-        <circle cx="100" cy="70" r="66" fill="#e2c7a1"/>
-        <circle cx="100" cy="70" r="48" fill="#c9a06f"/>
-        <circle cx="100" cy="70" r="26" fill="#8f7355"/>
-        <circle cx="100" cy="70" r="10" fill="#4a3b2a"/>
-      </svg>
-      <h3>Gas giant</h3>
-      <p style="font-size:12px;color:var(--muted)">Jupiter, Saturn</p>
-      <ul>
-        <li>Deep hydrogen and helium atmosphere</li>
-        <li>Layer of liquid metallic hydrogen</li>
-        <li>Small rocky/icy core, no solid surface</li>
-      </ul>
+    <p class="ptype-caveat"><strong>Conceptual cross-sections · not to scale.</strong> Colored boundaries and selected rings are teaching aids, not measured layer radii. Fluid transitions are gradual and giant-planet interiors remain model-dependent.</p>
+    <div class="ptype-grid">
+      <article class="ptype-card" data-planet="rocky" data-focus="outer">
+        <svg viewBox="0 0 200 160" role="img" aria-labelledby="ptypeRockyTitle ptypeRockyDesc">
+          <title id="ptypeRockyTitle">Rocky planet — schematic Earth-like interior</title>
+          <desc id="ptypeRockyDesc">Thin crust, rock-rich mantle and metal-rich core, all conceptual sizes. A ring marks the selected interior region.</desc>
+          <circle cx="100" cy="78" r="65" fill="#826647"/>
+          <circle cx="100" cy="78" r="61" fill="#b97b53"/>
+          <circle cx="100" cy="78" r="33" fill="#d8aa73"/>
+          <circle cx="100" cy="78" r="17" fill="#f2d099"/>
+          <circle class="ptype-target ptype-target-outer" cx="100" cy="78" r="64"/>
+          <circle class="ptype-target ptype-target-deep" cx="100" cy="78" r="47"/>
+          <circle class="ptype-target ptype-target-center" cx="100" cy="78" r="20"/>
+        </svg>
+        <h3>Rocky planet <small>Earth example</small></h3>
+        <p class="ptype-family">Mercury · Venus · Earth · Mars</p>
+        <div class="ptype-detail" aria-live="polite" aria-atomic="true">
+          <h4 id="ptypeRockyRegion">Crust: a solid surface</h4>
+          <p id="ptypeRockyDescription">Earth's thin rocky crust covers a rock-rich mantle. Unlike the giant planets, Earth has a solid surface.</p>
+          <p class="ptype-evidence" id="ptypeRockyEvidence">Evidence: Earth's layers are constrained by seismic observations.</p>
+        </div>
+      </article>
+      <article class="ptype-card" data-planet="gas" data-focus="outer">
+        <svg viewBox="0 0 200 160" role="img" aria-labelledby="ptypeGasTitle ptypeGasDesc">
+          <title id="ptypeGasTitle">Gas giant — schematic Jupiter-like interior</title>
+          <desc id="ptypeGasDesc">Atmosphere blends gradually into compressed hydrogen and a diffuse central region, without a solid planetary surface. Rings are conceptual.</desc>
+          <defs><radialGradient id="ptypeJupiterGradient"><stop offset="0" stop-color="#7e6258"/><stop offset=".3" stop-color="#a98a6b"/><stop offset=".59" stop-color="#cfad82"/><stop offset="1" stop-color="#e7cfac"/></radialGradient></defs>
+          <circle cx="100" cy="78" r="65" fill="url(#ptypeJupiterGradient)"/>
+          <circle cx="100" cy="78" r="32" fill="#8b735e" opacity=".3"/>
+          <circle class="ptype-target ptype-target-outer" cx="100" cy="78" r="62"/>
+          <circle class="ptype-target ptype-target-deep" cx="100" cy="78" r="43"/>
+          <circle class="ptype-target ptype-target-center" cx="100" cy="78" r="20"/>
+        </svg>
+        <h3>Gas giant <small>Jupiter example</small></h3>
+        <p class="ptype-family">Jupiter · Saturn</p>
+        <div class="ptype-detail" aria-live="polite" aria-atomic="true">
+          <h4 id="ptypeGasRegion">Clouds, not ground</h4>
+          <p id="ptypeGasDescription">Jupiter's cloud tops are not a solid surface; hydrogen and helium grow denser with depth.</p>
+          <p class="ptype-evidence" id="ptypeGasEvidence">Evidence: spacecraft observations of clouds and gravity; deeper layers are inferred.</p>
+        </div>
+      </article>
+      <article class="ptype-card" data-planet="ice" data-focus="outer">
+        <svg viewBox="0 0 200 160" role="img" aria-labelledby="ptypeIceTitle ptypeIceDesc">
+          <title id="ptypeIceTitle">Ice giant — schematic Neptune-like interior</title>
+          <desc id="ptypeIceDesc">Outer hydrogen and helium atmosphere above dense hot fluids with a possible rocky central region; transition depths are not measured.</desc>
+          <defs><radialGradient id="ptypeNeptuneGradient"><stop offset="0" stop-color="#6a6a64"/><stop offset=".32" stop-color="#557d8d"/><stop offset=".7" stop-color="#4b96b5"/><stop offset="1" stop-color="#93ccd1"/></radialGradient></defs>
+          <circle cx="100" cy="78" r="65" fill="url(#ptypeNeptuneGradient)"/>
+          <circle class="ptype-target ptype-target-outer" cx="100" cy="78" r="62"/>
+          <circle class="ptype-target ptype-target-deep" cx="100" cy="78" r="43"/>
+          <circle class="ptype-target ptype-target-center" cx="100" cy="78" r="20"/>
+        </svg>
+        <h3>Ice giant <small>Neptune example</small></h3>
+        <p class="ptype-family">Uranus · Neptune</p>
+        <div class="ptype-detail" aria-live="polite" aria-atomic="true">
+          <h4 id="ptypeIceRegion">An atmosphere with no ground</h4>
+          <p id="ptypeIceDescription">Neptune has a hydrogen-, helium- and methane-rich atmosphere; it gradually blends into denser fluid regions.</p>
+          <p class="ptype-evidence" id="ptypeIceEvidence">Evidence: atmospheric measurements; the deep interior is inferred from models.</p>
+        </div>
+      </article>
     </div>
-    <div class="ptype-card">
-      <svg viewBox="0 0 200 140" aria-label="Cross-section of an ice giant">
-        <circle cx="100" cy="70" r="64" fill="#8fcdd1"/>
-        <circle cx="100" cy="70" r="44" fill="#3e6f91"/>
-        <circle cx="100" cy="70" r="18" fill="#6b5a4a"/>
-      </svg>
-      <h3>Ice giant</h3>
-      <p style="font-size:12px;color:var(--muted)">Uranus, Neptune</p>
-      <ul>
-        <li>Thinner hydrogen/helium atmosphere</li>
-        <li>Deep mantle of water, ammonia, and methane "ices"</li>
-        <li>Small rocky core</li>
-      </ul>
-    </div>
+  </div>
+  <div class="ptype-static-guide">
+    <h3>What the interior comparison means</h3>
+    <p>Rocky planets have solid crusts above rocky mantles and metal-rich cores. Jupiter and Saturn have no solid landing surface, and hydrogen changes state under immense pressure. Uranus and Neptune contain hot, dense water-, ammonia- and methane-bearing fluids — “ice” names their ingredients, not their temperature or state.</p>
+    <p>The rings do <strong>not</strong> indicate comparable depths: Earth's interiors are investigated with seismic waves, whereas giant-planet interiors are reconstructed from spacecraft gravity, magnetic-field and other measurements. Jupiter's central heavy-element-rich region may be diffuse rather than a small solid ball.</p>
   </div>
  </div>
 </section>
@@ -65,7 +93,7 @@
   <div class="section-head"><div class="section-id">What's simplified</div><div><h2>"Ice" doesn't mean what you think.</h2></div></div>
   <div class="learning-grid">
     <article class="step"><div class="step-no">01</div><h3>Hot "ice"</h3><p>The "ices" in ice giants are compressed under extreme pressure and heat — they behave as dense fluids, not the frozen ice you'd recognize.</p></article>
-    <article class="step"><div class="step-no">02</div><h3>No sharp boundaries</h3><p>Real planetary interiors transition gradually between layers — these diagrams draw clean rings for clarity, not because there's a hard edge.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Models versus measurements</h3><p>Earth has real compositional boundaries studied with seismic waves; the interiors of gas and ice giants are much less certain. Colors and circles here are schematic, not measured depths or rigid shells.</p></article>
   </div>
  </div>
 </section>
@@ -86,7 +114,9 @@
     <aside class="source-panel">
       <h3>Evidence</h3>
       <ol>
-        <li><div class="num">01</div><div><b>In Depth: Jupiter</b><span>NASA's description of a gas giant's internal structure.</span></div><a href="https://science.nasa.gov/jupiter/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">01</div><div><b>Earth Facts</b><span>NASA's reference for the crust, mantle and core.</span></div><a href="https://science.nasa.gov/earth/facts/" target="_blank" rel="noreferrer">NASA Earth ↗</a></li>
+        <li><div class="num">02</div><div><b>Jupiter Facts &amp; Juno</b><span>NASA's gravity observations indicate a dilute or “fuzzy” core.</span></div><a href="https://science.nasa.gov/jupiter/jupiter-facts/" target="_blank" rel="noreferrer">NASA Jupiter ↗</a></li>
+        <li><div class="num">03</div><div><b>Neptune Facts</b><span>NASA's model for an ice giant's hot, dense fluids and uncertain interior.</span></div><a href="https://science.nasa.gov/neptune/neptune-facts/" target="_blank" rel="noreferrer">NASA Neptune ↗</a></li>
       </ol>
     </aside>
   </div>

@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Stars · Question</div>
     <h1>Why do some stars end quietly and others explode?</h1>
-    <p class="lead">Every star begins the same way — a cloud of gas collapsing under its own gravity. What it becomes at the end depends almost entirely on one number: how much mass it started with.</p>
+    <p class="lead">Stars form as gas clouds collapse under gravity. Their initial mass strongly influences how quickly they consume fuel and whether they end as white dwarfs, neutron stars or black holes — though the details also depend on how they evolve.</p>
   </div>
 </section>
 
@@ -11,11 +11,35 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Two very different endings.</h2></div></div>
   <div class="scale-compare">
-    <div class="mass-toggle" id="massToggle">
-      <button data-mass="sun" class="active">Sun-like star</button>
-      <button data-mass="massive">Massive star (8×+ the Sun)</button>
+    <p class="life-explainer">Two <strong>representative pathways</strong>, not a universal formula for every star. Choose a mass class, then select a stage to explore the physical process that causes the next change.</p>
+    <div class="mass-toggle" id="massToggle" role="group" aria-label="Choose a representative stellar mass">
+      <button type="button" data-mass="sun" class="active" aria-pressed="true">Sun-like star</button>
+      <button type="button" data-mass="massive" aria-pressed="false">Massive star (~8× solar mass or more)</button>
     </div>
-    <div class="life-stages" id="lifeStages"></div>
+    <div class="life-duration-compare" aria-label="Approximate stellar timescale comparison">
+      <div><span>Sun-like star · approximate total lifespan</span><strong>~10 billion years</strong></div>
+      <div><span>Very massive star · approximate total lifespan</span><strong>Only a few million years</strong></div>
+    </div>
+    <p class="life-timescale-note">These are representative orders of magnitude, <strong>not equal points on a shared clock</strong>. Actual lifetimes depend strongly on mass and other stellar properties. The stages below are sequential, not time-proportional.</p>
+    <ol class="life-stages" id="lifeStages" aria-label="Sun-like star evolution — select a stage">
+      <li><button class="life-stage active" type="button" data-stage="0" aria-pressed="true"><span class="dot" style="--life-color:#4b72b9"></span><span class="lbl">Nebula</span></button></li>
+      <li><button class="life-stage" type="button" data-stage="1" aria-pressed="false"><span class="dot" style="--life-color:#c9a681"></span><span class="lbl">Protostar</span></button></li>
+      <li><button class="life-stage" type="button" data-stage="2" aria-pressed="false"><span class="dot" style="--life-color:#f5c15c"></span><span class="lbl">Main sequence</span></button></li>
+      <li><button class="life-stage" type="button" data-stage="3" aria-pressed="false"><span class="dot" style="--life-color:#bd4c2f"></span><span class="lbl">Red giant</span></button></li>
+      <li><button class="life-stage" type="button" data-stage="4" aria-pressed="false"><span class="dot" style="--life-color:#76b5ba"></span><span class="lbl">Planetary nebula</span></button></li>
+      <li><button class="life-stage" type="button" data-stage="5" aria-pressed="false"><span class="dot" style="--life-color:#e9edf0"></span><span class="lbl">White dwarf</span></button></li>
+    </ol>
+    <div class="life-stage-panel" aria-live="polite" aria-atomic="true">
+      <div class="life-stage-count" id="lifeStageCount">Stage 1 of 6 · Sun-like pathway</div>
+      <h3 id="lifeStageTitle">Nebula — a star-forming cloud</h3>
+      <p id="lifeStageDescription">Cold gas and dust collect into denser regions. Gravity pulls material inward toward a forming star.</p>
+      <p class="life-cause" id="lifeStageCause"><strong>Key process:</strong> Gravity overcomes local support and begins collapse.</p>
+      <div class="life-navigation">
+        <button type="button" id="lifePrevious" disabled>← Previous stage</button>
+        <button type="button" id="lifeNext">Next stage →</button>
+      </div>
+    </div>
+    <p class="life-model-note">Pathways are simplified. Some massive stars evolve differently because of winds, composition or binary interactions; their final remnants are not determined by one precise mass cutoff. In the illustrative tracks here, Sun-like stars form a planetary nebula and leave a white dwarf, while massive stars may undergo core collapse and leave a neutron star or black hole. This model is <strong>not a time-lapse or size-to-scale animation</strong>.</p>
   </div>
  </div>
 </section>
@@ -48,7 +72,8 @@
     <aside class="source-panel">
       <h3>Evidence</h3>
       <ol>
-        <li><div class="num">01</div><div><b>Stellar Evolution</b><span>NASA's explanation of how stars form, live, and die.</span></div><a href="https://science.nasa.gov/universe/stars/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">01</div><div><b>Stellar Evolution</b><span>NASA explains star formation, fusion, mass and the outcomes of stellar death.</span></div><a href="https://science.nasa.gov/universe/stars/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">02</div><div><b>Life Cycles of Sun-like and Massive Stars</b><span>NASA / Night Sky Network infographic showing representative pathways.</span></div><a href="https://science.nasa.gov/asset/webb/life-cycles-of-sun-like-and-massive-stars/" target="_blank" rel="noreferrer">NASA Diagram ↗</a></li>
       </ol>
     </aside>
   </div>

@@ -33,6 +33,7 @@ jobs:
         run: |
           python3 ci/verify_build.py
           node ci/verify_spectrum.mjs
+          node ci/verify_p1_visuals.mjs
           for file in assets/js/*.js; do node --check "$file"; done
 
       - name: Upload Pages artifact
