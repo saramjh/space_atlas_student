@@ -69,3 +69,7 @@ Source: `pages/stars/life-cycle/content.html`, `pages/stars/life-cycle/meta.json
 - Browser tests: 320px & 390px mobile, 800px tablet, 1280px desktop. At 320px and 390px the document did not horizontally overflow. Planet center and deep controls changed all three model descriptions correctly, including keyboard selection. Stellar keyboard selection retained focus and branch switching preserved the selected ordinal stage. Reduced-motion setting turned CSS ring transition off. Desktop and mobile screenshots visually inspected.
 - No new runtime dependencies, paid services or asset downloads. Unrelated existing dirty local files remain outside this work.
 - Do not infer search ranking, user satisfaction, or GA4 improvement from these tests. Validate again after deployed release.
+
+### Post-deploy operability fix
+
+The first production Chrome pass on the stellar explorer revealed that switching mass after selecting a lower stage could place the earlier mass button under the sticky site header during automated scroll-to-control. Native browser scrolling up made the control clickable. Added targeted `scroll-margin-top:110px` to the mass-toggle buttons so automatic scrolling respects the header; local Chrome reproduced and confirmed direct stage-5 → mass-switch click succeeded with the toggle visibly below the header. No change to nav layout, route, content or astronomy model.

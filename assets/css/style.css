@@ -356,7 +356,7 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 /* Stellar pathways: sequential stage comparison, never a time-proportional animation. */
 .life-explainer{font-size:14px;margin:0 0 20px;max-width:790px;line-height:1.6}
 .mass-toggle{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.mass-toggle button{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:10px 15px;border:1px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer;border-radius:3px}
+.mass-toggle button{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:10px 15px;border:1px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer;border-radius:3px;scroll-margin-top:110px}
 .mass-toggle button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .mass-toggle button:focus-visible,.life-stage:focus-visible,.life-navigation button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .life-duration-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:0 0 10px}
