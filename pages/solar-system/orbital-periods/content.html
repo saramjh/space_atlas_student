@@ -44,6 +44,41 @@
     <li><b>84.0 Earth years</b><span>Uranus's orbital period (one "year")</span></li>
     <li><b>164.8 Earth years</b><span>Neptune's orbital period (one "year")</span></li>
   </ul>
+  <div class="kepler-law-lab" id="keplerLawLab">
+    <h3>Why does an outer planet's year grow so quickly?</h3>
+    <p>Explore <strong>Kepler's third law</strong>: for planets around the Sun, orbital period squared is proportional to the semi-major axis cubed. Choose a planet to compare an idealized prediction with NASA's rounded orbital period.</p>
+    <label for="keplerPlanetSelect">Select a planet</label>
+    <select id="keplerPlanetSelect" aria-controls="keplerReadout">
+      <option>Mercury</option><option>Venus</option><option selected>Earth</option><option>Mars</option>
+      <option>Jupiter</option><option>Saturn</option><option>Uranus</option><option>Neptune</option>
+    </select>
+    <div class="kepler-chart-scroll" role="region" aria-label="Scrollable Kepler orbital period graph" tabindex="0">
+    <svg class="kepler-law-chart" viewBox="0 0 520 330" role="img" aria-labelledby="keplerChartTitle keplerChartDesc">
+      <title id="keplerChartTitle">Relationship between the size of a planet's orbit and the length of its year</title>
+      <desc id="keplerChartDesc">A logarithmic-logarithmic plot of Kepler's third law, orbital period in Earth years against orbital semi-major axis in astronomical units. Choosing a planet moves an observation marker over the predicted trend.</desc>
+      <rect x="60" y="15" width="430" height="255" fill="#122235" rx="2"/>
+      <g fill="none" stroke="#8398a7" stroke-width="1">
+        <path d="M60 15V270H490"/>
+        <path d="M60 194H490M60 117H490M60 41H490" stroke-dasharray="3 6" opacity=".38"/>
+      </g>
+      <path id="keplerCurve" d="M 60.00 253.55 L 63.61 251.56 L 67.23 249.57 L 70.84 247.58 L 74.45 245.59 L 78.07 243.61 L 81.68 241.62 L 85.29 239.63 L 88.91 237.64 L 92.52 235.66 L 96.13 233.67 L 99.75 231.68 L 103.36 229.69 L 106.97 227.71 L 110.59 225.72 L 114.20 223.73 L 117.82 221.74 L 121.43 219.75 L 125.04 217.77 L 128.66 215.78 L 132.27 213.79 L 135.88 211.80 L 139.50 209.82 L 143.11 207.83 L 146.72 205.84 L 150.34 203.85 L 153.95 201.86 L 157.56 199.88 L 161.18 197.89 L 164.79 195.90 L 168.40 193.91 L 172.02 191.93 L 175.63 189.94 L 179.24 187.95 L 182.86 185.96 L 186.47 183.98 L 190.08 181.99 L 193.70 180.00 L 197.31 178.01 L 200.92 176.02 L 204.54 174.04 L 208.15 172.05 L 211.76 170.06 L 215.38 168.07 L 218.99 166.09 L 222.61 164.10 L 226.22 162.11 L 229.83 160.12 L 233.45 158.14 L 237.06 156.15 L 240.67 154.16 L 244.29 152.17 L 247.90 150.18 L 251.51 148.20 L 255.13 146.21 L 258.74 144.22 L 262.35 142.23 L 265.97 140.25 L 269.58 138.26 L 273.19 136.27 L 276.81 134.28 L 280.42 132.30 L 284.03 130.31 L 287.65 128.32 L 291.26 126.33 L 294.87 124.34 L 298.49 122.36 L 302.10 120.37 L 305.71 118.38 L 309.33 116.39 L 312.94 114.41 L 316.55 112.42 L 320.17 110.43 L 323.78 108.44 L 327.39 106.45 L 331.01 104.47 L 334.62 102.48 L 338.24 100.49 L 341.85 98.50 L 345.46 96.52 L 349.08 94.53 L 352.69 92.54 L 356.30 90.55 L 359.92 88.57 L 363.53 86.58 L 367.14 84.59 L 370.76 82.60 L 374.37 80.61 L 377.98 78.63 L 381.60 76.64 L 385.21 74.65 L 388.82 72.66 L 392.44 70.68 L 396.05 68.69 L 399.66 66.70 L 403.28 64.71 L 406.89 62.73 L 410.50 60.74 L 414.12 58.75 L 417.73 56.76 L 421.34 54.77 L 424.96 52.79 L 428.57 50.80 L 432.18 48.81 L 435.80 46.82 L 439.41 44.84 L 443.03 42.85 L 446.64 40.86 L 450.25 38.87 L 453.87 36.89 L 457.48 34.90 L 461.09 32.91 L 464.71 30.92 L 468.32 28.93 L 471.93 26.95 L 475.55 24.96 L 479.16 22.97 L 482.77 20.98 L 486.39 19.00 L 490.00 17.01" fill="none" stroke="#87ced3" stroke-width="3" stroke-linecap="round"/>
+      <circle id="keplerPlanetDot" cx="168.78" cy="193.71" r="7" fill="#f3be75" stroke="#0b1624" stroke-width="2"/>
+      <text x="60" y="296" fill="currentColor" font-size="12">0.3 AU</text>
+      <text x="268" y="296" fill="currentColor" font-size="12" text-anchor="middle">3 AU</text>
+      <text x="490" y="296" fill="currentColor" font-size="12" text-anchor="end">35 AU</text>
+      <text x="275" y="318" fill="currentColor" font-size="12" text-anchor="middle">Orbital semi-major axis · logarithmic AU scale</text>
+      <text x="20" y="180" fill="currentColor" font-size="11" text-anchor="middle" transform="rotate(-90 20 180)">Year length · log scale</text>
+      <text x="54" y="197" fill="currentColor" font-size="10" text-anchor="end">1 yr</text>
+      <text x="54" y="120" fill="currentColor" font-size="10" text-anchor="end">10 yr</text>
+      <text x="54" y="44" fill="currentColor" font-size="10" text-anchor="end">100 yr</text>
+      <text x="68" y="29" fill="#b8cdd8" font-size="11">Idealized Kepler curve · T² = a³</text>
+    </svg>
+    </div>
+    <p class="kepler-chart-hint">On small screens, scroll the plot sideways to inspect its logarithmic labels. The numbers below remain fully visible.</p>
+    <div id="keplerReadout" class="kepler-readout" role="status">Earth: about 1 AU from the Sun; a year is about 1 Earth year. Predicted by Kepler's law: 1 Earth year.</div>
+    <p class="kepler-disclaimer">These axes are <strong>logarithmic</strong>, not equally spaced in AU or years. The plot shows the ideal two-body Sun–planet approximation, not orbital position, speed or inclination. Distances are approximate semi-major axes; periods use NASA rounded values, so prediction and published period can differ slightly.</p>
+    <p class="kepler-source">Evidence: <a href="https://science.nasa.gov/solar-system/orbits-and-keplers-laws/" target="_blank" rel="noreferrer">NASA — Orbits and Kepler's Laws</a> and <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank" rel="noreferrer">NASA Planetary Fact Sheet</a>. The original eight-planet period list above remains readable without JavaScript.</p>
+  </div>
  </div>
 </section>
 

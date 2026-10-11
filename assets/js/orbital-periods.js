@@ -25,6 +25,53 @@ ladder.innerHTML = PLANETS.map((p) => `<li><b>${formatPeriod(p.periodDays)}</b><
 ageInput.addEventListener('input', render);
 render();
 
+// A meaningful view of WHY years differ, not just a second age calculator.
+// For Sun-orbiting planets in AU and Earth years, T² ~= a³ (two-body limit).
+// A logarithmic plot keeps Mercury and Neptune readable on one graph.
+const keplerLab = document.querySelector('#keplerLawLab');
+if (keplerLab) {
+  const select = keplerLab.querySelector('#keplerPlanetSelect');
+  const dot = keplerLab.querySelector('#keplerPlanetDot');
+  const curve = keplerLab.querySelector('#keplerCurve');
+  const readout = keplerLab.querySelector('#keplerReadout');
+  const A_MIN = .3, A_MAX = 35, T_MIN = .1, T_MAX = 220;
+  const logFraction = (v, min, max) =>
+    (Math.log10(v) - Math.log10(min)) / (Math.log10(max) - Math.log10(min));
+  const plotX = a => 60 + 430 * logFraction(a, A_MIN, A_MAX);
+  const plotY = t => 270 - 255 * logFraction(t, T_MIN, T_MAX);
+  // Keep the curve inside the plotted axes; no animated orbits are implied.
+  curve.setAttribute('d', Array.from({length: 120}, (_, i) => {
+    const semiMajor = A_MIN * Math.pow(A_MAX / A_MIN, i / 119);
+    const years = Math.sqrt(semiMajor ** 3);
+    return `${i ? 'L' : 'M'} ${plotX(semiMajor).toFixed(2)} ${plotY(years).toFixed(2)}`;
+  }).join(' '));
+
+  function selectPlanet(name) {
+    const p = PLANETS.find(planet => planet.name === name);
+    if (!p) return;
+    const au = Number.parseFloat(p.au);
+    const actualYears = p.periodDays / 365.25;
+    const predictedYears = Math.sqrt(au ** 3);
+    dot.setAttribute('cx', plotX(au).toFixed(2));
+    dot.setAttribute('cy', plotY(actualYears).toFixed(2));
+    // Keep the selected marker in view when the 520-unit plot scrolls inside
+    // a narrow screen. Only move this internal chart, never the document.
+    const graphScroller = keplerLab.querySelector('.kepler-chart-scroll');
+    const graph = keplerLab.querySelector('.kepler-law-chart');
+    if (graphScroller && graph && graphScroller.scrollWidth > graphScroller.clientWidth) {
+      const markerPx = plotX(au) / 520 * graph.getBoundingClientRect().width;
+      graphScroller.scrollLeft = Math.max(0, markerPx - graphScroller.clientWidth / 2);
+    }
+    const fmtYears = y => y < 1 ? y.toFixed(3) : y.toFixed(2);
+    readout.textContent = `${p.name}: semi-major axis ≈ ${au.toFixed(2)} AU. `
+      + `NASA orbital period ≈ ${fmtYears(actualYears)} Earth years; `
+      + `Kepler's idealized prediction √(a³) ≈ ${fmtYears(predictedYears)} Earth years. `
+      + 'Small differences reflect input rounding and model simplifications.';
+  }
+  select.addEventListener('change', () => selectPlanet(select.value));
+  selectPlanet(select.value);
+}
+
 initQuiz([
   {
     q: 'Why is a "year" on Neptune so much longer than a year on Earth?',

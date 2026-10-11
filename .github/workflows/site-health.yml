@@ -1,0 +1,58 @@
+name: Space Atlas Read-Only Health
+
+on:
+  schedule:
+    # GitHub schedules are best-effort and may start later than these UTC minutes.
+    - cron: '17 0,6,12,18 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: space-atlas-health
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rebuild production site
+        env:
+          SITE_BASE: /space_atlas_student
+          ADSENSE_ENABLED: '1'
+        run: python3 build.py
+
+      - name: Verify all 27 pages and learning interactions
+        run: |
+          python3 ci/verify_build.py
+          node ci/verify_spectrum.mjs
+          node ci/verify_p1_visuals.mjs
+          node ci/verify_image_provenance.mjs
+          node ci/verify_planet_3d.mjs
+          node ci/verify_true_scale.mjs
+          node ci/verify_text_visualizations.mjs
+          node ci/verify_remaining_visualizations.mjs
+          node ci/verify_kepler.mjs
+          for f in assets/js/*.js; do node --check "$f"; done
+
+      - name: Inventory untouched visual-learning candidates (heuristic only)
+        run: python3 ci/report_visual_coverage.py
+
+      - name: Read-only 27-page live site and linked assets audit
+        run: python3 ci/monitor_live.py --output reports/space-atlas-live-health.json
+
+      - name: Archive results even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: space-atlas-health-${{ github.run_number }}
+          path: |
+            reports/space-atlas-live-health.json
+            reports/space-atlas-visual-coverage.json
+          if-no-files-found: warn
+          retention-days: 7
