@@ -27,6 +27,14 @@ Order of authority: observed project code and runtime → current project decisi
 - Model boundaries may be fuzzy; state that, and do not invent spurious precision. Preserve a visible static reference/range/definition beside interactive controls.
 - Interactivity must produce an observable learner outcome: dynamically update linked measurements, comparison, explanation, or constraint. No inert animation-only buttons.
 
+### 3.1 Visualization as cognitive explanation, not a format quota
+
+- **Symbolic reasoning:** an icon, silhouette, vector arrow, cutaway, labeled shape, comparative ruler, or relationship/equation is a visualization when its visual encoding answers a real user question. Visual symbols must have a documented referent and honest scale/interpretation; being attractive is not sufficient.
+- **Manipulable phenomena:** use controlled causal experiments when the user needs to understand a mechanism. Changing one variable should update the observable geometry or state **and** the associated value/explanation, while other variables can be held constant. Give users a reproducible baseline and at least one meaningful contrast. Show what a static diagram cannot teach.
+- **Source/evidence literacy:** observed data, simulated/model output and illustrative appearance are different visual propositions. Distinguish them adjacent to the visualization; do not imply direct photography, certainty, or measured physical magnitude when a diagram only shows conceptual direction.
+- **Fit before fidelity:** a concise symbolic sketch or 2D graph may serve cognition better than photorealistic 3D, and 3D serves only genuine spatial/viewpoint questions. No blanket requirement for photos, animations, cards, sliders, or 'engagement' interactions.
+- **Evaluation criterion:** ask a learner to predict a change, operate the model, read the result and explain why. A test that merely checks the page loads, clicks, has attractive glyphs or no overflow does not establish conceptual understanding.
+
 ## 4. SEO/GEO and growth protection
 
 - Keep all existing public URLs and canonical paths; preserve page titles/H1, static main answer, source links, useful body content, and semantically justified structured-data `@graph`.

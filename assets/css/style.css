@@ -346,6 +346,32 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .weight-cell .sub{font-size:10px;color:var(--muted)}
 @media(max-width:620px){.weight-grid{grid-template-columns:repeat(2,1fr)}}
 
+/* Causal gravity learning lab: symbolic radius + manipulable mass and distance. */
+.gravity-mechanism{margin-top:28px;border-top:1px solid var(--rule);padding-top:24px}
+.gravity-mechanism-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,310px);gap:24px;align-items:center}
+.gravity-mechanism-head h3{font:600 clamp(22px,2.7vw,30px)/1.14 Georgia,serif;margin:7px 0 10px}
+.gravity-mechanism-head p{font-size:13px;line-height:1.6;color:var(--muted);max-width:680px}
+.gravity-equation{padding:18px 15px;border-block:1px solid var(--rule);font:600 17px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:center;letter-spacing:-.03em}
+.gravity-scenarios{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.gravity-scenarios button{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid var(--rule);border-radius:3px;background:transparent;padding:9px 12px;color:var(--ink);cursor:pointer}
+.gravity-scenarios button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.gravity-scenarios button:disabled,.gravity-mechanism-controls input:disabled{opacity:.55;cursor:wait}
+.gravity-mechanism-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:center}
+.gravity-mechanism-controls{display:grid;gap:8px}
+.gravity-mechanism-controls label{display:flex;justify-content:space-between;gap:8px;font:600 12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:8px}
+.gravity-mechanism-controls output{color:var(--accent);font-variant-numeric:tabular-nums}
+.gravity-mechanism-controls input{width:100%;margin:7px 0 12px;accent-color:var(--accent)}
+.gravity-mechanism-diagram{min-width:0}
+.gravity-mechanism-diagram svg{display:block;width:100%;max-width:420px;margin:auto;height:auto;background:#e8e5de;border:1px solid var(--rule);border-radius:3px}
+.gravity-svg-label{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;fill:var(--ink)}
+.gravity-symbol-note{font-size:11px;line-height:1.5;color:var(--muted);margin:7px 0 0}
+.gravity-cause-result{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding:14px 0;border-block:1px solid var(--rule)}
+.gravity-cause-fraction{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.gravity-cause-fraction strong{font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums}
+.gravity-cause-answer{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.gravity-cause-answer output{font:600 26px Georgia,serif;color:var(--accent);font-variant-numeric:tabular-nums}
+.gravity-cause-explanation{font-size:13px;line-height:1.6;max-width:760px;margin:12px 0 0}
+@media(max-width:700px){.gravity-mechanism-head,.gravity-mechanism-workspace{grid-template-columns:1fr}.gravity-mechanism-head{gap:12px}.gravity-scenarios button{flex:1 1 calc(50% - 8px)}.gravity-equation{font-size:14px}}
 /* Gravity and orbits page — cannonball sandbox */
 .orbit-sandbox{border:1px solid var(--rule)}
 .orbit-canvas-wrap{position:relative;background:var(--space);min-height:420px;overflow:hidden}

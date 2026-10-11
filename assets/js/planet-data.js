@@ -3,7 +3,9 @@
 // Source: NASA Science, "Planet Sizes and Locations in Our Solar System"
 // https://science.nasa.gov/solar-system/planet-sizes-and-locations-in-our-solar-system/
 
-// gravity: surface gravity relative to Earth = 1.00
+// Gravity is NASA Earth-relative effective equatorial acceleration.
+// For gas and ice giants, this is at an atmospheric reference level, NOT a solid surface.
+// A nonrotating GM/R² model differs: https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
 // tempC: average temperature in Celsius (NASA "by the numbers" pages)
 // periodDays: orbital period in Earth days
 export const PLANETS = [
@@ -11,10 +13,10 @@ export const PLANETS = [
   {name:'Venus',diameter:'12,104 km',distance:'108 million km',au:'0.72 AU',r:0.9,orbit:10.7,color:0xc8a476,speed:.008,desc:'Nearly Earth-sized, with a thick carbon-dioxide atmosphere.',gravity:0.91,tempC:464,periodDays:225},
   {name:'Earth',diameter:'12,756 km',distance:'149.7 million km',au:'1.00 AU',r:0.95,orbit:14,color:0x477e9d,speed:.0065,desc:'Our reference point for comparing the other planets.',gravity:1.00,tempC:15,periodDays:365.25},
   {name:'Mars',diameter:'6,792 km',distance:'227.9 million km',au:'1.52 AU',r:0.67,orbit:17.5,color:0xa6533d,speed:.0052,desc:'A cold rocky world with a thin atmosphere and two small moons.',gravity:0.38,tempC:-65,periodDays:687},
-  {name:'Jupiter',diameter:'142,984 km',distance:'778 million km',au:'5.20 AU',r:3.65,orbit:24,color:0xc9a681,speed:.0028,desc:'The largest planet, a gas giant more than 11 Earth diameters wide.',gravity:2.53,tempC:-110,periodDays:4333},
-  {name:'Saturn',diameter:'120,536 km',distance:'1.4 billion km',au:'9.58 AU',r:3.1,orbit:31,color:0xc9b88d,speed:.0021,desc:'A gas giant surrounded by a broad system of icy rings.',gravity:1.07,tempC:-140,periodDays:10759},
-  {name:'Uranus',diameter:'51,118 km',distance:'2.9 billion km',au:'19.2 AU',r:1.8,orbit:38,color:0x74b8bd,speed:.0015,desc:'An ice giant that rotates on its side relative to most planets.',gravity:0.90,tempC:-195,periodDays:30687},
-  {name:'Neptune',diameter:'49,528 km',distance:'4.5 billion km',au:'30.05 AU',r:1.72,orbit:45,color:0x4b72b9,speed:.0012,desc:'The most distant major planet, an ice giant with extremely fast winds.',gravity:1.14,tempC:-200,periodDays:60190}
+  {name:'Jupiter',diameter:'142,984 km',distance:'778 million km',au:'5.20 AU',r:3.65,orbit:24,color:0xc9a681,speed:.0028,desc:'The largest planet, a gas giant more than 11 Earth diameters wide.',gravity:2.36,tempC:-110,periodDays:4333},
+  {name:'Saturn',diameter:'120,536 km',distance:'1.4 billion km',au:'9.58 AU',r:3.1,orbit:31,color:0xc9b88d,speed:.0021,desc:'A gas giant surrounded by a broad system of icy rings.',gravity:0.92,tempC:-140,periodDays:10759},
+  {name:'Uranus',diameter:'51,118 km',distance:'2.9 billion km',au:'19.2 AU',r:1.8,orbit:38,color:0x74b8bd,speed:.0015,desc:'An ice giant that rotates on its side relative to most planets.',gravity:0.89,tempC:-195,periodDays:30687},
+  {name:'Neptune',diameter:'49,528 km',distance:'4.5 billion km',au:'30.05 AU',r:1.72,orbit:45,color:0x4b72b9,speed:.0012,desc:'The most distant major planet, an ice giant with extremely fast winds.',gravity:1.12,tempC:-200,periodDays:60190}
 ];
 
 // ratio uses NASA equatorial diameters. volumeEarths uses NASA mean-radius

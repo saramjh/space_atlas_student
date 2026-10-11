@@ -42,6 +42,7 @@ jobs:
           node ci/verify_true_scale.mjs
           node ci/verify_science_truth.mjs
           node ci/verify_ready_content.mjs
+          node ci/verify_gravity_mechanism.mjs
           node ci/verify_text_visualizations.mjs
           node ci/verify_remaining_visualizations.mjs
           node ci/verify_kepler.mjs

@@ -12,8 +12,9 @@
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Your weight, everywhere.</h2></div></div>
   <div class="scale-compare">
     <div class="weight-input">
-      <input type="number" id="weightInput" value="45" min="1" max="500" />
-      <select id="weightUnit"><option value="kg">kg</option><option value="lb">lb</option></select>
+      <label for="weightInput">Earth scale reading</label>
+      <input type="number" id="weightInput" value="45" min="1" max="500" step="1" inputmode="decimal" />
+      <select id="weightUnit" aria-label="Scale reading unit"><option value="kg">kg</option><option value="lb">lb</option></select>
       <span style="font-size:12px;color:var(--muted)">on Earth</span>
     </div>
     <div class="weight-grid" id="weightGrid">
@@ -21,11 +22,56 @@
       <div class="weight-cell"><div class="planet">Venus</div><div class="val">41.0 kg</div><div class="sub">0.91× Earth gravity</div></div>
       <div class="weight-cell you"><div class="planet">Earth</div><div class="val">45.0 kg</div><div class="sub">1.00× Earth gravity</div></div>
       <div class="weight-cell"><div class="planet">Mars</div><div class="val">17.1 kg</div><div class="sub">0.38× Earth gravity</div></div>
-      <div class="weight-cell"><div class="planet">Jupiter</div><div class="val">113.8 kg</div><div class="sub">2.53× Earth gravity</div></div>
-      <div class="weight-cell"><div class="planet">Saturn</div><div class="val">48.2 kg</div><div class="sub">1.07× Earth gravity</div></div>
-      <div class="weight-cell"><div class="planet">Uranus</div><div class="val">40.5 kg</div><div class="sub">0.90× Earth gravity</div></div>
-      <div class="weight-cell"><div class="planet">Neptune</div><div class="val">51.3 kg</div><div class="sub">1.14× Earth gravity</div></div>
+      <div class="weight-cell"><div class="planet">Jupiter</div><div class="val">106.2 kg</div><div class="sub">2.36× Earth gravity</div></div>
+      <div class="weight-cell"><div class="planet">Saturn</div><div class="val">41.4 kg</div><div class="sub">0.92× Earth gravity</div></div>
+      <div class="weight-cell"><div class="planet">Uranus</div><div class="val">40.0 kg</div><div class="sub">0.89× Earth gravity</div></div>
+      <div class="weight-cell"><div class="planet">Neptune</div><div class="val">50.4 kg</div><div class="sub">1.12× Earth gravity</div></div>
     </div>
+  </div>
+  <div class="gravity-mechanism" id="gravityMechanism" aria-labelledby="gravityMechanismTitle">
+    <div class="gravity-mechanism-head">
+      <div><div class="section-id">Change one variable</div><h3 id="gravityMechanismTitle">Why doesn't 318× the mass mean 318× the gravity?</h3>
+      <p>Change a planet's mass or radius independently to see why gravity depends on both. The circle shows radius; the arrow points toward the center.</p></div>
+      <div class="gravity-equation">g / g<sub>Earth</sub> = (M / M<sub>Earth</sub>) ÷ (R / R<sub>Earth</sub>)²</div>
+    </div>
+    <div class="gravity-scenarios" role="group" aria-label="Choose a gravity experiment">
+      <button type="button" data-gravity-scenario="earth" aria-pressed="true" disabled>Earth baseline</button>
+      <button type="button" data-gravity-scenario="mass" aria-pressed="false" disabled>4× mass</button>
+      <button type="button" data-gravity-scenario="radius" aria-pressed="false" disabled>2× radius</button>
+      <button type="button" data-gravity-scenario="jupiter" aria-pressed="false" disabled>Jupiter-like body</button>
+    </div>
+    <div class="gravity-mechanism-workspace">
+      <div class="gravity-mechanism-controls">
+        <label for="gravityMass">Mass <output id="gravityMassValue" for="gravityMass">1.0× Earth</output></label>
+        <input type="range" id="gravityMass" min="1" max="318" value="1" step="0.1" disabled />
+        <label for="gravityRadius">Radius <output id="gravityRadiusValue" for="gravityRadius">1.00× Earth</output></label>
+        <input type="range" id="gravityRadius" min="1" max="12" value="1" step="0.01" disabled />
+      </div>
+      <div class="gravity-mechanism-diagram">
+        <svg id="gravityCauseDiagram" viewBox="0 0 340 200" role="img" aria-label="Earth-relative radius circle and inward gravity arrow: a schematic, not a realistic planet">
+          <defs><marker id="gravityArrowHead" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#bb4f32"/></marker></defs>
+          <circle cx="92" cy="100" r="6" fill="none" stroke="#bb4f32" stroke-dasharray="2 3" stroke-width="1.5"/>
+          <circle id="gravityBody" cx="92" cy="100" r="6" fill="#6b8794" fill-opacity=".65" stroke="#426679" stroke-width="1.5"/>
+          <circle cx="92" cy="100" r="3" fill="#13171c"/>
+          <line id="gravityRadiusLine" x1="92" y1="100" x2="98" y2="100" stroke="#13171c" stroke-width="1.5"/>
+          <circle id="gravityTestPoint" cx="98" cy="100" r="3" fill="#bb4f32"/>
+          <line id="gravityArrowLine" x1="148" y1="100" x2="123" y2="100" stroke="#bb4f32" stroke-width="2.5" marker-end="url(#gravityArrowHead)"/>
+          <text x="92" y="17" text-anchor="middle" class="gravity-svg-label">M: mass</text>
+          <text id="gravityRadiusDiagramLabel" x="92" y="190" text-anchor="middle" class="gravity-svg-label">R = 1× Earth</text>
+          <text x="230" y="60" text-anchor="middle" class="gravity-svg-label">gravity pulls inward</text>
+          <text x="230" y="150" text-anchor="middle" class="gravity-svg-label">arrow = direction only</text>
+        </svg>
+        <p class="gravity-symbol-note">The circle's radius has a linear Earth-relative scale (6 SVG units per Earth radius). It does not encode mass, density or real appearance. The arrow shows direction, not strength.</p>
+      </div>
+    </div>
+    <div class="gravity-cause-result" role="status" aria-live="polite" aria-atomic="true">
+      <div class="gravity-cause-fraction"><span>Mass</span><strong id="gravityNumerator">1.0</strong><span>÷ radius²</span><strong id="gravityDenominator">1.00</strong></div>
+      <div class="gravity-cause-answer"><span>Idealized gravity</span><output id="gravityModelResult">1.00× Earth</output></div>
+    </div>
+    <p class="gravity-cause-explanation" id="gravityModelExplanation">At Earth baseline, mass and radius are both 1. The gravity ratio is 1.</p>
+    <p class="scale-caption">This is a <strong>spherical, non-rotating model</strong>, not measured effective gravity. Jupiter has ~317.8× Earth's mass and ~11.21× its equatorial radius, giving ~2.53× by this model. NASA reports ~2.36× <strong>effective equatorial</strong> gravity at Jupiter's 1-bar atmospheric reference level; rotation matters. Jupiter has no solid surface. <a href="https://science.nasa.gov/learn/basics-of-space-flight/glossary/" target="_blank" rel="noopener noreferrer">NASA gravity equation ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html" target="_blank" rel="noopener noreferrer">NASA Jupiter/Earth data ↗</a></p>
+    <p class="interaction-init-note" id="gravityModelInitNote" role="status">Preparing the experiment. The equation and Earth baseline are readable now.</p>
+    <noscript><p class="scale-caption">Changing the variables requires JavaScript. The equation and examples above remain readable without it.</p></noscript>
   </div>
  </div>
 </section>
@@ -34,10 +80,10 @@
 
 <section class="section">
  <div class="wrap">
-  <div class="section-head"><div class="section-id">Quick answers</div><div><h2>Planet weight calculator: the useful numbers first.</h2><p>These are relative scale readings using Earth = 1.00. The calculator above updates the same ratios for any kg or lb value you enter.</p></div></div>
+  <div class="section-head"><div class="section-id">Quick answers</div><div><h2>Planet weight calculator: the useful numbers first.</h2><p>These are illustrative Earth-scale-equivalent readings based on NASA effective equatorial gravity ratios (Earth = 1.00). The calculator updates them for the kg or lb value entered; it does not model standing on gas giants.</p></div></div>
   <div class="learning-grid">
     <article class="step"><div class="step-no">Mars</div><h3>About 38% of Earth weight</h3><p>A 150 lb Earth reading becomes about 57 lb on Mars. A 70 kg Earth reading becomes about 26.6 kg on a Mars-calibrated scale.</p></article>
-    <article class="step"><div class="step-no">Jupiter</div><h3>About 2.53× Earth weight</h3><p>Jupiter has the strongest surface gravity of the eight planets in this comparison, even though its huge radius keeps the multiplier far below its mass ratio.</p></article>
+    <article class="step"><div class="step-no">Jupiter</div><h3>About 2.36× Earth weight</h3><p>NASA’s effective equatorial gravity at Jupiter’s atmospheric 1-bar level is about 2.36× Earth’s, not a solid ground surface a person could stand on.</p></article>
     <article class="step"><div class="step-no">Formula</div><h3>Earth reading × gravity ratio</h3><p>For a familiar scale reading, multiply your Earth value by the planet's gravity relative to Earth. Mass itself does not change when you move between planets.</p></article>
   </div>
  </div>
@@ -47,8 +93,8 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Why isn't this just "bigger planet, more gravity"?</h2></div></div>
   <div class="learning-grid">
-    <article class="step"><div class="step-no">01</div><h3>Density matters too</h3><p>Saturn is bigger than Earth but less dense than water — its surface gravity (1.07×) is barely more than Earth's, while much smaller Mercury and much larger Neptune land close together too.</p></article>
-    <article class="step"><div class="step-no">02</div><h3>"Surface" is fuzzy on gas giants</h3><p>Jupiter, Saturn, Uranus, and Neptune have no solid surface — these numbers use the gravity at the visible cloud tops.</p></article>
+    <article class="step"><div class="step-no">01</div><h3>Density matters too</h3><p>Saturn is bigger than Earth but less dense than water — its effective equatorial gravity (~0.92×) is slightly less than Earth's, while much smaller Mercury and much larger Neptune land close together too.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>"Surface" is fuzzy on gas giants</h3><p>Jupiter, Saturn, Uranus, and Neptune have no solid surface — the calculator uses NASA’s approximate equatorial effective gravity at a reference atmospheric level, not a solid surface. Gravity depends on latitude, rotation and altitude.</p></article>
   </div>
  </div>
 </section>
