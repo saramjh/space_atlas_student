@@ -4,24 +4,43 @@
 import * as THREE from 'three';
 import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
 import { getPlanetTexture } from './textures.js';
+import { orbitFitDistance } from './orbit-framing.js';
 import { initQuiz } from './quiz-widget.js';
 
 const ORBIT_RADIUS = 9;
 
-const { scene, camera, controls, renderer, canvas } = createSceneBase({
+const { scene, camera, controls, renderer, canvas, shell } = createSceneBase({
   canvasSelector: '#lockCanvas',
   shellSelector: '#lockShell',
-  // See moon-phases.js: a lower camera clipped the Moon out of the
-  // vertical frustum at some orbital angles regardless of container width.
+  // Initial viewing direction only. Final distance is computed from the
+  // actual canvas dimensions below, to keep the entire Moon orbit in frame.
   cameraPos: new THREE.Vector3(0, 27, 5),
   minDistance: 10,
-  maxDistance: 20,
+  maxDistance: 100,
   background: 0x0b1016,
 });
 canvas.setAttribute('aria-hidden', 'true');
 controls.enableRotate = false;
 controls.enableZoom = false;
 controls.enablePan = false;
+
+// OrbitControls.update() enforces maxDistance even when zoom is disabled;
+// the former maxDistance=20 silently pulled the camera inside a view that
+// only covered ~8 world units vertically, clipping the radius-9 orbit.
+// Fit both the vertical and *narrow mobile horizontal* field of view.
+const viewingDirection = new THREE.Vector3(0, 27, 5).normalize();
+function fitCompleteOrbit() {
+  const width = shell.clientWidth;
+  const height = shell.clientHeight;
+  if (!width || !height) return;
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  const fitDistance = orbitFitDistance({ width, height, fovDeg: camera.fov, orbitRadius: ORBIT_RADIUS });
+  camera.position.copy(viewingDirection).multiplyScalar(fitDistance);
+  controls.update();
+}
+new ResizeObserver(fitCompleteOrbit).observe(shell);
+fitCompleteOrbit();
 
 scene.add(new THREE.AmbientLight(0xaab4c2, 0.7));
 const sunLight = new THREE.DirectionalLight(0xfff3d6, 1.8);
