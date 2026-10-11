@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-native-example-and-scale-controls",
+      "date": "2026-10-11",
+      "category": "Interactive controls and reliability",
+      "title": "Examples now open when you ask to see them",
+      "summary": "The three image-reading examples stay closed until selected, and the planetary size comparison works with keyboard or touch. The mobile Search button remains separate from the lesson-navigation row.",
+      "students": "Select “View an example” to read one explanation; select it again to hide the text. Planet size buttons update the comparison by touch, mouse, or keyboard.",
+      "teachers": "The illustration/observation/model examples now match their visible open state. Keyboard-operable planet controls and an announced fact readout support classroom accessibility.",
+      "developers": "Removed a competing CSS override and obsolete JavaScript card-toggle behavior, replaced nonsemantic whole-card click targets with native HTML disclosures, converted eight planet controls to buttons with aria-pressed, and added a 28-page UI structural regression gate. Verified against actual mobile and desktop browsers.",
+      "links": [
+        {
+          "label": "Try the Space Atlas examples",
+          "path": "/"
+        },
+        {
+          "label": "Learn how to read astronomy images",
+          "path": "/learn/read-space-images/"
+        }
+      ],
+      "commits": [
+        "a90b19f"
+      ]
+    },
+    {
       "id": "2026-10-11-mobile-search-header",
       "date": "2026-10-11",
       "category": "Mobile navigation and search",
