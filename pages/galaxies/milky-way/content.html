@@ -17,6 +17,37 @@
       <div class="zoom-dots" id="mwDots"></div>
       <button id="mwNext">Zoom out →</button>
     </div>
+    <div class="mw-address-lab" id="mwAddressLab">
+      <div class="mw-address-heading">
+        <h3>How far from the galactic center are we?</h3>
+        <p>Move a hypothetical location along a radial line. The Sun's reference position stays fixed at approximately 26,000 light-years from the center, within the Orion Spur.</p>
+      </div>
+      <div class="mw-address-layout">
+        <svg class="mw-address-map" viewBox="0 0 320 320" role="img" aria-labelledby="mwMapTitle mwMapDesc">
+          <title id="mwMapTitle">Schematic radial position within the Milky Way</title>
+          <desc id="mwMapDesc">A conceptual circular galactic disk with a radius marked as about 50,000 light-years, the Sun marked around 26,000 light-years from the center, and an adjustable hypothetical distance marker. This does not map real spiral arms.</desc>
+          <circle cx="160" cy="160" r="128" fill="#101c2b" stroke="#98afc5" stroke-width="1.5"/>
+          <circle cx="160" cy="160" r="64" fill="none" stroke="#7e97ad" stroke-dasharray="4 6" opacity=".6"/>
+          <circle cx="160" cy="160" r="96" fill="none" stroke="#7e97ad" stroke-dasharray="4 6" opacity=".6"/>
+          <line x1="160" y1="160" x2="288" y2="160" stroke="#c0d0df" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <circle cx="160" cy="160" r="6" fill="#f5c15c"/>
+          <circle id="mwSunMark" cx="226.56" cy="160" r="6.5" fill="#8dded7" stroke="#111c26" stroke-width="2"/>
+          <circle id="mwExplorerMark" cx="160" cy="160" r="10" fill="none" stroke="#ef9872" stroke-width="2.5"/>
+          <text x="160" y="142" text-anchor="middle" fill="#e6edf4" font-size="10">Center</text>
+          <text x="229" y="142" text-anchor="middle" fill="#c1f4ed" font-size="10">Sun</text>
+          <text x="287" y="192" text-anchor="end" fill="#c6d2dd" font-size="10">≈ 50,000 ly</text>
+        </svg>
+        <div class="mw-address-tools">
+          <label for="mwDistanceSlider">Explore a hypothetical position from the center</label>
+          <input id="mwDistanceSlider" type="range" min="0" max="50000" step="1000" value="0" aria-controls="mwAddressReadout"/>
+          <div class="mw-address-marks"><span>Center · 0</span><span>Nominal disk edge · 50,000 ly</span></div>
+          <div class="mw-address-readout" id="mwAddressReadout" role="status">Hypothetical distance: 0 light-years · 0% of a nominal galactic disk radius.</div>
+          <button id="mwShowSun" type="button">Move marker to the Sun's distance (≈ 26,000 ly)</button>
+          <p class="mw-address-caveat">This is a <strong>radial ruler</strong>, not an observed photograph of the Milky Way. The circle is a nominal 100,000-light-year disk and the directions, arm positions and hard outer boundary are not measured here. The 26,000-light-year Sun distance is approximate.</p>
+        </div>
+      </div>
+      <p class="mw-address-source">Reference: <a href="https://imagine.gsfc.nasa.gov/science/featured_science/milkyway/index.html" target="_blank" rel="noreferrer">NASA Goddard — Our Milky Way</a>. NASA explains that its structure is inferred from measurements made while we are inside the disk.</p>
+    </div>
   </div>
  </div>
 </section>

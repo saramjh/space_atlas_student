@@ -3,14 +3,14 @@
   <div class="wrap">
     <div class="kicker">Galaxies · Question</div>
     <h1>Are all galaxies shaped like the Milky Way?</h1>
-    <p class="lead">The Milky Way is a spiral galaxy — but that's only one of three main shapes astronomers use to classify galaxies. Tap each card for a real named example.</p>
+    <p class="lead">The Milky Way is a spiral galaxy — but that's only one of the main morphological families astronomers use. Compare the shapes and real examples, then change your viewing angle to see why orientation can hide a galaxy's spiral arms.</p>
   </div>
 </section>
 
 <section class="section">
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Three galaxy shapes.</h2></div></div>
-  <div class="truth-grid">
+  <div class="truth-grid galaxy-category-grid">
     <article class="truth">
       <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
         <rect width="100" height="84" fill="#101419"/>
@@ -24,8 +24,7 @@
         <g fill="#dde6ef" opacity=".7"><circle cx="70" cy="34" r=".8"/><circle cx="30" cy="50" r=".8"/><circle cx="60" cy="66" r=".8"/><circle cx="42" cy="20" r=".8"/></g>
       </svg></div>
       <code>SPIRAL</code><h3>Rotating arms of stars</h3><p>A flat, rotating disc with curved arms of young stars and gas — the Milky Way's shape.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: the Andromeda Galaxy (M31), our nearest large galactic neighbor, is also a spiral — larger than the Milky Way.</div>
+      <details class="galaxy-example"><summary>Show named example ↓</summary><div class="truth-example">Example: the Andromeda Galaxy (M31), our nearest large galactic neighbor, is also a spiral — larger than the Milky Way.</div></details>
     </article>
     <article class="truth">
       <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
@@ -34,8 +33,7 @@
         <ellipse cx="50" cy="42" rx="20" ry="11" fill="#f0dcb8" opacity=".9"/>
       </svg></div>
       <code>ELLIPTICAL</code><h3>A smooth, featureless glow</h3><p>A rounded, football-shaped collection of mostly old stars with little gas left to form new ones — no spiral arms.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: M87, a giant elliptical galaxy at the center of the Virgo Cluster, home to the first black hole ever directly imaged.</div>
+      <details class="galaxy-example"><summary>Show named example ↓</summary><div class="truth-example">Example: M87, a giant elliptical galaxy at the center of the Virgo Cluster, home to the first black hole ever directly imaged.</div></details>
     </article>
     <article class="truth">
       <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
@@ -44,9 +42,46 @@
         <g fill="#dde6ef" opacity=".6"><circle cx="20" cy="30" r=".8"/><circle cx="76" cy="52" r=".8"/><circle cx="50" cy="20" r=".8"/></g>
       </svg></div>
       <code>IRREGULAR</code><h3>No defined shape</h3><p>Galaxies with no organized structure — often the result of a collision or a close gravitational encounter with another galaxy.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: the Large and Small Magellanic Clouds, irregular dwarf galaxies visible to the naked eye from the Southern Hemisphere.</div>
+      <details class="galaxy-example"><summary>Show named example ↓</summary><div class="truth-example">Example: the Large and Small Magellanic Clouds, irregular dwarf galaxies visible to the naked eye from the Southern Hemisphere.</div></details>
     </article>
+  </div>
+  <div class="galaxy-view-lab" id="galaxyViewLab">
+    <div class="galaxy-view-intro">
+      <h3>Can a spiral galaxy look like a thin line?</h3>
+      <p>Change the viewing angle of the <strong>same disk-shaped galaxy</strong>. The spiral arms become harder to recognize as the disk turns edge-on. That does not turn it into an elliptical galaxy.</p>
+    </div>
+    <div class="galaxy-view-layout">
+      <svg class="galaxy-view-image" viewBox="0 0 320 220" role="img" aria-labelledby="galaxyViewTitle galaxyViewDesc">
+        <title id="galaxyViewTitle">Schematic spiral galaxy seen at different inclinations</title>
+        <desc id="galaxyViewDesc">A stylized spiral disk with four spiral arms. A projection compresses the minor axis as the viewing angle increases from face-on toward edge-on.</desc>
+        <rect width="320" height="220" rx="2" fill="#0c1420"/>
+        <g id="galaxyTiltDisk" transform="translate(160 110) scale(1 1) translate(-160 -110)">
+          <ellipse cx="160" cy="110" rx="106" ry="106" fill="#16263d" stroke="#6483a2" stroke-width="1.1"/>
+          <g fill="none" stroke="#9fbed9" stroke-width="9" stroke-linecap="round" opacity=".52">
+            <path d="M158 107 C174 91 199 87 225 100 C258 117 261 153 241 177"/>
+            <path d="M162 112 C144 129 117 134 95 120 C62 99 65 68 87 48"/>
+            <path d="M160 109 C143 92 145 70 168 55 C190 40 214 44 235 61"/>
+            <path d="M161 112 C178 130 176 148 159 166 C135 185 105 178 85 160"/>
+          </g>
+          <circle cx="160" cy="110" r="18" fill="#e7c892"/>
+          <circle cx="160" cy="110" r="9" fill="#f3debc"/>
+        </g>
+        <text x="13" y="19" font-size="10" font-family="ui-monospace,monospace" fill="#d5e3f2">Geometric illustration · not a telescope image</text>
+      </svg>
+      <div class="galaxy-view-tools">
+        <label for="galaxyInclination">Viewing angle to the galaxy disk</label>
+        <input type="range" id="galaxyInclination" min="0" max="80" step="10" value="0" aria-controls="galaxyAngleOutput" />
+        <div class="galaxy-view-marks"><span>0° · Face-on</span><span>80° · Nearly edge-on</span></div>
+        <p id="galaxyAngleOutput" class="galaxy-view-readout" role="status">0° — Face-on. Curved arms are easier to recognize.</p>
+        <div class="galaxy-view-presets" role="group" aria-label="Example viewing angles">
+          <button type="button" data-galaxy-angle="0" aria-pressed="true">Face-on</button>
+          <button type="button" data-galaxy-angle="60" aria-pressed="false">Inclined</button>
+          <button type="button" data-galaxy-angle="80" aria-pressed="false">Edge-on</button>
+        </div>
+        <p class="galaxy-view-note">This is a <strong>geometric projection of one illustrative disk</strong>, not a physical 3D observation. Real spiral galaxies also contain central bulges, gas and dust, so their appearance depends on more than inclination.</p>
+      </div>
+    </div>
+    <p class="galaxy-view-evidence">NASA explains that viewing angle can conceal a galaxy's spiral arms. See <a href="https://science.nasa.gov/universe/galaxies/types/" target="_blank" rel="noreferrer">NASA Science — Types of Galaxies</a> and <a href="https://www.nasa.gov/missions/spitzer/nasas-spitzer-spies-a-perfectly-sideways-galaxy/" target="_blank" rel="noreferrer">NASA Spitzer — an edge-on galaxy</a>.</p>
   </div>
  </div>
 </section>

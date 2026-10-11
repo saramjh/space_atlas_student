@@ -642,3 +642,54 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
  .compare-planet span{font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){.compare-planet .ball{transition:none}}
+
+/* Evidence-led galaxy learning: measured radial ruler and geometric projection. */
+.mw-address-lab,.galaxy-view-lab{margin-top:30px;padding-top:25px;border-top:1px solid var(--rule);text-align:left}
+.mw-address-heading h3,.galaxy-view-intro h3{font:600 clamp(23px,2.8vw,30px)/1.18 Georgia,serif;margin:0 0 9px}
+.mw-address-heading p,.galaxy-view-intro p{font-size:13px;color:var(--muted);line-height:1.6;max-width:800px;margin:0 0 18px}
+.mw-address-layout,.galaxy-view-layout{display:grid;grid-template-columns:minmax(220px,.9fr) minmax(260px,1.1fr);align-items:center;gap:23px}
+.mw-address-map,.galaxy-view-image{display:block;width:min(100%,330px);height:auto;justify-self:center}
+.mw-address-tools,.galaxy-view-tools{min-width:0}
+.mw-address-tools label,.galaxy-view-tools label{font:600 12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;display:block;margin-bottom:11px}
+.mw-address-tools input[type=range],.galaxy-view-tools input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;min-height:35px}
+.mw-address-marks,.galaxy-view-marks{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font:500 10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.mw-address-readout,.galaxy-view-readout{font:600 13px/1.6 Georgia,serif;color:var(--ink);margin:18px 0 14px}
+.mw-address-tools button,.galaxy-view-presets button{border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:2px;cursor:pointer;padding:10px 12px;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.mw-address-tools button:hover,.galaxy-view-presets button:hover{background:var(--ink);color:#fff}
+.mw-address-tools button:focus-visible,.galaxy-view-presets button:focus-visible,.galaxy-example summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.mw-address-caveat,.galaxy-view-note,.mw-address-source,.galaxy-view-evidence{font-size:11px;color:var(--muted);line-height:1.65;margin:14px 0 0}
+.mw-address-source,.galaxy-view-evidence{border-top:1px solid var(--rule);padding-top:13px;margin-top:20px}
+.mw-address-source a,.galaxy-view-evidence a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.galaxy-view-presets{display:flex;gap:6px;flex-wrap:wrap}
+.galaxy-view-presets button[aria-pressed=true]{background:var(--ink);color:#fff}
+.galaxy-category-grid .truth{cursor:default}
+.galaxy-example{margin-top:10px}
+.galaxy-example summary{cursor:pointer;font:600 11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);list-style:none}
+.galaxy-example summary::-webkit-details-marker{display:none}
+.galaxy-example .truth-example{margin-top:8px}
+@media(max-width:700px){
+ .mw-address-layout,.galaxy-view-layout{grid-template-columns:1fr;gap:12px}
+ .mw-address-map,.galaxy-view-image{width:min(100%,320px)}
+ .mw-address-lab,.galaxy-view-lab{margin-top:20px;padding-top:18px}
+}
+@media(prefers-reduced-motion:reduce){.mw-address-map,.galaxy-view-image{transition:none}}
+
+/* Official IAU 2006 classification: visual decision sequence over the static reference table. */
+.planet-rule-explorer{margin-top:24px;padding:22px 0 8px;border-top:1px solid var(--rule)}
+.planet-rule-intro h3{font:600 clamp(21px,2.8vw,29px)/1.18 Georgia,serif;margin:0 0 8px}
+.planet-rule-intro p{font-size:13px;line-height:1.6;color:var(--muted);max-width:780px;margin:0 0 14px}
+.planet-rule-picker{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 20px}
+.planet-rule-picker button{background:transparent;color:var(--ink);border:1px solid var(--rule);padding:10px 14px;border-radius:2px;cursor:pointer;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.planet-rule-picker button:hover{border-color:var(--ink)}
+.planet-rule-picker button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.planet-rule-picker button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.planet-rule-steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 15px}
+.planet-rule-steps li{border-top:2px solid var(--ink);padding:16px 10px 12px 0;display:flex;gap:10px;min-width:0}
+.planet-rule-steps li .rule-mark{display:flex;align-items:center;justify-content:center;border-radius:50%;width:28px;height:28px;flex:0 0 28px;background:#dedfd7;color:#365a44;font:700 17px Georgia,serif}
+.planet-rule-steps li.fails .rule-mark{color:#9d2e16;background:#f1dcd2}
+.planet-rule-steps li strong{font:600 14px/1.25 Georgia,serif;display:block;margin:0 0 8px}
+.planet-rule-steps li div span{font-size:11px;line-height:1.5;color:var(--muted);display:block}
+.planet-rule-outcome{background:#e6e1d6;border-left:3px solid var(--accent);padding:13px 16px;font:600 13px/1.55 Georgia,serif;max-width:830px}
+.planet-rule-caveat,.planet-rule-source{font-size:11px;line-height:1.6;max-width:830px;color:var(--muted);margin:11px 0}
+.planet-rule-source a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:750px){.planet-rule-steps{grid-template-columns:1fr;gap:0}.planet-rule-steps li{border-top:1px solid var(--rule);padding:13px 0;align-items:flex-start}.planet-rule-picker button{padding:9px 10px}}

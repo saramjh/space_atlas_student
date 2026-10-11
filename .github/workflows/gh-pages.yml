@@ -37,6 +37,7 @@ jobs:
           node ci/verify_image_provenance.mjs
           node ci/verify_planet_3d.mjs
           node ci/verify_true_scale.mjs
+          node ci/verify_text_visualizations.mjs
           for file in assets/js/*.js; do node --check "$file"; done
 
       - name: Upload Pages artifact

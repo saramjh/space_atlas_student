@@ -22,7 +22,28 @@
     </tbody>
   </table>
   </div>
-  <p class="scale-caption" style="margin-top:14px">"Cleared its neighborhood" means a planet's gravity has swept its orbital path clear of other large debris. Pluto orbits within the Kuiper Belt, a region still full of similarly sized icy bodies — it hasn't (and can't) clear its lane.</p>
+  <div class="planet-rule-explorer" id="planetRuleExplorer">
+    <div class="planet-rule-intro">
+      <h3>Apply the IAU's rule to different objects</h3>
+      <p>Choose an object and follow the three conditions. The first two conditions don't separate Pluto from Earth; the third one does.</p>
+    </div>
+    <div class="planet-rule-picker" role="group" aria-label="Solar System object for classification">
+      <button type="button" data-planet-rule="Earth" aria-pressed="false">Earth</button>
+      <button type="button" data-planet-rule="Neptune" aria-pressed="false">Neptune</button>
+      <button type="button" data-planet-rule="Pluto" aria-pressed="true">Pluto</button>
+      <button type="button" data-planet-rule="Ceres" aria-pressed="false">Ceres</button>
+      <button type="button" data-planet-rule="Eris" aria-pressed="false">Eris</button>
+    </div>
+    <ol class="planet-rule-steps" aria-label="Official three-step planet classification">
+      <li class="passes"><span class="rule-mark" id="ruleOrbitsMark">✓</span><div><strong>Orbits the Sun</strong><span>The object follows an orbit around our star.</span></div></li>
+      <li class="passes"><span class="rule-mark" id="ruleShapeMark">✓</span><div><strong>Nearly round</strong><span>Gravity is strong enough to shape it into near hydrostatic equilibrium.</span></div></li>
+      <li class="fails" id="ruleClearedStep"><span class="rule-mark" id="ruleClearedMark">✗</span><div><strong>Dominates its orbital neighborhood</strong><span id="ruleClearedExplanation">Pluto shares its orbital region with many other Kuiper Belt objects.</span></div></li>
+    </ol>
+    <p id="ruleClassification" class="planet-rule-outcome" role="status"><strong>Pluto: dwarf planet.</strong> It meets the first two conditions but has not cleared its orbital neighborhood.</p>
+    <p class="planet-rule-caveat">“Cleared” does <strong>not</strong> mean every small object has vanished from a planet's orbit. It describes an object's gravitational dominance over comparable bodies in that orbital region. This is the IAU's official 2006 definition for the Solar System; some planetary scientists disagree with this classification criterion.</p>
+    <p class="planet-rule-source">Sources: <a href="https://www.iau.org/IAU/Iau/News/PR2006/iau-2006-general-assembly-resolution-votes.aspx" target="_blank" rel="noreferrer">IAU Resolution 5A (2006)</a> and <a href="https://ssd.jpl.nasa.gov/planets/def.html" target="_blank" rel="noreferrer">NASA/JPL explanation</a>.</p>
+  </div>
+  <p class="scale-caption" style="margin-top:14px">"Cleared its neighborhood" is a criterion about gravitational dominance, not a perfectly empty orbit. Pluto shares the Kuiper Belt region with many icy objects of broadly comparable scale, unlike a dominant planet.</p>
  </div>
 </section>
 
