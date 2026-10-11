@@ -26,6 +26,7 @@ const graphShell = document.querySelector('#transitGraphShell');
 const graphCanvas = document.querySelector('#transitGraphCanvas');
 const graphCtx = graphCanvas.getContext('2d');
 const slider = document.querySelector('#transitAngle');
+const readout = document.querySelector('#transitReadout');
 
 function resizeCanvases() {
   orbitCanvas.width = orbitShell.clientWidth;
@@ -75,7 +76,8 @@ function drawGraph(deg) {
   graphCtx.clearRect(0, 0, w, h);
   const pad = 14;
   const plotH = h - pad * 2;
-  const yFor = (b) => pad + (1 - b) * plotH * 3.2; // exaggerate vertical scale for legibility
+  // Fit the whole exaggerated 35% dip within the visible plot.
+  const yFor = (b) => pad + ((1 - b) / TRANSIT_DEPTH) * plotH * 0.72;
 
   graphCtx.strokeStyle = 'rgba(255,255,255,.6)';
   graphCtx.lineWidth = 1.5;
@@ -105,6 +107,7 @@ function render() {
   const deg = Number(slider.value);
   drawOrbit(deg);
   drawGraph(deg);
+  readout.textContent = `Orbital position ${deg}° · Relative brightness ${(brightnessAt(deg) * 100).toFixed(1)}% (illustrative, 35% maximum dip)`;
 }
 
 slider.addEventListener('input', render);
@@ -130,7 +133,7 @@ initQuiz([
       { label: 'Because stars only dim once in their lifetime' },
       { label: 'Brightness cannot be measured accurately at all' },
     ],
-    right: "A one-off dip could be instrument noise, a starspot, or something else. Astronomers look for the same dip depth and duration repeating on a precise schedule, matching a stable orbit.",
-    wrong: "A single dip isn't enough — it could be noise or something else. Astronomers need the same dip to repeat on a precise, predictable schedule before confirming a planet.",
+    right: "A one-off dip could be instrument noise, a starspot, or something else. Astronomers look for the same dip depth and duration repeating on a precise schedule, matching a stable orbit. Eclipsing binaries and artifacts must still be ruled out.",
+    wrong: "A single dip isn't enough — it could be noise or something else. Astronomers need the same dip to repeat on a precise, predictable schedule before treating the signal as a candidate for further checks; repeating eclipses can also come from binary stars.",
   },
 ], {});

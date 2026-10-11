@@ -25,6 +25,8 @@ const ESCAPE_RADIUS_FACTOR = 3.2;
 let ball = null;
 let trail = [];
 let raf = null;
+let modelSteps = 0;
+const MAX_MODEL_STEPS = 900; // bounded educational demonstration, not indefinitely integrated orbit
 
 function center() {
   return { x: canvas.width / 2, y: canvas.height / 2 };
@@ -49,12 +51,20 @@ function launch(speed) {
   const c = center();
   ball = { x: c.x + LAUNCH_RADIUS, y: c.y, vx: 0, vy: -speed };
   trail = [];
-  statusEl.textContent = 'Falling…';
+  modelSteps = 0;
+  statusEl.textContent = 'Path in progress (model)';
   if (raf) cancelAnimationFrame(raf);
   step();
 }
 
 function step() {
+  if (document.hidden) return;
+  if (modelSteps++ >= MAX_MODEL_STEPS) {
+    raf = null;
+    statusEl.textContent = 'Model path complete — Launch to replay';
+    render();
+    return;
+  }
   const c = center();
   const dx = c.x - ball.x, dy = c.y - ball.y;
   const r = Math.sqrt(dx * dx + dy * dy);
@@ -78,7 +88,7 @@ function step() {
   trail.push({ x: ball.x, y: ball.y });
   if (trail.length > 600) trail.shift();
 
-  if (trail.length > 80) statusEl.textContent = 'Orbiting!';
+  if (trail.length > 80) statusEl.textContent = 'Trajectory continuing (model)';
 
   render();
   raf = requestAnimationFrame(step);
@@ -107,6 +117,13 @@ document.querySelector('#orbitReset').onclick = () => {
   statusEl.textContent = 'Ready';
   drawStatic();
 };
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && raf !== null) {
+    cancelAnimationFrame(raf);
+    raf = null;
+    statusEl.textContent = 'Paused while away — Launch to replay';
+  }
+});
 speedSlider.addEventListener('input', () => {
   speedVal.textContent = Number(speedSlider.value).toFixed(1);
 });

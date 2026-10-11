@@ -6,6 +6,7 @@ const picker = document.querySelector('#auPicker');
 const customInput = document.querySelector('#auCustomInput');
 
 function formatDistance(cm) {
+  if (cm < 10) return `${cm.toFixed(1)} cm`;
   if (cm < 100) return `${cm.toFixed(0)} cm`;
   if (cm < 100000) return `${(cm / 100).toFixed(1)} m`;
   return `${(cm / 100000).toFixed(2)} km`;
@@ -20,8 +21,9 @@ function render(stepCm) {
 
 picker.querySelectorAll('button').forEach((btn) => {
   btn.onclick = () => {
-    picker.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
+    picker.querySelectorAll('button').forEach((b) => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
     const cm = Number(btn.dataset.cm);
     customInput.value = cm;
     render(cm);
@@ -29,7 +31,7 @@ picker.querySelectorAll('button').forEach((btn) => {
 });
 
 customInput.addEventListener('input', () => {
-  picker.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
+  picker.querySelectorAll('button').forEach((b) => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
   render(Number(customInput.value) || 0);
 });
 

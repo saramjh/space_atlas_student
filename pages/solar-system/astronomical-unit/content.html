@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Solar system · Question</div>
     <h1>What is an astronomical unit?</h1>
-    <p class="lead">An astronomical unit (AU) is the average distance from Earth to the Sun — about 150 million km. It's a convenient ruler for solar system distances, but hard to picture. Pick a real-world step size and see where every planet would actually be.</p>
+    <p class="lead">An astronomical unit (au) is a defined unit of length: exactly 149,597,870,700 metres (about 150 million km), close to the typical distance between Earth and the Sun. It's a convenient ruler for solar system distances, but hard to picture. Pick a real-world step size and see where every planet would actually be.</p>
   </div>
 </section>
 
@@ -12,11 +12,11 @@
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>If 1 AU were this long, where would Neptune be?</h2></div></div>
 
   <div class="scale-compare">
-    <div class="au-picker" id="auPicker">
-      <button data-cm="30">Your foot (30 cm)</button>
-      <button data-cm="75" class="active">One step (75 cm)</button>
-      <button data-cm="450">A car length (4.5 m)</button>
-      <button data-cm="9100">A football field (91 m)</button>
+    <div class="au-picker" id="auPicker" role="group" aria-label="Choose a real-world model length for one astronomical unit">
+      <button type="button" data-cm="30" aria-pressed="false">Your foot (30 cm)</button>
+      <button type="button" data-cm="75" aria-pressed="true" class="active">One step (75 cm)</button>
+      <button type="button" data-cm="450" aria-pressed="false">A car length (4.5 m)</button>
+      <button type="button" data-cm="9100" aria-pressed="false">A football field (91 m)</button>
     </div>
     <div class="au-custom">
       <label for="auCustomInput">Or set 1 AU = </label>
@@ -44,12 +44,12 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Measurable fact</div><div><h2>1 AU in a few units.</h2></div></div>
   <div class="phase-facts" style="margin-top:0">
-    <div><strong>149.6 million km</strong>Average Earth-Sun distance.</div>
+    <div><strong>149,597,870.7 km</strong>Exactly 1 au by IAU definition; Earth–Sun distance varies over an orbit.</div>
     <div><strong>92.96 million mi</strong>The same distance in miles.</div>
     <div><strong>~8.3 minutes</strong>How long sunlight takes to reach Earth.</div>
     <div><strong>30.05 AU</strong>Neptune's average distance from the Sun.</div>
   </div>
-  <p class="scale-caption">Reference: <a href="https://science.nasa.gov/learn/basics-of-space-flight/units/" target="_blank" rel="noreferrer">NASA Science, Units of Measure ↗</a> · checked 2026.</p>
+  <p class="scale-caption">Definition: <a href="https://www.iau.org/static/resolutions/IAU2012_English.pdf" target="_blank" rel="noopener noreferrer">IAU 2012 Resolution B2 ↗</a>. Approximate distances: <a href="https://science.nasa.gov/learn/basics-of-space-flight/units/" target="_blank" rel="noreferrer">NASA Science ↗</a>.</p>
  </div>
 </section>
 

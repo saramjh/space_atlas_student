@@ -18,7 +18,9 @@
       <canvas id="transitGraphCanvas"></canvas>
     </div>
     <div class="transit-controls">
-      <input type="range" id="transitAngle" min="0" max="360" value="0" step="1" aria-label="Planet's position in orbit" />
+      <label for="transitAngle">Move the orbiting planet</label>
+      <input type="range" id="transitAngle" min="0" max="360" value="0" step="1" aria-label="Planet's position in orbit (degrees)" />
+      <output id="transitReadout" for="transitAngle" aria-live="polite">Orbital position 0° · Relative brightness 100% (illustrative)</output>
     </div>
   </div>
  </div>
@@ -41,9 +43,9 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Real transit signals are far smaller.</h2></div></div>
   <div class="learning-grid">
-    <article class="step"><div class="step-no">01</div><h3>The dip is exaggerated</h3><p>A real Earth-sized planet transiting a Sun-like star dims it by less than 0.01% — this diagram uses a far larger dip so it's visible at all.</p></article>
+    <article class="step"><div class="step-no">01</div><h3>The dip is exaggerated</h3><p>A real Earth-sized planet transiting a Sun-like star dims it by less than 0.01% — this diagram deliberately uses a 35% illustrative dip for readability, not an actual Earth–Sun light curve. Do not infer a real planet radius from this exaggerated curve.</p></article>
     <article class="step"><div class="step-no">02</div><h3>Only some orbits align</h3><p>Transits are only visible if the planet's orbit happens to be lined up edge-on to Earth — most exoplanets orbit at the wrong angle to ever be detected this way.</p></article>
-    <article class="step"><div class="step-no">03</div><h3>One dip repeats</h3><p>Astronomers look for the same dip repeating on a precise, regular schedule — a single dip could be measurement noise; a repeating one is a planet.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>One dip repeats</h3><p>Astronomers look for the same dip repeating on a precise, regular schedule — a single dip could be measurement noise; a repeating dip is a planet candidate, not proof by itself. Eclipsing binary stars or instrumental artifacts can mimic transits, so astronomers validate candidates with follow-up evidence.</p></article>
   </div>
  </div>
 </section>
@@ -65,6 +67,7 @@
       <h3>Evidence</h3>
       <ol>
         <li><div class="num">01</div><div><b>Exoplanet Exploration: Transit Method</b><span>NASA's explanation of how the Kepler and TESS missions find planets.</span></div><a href="https://science.nasa.gov/exoplanets/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">02</div><div><b>Planet or impostor?</b><span>NASA explains how eclipsing binary stars can resemble transiting planets and why candidates need checks.</span></div><a href="https://science.nasa.gov/science-research/planetary-science/planet-patrollers-turn-in-144-imposter-planets/" target="_blank" rel="noopener noreferrer">NASA false positives ↗</a></li>
       </ol>
     </aside>
   </div>
