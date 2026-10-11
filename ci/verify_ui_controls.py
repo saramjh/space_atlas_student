@@ -93,6 +93,20 @@ def main():
 
     galaxy = (PUBLIC / "galaxies/types/index.html").read_text(encoding="utf-8")
     assert galaxy.count('<details class="galaxy-example">') == 3
+
+    moon = (PUBLIC / "moon/phases/index.html").read_text(encoding="utf-8")
+    phase_buttons = re.findall(r'<button[^>]+data-moon-angle="(0|90|180|270)"[^>]*>', moon)
+    assert phase_buttons == ["0", "90", "180", "270"]
+    assert re.search(r'<button[^>]+data-moon-angle="180"[^>]+aria-pressed="true"', moon)
+    assert moon.count('data-moon-angle=') == 4
+    moon_js = (ROOT / "assets/js/moon-phases.js").read_text(encoding="utf-8")
+    assert "button.setAttribute('aria-pressed', String(selected))" in moon_js
+    tide = (PUBLIC / "moon/tides/index.html").read_text(encoding="utf-8")
+    assert re.search(r'<button[^>]+id="btnSpring"[^>]+aria-pressed="true"', tide)
+    assert re.search(r'<button[^>]+id="btnNeap"[^>]+aria-pressed="false"', tide)
+    tide_js = (ROOT / "assets/js/tides.js").read_text(encoding="utf-8")
+    assert "btnSpring.setAttribute('aria-pressed'" in tide_js
+    assert "btnNeap.setAttribute('aria-pressed'" in tide_js
     print(
         "UI control regression PASS: 28-page DOM semantics, 3 native homepage "
         "disclosures, 8 keyboard planet selectors, stable mobile Search, "

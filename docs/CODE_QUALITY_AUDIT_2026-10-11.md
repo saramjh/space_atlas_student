@@ -81,3 +81,21 @@ Regression gate: `ci/verify_footer.py` runs on all 28 generated public routes an
 - **768px tablet**: search at header right x698 and no document width overflow. **1280px desktop**: 3-column truth taxonomy, all 3 collapsed initially, page width1280.
 - **390px Galaxy Types**: 3 independent example details stay collapsed (height 0 after explicit CSS) and first opens with Enter without opening others, doc width 390.
 - No new scientific data, pages, canonical URLs, sitemap entries, JSON-LD semantics, paid dependencies or advertising positions. These are functional/semantic checks, **not** an exhaustive manual review of every visualization at every viewport. Continue targeted runtime interaction QA as more defects are reported.
+
+## Interactive model state follow-up — Moon Phases / Tides (2026-10-11)
+
+After closing the homepage truth-card state conflict, browser QA continued to additional interactive learning tools.
+
+**Reproduced on live HTTPS390 before correction:**
+- `/moon/phases/` loaded with slider=180° and the visible name **Full Moon**, but all four quick-phase presets had `.active=false` and no `aria-pressed` (including Full Moon). Clicking Last Quarter correctly changed the model and visual button class, but still left the state unavailable to assistive technology.
+- `/moon/tides/` changed Spring/Neap visible diagrams and the idealized forcing readout correctly but neither of its two mode buttons exposed `aria-pressed` (both null), so CSS and accessibility state did not describe the same selection.
+- `/solar-system/temperature-comparison/` 390px generated signed Mercury +167°C/Venus +464°C and correctly compared +297°C without horizontal overflow; no bug established for the temperature selector from this sample.
+
+**Scoped correction (no scientific model changes):**
+- Moon phases: one source-of-truth `applyAngle` routine updates the numeric slider, current phase explanatory text, corresponding quick-preset `.active` and all `aria-pressed` states. At initial 180°, Full Moon is selected. With arbitrary phase slider angles such as 45°, none of the four presets claims selection. Preset controls are a labelled group.
+- Tides: group-labeled Spring/Neap buttons with proper `type=button`, `aria-controls`, initial `aria-pressed` and synchronized values in existing `setMode`. Spring/Neap visual and explanatory logic stays as before; the underlying 2:1 idealized force terms and model caveat are not modified.
+- `ci/verify_ui_controls.py` extended with initial-state markup and JS state synchronization checks. Existing full 28-page build, scientific regressions and SEO/links pass.
+
+**Browser evidence:** local Chromium390, Moon Phases initial Full Moon selected with `aria-pressed=true` at 180°, Last Quarter click updates selected to 270°, moving slider to 45° clears all four presets; no document overflow. Tides390 Spring initially selected, Neap button updates both `aria-pressed` flags, active panel and readout to 90°, no document overflow.
+
+**Limit:** CSS/ARIA state improvements only, not a new astronomical validation, user outcome measurement or blanket claim that every custom model has now been audited.

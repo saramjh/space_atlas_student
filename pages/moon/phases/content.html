@@ -23,11 +23,11 @@
     </div>
     <div class="phase-controls">
       <input type="range" id="moonAngle" min="0" max="360" value="180" step="1" aria-label="Moon's position around Earth, in degrees" />
-      <div class="query-preset-row" aria-label="Jump to a Moon phase">
-        <button type="button" data-moon-angle="0">New Moon</button>
-        <button type="button" data-moon-angle="90">First Quarter</button>
-        <button type="button" data-moon-angle="180">Full Moon</button>
-        <button type="button" data-moon-angle="270">Last Quarter</button>
+      <div class="query-preset-row" role="group" aria-label="Jump to a Moon phase">
+        <button type="button" data-moon-angle="0" aria-pressed="false">New Moon</button>
+        <button type="button" data-moon-angle="90" aria-pressed="false">First Quarter</button>
+        <button type="button" data-moon-angle="180" aria-pressed="true" class="active">Full Moon</button>
+        <button type="button" data-moon-angle="270" aria-pressed="false">Last Quarter</button>
       </div>
       <div class="tool-readout" id="phaseMetrics" aria-live="polite">Day 14.8 of 29.5 · 100% illuminated as seen from Earth</div>
       <div class="phase-hint">Drag to move the Moon around Earth. The system view is top-down; sunlight always comes from the left.</div>

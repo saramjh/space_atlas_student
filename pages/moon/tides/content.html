@@ -11,9 +11,9 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Spring tides vs. neap tides.</h2></div></div>
 
-  <div class="mode-toggle">
-    <button id="btnSpring" class="active">Spring tide (Sun + Moon aligned)</button>
-    <button id="btnNeap">Neap tide (Sun + Moon at 90°)</button>
+  <div class="mode-toggle" role="group" aria-label="Compare spring and neap tides">
+    <button type="button" id="btnSpring" class="active" aria-pressed="true" aria-controls="springPanel">Spring tide (Sun + Moon aligned)</button>
+    <button type="button" id="btnNeap" aria-pressed="false" aria-controls="neapPanel">Neap tide (Sun + Moon at 90°)</button>
   </div>
 
   <div class="scale-compare">

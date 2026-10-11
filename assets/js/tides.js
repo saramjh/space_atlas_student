@@ -8,6 +8,8 @@ const neapPanel = document.querySelector('#neapPanel');
 function setMode(spring) {
   btnSpring.classList.toggle('active', spring);
   btnNeap.classList.toggle('active', !spring);
+  btnSpring.setAttribute('aria-pressed', String(spring));
+  btnNeap.setAttribute('aria-pressed', String(!spring));
   springPanel.classList.toggle('active', spring);
   neapPanel.classList.toggle('active', !spring);
 }

@@ -119,6 +119,11 @@ function drawEarthView(thetaRad) {
 const slider = document.querySelector('#moonAngle');
 
 function applyAngle(deg) {
+  document.querySelectorAll('[data-moon-angle]').forEach(button => {
+    const selected = Number(button.dataset.moonAngle) === deg;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
   const theta = (deg * Math.PI) / 180;
   const pos = moonPositionForAngle(theta);
   moon.position.set(pos.x, 0, pos.z);
@@ -132,15 +137,12 @@ function applyAngle(deg) {
 }
 
 slider.addEventListener('input', () => {
-  document.querySelectorAll('[data-moon-angle]').forEach((button) => button.classList.remove('active'));
   applyAngle(Number(slider.value));
 });
 document.querySelectorAll('[data-moon-angle]').forEach((button) => {
   button.addEventListener('click', () => {
     const angle = Number(button.dataset.moonAngle);
     slider.value = String(angle);
-    document.querySelectorAll('[data-moon-angle]').forEach((b) => b.classList.remove('active'));
-    button.classList.add('active');
     applyAngle(angle);
   });
 });
