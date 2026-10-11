@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-accessible-search-and-motion",
+      "date": "2026-10-11",
+      "category": "Accessibility and reliability",
+      "title": "Search and motion controls respond to your choices",
+      "summary": "Keyboard search now closes without unexpected navigation; the solar-system model respects reduced-motion preferences, and shared quizzes provide assistive-technology feedback.",
+      "students": "Search topics with a keyboard and follow your intended selection. Motion-sensitive visitors start with a still 3D solar-system scene and may choose to resume it.",
+      "teachers": "Keyboard navigation, a reduced-motion default and quiz status announcements make common classroom interactions more predictable. Screen-reader behavior still benefits from device-specific testing.",
+      "developers": "Resolved global Enter interception, late search-index loading, hidden-tab WebGL frame scheduling, and live-region semantics. Added a dedicated browser-flow/DOM regression gate and a prioritized code-quality audit.",
+      "links": [
+        {
+          "label": "Explore the interactive atlas",
+          "path": "/"
+        },
+        {
+          "label": "Try a shared planet quiz",
+          "path": "/solar-system/planet-types/"
+        }
+      ],
+      "commits": [
+        "2be659c"
+      ]
+    },
+    {
       "id": "2026-10-11-kepler-reliability",
       "date": "2026-10-11",
       "category": "New learning tools",
