@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-footer-navigation",
+      "date": "2026-10-11",
+      "category": "Navigation and accessibility",
+      "title": "Find related lessons and sources more easily",
+      "summary": "The shared footer has been reorganized so its science explanation, learning pathways, project resources and release history stay aligned and readable on phones and larger screens.",
+      "students": "Follow the Solar System, Earth & Moon, and Deep Space links from the bottom of any lesson without hunting through a dense block of notes.",
+      "teachers": "Model limitations, primary learning sources and project updates are now directly accessible from a labelled and keyboard-navigable footer.",
+      "developers": "Replaced an unstructured one-line footer and a grid placement rule on a non-grid child with one semantic component. Added a 28-page shared-footer hierarchy and route regression gate, alongside 320/390/1280px browser checks.",
+      "links": [
+        {
+          "label": "Explore Earth and Moon",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Review science learning sources",
+          "path": "/sources/space-resources-for-students/"
+        }
+      ],
+      "commits": [
+        "1ce2576"
+      ]
+    },
+    {
       "id": "2026-10-11-accessible-search-and-motion",
       "date": "2026-10-11",
       "category": "Accessibility and reliability",
