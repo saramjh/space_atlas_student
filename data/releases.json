@@ -3,6 +3,34 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-science-visuals-evidence",
+      "date": "2026-10-11",
+      "category": "Scientific accuracy",
+      "title": "Scale graphics now agree with the numbers",
+      "summary": "Planetary illustrations use accurate diameter ratios. Astronomy units, transit-candidate limits and the orbital teaching model now disclose their definitions and approximations. The image-evidence guide prioritizes authentic NASA observations.",
+      "students": "Compare planetary diameters on one true scale. Manipulate an illustrative transit with live relative brightness and learn why a recurring dip alone does not prove a planet.",
+      "teachers": "Use corrected linear/log scale labels, source-backed IAU definitions, false-positive warnings and clear model-only units during lessons.",
+      "developers": "Source-grounded 28-page learner-needs audit, corrected visible glyph ratios and model claims, and a new automated science-truth gate in build and health workflows.",
+      "links": [
+        {
+          "label": "True scale versus log distance",
+          "path": "/learn/not-to-scale/"
+        },
+        {
+          "label": "Transit candidate simulator",
+          "path": "/exoplanets/transit-method/"
+        },
+        {
+          "label": "NASA observational evidence",
+          "path": "/learn/read-space-images/"
+        }
+      ],
+      "commits": [
+        "2787ce5",
+        "6c1e7a2"
+      ]
+    },
+    {
       "id": "2026-10-11-native-example-and-scale-controls",
       "date": "2026-10-11",
       "category": "Interactive controls and reliability",
