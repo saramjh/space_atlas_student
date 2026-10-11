@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-gravity-causal-learning-experiment",
+      "date": "2026-10-11",
+      "category": "Interactive scientific explanation",
+      "title": "Explore why planet mass and size both affect gravity",
+      "summary": "The planet-weight comparison now includes a hands-on experiment: change mass and radius separately and see the gravity equation, a symbolic radius circle, and the explanation respond together. Published NASA equatorial gravity ratios were also reconciled with an explicitly labeled idealized model.",
+      "students": "Try four times the mass at the same radius, then twice the radius at the same mass. See why the first makes gravity four times stronger, but the second reduces it to one quarter. Compare a Jupiter-like theoretical model with the real reference value.",
+      "teachers": "Run a predict–change–explain activity with independent mass/radius controls, live numerical outcomes and an honest schematic. Explain that actual effective equatorial gravity differs from the simplified non-rotating GM/R² relationship, and gas giants lack solid surfaces.",
+      "developers": "Added a static-first native SVG radius symbol, four physical thought experiments and accessible sliders, corrected NASA effective equatorial data for giant planets in the shared fact source, kept scientific evidence links, and added independent ci/verify_gravity_mechanism.mjs to deploy and read-only Health. Verified 320/390/1280 responsive states and blocked-JavaScript fallback.",
+      "links": [
+        {
+          "label": "Try the gravity experiment",
+          "path": "/solar-system/gravity-comparison/"
+        },
+        {
+          "label": "Understand orbits and Newton’s gravity",
+          "path": "/solar-system/gravity-and-orbits/"
+        }
+      ],
+      "commits": [
+        "03f7569"
+      ]
+    },
+    {
       "id": "2026-10-11-science-visuals-evidence",
       "date": "2026-10-11",
       "category": "Scientific accuracy",
