@@ -125,8 +125,10 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .scale-viz>div{min-width:0}
 .scale-viz h3,.source-panel h3{font:600 24px Georgia,serif;margin:0 0 7px}.scale-viz p{font-size:12px;color:var(--muted);margin:0 0 20px}
 .planets-row{display:flex;align-items:flex-end;gap:14px;min-height:235px;padding-bottom:20px;border-bottom:1px solid #aaa59a;overflow-x:auto}
-.planet-item{display:flex;flex-direction:column;align-items:center;gap:9px;min-width:46px;font:500 9px ui-monospace,SFMono-Regular,Menlo,monospace;color:#53585c;cursor:pointer;padding:6px;border-radius:4px;transition:background .15s ease}
+.planet-item{background:transparent;border:0;appearance:none;display:flex;flex-direction:column;align-items:center;gap:9px;min-width:46px;font:500 9px ui-monospace,SFMono-Regular,Menlo,monospace;color:#53585c;cursor:pointer;padding:6px;border-radius:4px;transition:background .15s ease}
 .planet-item:hover,.planet-item.active{background:rgba(0,0,0,.06);color:var(--ink)}
+.planet-item:focus-visible{outline:none}
+.planet-item:focus-visible .ball{outline:3px solid var(--accent);outline-offset:5px}
 .planet-item.active .ball{outline:2px solid var(--accent);outline-offset:3px}
 .ball{border-radius:50%;background:#777;flex:0 0 auto;box-shadow:inset -8px -9px 14px rgba(0,0,0,.25);transition:transform .2s ease}
 .planet-item:hover .ball{transform:scale(1.05)}
@@ -155,10 +157,15 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .source-panel li{display:grid;grid-template-columns:28px 1fr auto;gap:13px;padding:16px 0;border-bottom:1px solid var(--rule);align-items:start}
 .source-panel .num{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);padding-top:3px}.source-panel b{font-size:13px}.source-panel span{display:block;font-size:11px;color:var(--muted);margin-top:3px}.source-panel a{font-size:11px;text-decoration:none;border-bottom:1px solid #8d8980;white-space:nowrap}
 .truth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
-.truth{border-top:2px solid var(--ink);padding:18px 0;cursor:pointer}.truth h3{font:600 20px Georgia,serif;margin:0 0 8px}.truth p{font-size:12px;color:var(--muted);margin:0}.truth code{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent)}
-.truth-example{max-height:0;overflow:hidden;transition:max-height .25s ease,margin-top .25s ease;font-size:11px;color:var(--ink);background:#ece9e1;padding:0 12px;border-radius:3px}
-.truth.open .truth-example{max-height:120px;margin-top:10px;padding:10px 12px}
-.truth-hint{display:block;margin-top:10px;font:600 9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.truth{border-top:2px solid var(--ink);padding:18px 0}.truth h3{font:600 20px Georgia,serif;margin:0 0 8px}.truth p{font-size:12px;color:var(--muted);margin:0}.truth code{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent)}
+.truth-hint{display:inline-block;margin-top:10px;font:600 10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;color:var(--accent);text-transform:uppercase;cursor:pointer}
+.truth-disclosure summary{list-style:none}
+.truth-disclosure summary::-webkit-details-marker{display:none}
+.truth-disclosure summary::after{content:" ↓"}
+.truth-disclosure[open] summary::after{content:" ↑"}
+.truth-disclosure:not([open]) > .truth-example,.galaxy-example:not([open]) > .truth-example{display:none}
+.truth-disclosure summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.truth-example{font-size:11px;line-height:1.55;color:var(--ink);background:var(--panel);padding:12px 14px;margin:10px 0 0;border-radius:2px}
 .truth-viz{width:100%;height:84px;margin-bottom:14px;background:#101419;border-radius:3px;overflow:hidden}
 .truth-viz svg{width:100%;height:100%;display:block}
 @keyframes scanSweep{0%{transform:translateX(-110%)}100%{transform:translateX(110%)}}
@@ -560,12 +567,6 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 @media(max-width:620px){.teacher-use-list>div{grid-template-columns:1fr;gap:5px}.teacher-use-section{padding-top:38px;padding-bottom:38px}}
 
 /* Observational image provenance lab: full NASA dual-source composite, no synthetic pixels. */
-.truth{cursor:default}
-.truth-disclosure summary{display:inline-block;list-style:none;cursor:pointer}
-.truth-disclosure summary::-webkit-details-marker{display:none}
-.truth-disclosure summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.truth-example{display:block;max-height:none;overflow:visible;transition:none;font-size:11px;line-height:1.55;color:var(--ink);background:#ece9e1;padding:10px 12px;margin-top:12px;border-radius:2px}
-.truth-hint{display:block;margin-top:10px;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);text-transform:uppercase}
 .truth-disclosure[open] .truth-hint{color:var(--ink)}
 .truth .viz-pulse,.truth .viz-orbit-group,.truth .viz-scan-line,.truth:hover .viz-orbit-group,.truth:hover .viz-scan-line{animation:none}
 

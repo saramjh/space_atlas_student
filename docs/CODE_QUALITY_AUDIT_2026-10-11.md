@@ -56,3 +56,28 @@ Confirmed in the live page before this scoped refactor:
 Scoped correction: one semantic `<footer>` landmark containing a single `.wrap`; readable explanatory content, labelled `<nav aria-label="Footer navigation">` with actual existing educational and project page links, and a GitHub source link. Responsive CSS collapses description + nav to one main column on mobile, while nav groups remain a compact two-column link list. Obsolete `.footer-grid` and `.footer-update-link` styles are removed rather than layered with more overrides.
 
 Regression gate: `ci/verify_footer.py` runs on all 28 generated public routes and checks a single footer/nav/wrapper, proper alignment ancestry, unique scoped links to generated internal pages, safe GitHub new-tab attributes and removal of abandoned selectors. Both GitHub Pages deployment and the independent read-only health workflow now run it. Browser QA before publication: 320px / 390px / 1280px with no document horizontal overflow, correct mobile reflow and unified footer padding. The update must still pass actual production GitHub Actions and live browser checks before marked fully released.
+
+## Home disclosure/mobile navigation usability follow-up (2026-10-11)
+
+**User evidence:** Screenshot of Home Section 04 (Read visualizations carefully) showed all three example bodies visually exposed even though labels still said *Tap for an example*. The illustrated card could say *Hide example* while sibling cards still displayed exposed bodies. User also identified the mobile Search button's earlier placement inside the horizontal topic navigation.
+
+### Reproduced behavior and actual cause
+
+- Production HTTPS Chromium, 390px: all 3 closed-state `.truth` cards had example element bounding-box heights of approximately 88px before interaction, while their labels remained *Tap for an example*. The old `initToggleCards` script wrote `.open` and pretended each entire article was a button. Early `.truth-example{max-height:0}` and `.truth.open` rules were overridden by a **later generic `.truth-example{display:block;max-height:none}` rule** introduced with the image provenance lab. This is a CSS owner collision, not a missing click handler.
+- The main page's planet-diameter row used eight `div.planet-item` click targets, lacking native keyboard activation, and updated its fact panel using `innerHTML` for trusted in-app static strings. This is an accessibility and unnecessary DOM-sink smell.
+- **Concurrent separate correction:** the newest source already contained `fc512af` (move mobile Search to dedicated header utility) and `65e36d1` (fingerprint the CSS cache). Verified current HTTPS390 Search is in the right-aligned header utility at x332, y15, with size42x42, **not** within the horizontal topic row. This follow-up did not re-implement that separately delivered change.
+
+### Scoped implementation
+
+- Replaced the Home Section 04 faux buttons with three standalone native `<details class="truth-disclosure"><summary>View an example</summary>...</details>` controls. Initial state is closed even without JavaScript. Explicit CSS prevents closed Home and Galaxy examples from being visually exposed; open state is represented by native details plus a directional indicator and keyboard focus ring.
+- Deleted obsolete `initToggleCards` from shared quiz module, its unused call/import from homepage interactions, `.truth.open` CSS, duplicate generic `.truth-example` and `.truth-hint` declarations. Styling is now single-source and does not hide scientific explanatory content from static HTML crawlers.
+- Converted eight Home planet comparison items into native `<button type=button aria-pressed>` with a grouped label, keyboard activation, synchronized selection and a `role=status aria-live=polite` fact readout. Replaced trusted text `innerHTML` updates with `textContent`. Focus ring is styled on the sphere rather than drawing an oversized rectangular outline around the full planet-size visual item.
+- Added `ci/verify_ui_controls.py` to both deployment and scheduled read-only health jobs: checks structural DOM defects across 28 built pages (duplicate IDs, invalid `aria-controls`, inert links, button nesting), homepage native disclosure/button contracts, duplicate CSS-state owners and mobile Search placement, galaxy category disclosure preservation.
+
+### Browser evidence and limits
+
+- Actual browser with **320px mobile**: native disclosure initially 3 closed and hidden. Focusing the second summary and pressing Enter opens **only second** (height ~92px) and Enter again closes it (all heights 0). Jupiter is selectable with keyboard Enter and updates `aria-pressed=true` and numerical fact panel; page scrollWidth=320.
+- **390px mobile**: Search is independently placed at x332 in header utility, opens modal with focus into `#searchInput`, Escape closes and returns focus to `#searchTriggerMobile`. Full page width stays 390.
+- **768px tablet**: search at header right x698 and no document width overflow. **1280px desktop**: 3-column truth taxonomy, all 3 collapsed initially, page width1280.
+- **390px Galaxy Types**: 3 independent example details stay collapsed (height 0 after explicit CSS) and first opens with Enter without opening others, doc width 390.
+- No new scientific data, pages, canonical URLs, sitemap entries, JSON-LD semantics, paid dependencies or advertising positions. These are functional/semantic checks, **not** an exhaustive manual review of every visualization at every viewport. Continue targeted runtime interaction QA as more defects are reported.

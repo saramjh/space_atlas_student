@@ -53,23 +53,3 @@ export function initQuiz(bank, ids = {}) {
   };
   render();
 }
-
-/** Click/keyboard-toggle cards that reveal a `.truth-example`-style detail. */
-export function initToggleCards(selector = '.truth') {
-  document.querySelectorAll(selector).forEach((card) => {
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('role', 'button');
-    const hint = card.querySelector('.truth-hint');
-    const toggle = () => {
-      const open = card.classList.toggle('open');
-      if (hint) hint.textContent = open ? 'Hide example ▴' : 'Tap for an example ▾';
-    };
-    card.addEventListener('click', toggle);
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
-      }
-    });
-  });
-}

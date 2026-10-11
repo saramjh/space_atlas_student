@@ -84,18 +84,18 @@
     <div class="scale-viz">
       <div>
         <h3>Relative diameters</h3><p>Select any planet below to inspect diameter ratio and Earth volume equivalence.</p>
-        <div class="planets-row" id="scaleRow" aria-label="Relative planet diameter comparison">
-          <div class="planet-item" data-idx="0"><div class="ball" style="width:18px;height:18px;background:#77736f"></div><span>Mercury<br>0.38×</span></div>
-          <div class="planet-item" data-idx="1"><div class="ball" style="width:35px;height:35px;background:#c2a47d"></div><span>Venus<br>0.95×</span></div>
-          <div class="planet-item active" data-idx="2"><div class="ball" style="width:37px;height:37px;background:#3e6f91"></div><span>Earth<br>1.00×</span></div>
-          <div class="planet-item" data-idx="3"><div class="ball" style="width:24px;height:24px;background:#a9513a"></div><span>Mars<br>0.53×</span></div>
-          <div class="planet-item" data-idx="4"><div class="ball" style="width:158px;height:158px;background:repeating-linear-gradient(0deg,#d3b991 0 13px,#a66d57 13px 22px,#e2c7a1 22px 32px)"></div><span>Jupiter<br>11.2×</span></div>
-          <div class="planet-item" data-idx="5"><div class="ball" style="width:132px;height:132px;background:#c9b589"></div><span>Saturn<br>9.45×</span></div>
-          <div class="planet-item" data-idx="6"><div class="ball" style="width:74px;height:74px;background:#76b5ba"></div><span>Uranus<br>4.01×</span></div>
-          <div class="planet-item" data-idx="7"><div class="ball" style="width:71px;height:71px;background:#477bb9"></div><span>Neptune<br>3.88×</span></div>
+        <div class="planets-row" id="scaleRow" role="group" aria-label="Relative planet diameter comparison">
+          <button type="button" class="planet-item" data-idx="0" aria-pressed="false"><span class="ball" style="width:18px;height:18px;background:#77736f"></span><span>Mercury<br>0.38×</span></button>
+          <button type="button" class="planet-item" data-idx="1" aria-pressed="false"><span class="ball" style="width:35px;height:35px;background:#c2a47d"></span><span>Venus<br>0.95×</span></button>
+          <button type="button" class="planet-item active" data-idx="2" aria-pressed="true"><span class="ball" style="width:37px;height:37px;background:#3e6f91"></span><span>Earth<br>1.00×</span></button>
+          <button type="button" class="planet-item" data-idx="3" aria-pressed="false"><span class="ball" style="width:24px;height:24px;background:#a9513a"></span><span>Mars<br>0.53×</span></button>
+          <button type="button" class="planet-item" data-idx="4" aria-pressed="false"><span class="ball" style="width:158px;height:158px;background:repeating-linear-gradient(0deg,#d3b991 0 13px,#a66d57 13px 22px,#e2c7a1 22px 32px)"></span><span>Jupiter<br>11.2×</span></button>
+          <button type="button" class="planet-item" data-idx="5" aria-pressed="false"><span class="ball" style="width:132px;height:132px;background:#c9b589"></span><span>Saturn<br>9.45×</span></button>
+          <button type="button" class="planet-item" data-idx="6" aria-pressed="false"><span class="ball" style="width:74px;height:74px;background:#76b5ba"></span><span>Uranus<br>4.01×</span></button>
+          <button type="button" class="planet-item" data-idx="7" aria-pressed="false"><span class="ball" style="width:71px;height:71px;background:#477bb9"></span><span>Neptune<br>3.88×</span></button>
         </div>
 
-        <div class="scale-fact-box" id="scaleFactBox">
+        <div class="scale-fact-box" id="scaleFactBox" role="status" aria-live="polite" aria-atomic="true">
           <strong>Earth (Baseline Reference)</strong>
           <span>Diameter: 12,756 km. All other planets are compared against Earth's diameter (1.00×) and volume (1.00×).</span>
         </div>
@@ -139,8 +139,8 @@
         <g class="viz-scan-line"><rect x="0" y="0" width="14" height="84" fill="#8fb8d4" opacity=".22"/></g>
       </svg></div>
       <code>OBSERVATION</code><h3>Recorded by an instrument</h3><p>Ask which telescope, spacecraft, wavelength, date, and processing steps produced the image or measurement.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: Hubble's photo of Jupiter combines several exposures taken through separate color filters, then aligned and color-composited — it is real data, but the final color image is assembled, not a single snapshot.</div>
+      <details class="truth-disclosure"><summary class="truth-hint">View an example</summary>
+      <div class="truth-example">Example: Hubble's photo of Jupiter combines several exposures taken through separate color filters, then aligned and color-composited — it is real data, but the final color image is assembled, not a single snapshot.</div></details>
     </article>
     <article class="truth">
       <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
@@ -150,8 +150,8 @@
         <g class="viz-orbit-group"><circle cx="80" cy="42" r="3" fill="#bd4c2f"/></g>
       </svg></div>
       <code>MODEL / SIMULATION</code><h3>A calculation made visible</h3><p>Ask which variables were simplified, whether time or distance is compressed, and which data constrain the model.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: the 3D scene above this page is a model — planet sizes are exaggerated roughly 10× relative to their orbits so small worlds stay clickable. The orbital motion is real, but sped up.</div>
+      <details class="truth-disclosure"><summary class="truth-hint">View an example</summary>
+      <div class="truth-example">Example: the 3D scene above this page is a model — planet sizes are exaggerated roughly 10× relative to their orbits so small worlds stay clickable. The orbital motion is real, but sped up.</div></details>
     </article>
     <article class="truth">
       <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
@@ -160,8 +160,8 @@
         <circle cx="38" cy="24" r="2.4" fill="#d29b42"/><circle cx="72" cy="20" r="2.4" fill="#bd4c2f"/>
       </svg></div>
       <code>ILLUSTRATION</code><h3>An explanation, not a photograph</h3><p>Useful for things we cannot photograph directly. A trustworthy source should label an artist's concept or schematic clearly.</p>
-      <span class="truth-hint">Tap for an example ▾</span>
-      <div class="truth-example">Example: images of a black hole's accretion disk or an exoplanet's surface are usually artist's concepts built from indirect data — no camera has ever photographed either directly in visible light.</div>
+      <details class="truth-disclosure"><summary class="truth-hint">View an example</summary>
+      <div class="truth-example">Example: images of a black hole's accretion disk or an exoplanet's surface are usually artist's concepts built from indirect data — no camera has ever photographed either directly in visible light.</div></details>
     </article>
   </div>
   <p style="margin-top:20px;font-size:12px"><a href="{{BASE}}/learn/read-space-images/">More examples and a quick check ↗</a></p>
