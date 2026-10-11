@@ -1,117 +1,65 @@
-// Transit method page — two plain 2D canvases (orbit view + light curve),
-// no Three.js needed for a flat, single-plane diagram.
+// Transit demonstration: projected sky geometry and a physically related idealized light curve.
 import { initQuiz } from './quiz-widget.js';
+import { transitBlockedFraction, ORBIT_RADIUS_IN_STELLAR_RADII, GRAPH_DEPTH_LIMIT } from './transit-geometry.js';
 
-const TRANSIT_CENTER_DEG = 90; // where in the orbit the "front of star" crossing happens
-const TRANSIT_HALF_WIDTH = 22; // degrees
-const TRANSIT_DEPTH = 0.35; // exaggerated brightness dip, stated as simplified in the copy
-
-function angleDiff(a, b) {
-  const d = Math.abs(a - b) % 360;
-  return Math.min(d, 360 - d);
-}
-
-function brightnessAt(deg) {
-  const d = angleDiff(deg, TRANSIT_CENTER_DEG);
-  if (d > TRANSIT_HALF_WIDTH) return 1;
-  const t = d / TRANSIT_HALF_WIDTH; // 0 at center, 1 at edge
-  const dip = TRANSIT_DEPTH * (1 - t * t); // smooth parabolic dip
-  return 1 - dip;
-}
-
-const orbitShell = document.querySelector('#transitOrbitShell');
-const orbitCanvas = document.querySelector('#transitOrbitCanvas');
-const orbitCtx = orbitCanvas.getContext('2d');
-const graphShell = document.querySelector('#transitGraphShell');
-const graphCanvas = document.querySelector('#transitGraphCanvas');
-const graphCtx = graphCanvas.getContext('2d');
-const slider = document.querySelector('#transitAngle');
+const phase = document.querySelector('#transitAngle');
+const radius = document.querySelector('#transitRadius');
 const readout = document.querySelector('#transitReadout');
+const phaseValue = document.querySelector('#transitAngleValue');
+const radiusValue = document.querySelector('#transitRadiusValue');
+const planetFront = document.querySelector('#transitPlanetFront');
+const planetBack = document.querySelector('#transitPlanetBack');
+const scene = document.querySelector('#transitScene');
+const curve = document.querySelector('#transitCurve');
+const marker = document.querySelector('#transitCurveMarker');
+const progress = document.querySelector('#transitProgress');
+const startX = 47, plotWidth = 330, topY = 30, plotHeight = 112;
+const starCx = 210, starR = 40;
 
-function resizeCanvases() {
-  orbitCanvas.width = orbitShell.clientWidth;
-  orbitCanvas.height = orbitShell.clientHeight;
-  graphCanvas.width = graphShell.clientWidth;
-  graphCanvas.height = graphShell.clientHeight;
-  render();
+function graphPoint(deg, fraction) {
+  return [startX + (deg / 360) * plotWidth, topY + (fraction / GRAPH_DEPTH_LIMIT) * plotHeight];
 }
-new ResizeObserver(resizeCanvases).observe(orbitShell);
-
-function drawOrbit(deg) {
-  const w = orbitCanvas.width, h = orbitCanvas.height;
-  const cx = w / 2, cy = h / 2;
-  const orbitRx = w * 0.38, orbitRy = h * 0.14;
-  orbitCtx.clearRect(0, 0, w, h);
-
-  orbitCtx.strokeStyle = 'rgba(255,255,255,.18)';
-  orbitCtx.setLineDash([3, 4]);
-  orbitCtx.beginPath();
-  orbitCtx.ellipse(cx, cy, orbitRx, orbitRy, 0, 0, Math.PI * 2);
-  orbitCtx.stroke();
-  orbitCtx.setLineDash([]);
-
-  const starR = Math.min(h * 0.28, 30);
-  const grad = orbitCtx.createRadialGradient(cx, cy, 0, cx, cy, starR);
-  grad.addColorStop(0, '#fff6c8');
-  grad.addColorStop(1, '#f0a840');
-  orbitCtx.fillStyle = grad;
-  orbitCtx.beginPath();
-  orbitCtx.arc(cx, cy, starR, 0, Math.PI * 2);
-  orbitCtx.fill();
-
-  const rad = (deg * Math.PI) / 180;
-  const px = cx + Math.cos(rad) * orbitRx;
-  const py = cy + Math.sin(rad) * orbitRy;
-  orbitCtx.fillStyle = '#101419';
-  orbitCtx.strokeStyle = '#e9edf0';
-  orbitCtx.lineWidth = 1;
-  orbitCtx.beginPath();
-  orbitCtx.arc(px, py, 6, 0, Math.PI * 2);
-  orbitCtx.fill();
-  orbitCtx.stroke();
-}
-
-function drawGraph(deg) {
-  const w = graphCanvas.width, h = graphCanvas.height;
-  graphCtx.clearRect(0, 0, w, h);
-  const pad = 14;
-  const plotH = h - pad * 2;
-  // Fit the whole exaggerated 35% dip within the visible plot.
-  const yFor = (b) => pad + ((1 - b) / TRANSIT_DEPTH) * plotH * 0.72;
-
-  graphCtx.strokeStyle = 'rgba(255,255,255,.6)';
-  graphCtx.lineWidth = 1.5;
-  graphCtx.beginPath();
-  for (let x = 0; x <= w; x++) {
-    const a = (x / w) * 360;
-    const y = yFor(brightnessAt(a));
-    x === 0 ? graphCtx.moveTo(x, y) : graphCtx.lineTo(x, y);
-  }
-  graphCtx.stroke();
-
-  const markerX = (deg / 360) * w;
-  graphCtx.strokeStyle = 'rgba(240,168,64,.7)';
-  graphCtx.beginPath();
-  graphCtx.moveTo(markerX, 0);
-  graphCtx.lineTo(markerX, h);
-  graphCtx.stroke();
-
-  const markerY = yFor(brightnessAt(deg));
-  graphCtx.fillStyle = '#f0a840';
-  graphCtx.beginPath();
-  graphCtx.arc(markerX, markerY, 4, 0, Math.PI * 2);
-  graphCtx.fill();
-}
-
 function render() {
-  const deg = Number(slider.value);
-  drawOrbit(deg);
-  drawGraph(deg);
-  readout.textContent = `Orbital position ${deg}° · Relative brightness ${(brightnessAt(deg) * 100).toFixed(1)}% (illustrative, 35% maximum dip)`;
+  const deg = Number(phase.value);
+  const ratio = Number(radius.value) / 100;
+  const blocked = transitBlockedFraction(deg, ratio);
+  const front = Math.sin(deg * Math.PI / 180) > 0;
+  const x = starCx + Math.cos(deg * Math.PI / 180) * ORBIT_RADIUS_IN_STELLAR_RADII * starR;
+  for (const planet of [planetFront, planetBack]) {
+    planet.setAttribute('cx', x.toFixed(2));
+    planet.setAttribute('r', (ratio * starR).toFixed(2));
+  }
+  planetFront.hidden = !front;
+  planetBack.hidden = front;
+  planetFront.style.display = front ? '' : 'none';
+  planetBack.style.display = front ? 'none' : '';
+  const path = [];
+  for (let degree=0; degree<=360; degree++) {
+    const [px,py] = graphPoint(degree,transitBlockedFraction(degree,ratio));
+    path.push((degree===0 ? 'M ' : ' L ') + px.toFixed(2) + ' ' + py.toFixed(2));
+  }
+  curve.setAttribute('d',path.join(''));
+  const [mx,my] = graphPoint(deg,blocked);
+  marker.setAttribute('cx',mx.toFixed(2));
+  marker.setAttribute('cy',my.toFixed(2));
+  progress.setAttribute('x1',mx.toFixed(2));
+  progress.setAttribute('x2',mx.toFixed(2));
+  phaseValue.textContent = deg + '°';
+  radiusValue.textContent = radius.value + '% of stellar radius';
+  const crossesProjectedDisk = Math.abs(x - starCx) < starR * (1 + ratio);
+  const position = blocked > 0 ? 'In front: starlight is blocked.' :
+    !front && crossesProjectedDisk ? 'Behind the star: no transit.' :
+    'Outside the visible stellar disk: no transit.';
+  const percent = (blocked*100).toFixed(3);
+  readout.textContent = 'Phase ' + deg + '° · Light blocked ' + percent + '% · Star brightness ' + ((1-blocked)*100).toFixed(3) + '%. ' + position;
+  scene.setAttribute('aria-label', 'Idealized sky projection: planet radius ' + radius.value + '% of star radius, phase ' + deg + ' degrees. ' + position + ' Positions and orbital spacing are not to scale.');
 }
-
-slider.addEventListener('input', render);
-resizeCanvases();
+phase.addEventListener('input',render);
+radius.addEventListener('input',render);
+render();
+phase.disabled = false;
+radius.disabled = false;
+document.querySelector('#transitInitNote').hidden = true;
 
 initQuiz([
   {
@@ -120,7 +68,7 @@ initQuiz([
       { label: 'A direct photograph of the planet' },
       { label: "A tiny, repeating dip in the star's brightness", correct: true },
       { label: 'Radio signals from the planet' },
-      { label: 'The planet\'s temperature directly' },
+      { label: "The planet's temperature directly" },
     ],
     right: "The transit method watches for a small, precisely repeating dip in a star's brightness, caused by a planet passing in front of it — no direct image of the planet is needed.",
     wrong: "It's a brightness dip, not an image — a planet passing in front of its star blocks a tiny, regularly repeating fraction of the star's light.",
@@ -133,7 +81,7 @@ initQuiz([
       { label: 'Because stars only dim once in their lifetime' },
       { label: 'Brightness cannot be measured accurately at all' },
     ],
-    right: "A one-off dip could be instrument noise, a starspot, or something else. Astronomers look for the same dip depth and duration repeating on a precise schedule, matching a stable orbit. Eclipsing binaries and artifacts must still be ruled out.",
-    wrong: "A single dip isn't enough — it could be noise or something else. Astronomers need the same dip to repeat on a precise, predictable schedule before treating the signal as a candidate for further checks; repeating eclipses can also come from binary stars.",
+    right: 'A one-off dip could be instrument noise, a starspot, or something else. Astronomers look for repeatable signals and rule out eclipsing binaries and artifacts before confirming a planet.',
+    wrong: 'A repeatable dip makes a planet candidate, not proof: eclipsing binary stars and instrument artifacts can also repeat. Follow-up evidence is needed.',
   },
 ], {});

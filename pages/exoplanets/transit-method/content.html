@@ -9,20 +9,48 @@
 
 <section class="section">
  <div class="wrap">
-  <div class="section-head"><div class="section-id">Visual model</div><div><h2>Drag the planet around its orbit.</h2></div></div>
+  <div class="section-head"><div class="section-id">Model experiment</div><div><h2>How does planet size change the light curve?</h2><p>Change the orbital phase and planet radius. Predict how much starlight is blocked and compare the light curve.</p></div></div>
   <div class="transit-lab" id="transitLab">
+    <p class="transit-model-label">Observer's sky view · relative planet/star radii to scale; orbital spacing schematic.</p>
     <div class="transit-orbit-wrap" id="transitOrbitShell">
-      <canvas id="transitOrbitCanvas"></canvas>
+      <svg id="transitScene" viewBox="0 0 420 160" role="img" aria-label="Planet radius ten percent of stellar radius at phase zero degrees, outside the stellar disk.">
+        <title>Projected transit across a uniform star</title>
+        <desc>Planet radius is ten percent of star radius. The planet crosses in front at 90 degrees and passes behind at 270 degrees.</desc>
+        <rect width="420" height="160" fill="#0b1016"/>
+        <path d="M55 80H365" fill="none" stroke="#78899a" stroke-dasharray="5 5"/>
+        <circle id="transitPlanetBack" cx="346" cy="80" r="4" fill="#202934" stroke="#e9edf0" style="display:none"/>
+        <circle cx="210" cy="80" r="40" fill="#edb763" stroke="#fff0b2"/>
+        <circle id="transitPlanetFront" cx="346" cy="80" r="4" fill="#101419" stroke="#e9edf0" stroke-width=".75"/>
+        <text x="210" y="24" fill="#e9edf0" text-anchor="middle" font-size="11">STAR</text>
+        <text x="12" y="145" fill="#dce3ea" font-size="10">Projected orbit · 90° in front · 270° behind</text>
+      </svg>
     </div>
+    <p class="transit-model-label">Hypothetical light curve · x: orbital phase 0–360° · y: brightness 100–90% (fixed scale).</p>
     <div class="transit-graph-wrap" id="transitGraphShell">
-      <canvas id="transitGraphCanvas"></canvas>
+      <svg id="transitGraph" viewBox="0 0 420 180" role="img" aria-label="Modeled brightness with a central one percent transit dip at phase 90 degrees.">
+        <title>Brightness calculated from the blocked stellar disk area</title>
+        <desc>Brightness is 100 percent except near phase 90 degrees, where the default central transit dims the star by one percent.</desc>
+        <rect width="420" height="180" fill="#0b1016"/>
+        <path d="M47 30H377 M47 86H377 M47 142H377" fill="none" stroke="#526474" stroke-dasharray="2 5"/>
+        <g font-size="10" fill="#dce3ea" text-anchor="end"><text x="41" y="34">100%</text><text x="41" y="90">95%</text><text x="41" y="146">90%</text></g>
+        <g font-size="10" fill="#dce3ea" text-anchor="middle"><text x="47" y="159">0°</text><text x="130" y="159">90°</text><text x="212" y="159">180°</text><text x="295" y="159">270°</text><text x="377" y="159">360°</text></g>
+        <path id="transitCurve" d="M47.00 30.00 L47.92 30.00 L48.83 30.00 L49.75 30.00 L50.67 30.00 L51.58 30.00 L52.50 30.00 L53.42 30.00 L54.33 30.00 L55.25 30.00 L56.17 30.00 L57.08 30.00 L58.00 30.00 L58.92 30.00 L59.83 30.00 L60.75 30.00 L61.67 30.00 L62.58 30.00 L63.50 30.00 L64.42 30.00 L65.33 30.00 L66.25 30.00 L67.17 30.00 L68.08 30.00 L69.00 30.00 L69.92 30.00 L70.83 30.00 L71.75 30.00 L72.67 30.00 L73.58 30.00 L74.50 30.00 L75.42 30.00 L76.33 30.00 L77.25 30.00 L78.17 30.00 L79.08 30.00 L80.00 30.00 L80.92 30.00 L81.83 30.00 L82.75 30.00 L83.67 30.00 L84.58 30.00 L85.50 30.00 L86.42 30.00 L87.33 30.00 L88.25 30.00 L89.17 30.00 L90.08 30.00 L91.00 30.00 L91.92 30.00 L92.83 30.00 L93.75 30.00 L94.67 30.00 L95.58 30.00 L96.50 30.00 L97.42 30.00 L98.33 30.00 L99.25 30.00 L100.17 30.00 L101.08 30.00 L102.00 30.00 L102.92 30.00 L103.83 30.00 L104.75 30.00 L105.67 30.00 L106.58 30.00 L107.50 30.00 L108.42 30.00 L109.33 30.00 L110.25 30.00 L111.17 30.00 L112.08 30.00 L113.00 32.08 L113.92 35.90 L114.83 39.71 L115.75 41.20 L116.67 41.20 L117.58 41.20 L118.50 41.20 L119.42 41.20 L120.33 41.20 L121.25 41.20 L122.17 41.20 L123.08 41.20 L124.00 41.20 L124.92 41.20 L125.83 41.20 L126.75 41.20 L127.67 41.20 L128.58 41.20 L129.50 41.20 L130.42 41.20 L131.33 41.20 L132.25 41.20 L133.17 41.20 L134.08 41.20 L135.00 41.20 L135.92 41.20 L136.83 41.20 L137.75 41.20 L138.67 41.20 L139.58 41.20 L140.50 41.20 L141.42 41.20 L142.33 41.20 L143.25 41.20 L144.17 39.71 L145.08 35.90 L146.00 32.08 L146.92 30.00 L147.83 30.00 L148.75 30.00 L149.67 30.00 L150.58 30.00 L151.50 30.00 L152.42 30.00 L153.33 30.00 L154.25 30.00 L155.17 30.00 L156.08 30.00 L157.00 30.00 L157.92 30.00 L158.83 30.00 L159.75 30.00 L160.67 30.00 L161.58 30.00 L162.50 30.00 L163.42 30.00 L164.33 30.00 L165.25 30.00 L166.17 30.00 L167.08 30.00 L168.00 30.00 L168.92 30.00 L169.83 30.00 L170.75 30.00 L171.67 30.00 L172.58 30.00 L173.50 30.00 L174.42 30.00 L175.33 30.00 L176.25 30.00 L177.17 30.00 L178.08 30.00 L179.00 30.00 L179.92 30.00 L180.83 30.00 L181.75 30.00 L182.67 30.00 L183.58 30.00 L184.50 30.00 L185.42 30.00 L186.33 30.00 L187.25 30.00 L188.17 30.00 L189.08 30.00 L190.00 30.00 L190.92 30.00 L191.83 30.00 L192.75 30.00 L193.67 30.00 L194.58 30.00 L195.50 30.00 L196.42 30.00 L197.33 30.00 L198.25 30.00 L199.17 30.00 L200.08 30.00 L201.00 30.00 L201.92 30.00 L202.83 30.00 L203.75 30.00 L204.67 30.00 L205.58 30.00 L206.50 30.00 L207.42 30.00 L208.33 30.00 L209.25 30.00 L210.17 30.00 L211.08 30.00 L212.00 30.00 L212.92 30.00 L213.83 30.00 L214.75 30.00 L215.67 30.00 L216.58 30.00 L217.50 30.00 L218.42 30.00 L219.33 30.00 L220.25 30.00 L221.17 30.00 L222.08 30.00 L223.00 30.00 L223.92 30.00 L224.83 30.00 L225.75 30.00 L226.67 30.00 L227.58 30.00 L228.50 30.00 L229.42 30.00 L230.33 30.00 L231.25 30.00 L232.17 30.00 L233.08 30.00 L234.00 30.00 L234.92 30.00 L235.83 30.00 L236.75 30.00 L237.67 30.00 L238.58 30.00 L239.50 30.00 L240.42 30.00 L241.33 30.00 L242.25 30.00 L243.17 30.00 L244.08 30.00 L245.00 30.00 L245.92 30.00 L246.83 30.00 L247.75 30.00 L248.67 30.00 L249.58 30.00 L250.50 30.00 L251.42 30.00 L252.33 30.00 L253.25 30.00 L254.17 30.00 L255.08 30.00 L256.00 30.00 L256.92 30.00 L257.83 30.00 L258.75 30.00 L259.67 30.00 L260.58 30.00 L261.50 30.00 L262.42 30.00 L263.33 30.00 L264.25 30.00 L265.17 30.00 L266.08 30.00 L267.00 30.00 L267.92 30.00 L268.83 30.00 L269.75 30.00 L270.67 30.00 L271.58 30.00 L272.50 30.00 L273.42 30.00 L274.33 30.00 L275.25 30.00 L276.17 30.00 L277.08 30.00 L278.00 30.00 L278.92 30.00 L279.83 30.00 L280.75 30.00 L281.67 30.00 L282.58 30.00 L283.50 30.00 L284.42 30.00 L285.33 30.00 L286.25 30.00 L287.17 30.00 L288.08 30.00 L289.00 30.00 L289.92 30.00 L290.83 30.00 L291.75 30.00 L292.67 30.00 L293.58 30.00 L294.50 30.00 L295.42 30.00 L296.33 30.00 L297.25 30.00 L298.17 30.00 L299.08 30.00 L300.00 30.00 L300.92 30.00 L301.83 30.00 L302.75 30.00 L303.67 30.00 L304.58 30.00 L305.50 30.00 L306.42 30.00 L307.33 30.00 L308.25 30.00 L309.17 30.00 L310.08 30.00 L311.00 30.00 L311.92 30.00 L312.83 30.00 L313.75 30.00 L314.67 30.00 L315.58 30.00 L316.50 30.00 L317.42 30.00 L318.33 30.00 L319.25 30.00 L320.17 30.00 L321.08 30.00 L322.00 30.00 L322.92 30.00 L323.83 30.00 L324.75 30.00 L325.67 30.00 L326.58 30.00 L327.50 30.00 L328.42 30.00 L329.33 30.00 L330.25 30.00 L331.17 30.00 L332.08 30.00 L333.00 30.00 L333.92 30.00 L334.83 30.00 L335.75 30.00 L336.67 30.00 L337.58 30.00 L338.50 30.00 L339.42 30.00 L340.33 30.00 L341.25 30.00 L342.17 30.00 L343.08 30.00 L344.00 30.00 L344.92 30.00 L345.83 30.00 L346.75 30.00 L347.67 30.00 L348.58 30.00 L349.50 30.00 L350.42 30.00 L351.33 30.00 L352.25 30.00 L353.17 30.00 L354.08 30.00 L355.00 30.00 L355.92 30.00 L356.83 30.00 L357.75 30.00 L358.67 30.00 L359.58 30.00 L360.50 30.00 L361.42 30.00 L362.33 30.00 L363.25 30.00 L364.17 30.00 L365.08 30.00 L366.00 30.00 L366.92 30.00 L367.83 30.00 L368.75 30.00 L369.67 30.00 L370.58 30.00 L371.50 30.00 L372.42 30.00 L373.33 30.00 L374.25 30.00 L375.17 30.00 L376.08 30.00 L377.00 30.00" fill="none" stroke="#f3d18f" stroke-width="2"/>
+        <line id="transitProgress" x1="47" x2="47" y1="25" y2="146" stroke="#dce3ea" stroke-dasharray="3 4"/>
+        <circle id="transitCurveMarker" cx="47" cy="30" r="4" fill="#f3d18f"/>
+        <text x="212" y="176" fill="#dce3ea" font-size="10" text-anchor="middle">ORBITAL PHASE</text>
+      </svg>
     </div>
     <div class="transit-controls">
-      <label for="transitAngle">Move the orbiting planet</label>
-      <input type="range" id="transitAngle" min="0" max="360" value="0" step="1" aria-label="Planet's position in orbit (degrees)" />
-      <output id="transitReadout" for="transitAngle" aria-live="polite">Orbital position 0° · Relative brightness 100% (illustrative)</output>
+      <label for="transitAngle">Orbital phase <strong id="transitAngleValue">0°</strong></label>
+      <input type="range" id="transitAngle" min="0" max="360" value="0" step="1" disabled aria-label="Planet orbital phase in degrees" aria-controls="transitReadout"/>
+      <label for="transitRadius">Planet radius <strong id="transitRadiusValue">10% of stellar radius</strong></label>
+      <input type="range" id="transitRadius" min="1" max="25" value="10" step="1" disabled aria-label="Planet radius as percent of stellar radius" aria-controls="transitReadout"/>
+      <output id="transitReadout" for="transitAngle transitRadius" aria-live="polite">Phase 0° · Light blocked 0.000% · Star brightness 100.000%. At central transit this 10%-radius planet would block 1.000%.</output>
+      <p id="transitInitNote">The static model is readable while controls initialize.</p>
+      <p>Try phase <strong>90°</strong> and compare 10% to 20% planet radii: blocked light increases from <strong>1%</strong> to <strong>4%</strong>. At 270°, the planet is behind the star and causes no dip.</p>
     </div>
   </div>
+  <p class="scale-caption">Hypothetical calculation, <strong>not telescope observations</strong>. Uniformly bright stellar disk, opaque planet, exactly edge-on circular orbit; no limb darkening, noise, blended stars or grazing paths. Central depth = (planet radius ÷ stellar radius)². Orbit spacing not to scale; phase is not time. Sources: <a href="https://science.nasa.gov/exoplanets/whats-a-transit/" target="_blank" rel="noopener noreferrer">NASA transit explanation</a> and <a href="https://science.nasa.gov/resource/light-curve-of-a-planet-transiting-its-star/" target="_blank" rel="noopener noreferrer">NASA light-curve interpretation</a>.</p>
  </div>
 </section>
 
@@ -30,7 +58,7 @@
 
 <section class="section">
  <div class="wrap">
-  <div class="section-head"><div class="section-id">Read the light curve</div><div><h2>Three clues turn a brightness graph into evidence.</h2><p>The graph is a measurement of starlight over time. Its shape tells astronomers more than a single image can.</p></div></div>
+  <div class="section-head"><div class="section-id">Read the light curve</div><div><h2>Three clues turn a brightness graph into evidence.</h2><p>Astronomers graph measured starlight over time. The experiment above instead plots an idealized calculation against orbital phase, not actual observations or measured time.</p></div></div>
   <div class="learning-grid">
     <article class="step"><div class="step-no">Baseline</div><h3>Normal stellar brightness</h3><p>The flat part of a light curve is the star's usual brightness when no planet is crossing its visible disk.</p></article>
     <article class="step"><div class="step-no">Transit depth</div><h3>How much light is blocked</h3><p>The deeper the repeating dip, the larger the planet is relative to its host star. An Earth-size planet crossing a Sun-like star produces only about a 0.01% dip.</p></article>
@@ -43,8 +71,8 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">What's simplified</div><div><h2>Real transit signals are far smaller.</h2></div></div>
   <div class="learning-grid">
-    <article class="step"><div class="step-no">01</div><h3>The dip is exaggerated</h3><p>A real Earth-sized planet transiting a Sun-like star dims it by less than 0.01% — this diagram deliberately uses a 35% illustrative dip for readability, not an actual Earth–Sun light curve. Do not infer a real planet radius from this exaggerated curve.</p></article>
-    <article class="step"><div class="step-no">02</div><h3>Only some orbits align</h3><p>Transits are only visible if the planet's orbit happens to be lined up edge-on to Earth — most exoplanets orbit at the wrong angle to ever be detected this way.</p></article>
+    <article class="step"><div class="step-no">01</div><h3>Small dips are hard to see</h3><p>An Earth-sized planet crossing a Sun-like star dims it by roughly 0.01%. Our graph's brightness axis stays fixed from 100% to 90%; smaller planets can make the line look almost flat. Read the numerical value to detect subtle changes.</p></article>
+    <article class="step"><div class="step-no">02</div><h3>Only some orbits align</h3><p>Transits require a nearly edge-on view from Earth; many orbit inclinations never cross the visible disk. This model fixes an exactly edge-on orbit; grazing-transit paths and orbital inclination are not simulated.</p></article>
     <article class="step"><div class="step-no">03</div><h3>One dip repeats</h3><p>Astronomers look for the same dip repeating on a precise, regular schedule — a single dip could be measurement noise; a repeating dip is a planet candidate, not proof by itself. Eclipsing binary stars or instrumental artifacts can mimic transits, so astronomers validate candidates with follow-up evidence.</p></article>
   </div>
  </div>
