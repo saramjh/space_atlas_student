@@ -107,6 +107,29 @@ def main():
     tide_js = (ROOT / "assets/js/tides.js").read_text(encoding="utf-8")
     assert "btnSpring.setAttribute('aria-pressed'" in tide_js
     assert "btnNeap.setAttribute('aria-pressed'" in tide_js
+    # The three.js import can be delayed/blocked, so eclipse controls must not
+    # silently accept clicks before handlers are ready. Static science remains.
+    eclipse = (PUBLIC / "moon/eclipses/index.html").read_text(encoding="utf-8")
+    eclipse_js = (ROOT / "assets/js/eclipses.js").read_text(encoding="utf-8")
+    assert 'id="eclipseLab" aria-busy="true"' in eclipse
+    for control in ("btnSolarPos", "btnLunarPos", "tiltToggle", "eclipseAngle"):
+        assert re.search(r'<(?:button|input)[^>]*id="' + control + r'"[^>]*disabled', eclipse), control
+    assert 'id="eclipseReadout" role="status" aria-live="polite"' in eclipse
+    assert "15° for clarity; real tilt ~5.1°" in eclipse
+    assert "const TILT_RAD = (15 * Math.PI) / 180;" in eclipse_js
+    assert "element.disabled = false" in eclipse_js
+    assert "setAttribute('aria-busy', 'false')" in eclipse_js
+    assert "document.querySelector('#eclipseLoading').hidden = true" in eclipse_js
+    assert "With the Moon's real tilt on" not in eclipse_js
+
+    lock = (PUBLIC / "moon/tidal-locking/index.html").read_text(encoding="utf-8")
+    lock_js = (ROOT / "assets/js/tidal-locking.js").read_text(encoding="utf-8")
+    assert re.search(r'<button[^>]*id="btnLocked"[^>]*aria-pressed="true"', lock)
+    assert re.search(r'<button[^>]*id="btnUnlocked"[^>]*aria-pressed="false"', lock)
+    assert 'id="lockStatus" role="status" aria-live="polite"' in lock
+    assert "btnLocked.setAttribute('aria-pressed', 'true')" in lock_js
+    assert "btnUnlocked.setAttribute('aria-pressed', 'true')" in lock_js
+
     print(
         "UI control regression PASS: 28-page DOM semantics, 3 native homepage "
         "disclosures, 8 keyboard planet selectors, stable mobile Search, "

@@ -75,6 +75,8 @@ btnLocked.onclick = () => {
   locked = true;
   btnLocked.classList.add('active');
   btnUnlocked.classList.remove('active');
+  btnLocked.setAttribute('aria-pressed', 'true');
+  btnUnlocked.setAttribute('aria-pressed', 'false');
   statusEl.textContent = 'Tidally locked';
   applyAngle(Number(slider.value));
 };
@@ -82,6 +84,8 @@ btnUnlocked.onclick = () => {
   locked = false;
   btnUnlocked.classList.add('active');
   btnLocked.classList.remove('active');
+  btnLocked.setAttribute('aria-pressed', 'false');
+  btnUnlocked.setAttribute('aria-pressed', 'true');
   statusEl.textContent = 'Not locked';
   applyAngle(Number(slider.value));
 };

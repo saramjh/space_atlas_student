@@ -9,17 +9,18 @@
 
 <section class="section">
  <div class="wrap">
-  <div class="eclipse-lab" id="eclipseLab">
+  <div class="eclipse-lab" id="eclipseLab" aria-busy="true">
+    <p class="scale-caption" id="eclipseLoading" role="status">Preparing the interactive 3D model. The explanation and NASA sources below remain readable while it loads.</p>
     <div class="eclipse-view" id="eclipseShell" aria-label="Sun-Earth-Moon alignment model">
       <canvas id="eclipseCanvas"></canvas>
     </div>
     <div class="eclipse-controls">
-      <button id="btnSolarPos">Jump to new moon (solar eclipse position)</button>
-      <button id="btnLunarPos">Jump to full moon (lunar eclipse position)</button>
-      <label><input type="checkbox" id="tiltToggle" /> Show the Moon's real ~5° tilt</label>
+      <button type="button" id="btnSolarPos" disabled>Jump to new moon (solar eclipse position)</button>
+      <button type="button" id="btnLunarPos" disabled>Jump to full moon (lunar eclipse position)</button>
+      <label><input type="checkbox" id="tiltToggle" disabled /> Illustrate orbital tilt (drawn as 15° for clarity; real tilt ~5.1°)</label>
     </div>
-    <input type="range" id="eclipseAngle" min="0" max="360" value="0" step="1" aria-label="Moon's position around Earth, in degrees" style="width:calc(100% - 44px);margin:0 22px 18px;accent-color:var(--accent)" />
-    <div class="eclipse-readout" id="eclipseReadout"></div>
+    <input type="range" id="eclipseAngle" disabled min="0" max="360" value="0" step="1" aria-label="Moon's position around Earth, in degrees" style="width:calc(100% - 44px);margin:0 22px 18px;accent-color:var(--accent)" />
+    <div class="eclipse-readout" id="eclipseReadout" role="status" aria-live="polite"><strong>New Moon alignment.</strong> An eclipse needs a new or full moon AND close alignment with the Moon's orbital nodes. The model will show how tilt affects the alignment.</div>
   </div>
  </div>
 </section>
@@ -30,7 +31,7 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">What's simplified</div><div><h2>What this model leaves out.</h2></div></div>
   <div class="learning-grid">
-    <article class="step"><div class="step-no">01</div><h3>The nodes</h3><p>An eclipse needs new/full moon AND the Moon crossing Earth's orbital plane at one of two points called nodes. This model shows the tilt but not the exact node-crossing timing.</p></article>
+    <article class="step"><div class="step-no">01</div><h3>The nodes</h3><p>An eclipse needs new/full moon AND the Moon crossing Earth's orbital plane at one of two points called nodes. This model illustrates tilt at 15° instead of the real ~5.1° for visibility, but does not calculate the exact node-crossing timing.</p></article>
     <article class="step"><div class="step-no">02</div><h3>Distance and size</h3><p>Compressed like every model on this site — real eclipse geometry also depends on the Moon's and Sun's exact apparent size, which is why some solar eclipses are total and others are annular (a "ring of fire").</p></article>
   </div>
  </div>

@@ -8,8 +8,8 @@ import { getPlanetTexture } from './textures.js';
 import { initQuiz } from './quiz-widget.js';
 
 const MOON_ORBIT_RADIUS = 9;
-// Real tilt is ~5.1°; exaggerated here so the effect reads clearly at this
-// scale, the same trade-off every model on this site states explicitly.
+// Real tilt is ~5.1°. Drawn at 15° for instructional legibility.
+// The control label and model-limits paragraph disclose the exaggeration.
 const TILT_RAD = (15 * Math.PI) / 180;
 
 const { scene, camera, controls, renderer, canvas } = createSceneBase({
@@ -89,9 +89,9 @@ function updateReadout(deg, tilted) {
   } else if (!tilted && nearFull) {
     readout.innerHTML = '<strong>Full Moon alignment.</strong> With no tilt, Earth sits directly between the Sun and Moon here — this is the geometry a lunar eclipse needs.';
   } else if (tilted && nearNew) {
-    readout.innerHTML = "<strong>New Moon, but off-plane.</strong> With the Moon's real tilt on, it's now above or below the Sun-Earth line — its shadow misses Earth entirely. This is the ordinary case: most new moons do <em>not</em> cause a solar eclipse.";
+    readout.innerHTML = "<strong>New Moon, but off-plane.</strong> With the exaggerated tilt shown here, it's now above or below the Sun-Earth line — its shadow misses Earth entirely. This is the ordinary case: most new moons do <em>not</em> cause a solar eclipse.";
   } else if (tilted && nearFull) {
-    readout.innerHTML = "<strong>Full Moon, but off-plane.</strong> With the Moon's real tilt on, it's above or below Earth's shadow — most full moons do <em>not</em> cause a lunar eclipse.";
+    readout.innerHTML = "<strong>Full Moon, but off-plane.</strong> With the exaggerated tilt shown here, it's above or below Earth's shadow — most full moons do <em>not</em> cause a lunar eclipse.";
   } else {
     readout.innerHTML = 'Drag the slider toward 0° (new moon) or 180° (full moon) to reach an eclipse-possible alignment.';
   }
@@ -110,6 +110,12 @@ tiltToggle.addEventListener('change', () => applyAngle(Number(slider.value)));
 document.querySelector('#btnSolarPos').onclick = () => { slider.value = 0; applyAngle(0); };
 document.querySelector('#btnLunarPos').onclick = () => { slider.value = 180; applyAngle(180); };
 applyAngle(Number(slider.value));
+// Bind completed: only now are the controls operable. Do not silently drop
+// clicks while the external 3D engine/module is still loading.
+document.querySelectorAll('#btnSolarPos, #btnLunarPos, #tiltToggle, #eclipseAngle')
+  .forEach((element) => { element.disabled = false; });
+document.querySelector('#eclipseLab').setAttribute('aria-busy', 'false');
+document.querySelector('#eclipseLoading').hidden = true;
 
 animateLoop(() => {
   controls.update();

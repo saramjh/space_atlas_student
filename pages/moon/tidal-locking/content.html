@@ -13,11 +13,11 @@
   <div class="eclipse-lab" id="lockLab">
     <div class="eclipse-view" id="lockShell" aria-label="Earth-Moon system with a tracked surface marker">
       <canvas id="lockCanvas"></canvas>
-      <div class="orbit-status" id="lockStatus" style="left:auto;right:16px">Tidally locked</div>
+      <div class="orbit-status" id="lockStatus" role="status" aria-live="polite" style="left:auto;right:16px">Tidally locked</div>
     </div>
-    <div class="eclipse-controls">
-      <button id="btnLocked" class="active">Tidally locked (real)</button>
-      <button id="btnUnlocked">Not locked (hypothetical)</button>
+    <div class="eclipse-controls" role="group" aria-label="Compare synchronous and non-synchronous rotation">
+      <button type="button" id="btnLocked" class="active" aria-pressed="true">Tidally locked (real)</button>
+      <button type="button" id="btnUnlocked" aria-pressed="false">Not locked (hypothetical)</button>
     </div>
     <input type="range" id="lockAngle" min="0" max="360" value="0" step="1" aria-label="Moon's position in orbit" style="width:calc(100% - 44px);margin:0 22px 18px;accent-color:var(--accent)" />
   </div>
