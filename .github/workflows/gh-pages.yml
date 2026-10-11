@@ -35,6 +35,7 @@ jobs:
           python3 ci/verify_updates.py
           python3 ci/verify_footer.py
           python3 ci/verify_user_flows.py
+          python3 ci/verify_mobile_header.py
           node ci/verify_spectrum.mjs
           node ci/verify_p1_visuals.mjs
           node ci/verify_image_provenance.mjs

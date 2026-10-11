@@ -56,3 +56,15 @@ Google Search Central sources:
 2. The four category hubs currently are anchored subsets of the root Home directory, not independently canonical landing pages. Dedicated hub pages should only be added when they offer *substantial unique learning guidance*, not near-duplicate lists created for artificial SEO.
 3. GEO / generative answer citation visibility is **not proven** by Schema.org/links alone. Track actual organic queries/index coverage and where-source evidence, distinguish citations and referral sessions from unsupported “GEO score.”
 4. Only static logic and representative mobile/desktop Chrome flows are tested. A complete accessibility audit, real analytics visitor path drop-offs, Googlebot-rendered link observations and Search Console indexing history require separate evidence.
+
+## 2026-10-11 mobile header correction after screenshot review
+
+The 2026-10-11 breadcrumb/internal-link release unintentionally placed a prominent emoji-labeled `Search` button in the same horizontally scrolling mobile navigation strip as Home, All 26 topics and the subject links. On Android this interrupted the reading order and made the header visually congested. Basic crawlability testing did not catch the visual usability regression.
+
+Scoped correction:
+- At widths up to 980 CSS pixels, the brand and a compact 42×42px monochrome SVG search icon share the first header row. Its accessible name is `Search space topics`, and the existing `#searchTriggerMobile` element, dialog ID, JavaScript focus restoration and keyboard search behavior are preserved.
+- The second row is for seven **links only**, ordered Home, All topics, Solar System, Moon, Earth, Stars, Galaxies. Search no longer interrupts the navigation links. These remain regular crawlable anchors; no sitemap/SEO changes.
+- Corrected inherited desktop nav padding causing oversized mobile rows, replacing the 23px top/20px bottom link padding with 44px-min-height mobile tabs. Removed a stale `max-width:620px` media override that hid `.utility` and forced the brand to occupy the entire grid.
+- The mobile search icon stays in the right-side utility slot; the full search dialog opens upon click and gives focus back to the icon when dismissed. No new runtime JS or external UI package.
+- Added `ci/verify_mobile_header.py` to both deploy and read-only health workflows, checking all 28 static pages: one utility-owned accessible mobile search, no nav-embedded buttons, one desktop search, seven distinct topic navigation links and responsive CSS ownership.
+- Real Chromium before live deploy: 320 CSS pixels brand/42px search button do not overlap (brand x16..246, search x262..304), no page horizontal overflow, 44px navigation strip. Search typed `moon` returned 6 results, Escape closed and restored focus to `#searchTriggerMobile`. At 390/768/980 the mobile search remains top-right and tab strip 44px; from 1024+ original desktop search and full dropdown nav are shown, all tested widths without horizontal overflow. Mobile/desktop screenshots inspected. These are browser-layout and functional checks, not proof of device-specific dark-mode rendering.
