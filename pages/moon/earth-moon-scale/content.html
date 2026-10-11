@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Moon · Question</div>
     <h1>How far away is the Moon, really?</h1>
-    <p class="lead">Every solar system diagram on this site has to compress either size or distance. The Earth-Moon system is small enough that we don't have to — this strip below is accurate for both at once. Scroll right.</p>
+    <p class="lead">Most solar-system diagrams compress size or distance. This scrollable Earth–Moon model keeps one physical scale for both. Compare how the real gap changes over the Moon's orbit, without enlarging either body.</p>
   </div>
 </section>
 
@@ -11,19 +11,30 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>To scale, both size and distance.</h2></div></div>
   <div class="scale-compare">
+    <div class="emscale-toolbar" role="group" aria-label="Illustrative Earth to Moon orbital distances">
+      <button type="button" data-emscale-distance="363300" aria-pressed="false">Closer · 363,300 km</button>
+      <button type="button" data-emscale-distance="384400" aria-pressed="true">Mean · 384,400 km</button>
+      <button type="button" data-emscale-distance="405500" aria-pressed="false">Farther · 405,500 km</button>
+    </div>
+    <p class="emscale-domain">Approximate near / average / far distances measured <strong>center to center</strong>. These are representative orbital distances, not today's measured separation. Body diameters and the distance scale remain unchanged.</p>
     <div class="emscale-outer">
       <div class="emscale-scroll" id="emscaleScroll">
         <div class="emscale-track">
           <div class="emscale-body" style="left:0;width:60px;height:60px;background:radial-gradient(circle at 35% 32%,#8ebad1,#3e7597 47%,#315240)"></div>
           <div class="emscale-label" style="left:0">Earth</div>
-          <div class="emscale-body" style="left:1808px;width:16px;height:16px;background:#bcb8b0"></div>
-          <div class="emscale-label" style="left:1808px">Moon</div>
+          <div class="emscale-body" id="emscaleMoon" style="left:1830.09px;width:16px;height:16px;background:#bcb8b0"></div>
+          <div class="emscale-label" id="emscaleMoonLabel" style="left:1830.09px">Moon</div>
         </div>
       </div>
       <div class="emscale-fade" id="emscaleFade"></div>
       <div class="emscale-scrollcue" id="emscaleCue">Scroll for Moon →</div>
     </div>
-    <p class="emscale-hint">Both circles and the gap between them use the same scale: 1 pixel ≈ 213 km. Scroll all the way right to reach the Moon.</p>
+    <div class="emscale-navigation">
+      <button type="button" id="emscaleToEarth">← Return to Earth</button>
+      <button type="button" id="emscaleToMoon">Find the Moon →</button>
+    </div>
+    <p class="emscale-hint" id="emscaleDistanceReadout" role="status">Mean center-to-center separation: 384,400 km (30.13 Earth diameters). One pixel ≈ 213 km. Earth is 60px across; Moon is 16px across.</p>
+    <p class="emscale-note">This is a scrollable ruler, not a simulation of orbital speed. The entire strip uses a single linear distance scale. Its large empty region is intentional.</p>
   </div>
  </div>
 </section>
@@ -37,7 +48,7 @@
     <div><strong>384,400 km</strong>Average Earth-Moon distance, center to center.</div>
     <div><strong>30.1 Earths</strong>That distance in Earth-diameters.</div>
     <div><strong>27%</strong>The Moon's diameter compared to Earth's — unusually large for a moon.</div>
-    <div><strong>All 7 others</strong>Every other planet in the solar system could fit, side by side, in the gap between Earth and the Moon.</div>
+    <div><strong>A near match</strong>The other seven planets' mean diameters total roughly 380,000 km — comparable to the 384,400 km center-to-center distance. They do <em>not</em> literally all fit between the two surfaces at the average distance.</div>
   </div>
  </div>
 </section>
@@ -58,7 +69,9 @@
     <aside class="source-panel">
       <h3>Evidence</h3>
       <ol>
-        <li><div class="num">01</div><div><b>Moon: Facts</b><span>Distance and diameter figures used in this diagram.</span></div><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">01</div><div><b>Moon: Facts</b><span>Average distance and diameter figures used in this diagram.</span></div><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">02</div><div><b>Moon Fact Sheet</b><span>NASA GSFC representative closer/mean/far orbital distances; these are not live ephemerides.</span></div><a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html" target="_blank" rel="noreferrer">NASA GSFC ↗</a></li>
+        <li><div class="num">03</div><div><b>Solar System Sizes</b><span>Mean planetary diameters for the seven-planet size comparison.</span></div><a href="https://science.nasa.gov/resource/solar-system-sizes/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
       </ol>
       <p class="verify-line verify-line-spaced">Verified against <a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science, Moon facts ↗</a> · checked 2026</p>
     </aside>

@@ -237,8 +237,8 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .compare-picker{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
 .compare-picker select{font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace;padding:8px 12px;border:1px solid var(--rule);background:#fff;border-radius:3px}
 .compare-picker .vs{font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
-.compare-stage{display:flex;align-items:flex-end;justify-content:center;gap:40px;min-height:220px;padding:20px 0}
-.compare-planet{display:flex;flex-direction:column;align-items:center;gap:10px}
+.compare-stage{display:flex;align-items:flex-end;justify-content:center;gap:24px;min-height:220px;padding:20px 0;min-width:0}
+.compare-planet{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
 .compare-planet .ball{transition:width .3s ease,height .3s ease}
 .compare-planet span{font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace}
 .compare-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;border-top:1px solid #aaa59a;padding-top:18px}
@@ -478,7 +478,7 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 /* Earth-Moon true scale page */
 .emscale-outer{position:relative}
 .emscale-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:1px solid #aaa59a;border-bottom:1px solid #aaa59a;padding:30px 0}
-.emscale-track{position:relative;height:70px;width:1900px}
+.emscale-track{position:relative;height:70px;width:2030px}
 .emscale-body{position:absolute;bottom:0;border-radius:50%;box-shadow:inset -6px -8px 14px rgba(0,0,0,.3)}
 .emscale-label{position:absolute;bottom:-22px;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);white-space:nowrap}
 .emscale-hint{margin-top:10px;font-size:11px;color:var(--muted)}
@@ -620,3 +620,25 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .ptype-surface-sources a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 @media(max-width:760px){.ptype-surface-interface{grid-template-columns:1fr;gap:17px}.ptype-surface-picker{grid-column:1;margin:0}.ptype-surface-viewport{height:300px}.ptype-surface-fact{padding-top:15px}.ptype-surface-stage-footer{flex-wrap:wrap}}
 @media(max-width:390px){.ptype-surface-picker button{min-width:0;flex:1;padding:10px 11px}.ptype-surface-viewport{height:255px}}
+
+/* Measured Earth–Moon scroll ruler controls; the physical scale never changes. */
+.emscale-toolbar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.emscale-toolbar button,.emscale-navigation button{border:1px solid var(--rule);color:var(--ink);background:transparent;border-radius:2px;padding:9px 12px;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+.emscale-toolbar button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.emscale-toolbar button:hover,.emscale-navigation button:hover{border-color:var(--ink)}
+.emscale-toolbar button:focus-visible,.emscale-navigation button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.emscale-domain,.emscale-note{font-size:12px;line-height:1.6;color:var(--muted);max-width:880px}
+.emscale-domain{margin:0 0 17px}
+.emscale-navigation{display:flex;gap:9px;justify-content:space-between;margin-top:14px}
+.emscale-note{margin:8px 0 0;font-size:11px}
+.emscale-hint{font-variant-numeric:tabular-nums}
+.compare-scale-note,.compare-ruler{font-size:12px;line-height:1.55;color:var(--muted);margin:0 0 14px}
+.compare-ruler{margin:12px 0 15px;font:500 11px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
+@media(max-width:620px){
+ .compare-stage{gap:12px}
+ .emscale-toolbar button{padding:8px 10px;font-size:10px;flex:1;min-width:88px}
+ .emscale-navigation button{font-size:10px;padding:10px}
+ .emscale-scrollcue{animation:none}
+ .compare-planet span{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.compare-planet .ball{transition:none}}

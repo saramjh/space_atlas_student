@@ -52,7 +52,14 @@ Locally verified: `~/.agents/skills/agent-browser` (actual browser QA), `web-des
 
 No installation necessary for the current logarithmic wavelength explorer. Re-evaluate library choice only when demonstrably richer interaction exceeds the existing toolchain.
 
-## 7. Release gate — must not be bypassed
+## 7. Autonomous batch execution
+
+- The user explicitly authorizes completing cohesive, already-agreed scientific visualization workflows as **audit → design → implement → test → review → scoped commit → deploy → live verification → context checkpoint**, without asking for individual approvals at every intermediate step.
+- Work on multiple independently valuable improvements together when safe. Prefer science/scale correctness defects and accessibility blockers over decorative animations and arbitrary framework adoption. Report material results and unresolved risks as a consolidated update rather than a per-file or per-cycle question.
+- This is not permission to weaken scientific or SEO/GEO release gates, make paid purchases, mass-modify unrelated indexed pages, overwrite unrelated working-tree changes, change account-side AdSense settings, or claim unverified benefit. Genuine blocker or unclear irreversible action should be escalated rather than guessed.
+- Any continuous execution beyond the current session requires a separately authorized actual runner or scheduler. An ordinary chat reply is not proof of ongoing unattended activity.
+
+## 8. Release gate — must not be bypassed
 
 1. Correct model: sources, physical units, boundaries, calculation tests, domain limits and disclaimers.
 2. Useful UX: interacting changes a specific learnable property and remains understandable at rest.

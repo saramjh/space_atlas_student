@@ -20,42 +20,48 @@ SCALE_DATA.forEach((p, i) => {
 selA.value = 2; // Earth
 selB.value = 4; // Jupiter
 
-const BASE_PX = 40; // Earth's ball diameter in px
-const MIN_PX = 8, MAX_PX = 220;
-
-function ratioOf(idx) {
-  return parseFloat(SCALE_DATA[idx].ratio);
-}
+// Exact visual diameter ratio. Do not independently clamp individual circles:
+// doing so would show a misleading on-screen size ratio despite accurate statistics.
+const MAX_DIAMETER_PX = 220;
+const diameterKm = (name) => Number(PLANETS.find((p) => p.name === name).diameter.replace(/[^\d]/g, ''));
+const ruler = document.querySelector('#compareRuler');
 
 function render() {
-  const ia = parseInt(selA.value, 10);
-  const ib = parseInt(selB.value, 10);
+  const ia = Number(selA.value);
+  const ib = Number(selB.value);
   const a = SCALE_DATA[ia], b = SCALE_DATA[ib];
-  const ra = ratioOf(ia), rb = ratioOf(ib);
-
-  const pxA = Math.min(MAX_PX, Math.max(MIN_PX, ra * BASE_PX));
-  const pxB = Math.min(MAX_PX, Math.max(MIN_PX, rb * BASE_PX));
+  const da = diameterKm(a.name), db = diameterKm(b.name);
+  const largest = Math.max(da, db);
+  const smallest = Math.min(da, db);
+  // Keep both bodies visible within the available viewport, even if the
+  // selected pair is two similarly sized giants on a narrow mobile screen.
+  const gap = window.matchMedia('(max-width: 620px)').matches ? 12 : 24;
+  const stageWidth = stage.clientWidth || 280;
+  const maxDisplay = Math.min(MAX_DIAMETER_PX, Math.max(1, (stageWidth - gap - 8) / (1 + smallest / largest)));
+  const pixelsPerKm = maxDisplay / largest;
+  const pxA = da * pixelsPerKm, pxB = db * pixelsPerKm;
 
   stage.innerHTML = `
-    <div class="compare-planet"><div class="ball" style="width:${pxA}px;height:${pxA}px;background:${colorFor(a.name)}"></div><span>${a.name}</span></div>
-    <div class="compare-planet"><div class="ball" style="width:${pxB}px;height:${pxB}px;background:${colorFor(b.name)}"></div><span>${b.name}</span></div>
+    <div class="compare-planet"><div class="ball" role="img" aria-label="${a.name}: ${da.toLocaleString('en-US')} km equatorial diameter" style="width:${pxA}px;height:${pxA}px;background:${colorFor(a.name)}"></div><span>${a.name}</span></div>
+    <div class="compare-planet"><div class="ball" role="img" aria-label="${b.name}: ${db.toLocaleString('en-US')} km equatorial diameter" style="width:${pxB}px;height:${pxB}px;background:${colorFor(b.name)}"></div><span>${b.name}</span></div>
   `;
+  const larger = da >= db ? a : b;
+  const smaller = da >= db ? b : a;
+  const diameterRatio = largest / smallest;
+  const volumeRatio = larger.volumeEarths / smaller.volumeEarths;
 
-  const bigger = rb >= ra ? b : a;
-  const smaller = rb >= ra ? a : b;
-  const biggerR = Math.max(ra, rb), smallerR = Math.min(ra, rb);
-  const diameterRatio = biggerR / smallerR;
-  const volumeRatio = bigger.volumeEarths / smaller.volumeEarths;
-
+  ruler.textContent = `One visual scale: ${larger.name} ${largest.toLocaleString('en-US')} km → ${maxDisplay.toFixed(1)} px; ${smaller.name} ${smallest.toLocaleString('en-US')} km → ${Math.min(pxA, pxB).toFixed(1)} px. Each circle's displayed diameter is proportional.`;
+  const volumeText = volumeRatio.toFixed(volumeRatio > 100 ? 0 : volumeRatio > 10 ? 1 : 2);
   stats.innerHTML = `
-    <div><strong>${diameterRatio.toFixed(2)}×</strong><span>${bigger.name}'s equatorial diameter vs ${smaller.name}'s</span></div>
-    <div><strong>${volumeRatio.toFixed(volumeRatio > 100 ? 0 : 1)}×</strong><span>${bigger.name}'s volume vs ${smaller.name}'s</span></div>
-    <div><strong>${volumeRatio.toFixed(volumeRatio > 100 ? 0 : 1)}</strong><span>${smaller.name}s that fit inside ${bigger.name} by volume</span></div>
+    <div><strong>${diameterRatio.toFixed(2)}×</strong><span>${larger.name}'s equatorial diameter vs ${smaller.name}'s</span></div>
+    <div><strong>${volumeText}×</strong><span>${larger.name}'s volume vs ${smaller.name}'s</span></div>
+    <div><strong>${volumeText}</strong><span>${smaller.name}-equivalent volumes in ${larger.name}; not literal sphere packing</span></div>
   `;
 }
 
 selA.addEventListener('change', render);
 selB.addEventListener('change', render);
+new ResizeObserver(render).observe(stage);
 document.querySelectorAll('[data-planet-a][data-planet-b]').forEach((button) => {
   button.addEventListener('click', () => {
     selA.value = button.dataset.planetA;
@@ -76,8 +82,8 @@ initQuiz([
       { label: 'About 1,300', correct: true },
       { label: 'About 10,000' },
     ],
-    right: "Jupiter's diameter is 11.2× Earth's. Volume scales with diameter cubed (11.2³ ≈ 1,321), so about 1,321 Earths fit inside it by volume.",
-    wrong: "Jupiter's diameter is 11.2× Earth's, but volume scales with the CUBE of diameter (11.2³ ≈ 1,321) — so the volume difference is much bigger than the diameter difference suggests.",
+    right: "Jupiter's equatorial diameter is about 11.2× Earth's. The equivalent-volume estimate of roughly 1,321 uses mean planetary radii because the giants are flattened, rather than cubing equatorial diameters.",
+    wrong: "The roughly 1,321 Earth-volume ratio uses NASA mean radii. Cubing the equatorial diameter ratio would be inaccurate for flattened giant planets.",
   },
   {
     q: 'Venus and Earth are often called "twins." What does that refer to?',

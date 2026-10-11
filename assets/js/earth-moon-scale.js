@@ -7,18 +7,49 @@ import { initQuiz } from './quiz-widget.js';
 const scrollEl = document.querySelector('#emscaleScroll');
 const fadeEl = document.querySelector('#emscaleFade');
 const cueEl = document.querySelector('#emscaleCue');
-if (scrollEl && scrollEl.scrollWidth <= scrollEl.clientWidth + 2) {
+// One shared scale for both body diameters and center-to-center separation.
+// Mean orbital dimensions: NASA Moon Facts and GSFC Moon Fact Sheet.
+// Earth equatorial diameter: 12,756 km = 60 px; Moon mean diameter: ~3,474 km = 16.34 px.
+const EARTH_DIAMETER_KM = 12756;
+const EARTH_DIAMETER_PX = 60;
+const MOON_DIAMETER_PX = 16;
+const EARTH_CENTER_PX = EARTH_DIAMETER_PX / 2;
+const MOON_RADIUS_PX = MOON_DIAMETER_PX / 2;
+const kilometersPerPixel = EARTH_DIAMETER_KM / EARTH_DIAMETER_PX;
+const moon = document.querySelector('#emscaleMoon');
+const moonLabel = document.querySelector('#emscaleMoonLabel');
+const readout = document.querySelector('#emscaleDistanceReadout');
+const distancePresets = [...document.querySelectorAll('[data-emscale-distance]')];
+const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+function moonLeftAt(distanceKm) {
+  return EARTH_CENTER_PX + distanceKm / kilometersPerPixel - MOON_RADIUS_PX;
+}
+function selectDistance(distanceKm) {
+  const moonLeft = moonLeftAt(distanceKm);
+  moon.style.left = `${moonLeft}px`;
+  moonLabel.style.left = `${moonLeft}px`;
+  const centerGapInEarths = distanceKm / EARTH_DIAMETER_KM;
+  const label = distanceKm === 384400 ? 'Mean' : distanceKm < 384400 ? 'Closer' : 'Farther';
+  readout.textContent = `${label} center-to-center distance: ${distanceKm.toLocaleString('en-US')} km (${centerGapInEarths.toFixed(2)} Earth diameters). One pixel ≈ ${Math.round(kilometersPerPixel)} km. Neither body is enlarged.`;
+  distancePresets.forEach((button) => button.setAttribute('aria-pressed', String(Number(button.dataset.emscaleDistance) === distanceKm)));
+}
+distancePresets.forEach((button) => button.addEventListener('click', () => selectDistance(Number(button.dataset.emscaleDistance))));
+selectDistance(384400);
+
+function navigateTo(body) {
+  const target = body === 'moon' ? Math.max(0, moon.offsetLeft - scrollEl.clientWidth / 2 + MOON_RADIUS_PX) : 0;
+  scrollEl.scrollTo({ left: target, behavior: motionReduced.matches ? 'instant' : 'smooth' });
+}
+document.querySelector('#emscaleToEarth').addEventListener('click', () => navigateTo('earth'));
+document.querySelector('#emscaleToMoon').addEventListener('click', () => navigateTo('moon'));
+if (scrollEl.scrollWidth <= scrollEl.clientWidth + 2) {
   fadeEl.classList.add('hidden');
   cueEl.classList.add('hidden');
 } else {
-  scrollEl.addEventListener(
-    'scroll',
-    () => {
-      fadeEl.classList.add('hidden');
-      cueEl.classList.add('hidden');
-    },
-    { once: true }
-  );
+  scrollEl.addEventListener('scroll', () => {
+    fadeEl.classList.add('hidden');
+    cueEl.classList.add('hidden');
+  }, { once: true });
 }
 
 initQuiz([
