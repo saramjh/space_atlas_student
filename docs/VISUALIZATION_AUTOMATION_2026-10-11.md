@@ -1,5 +1,5 @@
 # Space Atlas — Autonomous Learning Visual QA Loop
-Status: configured locally, pending release verification. Started 2026-10-11 (KST).
+Status: active (GitHub default branch); manual health-run verified 2026-10-11 (KST).
 
 ## User mandate and boundaries
 The user requests proactively continuing Space Atlas improvements without per-file approvals. This project uses a bounded workflow: audit → prioritize verified learning/science defects → implement in a batch → desktop/mobile/keyboard/static regression → scoped publish → live verification → Serena/context checkpoint.
@@ -17,8 +17,10 @@ Workflow: `.github/workflows/site-health.yml`; GitHub Actions on the **public** 
 - GitHub Actions reports a failed run when a public route, asset, SEO or build invariant fails; GitHub notification delivery depends on the repository account's notification settings. The workflow does not itself guarantee a notification reaches the user.
 - The existing `gh-pages.yml` continues the separate push-triggered build→test→deploy path. New Kepler test is included there. Distinct concurrency groups prevent the auditor from canceling deploy.
 
-## Verified baseline (before activation)
-- A real read-only run checked **27/27 existing pages and 29/29 shared or page-script/style assets**, with zero errors. This is an HTTP/static-evidence result, not proof of working client JavaScript or search ranking.
+## Verified activation and baseline
+- Initial feature/deployment commit: `e7e04c4`, [GitHub Pages run 38103299439](https://github.com/saramjh/space_atlas_student/actions/runs/38103299439), successful build and deploy.
+- New active [Read-Only Health workflow](https://github.com/saramjh/space_atlas_student/actions/workflows/site-health.yml) was triggered manually and [run 38103334058](https://github.com/saramjh/space_atlas_student/actions/runs/38103334058) succeeded. It checked **27/27 public pages and 29/29 same-site JS/CSS assets with zero errors**, ran all scientific regressions, generated 27-route visual candidate inventory and uploaded a non-expired 7-day result artifact. This proves the workflow can execute; the first future cron-triggered run has not yet occurred.
+- Real Chrome 390px HTTPS page `/solar-system/orbital-periods/` after deployment: selecting Neptune displayed 30.05 AU, ~164.79 years observed and ~164.73 ideal predicted. Responsive SVG scrolled inside its own container; document scrollWidth equaled 390px. Canonical and JSON-LD remained one each and original primary/secondary manual AdSense IDs were present. These are functional and source checks, not proof of search ranking or improved learner outcomes.
 - GitHub repository API reports `private=false` (public).
 - The resulting artifacts are kept inside Actions. Local `reports/` is already an unrelated untracked workspace and is **not** staged into Git.
 
