@@ -100,6 +100,12 @@ css_sha = hashlib.sha256(Path("assets/css/style.css").read_bytes()).hexdigest()[
 for page in pages:
     text = page.read_text(encoding="utf-8")
     rel = page.relative_to(PUBLIC)
+    if text.count('gtag/js?id=G-DTCVV5XRD3') != 1:
+        errors.append(f"{rel}: expected the Space Atlas dedicated GA4 loader")
+    if text.count("gtag('config', 'G-DTCVV5XRD3'") != 1:
+        errors.append(f"{rel}: expected the Space Atlas dedicated GA4 config")
+    if 'G-4DYFKSNFBG' in text:
+        errors.append(f"{rel}: shared blog GA4 tag must not appear in Space Atlas pages")
     if re.search(r"\{\{[A-Z_]+\}\}", text):
         errors.append(f"{rel}: unresolved template token")
     if f"/assets/css/style.css?v={css_sha}" not in text:
