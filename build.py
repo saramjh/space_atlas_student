@@ -9,6 +9,7 @@ generates search-index.json for client-side search, and regenerates sitemap.xml.
 Run: python3 build.py
 """
 import json
+import hashlib
 from html import escape as escape_html
 import re
 from datetime import date
@@ -250,7 +251,7 @@ def render_ad_slot(template, slot_id, position):
     )
 
 
-def render_page(layout, nav, footer, meta, content, ad_slot, topic_count):
+def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_version):
     html = layout
     html = html.replace("{{NAV}}", nav)
     html = html.replace("{{FOOTER}}", footer)
@@ -264,6 +265,7 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count):
         "{{OG_IMAGE}}": meta.get("ogImage", ""),
         "{{BASE}}": SITE_BASE,
         "{{TOPIC_COUNT}}": str(topic_count),
+        "{{CSS_VERSION}}": css_version,
         "{{STRUCTURED_DATA}}": build_structured_data(meta),
         "{{ADSENSE_HEAD}}": "" if meta.get("adFree") else adsense_head(),
         "{{AD_PRIMARY}}": render_ad_slot(ad_slot, ADSENSE_PRIMARY_SLOT, "primary"),
@@ -358,8 +360,11 @@ def main():
 
     pages = load_pages()
     topic_count = sum(not meta.get("excludeFromTopicSearch") for meta, _ in pages)
+    # GitHub Pages caches CSS for 600 seconds. Fingerprint it so new HTML does
+    # not accidentally use stale mobile-header styles after a deployment.
+    css_version = hashlib.sha256((ROOT / "assets/css/style.css").read_bytes()).hexdigest()[:12]
     for meta, content in pages:
-        html = render_page(layout, nav, footer, meta, content, ad_slot, topic_count)
+        html = render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_version)
         out_path = out_path_for(meta)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(html, encoding="utf-8")

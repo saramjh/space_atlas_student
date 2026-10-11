@@ -4,6 +4,7 @@ from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
 import json
+import hashlib
 import re
 import sys
 
@@ -95,11 +96,14 @@ for meta_path in SOURCE_PAGES.rglob("meta.json"):
     rel = "index.html" if path == "/" else f"{path.strip('/')}/index.html"
     secondary_pages.add(rel)
 
+css_sha = hashlib.sha256(Path("assets/css/style.css").read_bytes()).hexdigest()[:12]
 for page in pages:
     text = page.read_text(encoding="utf-8")
     rel = page.relative_to(PUBLIC)
     if re.search(r"\{\{[A-Z_]+\}\}", text):
         errors.append(f"{rel}: unresolved template token")
+    if f"/assets/css/style.css?v={css_sha}" not in text:
+        errors.append(f"{rel}: fingerprinted stylesheet missing/mismatched")
 
     is_update_page = rel.as_posix() == "updates/index.html"
     is_teacher_experiment = rel.as_posix() in teacher_experiment_pages
