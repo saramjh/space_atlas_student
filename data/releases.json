@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
+  "releases": [
+    {
+      "id": "2026-10-11-kepler-reliability",
+      "date": "2026-10-11",
+      "category": "New learning tools",
+      "title": "Understand why outer planets have longer years",
+      "summary": "A Kepler’s-law explorer links each planet’s orbit size with its orbital period. Behind the scenes, scheduled checks now test the published site.",
+      "students": "Choose a planet to compare its year with an idealized orbital-period prediction.",
+      "teachers": "Use the log-scale chart to introduce Kepler’s third law; check the stated model limitations before classroom use.",
+      "developers": "Introduced opt-in release-safe automated site health checks and added a Kepler model regression gate.",
+      "links": [
+        {
+          "label": "Try the orbital-period explorer",
+          "path": "/solar-system/orbital-periods/"
+        }
+      ],
+      "commits": [
+        "e7e04c4"
+      ]
+    },
+    {
+      "id": "2026-10-11-physics-labs",
+      "date": "2026-10-11",
+      "category": "Scientific explanations",
+      "title": "Explore temperature, tides and honest distance scales",
+      "summary": "New controls reveal signed planetary temperatures, changing lunar–solar alignment, and differences between physical AU distances and compressed model coordinates.",
+      "students": "Compare two planets’ temperatures, vary the Moon’s alignment, or follow a planet across two distance rulers.",
+      "teachers": "Read surface-vs-atmosphere temperature caveats and explain why the tide-force diagram is not a local tide forecast.",
+      "developers": "Added source-based interaction tests, explicit units and static evidence tables.",
+      "links": [
+        {
+          "label": "Compare planetary temperatures",
+          "path": "/solar-system/temperature-comparison/"
+        },
+        {
+          "label": "Explore tidal patterns",
+          "path": "/moon/tides/"
+        },
+        {
+          "label": "Compare real and model distances",
+          "path": "/solar-system/distance-scale/"
+        }
+      ],
+      "commits": [
+        "0af7155"
+      ]
+    },
+    {
+      "id": "2026-10-11-galaxies-and-criteria",
+      "date": "2026-10-11",
+      "category": "New learning tools",
+      "title": "Find our place in the Milky Way and apply the planet rule",
+      "summary": "New galaxy-viewing, Milky Way distance and dwarf-planet classification tools replace passive descriptions with testable choices.",
+      "students": "Move a viewpoint or ruler and compare Pluto with other Solar System bodies.",
+      "teachers": "Use the distinction between observed evidence, geometric illustrations and the IAU definition as a discussion prompt.",
+      "developers": "Kept original explanatory text and citations accessible without JavaScript.",
+      "links": [
+        {
+          "label": "Inspect galaxy viewing angles",
+          "path": "/galaxies/types/"
+        },
+        {
+          "label": "Locate the Sun in the Milky Way",
+          "path": "/galaxies/milky-way/"
+        },
+        {
+          "label": "Apply Pluto’s classification criteria",
+          "path": "/solar-system/pluto-dwarf-planet/"
+        }
+      ],
+      "commits": [
+        "a23a673"
+      ]
+    },
+    {
+      "id": "2026-10-11-planet-scale-and-3d",
+      "date": "2026-10-11",
+      "category": "Scientific corrections",
+      "title": "Planet sizes now use one scale; real images inform 3D views",
+      "summary": "Corrected the Earth–Moon center separation and planet diameter comparisons, and added optional sourced 3D exterior views.",
+      "students": "See honest planetary size ratios, change Earth–Moon distance and rotate planet views.",
+      "teachers": "Compare measured planetary dimensions with conceptual views; Neptune’s texture is clearly labeled as an illustration.",
+      "developers": "Uses on-demand Three.js views and shared physical scales without altering existing indexed routes.",
+      "links": [
+        {
+          "label": "Check planetary diameters",
+          "path": "/solar-system/planet-size-comparison/"
+        },
+        {
+          "label": "Explore Earth–Moon distances",
+          "path": "/moon/earth-moon-scale/"
+        },
+        {
+          "label": "Open 3D planet views",
+          "path": "/solar-system/planet-types/"
+        }
+      ],
+      "commits": [
+        "dad8e6d",
+        "bb21e33"
+      ]
+    },
+    {
+      "id": "2026-10-11-observations",
+      "date": "2026-10-11",
+      "category": "Evidence and sources",
+      "title": "Read telescope imagery, spectrum and stellar paths",
+      "summary": "New evidence-led comparisons help distinguish what telescopes observe from models, illustrations and inferred science.",
+      "students": "Compare Hubble and Webb views, explore light beyond visible colors, and follow alternative stellar evolution paths.",
+      "teachers": "Use image attribution, wavelength labels and model limitations as teaching references.",
+      "developers": "Original NASA imagery is credited and optimized; scientific uncertainties remain explicit in the static page.",
+      "links": [
+        {
+          "label": "Understand telescope images",
+          "path": "/learn/read-space-images/"
+        },
+        {
+          "label": "Explore the electromagnetic spectrum",
+          "path": "/astronomy/electromagnetic-spectrum/"
+        },
+        {
+          "label": "Compare star life cycles",
+          "path": "/stars/life-cycle/"
+        }
+      ],
+      "commits": [
+        "4f506f4",
+        "362ae9b",
+        "5fc40fa",
+        "dab8012"
+      ]
+    },
+    {
+      "id": "2026-10-07-classroom",
+      "date": "2026-10-07",
+      "category": "Classroom support",
+      "title": "Classroom exploration and sharing improvements",
+      "summary": "A small teacher-oriented distribution experiment added classroom context to three selected astronomy lessons.",
+      "students": "Continue using the same science models; the learning content remains available.",
+      "teachers": "Selected lessons include classroom-use prompts and sharing actions; this is an experiment, not a claimed measured learning result.",
+      "developers": "Experiment is scoped to three established lessons instead of added across the full site.",
+      "links": [
+        {
+          "label": "Explore Moon phases",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Understand seasons",
+          "path": "/earth/seasons/"
+        },
+        {
+          "label": "Explore universe scale",
+          "path": "/universe/scale/"
+        }
+      ],
+      "commits": [
+        "7527210"
+      ]
+    }
+  ]
+}

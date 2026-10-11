@@ -27,9 +27,10 @@ jobs:
           ADSENSE_ENABLED: '1'
         run: python3 build.py
 
-      - name: Verify all 27 pages and learning interactions
+      - name: Verify 27 lessons, release history and learning interactions
         run: |
           python3 ci/verify_build.py
+          python3 ci/verify_updates.py
           node ci/verify_spectrum.mjs
           node ci/verify_p1_visuals.mjs
           node ci/verify_image_provenance.mjs
@@ -43,7 +44,7 @@ jobs:
       - name: Inventory untouched visual-learning candidates (heuristic only)
         run: python3 ci/report_visual_coverage.py
 
-      - name: Read-only 27-page live site and linked assets audit
+      - name: Read-only live site and linked assets audit
         run: python3 ci/monitor_live.py --output reports/space-atlas-live-health.json
 
       - name: Archive results even on failure

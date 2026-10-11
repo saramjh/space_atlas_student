@@ -34,6 +34,8 @@ def main():
     results = []
     for meta_path in sorted((ROOT / "pages").rglob("meta.json")):
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        if meta.get("excludeFromTopicSearch"):
+            continue  # release notes aren't science learning candidates
         source = (meta_path.parent / "content.html").read_text(encoding="utf-8")
         info = Audit()
         info.feed(source)

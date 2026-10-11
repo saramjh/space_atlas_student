@@ -9,6 +9,9 @@ generates search-index.json for client-side search, and regenerates sitemap.xml.
 Run: python3 build.py
 """
 import json
+from html import escape as escape_html
+import re
+from datetime import date
 import os
 import shutil
 import subprocess
@@ -44,6 +47,65 @@ def load_pages():
     return pages
 
 
+def load_release_data():
+    """Curated, verified release milestones, not raw Git commits."""
+    data = json.loads(read(ROOT / "data" / "releases.json"))
+    releases = data.get("releases")
+    if data.get("schemaVersion") != 1 or not isinstance(releases, list) or not releases:
+        raise ValueError("Invalid releases manifest")
+    known_paths = {json.loads(read(p)).get("path") for p in PAGES.rglob("meta.json")}
+    seen = set()
+    dates = []
+    for item in releases:
+        rid = item.get("id")
+        if not isinstance(rid, str) or not re.fullmatch(r"[a-z0-9-]+", rid) or rid in seen:
+            raise ValueError(f"Duplicate or invalid release ID: {rid!r}")
+        seen.add(rid)
+        dates.append(date.fromisoformat(item["date"]))
+        for key in ("title", "category", "summary", "students", "teachers", "developers"):
+            if not isinstance(item.get(key), str) or not item[key].strip():
+                raise ValueError(f"{rid}: missing {key}")
+        if not item.get("links") or not item.get("commits"):
+            raise ValueError(f"{rid}: missing links or commits")
+        for link in item["links"]:
+            if not link.get("label") or link.get("path") not in known_paths or link["path"] == "/updates/":
+                raise ValueError(f"{rid}: invalid lesson link {link!r}")
+        for sha in item["commits"]:
+            if not isinstance(sha, str) or not re.fullmatch(r"[0-9a-f]{7,40}", sha):
+                raise ValueError(f"{rid}: invalid commit {sha!r}")
+    if dates != sorted(dates, reverse=True):
+        raise ValueError("Release history must be in reverse chronological order")
+    return releases
+
+
+def render_release_timeline(releases):
+    e = lambda text: escape_html(str(text), quote=True)
+    blocks = []
+    for item in releases:
+        links = "".join(
+            f'<li><a href="{SITE_BASE}{e(link["path"])}">{e(link["label"])} ↗</a></li>'
+            for link in item["links"]
+        )
+        commits = ", ".join(
+            f'<a href="https://github.com/saramjh/space_atlas_student/commit/{e(sha)}" '
+            f'target="_blank" rel="noopener noreferrer"><code>{e(sha)}</code></a>'
+            for sha in item["commits"]
+        )
+        blocks.append(
+            f'<article class="updates-release" id="release-{e(item["id"])}">'
+            f'<div class="updates-release-meta"><time datetime="{e(item["date"])}">{e(item["date"])}</time>'
+            f'<span>{e(item["category"])}</span></div>'
+            f'<h3>{e(item["title"])}</h3><p>{e(item["summary"])}</p>'
+            f'<div class="updates-audience-copy"><div><h4>For learners</h4><p>{e(item["students"])}</p></div>'
+            f'<div><h4>For educators</h4><p>{e(item["teachers"])}</p></div></div>'
+            f'<div class="updates-release-links"><strong>Explore the lessons</strong><ul>{links}</ul></div>'
+            f'<details class="updates-technical"><summary>For developers · commits and checks</summary>'
+            f'<p>{e(item["developers"])}</p><p>Related changes: {commits}</p></details>'
+            '</article>'
+        )
+    return '<div class="updates-timeline">' + "".join(blocks) + '</div>'
+
+
 def git_lastmod_for_page(meta):
     """Return the last meaningful source-change date for one generated page.
 
@@ -51,6 +113,8 @@ def git_lastmod_for_page(meta):
     Use the latest commit touching that page's source directory. An explicit
     meta.json lastmod value remains available as an override.
     """
+    if meta.get("path") == "/updates/":
+        return load_release_data()[0]["date"]
     explicit = meta.get("lastmod")
     if explicit:
         return explicit
@@ -73,6 +137,27 @@ def git_lastmod_for_page(meta):
 
 def build_structured_data(meta):
     canonical = meta.get("canonical", "")
+    if meta.get("pageType") == "CollectionPage":
+        resource = {
+            "@type": "CollectionPage",
+            "@id": f"{canonical}#release-history",
+            "url": canonical,
+            "name": meta.get("jsonldName", meta.get("title", "")),
+            "description": meta.get("jsonldDescription", meta.get("description", "")),
+            "inLanguage": "en",
+            "dateModified": git_lastmod_for_page(meta),
+            "isPartOf": {"@type": "WebSite", "name": "Space Atlas", "url": SITE_URL},
+        }
+        graph = [resource, {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Space Atlas", "item": SITE_URL},
+                {"@type": "ListItem", "position": 2, "name": "What's New", "item": canonical},
+            ],
+        }]
+        return '<script type="application/ld+json">\n' + json.dumps(
+            {"@context": "https://schema.org", "@graph": graph}, indent=2, ensure_ascii=False
+        ) + '\n</script>'
     resource = {
         "@type": "LearningResource",
         "@id": f"{canonical}#learning-resource",
@@ -180,7 +265,7 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count):
         "{{BASE}}": SITE_BASE,
         "{{TOPIC_COUNT}}": str(topic_count),
         "{{STRUCTURED_DATA}}": build_structured_data(meta),
-        "{{ADSENSE_HEAD}}": adsense_head(),
+        "{{ADSENSE_HEAD}}": "" if meta.get("adFree") else adsense_head(),
         "{{AD_PRIMARY}}": render_ad_slot(ad_slot, ADSENSE_PRIMARY_SLOT, "primary"),
         "{{AD_SECONDARY}}": (
             render_ad_slot(ad_slot, ADSENSE_SECONDARY_SLOT, "secondary")
@@ -190,6 +275,15 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count):
     }
     for token, value in tokens.items():
         html = html.replace(token, value)
+    if meta.get("path") == "/updates/":
+        html = html.replace("{{RELEASE_TIMELINE}}", render_release_timeline(load_release_data()))
+    if meta.get("path") == "/":
+        latest = load_release_data()[0]
+        note = (
+            '<p class="home-update-note"><span>Project updates</span>'
+            f'<a href="{SITE_BASE}/updates/">What\'s new · {escape_html(latest["date"])} ↗</a></p>'
+        )
+        html = html.replace("{{LATEST_UPDATE}}", note)
 
     script_tag = (
         f'<script type="module" src="{SITE_BASE}{meta["script"]}"></script>'
@@ -231,6 +325,8 @@ def write_sitemap(pages):
 def write_search_index(pages):
     items = []
     for meta, _ in pages:
+        if meta.get("excludeFromTopicSearch"):
+            continue
         path = meta.get("path", "/")
         title = meta.get("title", "").split("|")[0].strip()
         desc = meta.get("description", "")
@@ -261,7 +357,7 @@ def main():
     ad_slot = read(TEMPLATES / "ad-slot.html")
 
     pages = load_pages()
-    topic_count = len(pages)
+    topic_count = sum(not meta.get("excludeFromTopicSearch") for meta, _ in pages)
     for meta, content in pages:
         html = render_page(layout, nav, footer, meta, content, ad_slot, topic_count)
         out_path = out_path_for(meta)

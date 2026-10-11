@@ -123,13 +123,17 @@ def main():
             else:
                 try:
                     graph = json.loads(parsed.jsonld[0]).get("@graph", [])
-                    if not any(x.get("@type") == "LearningResource" and
+                    expected_type = "CollectionPage" if meta.get("pageType") == "CollectionPage" else "LearningResource"
+                    if not any(x.get("@type") == expected_type and
                                x.get("url") == meta["canonical"] for x in graph):
-                        issues.append("missing canonical LearningResource")
+                        issues.append(f"missing canonical {expected_type}")
                 except (ValueError, AttributeError, TypeError):
                     issues.append("invalid JSON-LD graph")
             if base == SITE:
-                if parsed.ads.count("2983244729") != 1:
+                if meta.get("adFree"):
+                    if parsed.ads:
+                        issues.append("ad-free release page unexpectedly contains ads")
+                elif parsed.ads.count("2983244729") != 1:
                     issues.append("manual primary ad changed")
             for src in parsed.loaded_scripts + parsed.stylesheets:
                 # Site-relative project paths are /space_atlas_student/assets/...

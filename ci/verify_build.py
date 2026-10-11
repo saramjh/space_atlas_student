@@ -61,8 +61,9 @@ def local_target(page, href):
 
 errors = []
 pages = sorted(PUBLIC.rglob("index.html"))
-if len(pages) != 27:
-    errors.append(f"expected 27 generated pages, got {len(pages)}")
+learning_pages = [page for page in pages if page.relative_to(PUBLIC).as_posix() != "updates/index.html"]
+if len(pages) != 28 or len(learning_pages) != 27:
+    errors.append(f"expected 27 learning pages + 1 updates page, got {len(learning_pages)}+{len(pages)-len(learning_pages)}")
 
 # Production builds contain the AdSense loader; local/default builds deliberately do not.
 # When monetization is enabled, keep the site on the controlled one-slot contract.
@@ -100,6 +101,7 @@ for page in pages:
     if re.search(r"\{\{[A-Z_]+\}\}", text):
         errors.append(f"{rel}: unresolved template token")
 
+    is_update_page = rel.as_posix() == "updates/index.html"
     is_teacher_experiment = rel.as_posix() in teacher_experiment_pages
     if is_teacher_experiment:
         if text.count('class="section teacher-use-section"') != 1:
@@ -113,7 +115,12 @@ for page in pages:
     elif 'teacher-use-section' in text or 'data-teacher-share' in text:
         errors.append(f"{rel}: teacher experiment leaked to a non-target page")
 
-    if monetized:
+    if monetized and is_update_page:
+        if "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" in text:
+            errors.append(f"{rel}: release history must not load AdSense")
+        if 'data-ad-slot=' in text:
+            errors.append(f"{rel}: release history must not place ads")
+    elif monetized:
         if text.count("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js") != 1:
             errors.append(f"{rel}: expected one AdSense loader")
         primary_count = text.count('data-ad-slot="2983244729"')
@@ -171,10 +178,17 @@ for page in pages:
 
     graph = data.get("@graph", [])
     resources = [item for item in graph if item.get("@type") == "LearningResource"]
-    if len(resources) != 1:
-        errors.append(f"{rel}: expected one LearningResource")
-    elif not resources[0].get("learningResourceType"):
-        errors.append(f"{rel}: missing learningResourceType")
+    if is_update_page:
+        if resources:
+            errors.append(f"{rel}: release notes are not LearningResource")
+        collections = [item for item in graph if item.get("@type") == "CollectionPage"]
+        if len(collections) != 1 or collections[0].get("url") != "https://saramjh.github.io/space_atlas_student/updates/":
+            errors.append(f"{rel}: expected one canonical CollectionPage")
+    else:
+        if len(resources) != 1:
+            errors.append(f"{rel}: expected one LearningResource")
+        elif not resources[0].get("learningResourceType"):
+            errors.append(f"{rel}: missing learningResourceType")
 
     if rel != Path("index.html") and not any(item.get("@type") == "BreadcrumbList" for item in graph):
         errors.append(f"{rel}: missing BreadcrumbList")

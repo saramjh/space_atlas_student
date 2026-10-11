@@ -1,0 +1,15 @@
+{
+  "path": "/updates/",
+  "title": "What's New — Space Atlas Updates & Scientific Corrections",
+  "description": "Follow Space Atlas interactive astronomy lessons, scientific corrections, classroom improvements and verified release history.",
+  "canonical": "https://saramjh.github.io/space_atlas_student/updates/",
+  "ogTitle": "What's New | Space Atlas",
+  "ogDescription": "New interactive astronomy tools, source-backed science corrections and learning improvements.",
+  "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",
+  "jsonldName": "Space Atlas — What's New",
+  "jsonldDescription": "Chronological notes on educational interactive tools, scientific corrections, and project changes.",
+  "script": null,
+  "pageType": "CollectionPage",
+  "excludeFromTopicSearch": true,
+  "adFree": true
+}
