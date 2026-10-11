@@ -2,19 +2,44 @@ import { PLANETS } from './planet-data.js';
 import { initQuiz } from './quiz-widget.js';
 
 const chart = document.querySelector('#tempChart');
-const maxAbs = Math.max(...PLANETS.map((p) => Math.abs(p.tempC)));
+const first = document.querySelector('#tempCompareA');
+const second = document.querySelector('#tempCompareB');
+const explanation = document.querySelector('#tempCompareReadout');
+// NASA 2022 illustrative means, linear signed scale; 1-bar atmospheres for giants.
+const MIN_C = -250, MAX_C = 500;
+const fraction = c => 100 * (c - MIN_C) / (MAX_C - MIN_C);
+const formatC = c => `${c > 0 ? '+' : c === 0 ? '' : '−'}${Math.abs(c)}°C`;
+const planetByName = name => PLANETS.find(p => p.name === name);
+const category = p => PLANETS.indexOf(p) < 4 ? 'rocky surface mean' : 'atmosphere at ~1 bar';
 
-chart.innerHTML = PLANETS.map((p) => {
-  const heightPct = (Math.abs(p.tempC) / maxAbs) * 100;
-  const color = p.tempC >= 0 ? '#bd4c2f' : '#3e6f91';
-  return `
-    <div class="temp-bar-col">
-      <div class="temp-bar" style="height:${heightPct}%;background:${color}">
-        <div class="temp-val">${p.tempC > 0 ? '+' : ''}${p.tempC}°C</div>
+function renderTemperatures() {
+  const a = planetByName(first.value);
+  const b = planetByName(second.value);
+  if (!a || !b) return;
+  chart.innerHTML = PLANETS.map(p => {
+    const start = Math.min(fraction(0), fraction(p.tempC));
+    const width = Math.abs(fraction(p.tempC) - fraction(0));
+    const highlighted = p === a || p === b;
+    return `<div class="temp-row${highlighted ? ' selected' : ''}">
+      <span class="temp-name">${p.name}</span>
+      <div class="temp-plot" aria-hidden="true"><div class="temp-zero"></div>
+        <div class="temp-extent ${p.tempC >= 0 ? 'warm' : 'cold'}" style="left:${start.toFixed(4)}%;width:${width.toFixed(4)}%"></div>
       </div>
-      <div class="name">${p.name}</div>
+      <span class="temp-number">${formatC(p.tempC)}</span>
     </div>`;
-}).join('');
+  }).join('');
+  if (a === b) {
+    explanation.textContent = `${a.name}: ${formatC(a.tempC)}. This is a NASA ${category(a)}; select another planet to compare.`;
+  } else {
+    const warmer = a.tempC >= b.tempC ? a : b;
+    const cooler = warmer === a ? b : a;
+    const difference = Math.abs(a.tempC - b.tempC);
+    explanation.textContent = `${warmer.name} (${formatC(warmer.tempC)}) is ${difference}°C warmer than ${cooler.name} (${formatC(cooler.tempC)}). References: ${a.name} — ${category(a)}; ${b.name} — ${category(b)}. These are not equivalent surface conditions.`;
+  }
+}
+first?.addEventListener('change', renderTemperatures);
+second?.addEventListener('change', renderTemperatures);
+if (chart && first && second) renderTemperatures();
 
 initQuiz([
   {

@@ -36,3 +36,34 @@ Official IAU Resolution 5A https://www.iau.org/IAU/Iau/News/PR2006/iau-2006-gene
 - Real Chrome at 320/390/800/1280; browser test slider and presets, Sun marker 26k, classification outcomes, native example keyboard, no horizontal overflow, reduced-motion, no-JS static reading.
 - Preserve canonical/H1/JSON-LD and ad boundaries on all three affected routes. No framework or imagery downloads required; page-level native SVG/JS only.
 - Do not claim user satisfaction, dwell time, engagement, GSC impressions or SEO uplift until path-specific actual data is measured.
+
+## 2026-10-11 P3: Remaining text-heavy visualization candidates implemented (all three)
+
+User's “모두 개선 ㄱㄱ” refers to the final three explicit high-value items in the previous audit. Bounded scope: `/solar-system/temperature-comparison/`, `/moon/tides/`, `/solar-system/distance-scale/`. Existing 27-page SEO architecture and unrelated dirty files left alone. These changes are explanatory models with feedback, not decorative motion or fabricated predictions.
+
+### 1. Temperature: corrected sign, origin, and evidence comparability
+
+- Baseline rendered absolute heights `abs(tempC)` of negative planets next to positive bars. Although colored, heights obscured direction and magnitudes with respect to the common 0°C reference. New 8-row diverging **horizontal signed linear axis −250…+500°C**, zero clearly marked, color represents sign and width proportional to (value−zero), two native select controls make named numeric comparison. Default Venus +464°C vs Mercury +167°C means Venus **297°C** warmer. Other pairs update a clear difference and the distinct measurement reference.
+- Critical scientifically accurate disclosure: NASA's `Solar System Temperatures` uses means over Mercury/Venus/Earth/Mars **rocky surfaces**, while Jupiter/Saturn/Uranus/Neptune refer to pressure approximately **1 bar in their atmospheres**, not nonexistent solid surfaces. Mercury's mean conceals extreme day/night variation. Server-rendered 8-entry factual table is always available without JS, with explicit source and reference. Source https://science.nasa.gov/resource/solar-system-temperatures/ and https://nssdc.gsfc.nasa.gov/planetary/factsheet/planetfact_notes.html, direct NASA definitions.
+- Mobile 320px: original four numeric axis labels collided; fixed with staggered −250, 0, +500 indicators, hidden +250 tick on very narrow widths without changing the linear metric or zero coordinate. Browser geometry checked zero label center and actual zero line at x152.33; chart static explanatory text unchanged.
+
+### 2. Moon tides: differential tidal-force composition (not an ocean forecast)
+
+- Baseline had only two fixed spring/neap endpoint sketches with a toggle; no way to explain variable phase angle or intermediate tidal patterns. Added user-controlled **0°–90° alignment range** plus spring(0), intermediate(45), neap(90) presets and a responsive SVG conceptual Earth ocean bulge diagram with movable Moon and fixed Sun.
+- Explicit mathematical idealization: `r(theta)=70 + 12*cos(2*(theta - alpha)) + 6*cos(2*theta)` in *SVG display units only*, using NOAA approximate **solar tide-raising effect ≈ half lunar**. Dynamic relative contrast for educational shape magnitude `100*|S+L exp(i2α)|/(L+S)` yields 100% at aligned 0°, ~75% at 45°, 33% at neap 90°. These are NOT measured ocean heights, probabilities, or local tidal predictions. No continuous simulation or actual real-time ephemeris. Controls synchronize existing spring/neap example panels at the two endpoints.
+- NOAA: https://oceanservice.noaa.gov/education/tutorial_tides/tides06_variations.html and https://www.noaa.gov/education/resource-collections/ocean-coasts/tides. Explicit warning for continents, oceans, lag, phase, variable lunar distances, uneven local high tides. Minor clarity correction: lunar day is about 24h50 rather than the misleading 24h phrase.
+
+### 3. Distance model: selected planet tracked in two distinct coordinates
+
+- Baseline true-distance and compressed scene labels were entirely static. Added one native planet selector with **two coupled rulers** and numerical readout: physical NASA-based average orbit radius in AU / Neptune 30.05 AU and actual Space Atlas *illustrative* scene orbit radius / Neptune 45 scene units. Data pulled from single existing `PLANETS` source (`p.au` and `p.orbit`). Jupiter example 5.20 AU=17.30% of true ruler vs scene r24=53.33%; Earth 1 AU=3.33% vs scene r14=31.11%; Mercury 0.39 AU=1.30% vs scene r7.5=16.67%. Honest linear *within each ruler*, no fake uniform conversion between two axes. Variable orbital distances and conceptual planet sizes labeled clearly. Static original two tracks and educational text remain fully legible without JS. Source https://nssdc.gsfc.nasa.gov/planetary/factsheet/.
+- Retains original physical-scale classroom calculator and all preexisting nav/URL/static/canonical/H1/JSON-LD/AdSense contract.
+
+### Global minor factual correction
+
+The shared home `assets/js/planet-data.js` quiz had an incorrect equality “11.2³≈1321” derived from Jupiter **equatorial** diameter while NASA ~1321 Earth volumes uses **mean** radii because Jupiter is oblate. Fixed misleading sentence to explicitly say mean-radius-derived Earth-volume equivalents rather than literal sphere packing; data values unchanged.
+
+### Verification / delivery gates
+
+- Added `ci/verify_remaining_visualizations.mjs` testing **actual page-module behaviors in DOM mocks**, temperature signed physical sign and ~297°C difference, 0°/45°/90° tidal-force model and 2:1 contribution, two physical-vs-conceptual distance coordinates, and canonical/H1/JSON-LD/static source evidence.
+- Added to GitHub Pages CI workflow. Local default 27/27 pages, every prior specialized CI suite, JS syntax pass, diff check. Mobile Chrome 320 temp and 390 tide/distance, 1280 desktop all three with no page-level horizontal overflow. Browser inspected screenshots for three and fixed the 320px axis label collision; zero centered exactly at plotted zero x152.33 after fix.
+- Production ADSENSE_ENABLED=1 / SITE_BASE=/space_atlas_student full regression, scoped commit, Pages deploy success and live browser QA still need to be performed **before** claiming released.

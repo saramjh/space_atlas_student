@@ -11,8 +11,29 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Average temperature, all eight planets.</h2></div></div>
   <div class="scale-compare">
-    <div class="temp-chart" id="tempChart"></div>
-    <p class="scale-caption">Bar height shows how far each planet's average temperature is from 0°C — red bars are above freezing, blue bars are below. Hover or tap a bar for the exact number.</p>
+    <div class="temp-compare-lab" id="tempCompareLab">
+      <div class="temp-compare-controls">
+        <label for="tempCompareA">First planet <select id="tempCompareA" aria-label="First comparison planet"><option>Mercury</option><option>Venus</option><option>Earth</option><option>Mars</option><option>Jupiter</option><option>Saturn</option><option>Uranus</option><option>Neptune</option></select></label>
+        <label for="tempCompareB">Second planet <select id="tempCompareB" aria-label="Second comparison planet"><option>Venus</option><option>Mercury</option><option>Earth</option><option>Mars</option><option>Jupiter</option><option>Saturn</option><option>Uranus</option><option>Neptune</option></select></label>
+      </div>
+      <div class="temp-compare-readout" id="tempCompareReadout" role="status">NASA mean-temperature figures: Venus (+464°C) is 297°C warmer than Mercury (+167°C).</div>
+      <div class="temp-axis" aria-hidden="true"><span>−250°C</span><span>0°C</span><span>+250°C</span><span>+500°C</span></div>
+      <div class="temp-chart" id="tempChart" role="group" aria-label="Signed mean temperatures relative to zero degrees Celsius">
+        <p>Compare the NASA figures below. Positive values sit to the right of zero; negative values to the left.</p>
+      </div>
+      <p class="scale-caption">Each horizontal bar uses the same <strong>linear Celsius axis (−250°C to +500°C)</strong>. 0°C is the vertical reference line. The values are NASA illustrative planetary means, not live weather.</p>
+    </div>
+    <div class="temp-static-facts">
+      <h3>What kind of temperature is each figure?</h3>
+      <p>The NASA comparison is <strong>not a set of eight comparable solid-surface measurements</strong>. Mercury, Venus, Earth and Mars use averages over rocky surfaces; Jupiter, Saturn, Uranus and Neptune have no solid landing surface, so their values refer to approximately Earth's sea-level pressure (1 bar) in the atmosphere. Mercury's mean hides extreme day–night variation.</p>
+      <div class="temp-table-scroll"><table class="temp-facts-table"><thead><tr><th scope="col">Planet</th><th scope="col">NASA mean</th><th scope="col">Measurement reference</th></tr></thead><tbody>
+        <tr><th scope="row">Mercury</th><td>+167°C</td><td>Rocky surface, global mean</td></tr><tr><th scope="row">Venus</th><td>+464°C</td><td>Rocky surface, global mean</td></tr>
+        <tr><th scope="row">Earth</th><td>+15°C</td><td>Rocky surface, global mean</td></tr><tr><th scope="row">Mars</th><td>−65°C</td><td>Rocky surface, global mean</td></tr>
+        <tr><th scope="row">Jupiter</th><td>−110°C</td><td>Atmosphere at ~1 bar</td></tr><tr><th scope="row">Saturn</th><td>−140°C</td><td>Atmosphere at ~1 bar</td></tr>
+        <tr><th scope="row">Uranus</th><td>−195°C</td><td>Atmosphere at ~1 bar</td></tr><tr><th scope="row">Neptune</th><td>−200°C</td><td>Atmosphere at ~1 bar</td></tr>
+      </tbody></table></div>
+      <p class="temp-facts-source">References: <a href="https://science.nasa.gov/resource/solar-system-temperatures/" target="_blank" rel="noreferrer">NASA Solar System Temperatures</a> and <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/planetfact_notes.html" target="_blank" rel="noreferrer">NASA Planetary Fact Sheet Notes</a>. The pressure reference and global averages are not identical measurement environments.</p>
+    </div>
   </div>
  </div>
 </section>
@@ -46,7 +67,7 @@
     <aside class="source-panel">
       <h3>Evidence</h3>
       <ol>
-        <li><div class="num">01</div><div><b>Venus: Facts</b><span>NASA's data on Venus's atmosphere and surface temperature.</span></div><a href="https://science.nasa.gov/venus/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+        <li><div class="num">01</div><div><b>Venus: Facts</b><span>NASA's data on Venus's atmosphere and surface temperature.</span></div><a href="https://science.nasa.gov/resource/solar-system-temperatures/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
       </ol>
     </aside>
   </div>

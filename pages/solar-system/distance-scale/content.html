@@ -54,6 +54,30 @@
       <div class="dist-dot" style="left:100%"></div><div class="dist-dot-label" style="left:100%">Neptune</div>
     </div>
     <p class="scale-caption">The <a href="{{BASE}}/">home page's 3D model</a> spreads the inner planets out to keep them individually clickable — at the cost of no longer being a true distance scale.</p>
+    <div id="distanceFocusLab" class="distance-focus-lab">
+      <h3>Follow one planet across both distance rulers</h3>
+      <p>Choose a planet. The marker follows its NASA-based mean orbital distance on a <strong>linear AU ruler</strong>, and its clickable distance from the Sun in Space Atlas's illustrative home scene. These are different coordinate systems, not two observations.</p>
+      <div class="distance-focus-pick">
+        <label for="distanceFocusPlanet">Planet to trace</label>
+        <select id="distanceFocusPlanet" aria-label="Planet to locate on both distance rulers">
+          <option>Mercury</option><option>Venus</option><option selected>Earth</option><option>Mars</option>
+          <option>Jupiter</option><option>Saturn</option><option>Uranus</option><option>Neptune</option>
+        </select>
+      </div>
+      <div class="distance-focus-scales">
+        <div class="distance-focus-row">
+          <div class="distance-focus-title"><strong>Physical mean distance</strong><span>0 → Neptune at 30.05 AU</span></div>
+          <div class="distance-focus-track"><span class="distance-focus-sun">SUN</span><span class="distance-focus-marker" id="distancePhysicalMarker" style="left:3.33%"></span></div>
+        </div>
+        <div class="distance-focus-row">
+          <div class="distance-focus-title"><strong>Space Atlas scene radius</strong><span>0 → Neptune at 45 scene units</span></div>
+          <div class="distance-focus-track"><span class="distance-focus-sun">SUN</span><span class="distance-focus-marker scene-marker" id="distanceSceneMarker" style="left:31.11%"></span></div>
+        </div>
+      </div>
+      <p id="distanceFocusReadout" class="distance-focus-readout" role="status">Earth: 1.00 AU (3.33% of the 30.05 AU ruler), but 14 scene units (31.11% of the 45-unit illustrative ruler).</p>
+      <p class="distance-focus-caveat">Scene units come from the current Space Atlas visualization code. They are <strong>not AU, kilometers, or a single physical compression factor</strong>. The positions are conceptual orbit radii, not current planet locations; all real orbits change distance over time. The ruler does not compare planet diameters.</p>
+      <p class="distance-focus-source">Physical orbital-distance source: <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank" rel="noreferrer">NASA Planetary Fact Sheet</a>. Model-radius source: Space Atlas's own static <code>PLANETS</code> dataset.</p>
+    </div>
   </div>
  </div>
 </section>

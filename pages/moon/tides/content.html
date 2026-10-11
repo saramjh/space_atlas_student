@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Moon · Question</div>
     <h1>Why are there two high tides a day, not one?</h1>
-    <p class="lead">If tides were just the Moon "pulling" water toward it, there would be one high tide a day, on the side facing the Moon. There are actually two — because tides come from stretching, not simple pulling.</p>
+    <p class="lead">If tides were just the Moon "pulling" water toward it, there would be one high tide a day, on the side facing the Moon. In a simple ocean-covered-Earth model there are two — because tides come from differences in gravitational attraction, not simple pulling.</p>
   </div>
 </section>
 
@@ -48,6 +48,38 @@
       <p class="scale-caption">Sun and Moon pull at right angles to each other, partially canceling out — the smallest difference between high and low tide in the month.</p>
     </div>
   </div>
+  <div class="tide-equilibrium-lab" id="tideEquilibriumLab">
+    <h3>Why does the tidal stretch change with alignment?</h3>
+    <p>Move the Moon relative to a fixed Sun direction. The model combines two directional <strong>tidal-force patterns</strong>, with the Sun's contribution set to approximately half the Moon's. The stretched shape is greatly exaggerated and is <strong>not an ocean-height forecast</strong>.</p>
+    <div class="tide-equilibrium-layout">
+      <svg id="tideEquilibriumDiagram" viewBox="0 0 400 270" role="img" aria-labelledby="tideShapeTitle tideShapeDesc">
+        <title id="tideShapeTitle">Illustrative two-bulge tidal-force pattern</title>
+        <desc id="tideShapeDesc">Sun on the left, a Moon position varied between aligned and perpendicular, and two opposing tidal bulges around an idealized uniform-ocean Earth. The bulge size is greatly exaggerated, and no coasts or measured tide heights are represented.</desc>
+        <rect width="400" height="270" fill="#0c1118" rx="3"/>
+        <line x1="32" y1="132" x2="305" y2="132" stroke="#8191a3" stroke-dasharray="4 5"/>
+        <text x="12" y="115" fill="#f0dbaa" font-size="11">SUN</text>
+        <circle cx="35" cy="132" r="11" fill="#f5c15c"/>
+        <path id="tideBulgeShape" d="M 270 132 A 70 70 0 1 1 130 132 A 70 70 0 1 1 270 132" fill="#3e6f91" fill-opacity=".68" stroke="#a5d1e3" stroke-width="2"/>
+        <circle cx="200" cy="132" r="57" fill="#1c334b" stroke="#96b1c5"/>
+        <text x="200" y="137" fill="#dbe7ef" text-anchor="middle" font-size="12">EARTH</text>
+        <circle id="tideMoonMarker" cx="315" cy="132" r="9" fill="#d4d0c9"/>
+        <text id="tideMoonText" x="315" y="156" font-size="11" fill="#e6edf3" text-anchor="middle">MOON</text>
+      </svg>
+      <div class="tide-equilibrium-controls">
+        <label for="tideAngle">Moon–Sun alignment angle (illustrative)</label>
+        <input id="tideAngle" type="range" min="0" max="90" step="5" value="0" aria-controls="tideModelReadout"/>
+        <div class="tide-range-labels"><span>0° · aligned</span><span>90° · right angle</span></div>
+        <div class="tide-angle-presets" role="group" aria-label="Tidal configuration">
+          <button data-tide-angle="0" type="button" aria-pressed="true">Spring · 0°</button>
+          <button data-tide-angle="45" type="button" aria-pressed="false">Between · 45°</button>
+          <button data-tide-angle="90" type="button" aria-pressed="false">Neap · 90°</button>
+        </div>
+        <p id="tideModelReadout" role="status" class="tide-model-readout">0° — Spring configuration: lunar and solar tidal patterns reinforce in this model.</p>
+        <p class="tide-model-caveat">The combined <strong>equilibrium quadrupole</strong> is a teaching approximation using a constant lunar contribution and a solar contribution half as large (NOAA). It excludes continents, ocean-basin resonance, local delays, the Moon's distance changes and unequal high tides. Shape distortion has no sea-level units.</p>
+      </div>
+    </div>
+    <p class="tide-model-source">Sources: <a href="https://oceanservice.noaa.gov/education/tutorial_tides/tides06_variations.html" target="_blank" rel="noreferrer">NOAA — Spring and neap tides</a> and <a href="https://www.noaa.gov/education/resource-collections/ocean-coasts/tides" target="_blank" rel="noreferrer">NOAA — differential tidal forces and local limits</a>.</p>
+  </div>
  </div>
 </section>
 
@@ -59,7 +91,7 @@
   <div class="learning-grid">
     <article class="step"><div class="step-no">01</div><h3>Near side: pulled harder</h3><p>Ocean water on the side facing the Moon is pulled more strongly than Earth's center, stretching a bulge toward the Moon.</p></article>
     <article class="step"><div class="step-no">02</div><h3>Far side: left behind</h3><p>Water on the far side is pulled less than Earth's center is, so it's effectively "left behind" — stretching a second bulge away from the Moon.</p></article>
-    <article class="step"><div class="step-no">03</div><h3>Earth rotates through both</h3><p>As Earth spins once a day, most coastlines pass through both bulges — that's why most places get roughly two high tides every 24 hours.</p></article>
+    <article class="step"><div class="step-no">03</div><h3>Earth rotates through both</h3><p>As Earth spins once a day, most coastlines pass through both bulges — many places experience two high tides in a lunar day of about 24 hours 50 minutes. Actual local patterns also depend on geography and ocean dynamics.</p></article>
   </div>
  </div>
 </section>

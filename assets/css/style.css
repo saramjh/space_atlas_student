@@ -693,3 +693,68 @@ footer{padding:30px 0 48px;font-size:11px;color:var(--muted)}.footer-grid{displa
 .planet-rule-caveat,.planet-rule-source{font-size:11px;line-height:1.6;max-width:830px;color:var(--muted);margin:11px 0}
 .planet-rule-source a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 @media(max-width:750px){.planet-rule-steps{grid-template-columns:1fr;gap:0}.planet-rule-steps li{border-top:1px solid var(--rule);padding:13px 0;align-items:flex-start}.planet-rule-picker button{padding:9px 10px}}
+
+
+/* Scientific temperature / tide / distance explanatory labs; no motion dependency */
+.temp-compare-controls{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px}
+.temp-compare-controls label,.distance-focus-pick label,.tide-equilibrium-controls label{display:flex;flex-direction:column;gap:6px;font:600 11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.temp-compare-controls select,.distance-focus-pick select{min-height:40px;border:1px solid var(--rule);border-radius:2px;background:#fff;color:var(--ink);padding:7px 12px;min-width:155px}
+.temp-compare-readout,.distance-focus-readout,.tide-model-readout{font:600 17px/1.4 Georgia,serif;color:var(--ink);margin:14px 0;max-width:850px}
+.temp-axis{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin:12px 75px 9px 95px;justify-items:start}
+.temp-axis span:last-child{justify-self:end}
+.temp-chart{display:flex;flex-direction:column;align-items:stretch;height:auto;min-height:0;gap:0;border-bottom:0;padding-top:0;overflow:visible}
+.temp-row{display:grid;grid-template-columns:80px minmax(0,1fr) 58px;align-items:center;gap:12px;min-height:36px;padding:5px 7px;border-bottom:1px solid var(--rule);font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.temp-row.selected{background:#e4dfd3}
+.temp-name{min-width:0}
+.temp-number{text-align:right;font-variant-numeric:tabular-nums}
+.temp-plot{position:relative;height:17px;background:linear-gradient(to right,transparent 33.23%,#999 33.23%,#999 33.43%,transparent 33.43%);min-width:0}
+.temp-zero{position:absolute;top:-4px;bottom:-4px;left:33.333%;width:1px;background:#666}
+.temp-extent{position:absolute;top:2px;height:13px;border-radius:2px;min-width:1px}
+.temp-extent.warm{background:#bd4c2f}
+.temp-extent.cold{background:#3e6f91}
+.temp-static-facts{border-top:1px solid var(--rule);padding-top:21px;margin-top:24px}
+.temp-static-facts h3,.tide-equilibrium-lab h3,.distance-focus-lab h3{font:600 clamp(22px,2.9vw,29px)/1.15 Georgia,serif;margin:0 0 10px}
+.temp-static-facts p,.tide-equilibrium-lab p,.distance-focus-lab p{font-size:12px;line-height:1.65;color:var(--muted);max-width:950px}
+.temp-table-scroll{width:100%;overflow-x:auto}
+.temp-facts-table{border-collapse:collapse;min-width:450px;width:100%;font-size:12px}
+.temp-facts-table th,.temp-facts-table td{text-align:left;padding:8px 12px;border-top:1px solid var(--rule)}
+.temp-facts-table tbody th{font-weight:600}
+.temp-facts-source a,.tide-model-source a,.distance-focus-source a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.tide-equilibrium-lab,.distance-focus-lab{margin-top:25px;padding-top:22px;border-top:1px solid var(--rule)}
+.tide-equilibrium-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,1.15fr);align-items:center;gap:22px;margin-top:16px}
+#tideEquilibriumDiagram{width:100%;max-width:440px;display:block;justify-self:center}
+.tide-equilibrium-controls{min-width:0}
+.tide-equilibrium-controls input[type=range]{width:100%;accent-color:var(--accent);height:34px;cursor:pointer}
+.tide-range-labels{display:flex;justify-content:space-between;gap:10px;font:500 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.tide-angle-presets{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}
+.tide-angle-presets button{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;background:transparent;border:1px solid var(--rule);color:var(--ink);padding:9px 12px;cursor:pointer;border-radius:2px}
+.tide-angle-presets button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tide-model-readout{font-size:16px}
+.distance-focus-pick{margin:15px 0;max-width:260px}
+.distance-focus-scales{display:grid;gap:22px;margin:24px 0}
+.distance-focus-title{display:flex;justify-content:space-between;gap:15px;font-size:11px;margin-bottom:11px}
+.distance-focus-title span{color:var(--muted);font-size:10px;text-align:right}
+.distance-focus-track{height:36px;position:relative;border-bottom:2px solid var(--rule);background:linear-gradient(to right,#b8b1a3 0,#b8b1a3 1px,transparent 1px)}
+.distance-focus-sun{position:absolute;bottom:13px;left:1px;font:600 9px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.distance-focus-marker{position:absolute;top:3px;bottom:0;border-left:2px solid var(--accent)}
+.distance-focus-marker::after{content:'';position:absolute;bottom:-6px;left:-5px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.distance-focus-marker.scene-marker{border-color:var(--blue)}
+.distance-focus-marker.scene-marker::after{background:var(--blue)}
+.temp-compare-controls select:focus-visible,.distance-focus-pick select:focus-visible,.tide-equilibrium-controls input:focus-visible,.tide-angle-presets button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:720px){.tide-equilibrium-layout{grid-template-columns:1fr;gap:14px}.temp-axis{margin-left:86px;margin-right:65px}.temp-row{grid-template-columns:73px minmax(0,1fr) 53px;gap:7px;padding-inline:2px;font-size:10px}.distance-focus-title{flex-direction:column;gap:3px}.distance-focus-title span{text-align:left}}
+
+/* Four axis labels follow the actual -250,0,+250,+500 linear coordinates. */
+.temp-axis{display:block;position:relative;height:24px;margin-left:99px;margin-right:77px}
+.temp-axis span{position:absolute;top:0;white-space:nowrap}
+.temp-axis span:nth-child(1){left:0}
+.temp-axis span:nth-child(2){left:33.333%;transform:translateX(-50%)}
+.temp-axis span:nth-child(3){left:66.667%;transform:translateX(-50%)}
+.temp-axis span:nth-child(4){left:100%;transform:translateX(-100%)}
+@media(max-width:720px){.temp-axis{margin-left:75px;margin-right:55px}.temp-axis span{font-size:9px}}
+
+/* Narrow screens: avoid colliding tick labels while preserving the exact zero coordinate. */
+@media(max-width:720px){
+  .temp-axis{margin-left:82px;margin-right:62px;height:38px}
+  .temp-axis span:nth-child(3){display:none}
+  .temp-axis span:nth-child(1),.temp-axis span:nth-child(4){top:16px}
+}
