@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-mobile-search-header",
+      "date": "2026-10-11",
+      "category": "Mobile navigation and search",
+      "title": "A clearer search button on small screens",
+      "summary": "The search control now lives beside the Space Atlas logo instead of interrupting the horizontally scrolling topic links. The second navigation row is smaller and dedicated to browsing lessons.",
+      "students": "Tap the magnifying-glass icon at the top right to search. The row below now contains only lesson navigation links, including All topics.",
+      "teachers": "The full topic directory and direct lesson links remain available from mobile. The search dialog and keyboard focus return work as before without covering or rearranging the study material.",
+      "developers": "Following Android screenshot review, separated the utility-owned 42px SVG search trigger from the 44px-high mobile link strip, removed conflicting narrow-screen CSS overrides and emoji icon, preserved search dialog IDs and accessibility, and added a 28-page mobile-header CI gate with 320/390/768/980/1024px+ browser verification.",
+      "links": [
+        {
+          "label": "Explore the atlas",
+          "path": "/"
+        },
+        {
+          "label": "Explore Moon phases",
+          "path": "/moon/phases/"
+        }
+      ],
+      "commits": [
+        "fc512af"
+      ]
+    },
+    {
       "id": "2026-10-11-learning-paths-and-discovery",
       "date": "2026-10-11",
       "category": "Learning paths and discoverability",
