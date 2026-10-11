@@ -44,3 +44,15 @@ Reviewed Python static site generation, existing GH Actions, 28 generated pages,
 5. Split build responsibilities gradually with characterization tests for generated outputs, canonicals and source dates.
 
 All code edits must preserve unrelated local README indexing-audit and .gitignore changes, /updates release process, and static search SEO. No claim of full AI-slop-free status is justified by passing tests alone.
+
+## Footer structure follow-up — 2026-10-11
+
+Confirmed in the live page before this scoped refactor:
+
+- `templates/footer.html` compressed the entire landmark into one line; the single “What's New” link was outside the `.wrap.footer-grid` element instead of part of the aligned footer content.
+- The `.footer-update-link` CSS incorrectly set `grid-column:1/-1` on an element that was not a child of the grid. Real Chrome 390px and 1280px computed left=0 for that link despite aligned footer content padding.
+- The footer forced two narrow columns even at 390px and had no labelled footer navigation landmark. No evidence of SEO index problems from this alone.
+
+Scoped correction: one semantic `<footer>` landmark containing a single `.wrap`; readable explanatory content, labelled `<nav aria-label="Footer navigation">` with actual existing educational and project page links, and a GitHub source link. Responsive CSS collapses description + nav to one main column on mobile, while nav groups remain a compact two-column link list. Obsolete `.footer-grid` and `.footer-update-link` styles are removed rather than layered with more overrides.
+
+Regression gate: `ci/verify_footer.py` runs on all 28 generated public routes and checks a single footer/nav/wrapper, proper alignment ancestry, unique scoped links to generated internal pages, safe GitHub new-tab attributes and removal of abandoned selectors. Both GitHub Pages deployment and the independent read-only health workflow now run it. Browser QA before publication: 320px / 390px / 1280px with no document horizontal overflow, correct mobile reflow and unified footer padding. The update must still pass actual production GitHub Actions and live browser checks before marked fully released.

@@ -100,7 +100,10 @@ require("<loc>https://saramjh.github.io/space_atlas_student/updates/</loc>" in s
         "sitemap missing release page")
 for entry in PUBLIC.rglob("index.html"):
     contents = entry.read_text(encoding="utf-8")
-    require('footer-update-link' in contents, f"footer update link missing on {entry}")
+    require('class="site-footer"' in contents and
+            'class="site-footer-nav" aria-label="Footer navigation"' in contents and
+            'href="/space_atlas_student/updates/"' in contents,
+            f"accessible shared footer or updates link missing on {entry}")
 if errors:
     print("Release history gate FAILED:")
     for e in errors:

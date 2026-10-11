@@ -31,6 +31,7 @@ jobs:
         run: |
           python3 ci/verify_build.py
           python3 ci/verify_updates.py
+          python3 ci/verify_footer.py
           node ci/verify_spectrum.mjs
           node ci/verify_p1_visuals.mjs
           node ci/verify_image_provenance.mjs
