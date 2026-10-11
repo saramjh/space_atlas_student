@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-cosmic-magnitude-and-light-journey-visuals",
+      "date": "2026-10-11",
+      "category": "Visual scientific learning",
+      "title": "See cosmic size jumps and follow traveling light",
+      "summary": "The universe-scale and light-year lessons now use actual quantitative diagrams, not text-only selection controls. The cosmic ruler maps eight distances or dimensions across logarithmic orders of magnitude; the light-year lesson locates eight sources on its own log distance axis and lets readers scrub a light signal from emission to Earth.",
+      "students": "On the universe ruler, select Earth, the Moon or the Milky Way to see their true approximate order of magnitude and how many tenfold jumps separate stages. On Light-Year, choose a source and move a 0–100% photon-journey slider to see how much travel time has elapsed and remains.",
+      "teachers": "Teach that a logarithmic scale can faithfully show enormous ratios, that different reference measures are not all diameters, and that a normalized photon-path bar is different from a ruler comparing multiple sources. The scale-jump quiz was corrected: 4,500 ÷ 30 is roughly 150, or hundreds of times.",
+      "developers": "Implemented dependency-free native SVG logarithmic axes and state-driven selectors, a source-to-observer time scrubber, static no-JS explanatory visual fallbacks, reduced-motion-safe manual controls and isolated mobile/desktop testing; added ci/verify_cosmic_visuals.mjs to both deployment and scheduled read-only Health. Preserved all existing indexed URLs, sources, teacher experiment and AdSense positions.",
+      "links": [
+        {
+          "label": "Explore the logarithmic universe ruler",
+          "path": "/universe/scale/"
+        },
+        {
+          "label": "Trace a light signal",
+          "path": "/universe/light-year/"
+        }
+      ],
+      "commits": [
+        "a553828"
+      ]
+    },
+    {
       "id": "2026-10-11-gravity-causal-learning-experiment",
       "date": "2026-10-11",
       "category": "Interactive scientific explanation",
