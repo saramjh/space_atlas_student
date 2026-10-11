@@ -11,12 +11,19 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Eight zoom-outs.</h2></div></div>
   <div class="scale-compare" data-growth-model>
-    <div class="zoom-stage" id="zoomStage"></div>
-    <div class="zoom-nav">
-      <button id="zoomPrev">← Zoom in</button>
-      <div class="zoom-dots" id="zoomDots"></div>
-      <button id="zoomNext">Zoom out →</button>
+    <div class="zoom-stage" id="zoomStage" aria-live="polite" aria-atomic="true">
+      <div class="zoom-step-no">Step 1 of 8</div>
+      <div class="zoom-title">You</div>
+      <div class="zoom-size">~1.7 m tall</div>
+      <p class="zoom-desc">Everything else on this ladder is measured relative to something you already understand: your own height.</p>
     </div>
+    <div class="zoom-nav">
+      <button type="button" id="zoomPrev" disabled>← Zoom in</button>
+      <div class="zoom-dots" id="zoomDots" aria-hidden="true"><span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <button type="button" id="zoomNext" disabled>Zoom out →</button>
+    </div>
+    <p class="interaction-init-note" id="zoomInitNote" role="status">Preparing the scale controls. The first step and the eight-step reference table below are ready to read.</p>
+    <noscript><p class="scale-caption">The complete eight-step reference table below works without JavaScript.</p></noscript>
   </div>
  </div>
 </section>

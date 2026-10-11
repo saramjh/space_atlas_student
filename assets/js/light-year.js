@@ -30,14 +30,20 @@ function describe(ly, label) {
 
 picker.querySelectorAll('button').forEach((btn) => {
   btn.onclick = () => {
-    picker.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
+    picker.querySelectorAll('button').forEach((b) => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
     btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
     readout.innerHTML = describe(Number(btn.dataset.ly), btn.textContent);
   };
 });
 
 const initial = picker.querySelector('button.active') || picker.querySelector('button');
 readout.innerHTML = describe(Number(initial.dataset.ly), initial.textContent);
+picker.querySelectorAll('button').forEach((button) => { button.disabled = false; });
+document.querySelector('#lyInitNote').hidden = true;
 
 initQuiz([
   {

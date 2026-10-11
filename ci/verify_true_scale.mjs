@@ -54,7 +54,7 @@ function load(path,doc,extras={}){
 }
 {
  const ids=new Map();
- for(const k of ['#planetA','#planetB','#compareStage','#compareStats','#compareRuler'])ids.set(k,new Item());
+ for(const k of ['#planetA','#planetB','#compareStage','#compareStats','#compareRuler','#compareInitNote'])ids.set(k,new Item());
  ids.get('#compareStage').clientWidth=280;
  const buttons=[];
  const doc={querySelector:(k)=>ids.get(k),querySelectorAll:()=>buttons};

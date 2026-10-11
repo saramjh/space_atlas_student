@@ -11,17 +11,19 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>When did that light leave?</h2></div></div>
   <div class="scale-compare">
-    <div class="ly-picker" id="lyPicker">
-      <button data-ly="0.0000000412">The Moon</button>
-      <button data-ly="0.0000158" class="active">The Sun</button>
-      <button data-ly="0.000468">Neptune</button>
-      <button data-ly="4.25">Proxima Centauri</button>
-      <button data-ly="8.6">Sirius</button>
-      <button data-ly="433">Polaris (the North Star)</button>
-      <button data-ly="26000">Center of the Milky Way</button>
-      <button data-ly="2500000">Andromeda Galaxy</button>
+    <div class="ly-picker" id="lyPicker" role="group" aria-label="Choose a source and compare light travel time">
+      <button type="button" data-ly="0.0000000412" aria-pressed="false" disabled>The Moon</button>
+      <button type="button" data-ly="0.0000158" class="active" aria-pressed="true" disabled>The Sun</button>
+      <button type="button" data-ly="0.000468" aria-pressed="false" disabled>Neptune</button>
+      <button type="button" data-ly="4.25" aria-pressed="false" disabled>Proxima Centauri</button>
+      <button type="button" data-ly="8.6" aria-pressed="false" disabled>Sirius</button>
+      <button type="button" data-ly="433" aria-pressed="false" disabled>Polaris (the North Star)</button>
+      <button type="button" data-ly="26000" aria-pressed="false" disabled>Center of the Milky Way</button>
+      <button type="button" data-ly="2500000" aria-pressed="false" disabled>Andromeda Galaxy</button>
     </div>
-    <div class="ly-readout" id="lyReadout"></div>
+    <p class="interaction-init-note" id="lyInitNote" role="status">Preparing the comparison controls. The Sun reference below is available now.</p>
+    <div class="ly-readout" id="lyReadout" role="status" aria-live="polite" aria-atomic="true"><div class="big">8.3 minutes</div><p>Sunlight takes about 8.3 minutes to reach Earth. This is the starting reference for comparing light-travel distances.</p></div>
+    <noscript><p class="scale-caption">JavaScript is needed to change the comparison, but the reference distances below remain readable.</p></noscript>
   </div>
  </div>
 </section>

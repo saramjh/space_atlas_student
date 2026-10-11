@@ -13,16 +13,22 @@
 
   <div class="scale-compare">
     <div class="compare-picker">
-      <select id="planetA" aria-label="First planet"></select>
+      <select id="planetA" aria-label="First planet" disabled>
+        <option value="0">Mercury</option>\n        <option value="1">Venus</option>\n        <option value="2" selected>Earth</option>\n        <option value="3">Mars</option>\n        <option value="4">Jupiter</option>\n        <option value="5">Saturn</option>\n        <option value="6">Uranus</option>\n        <option value="7">Neptune</option>
+      </select>
       <span class="vs">vs</span>
-      <select id="planetB" aria-label="Second planet"></select>
+      <select id="planetB" aria-label="Second planet" disabled>
+        <option value="0">Mercury</option>\n        <option value="1">Venus</option>\n        <option value="2">Earth</option>\n        <option value="3">Mars</option>\n        <option value="4" selected>Jupiter</option>\n        <option value="5">Saturn</option>\n        <option value="6">Uranus</option>\n        <option value="7">Neptune</option>
+      </select>
     </div>
     <div class="query-preset-row" aria-label="Popular planet size comparisons">
-      <button type="button" data-planet-a="2" data-planet-b="4">Earth vs Jupiter</button>
-      <button type="button" data-planet-a="2" data-planet-b="3">Earth vs Mars</button>
-      <button type="button" data-planet-a="2" data-planet-b="1">Earth vs Venus</button>
-      <button type="button" data-planet-a="2" data-planet-b="5">Earth vs Saturn</button>
+      <button type="button" data-planet-a="2" data-planet-b="4" disabled>Earth vs Jupiter</button>
+      <button type="button" data-planet-a="2" data-planet-b="3" disabled>Earth vs Mars</button>
+      <button type="button" data-planet-a="2" data-planet-b="1" disabled>Earth vs Venus</button>
+      <button type="button" data-planet-a="2" data-planet-b="5" disabled>Earth vs Saturn</button>
     </div>
+    <p class="interaction-init-note" id="compareInitNote" role="status">Preparing the comparison controls. The Earth–Jupiter baseline and factual notes below are already available.</p>
+    <noscript><p class="scale-caption">The starting Earth–Jupiter comparison and the factual explanations below are readable without JavaScript.</p></noscript>
     <p class="compare-scale-note">Both circles always share one linear diameter scale. The largest selected planet fills the available ruler height; the smaller one stays proportional. This scale changes when you choose a different pair.</p>
     <div class="compare-stage" id="compareStage">
       <div class="compare-planet"><div class="ball" style="width:19.6px;height:19.6px;background:#477e9d"></div><span>Earth</span></div>

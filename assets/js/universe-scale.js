@@ -18,10 +18,12 @@ const dots = document.querySelector('#zoomDots');
 const prevBtn = document.querySelector('#zoomPrev');
 const nextBtn = document.querySelector('#zoomNext');
 
-STEPS.forEach((_, i) => {
-  const d = document.createElement('span');
-  dots.appendChild(d);
-});
+// Reuse server-rendered dots (and their first active state) to keep a
+// meaningful no-JS fallback. Create them only for older markup.
+if (dots.children.length !== STEPS.length) {
+  dots.replaceChildren();
+  STEPS.forEach(() => dots.appendChild(document.createElement('span')));
+}
 
 function render() {
   const s = STEPS[index];
@@ -40,6 +42,7 @@ function render() {
 prevBtn.onclick = () => { if (index > 0) { index--; render(); } };
 nextBtn.onclick = () => { if (index < STEPS.length - 1) { index++; render(); } };
 render();
+document.querySelector('#zoomInitNote').hidden = true;
 
 initQuiz([
   {

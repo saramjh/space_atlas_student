@@ -11,12 +11,17 @@ const selB = document.querySelector('#planetB');
 const stage = document.querySelector('#compareStage');
 const stats = document.querySelector('#compareStats');
 
-SCALE_DATA.forEach((p, i) => {
-  const optA = new Option(p.name, i);
-  const optB = new Option(p.name, i);
-  selA.add(optA);
-  selB.add(optB);
-});
+// Existing HTML already supplies the eight labelled options so the selectors
+// do not appear empty while modules are loading (or if scripts are disabled).
+// Older generated pages can still be progressively enhanced.
+if (!selA.options?.length || !selB.options?.length) {
+  if (selA.options?.length) selA.replaceChildren();
+  if (selB.options?.length) selB.replaceChildren();
+  SCALE_DATA.forEach((p, i) => {
+    selA.add(new Option(p.name, i));
+    selB.add(new Option(p.name, i));
+  });
+}
 selA.value = 2; // Earth
 selB.value = 4; // Jupiter
 
@@ -72,6 +77,11 @@ document.querySelectorAll('[data-planet-a][data-planet-b]').forEach((button) => 
   });
 });
 render();
+// No input can be lost: handlers, options and first render are ready.
+selA.disabled = false;
+selB.disabled = false;
+document.querySelectorAll('[data-planet-a][data-planet-b]').forEach((button) => { button.disabled = false; });
+document.querySelector('#compareInitNote').hidden = true;
 
 initQuiz([
   {

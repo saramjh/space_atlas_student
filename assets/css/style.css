@@ -304,6 +304,10 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .eclipse-readout{padding:14px 22px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink);background:#ece9e1}
 .eclipse-readout strong{font-family:Georgia,serif;font-size:15px}
 
+/* Shared static-first readiness notice: readable, not a fake loading spinner. */
+.interaction-init-note{font:500 11px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin:12px 0 16px}
+.interaction-init-note[hidden]{display:none}
+.ly-picker button:disabled,.query-preset-row button:disabled,.compare-picker select:disabled{opacity:.65;cursor:wait}
 /* Light-year page */
 .ly-picker{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .ly-picker button{font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;padding:9px 14px;border:1px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer;border-radius:3px;text-align:left}
