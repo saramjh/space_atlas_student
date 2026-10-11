@@ -3,6 +3,33 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-11-learning-paths-and-discovery",
+      "date": "2026-10-11",
+      "category": "Learning paths and discoverability",
+      "title": "Move from one space question to the next",
+      "summary": "Topic breadcrumbs now lead to real category sections, mobile readers can find the full atlas directory and search immediately, and related lesson cards recommend distinct next questions instead of repeating the same destination.",
+      "students": "From any lesson, use the linked topic breadcrumb to return to its subject directory, or choose an evidence-based next question in Keep exploring.",
+      "teachers": "Guide learners between models, measured facts and adjacent concepts using explicit category and recommended-lesson links; the science citations and model limitations remain unchanged.",
+      "developers": "Repaired eight duplicated Go deeper targets, linked all 26 category breadcrumbs to four real homepage anchors, and exposed the topic directory and search earlier on mobile. Added a deterministic 28-page user-flow graph, canonical/sitemap and fragment validation gate; existing JSON-LD avoids invented indexable category hubs.",
+      "links": [
+        {
+          "label": "Follow the Moon learning path",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Explore planetary comparisons",
+          "path": "/solar-system/planet-types/"
+        },
+        {
+          "label": "Understand model scales",
+          "path": "/learn/not-to-scale/"
+        }
+      ],
+      "commits": [
+        "2451421"
+      ]
+    },
+    {
       "id": "2026-10-11-footer-navigation",
       "date": "2026-10-11",
       "category": "Navigation and accessibility",
