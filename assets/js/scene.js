@@ -169,12 +169,25 @@ renderer.domElement.addEventListener('pointerdown', e => {
   }
 });
 
-let moving=true;
-document.querySelector('#btnMotion').onclick=e=>{
-  moving=!moving;
-  e.currentTarget.textContent=moving?'Pause motion':'Resume motion';
-  e.currentTarget.classList.toggle('active',!moving);
-};
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+let moving = !motionPreference.matches;
+const motionButton = document.querySelector('#btnMotion');
+function synchronizeMotionButton() {
+  motionButton.textContent = moving ? 'Pause motion' : 'Resume motion';
+  motionButton.classList.toggle('active', !moving);
+  motionButton.setAttribute('aria-pressed', String(!moving));
+}
+synchronizeMotionButton();
+motionButton.addEventListener('click', () => {
+  moving = !moving;
+  synchronizeMotionButton();
+});
+motionPreference.addEventListener('change', (event) => {
+  if (event.matches) {
+    moving = false; // Honor system preference; never auto-resume afterward.
+    synchronizeMotionButton();
+  }
+});
 
 // Top/Explore also fly in smoothly via targetCamPos/targetLookAt (the same
 // path focusPlanet uses) instead of snapping the camera instantly — mixing

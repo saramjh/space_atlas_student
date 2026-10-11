@@ -39,6 +39,7 @@ jobs:
           node ci/verify_text_visualizations.mjs
           node ci/verify_remaining_visualizations.mjs
           node ci/verify_kepler.mjs
+          node ci/verify_quality_fixes.mjs
           for f in assets/js/*.js; do node --check "$f"; done
 
       - name: Inventory untouched visual-learning candidates (heuristic only)

@@ -13,6 +13,11 @@ export function initQuiz(bank, ids = {}) {
   const retryEl = document.querySelector(ids.retry || '#quizRetry');
   if (!questionEl || !optionsEl || !feedbackEl || !retryEl) return;
 
+  // The shared quiz feedback must be announced without moving keyboard focus.
+  feedbackEl.setAttribute('role', 'status');
+  feedbackEl.setAttribute('aria-live', 'polite');
+  feedbackEl.setAttribute('aria-atomic', 'true');
+
   let index = 0;
   function render() {
     const item = bank[index];

@@ -86,14 +86,38 @@ export function orbitRing(radius, color = 0x44515f, opacity = 0.46) {
   return new THREE.LineLoop(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity }));
 }
 
-/** Runs `callback(dt, now)` every frame, dt normalized to ~1 at 60fps and capped at 2. */
+/** Run visible-tab frames only; prevents unnecessary hidden-tab WebGL work.
+ * dt is normalized to ~1 at 60fps and capped at 2.
+ * Returns a disposer for later dynamic lifecycle management.
+ */
 export function animateLoop(callback) {
   let last = performance.now();
+  let frameId = null;
+  let disposed = false;
   function frame(now) {
-    requestAnimationFrame(frame);
-    const dt = Math.min((now - last) / 16.67, 2);
+    frameId = null;
+    if (disposed || document.hidden) return;
+    const dt = Math.max(0, Math.min((now - last) / 16.67, 2));
     last = now;
     callback(dt, now);
+    frameId = requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
+  function onVisibilityChange() {
+    if (disposed) return;
+    if (document.hidden) {
+      if (frameId !== null) cancelAnimationFrame(frameId);
+      frameId = null;
+    } else if (frameId === null) {
+      last = performance.now(); // Don't jump after a backgrounded tab resumes.
+      frameId = requestAnimationFrame(frame);
+    }
+  }
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  onVisibilityChange();
+  return () => {
+    disposed = true;
+    if (frameId !== null) cancelAnimationFrame(frameId);
+    frameId = null;
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+  };
 }
