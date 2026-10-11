@@ -28,11 +28,60 @@
       <p>Choose an object and follow the three conditions. The first two conditions don't separate Pluto from Earth; the third one does.</p>
     </div>
     <div class="planet-rule-picker" role="group" aria-label="Solar System object for classification">
-      <button type="button" data-planet-rule="Earth" aria-pressed="false">Earth</button>
-      <button type="button" data-planet-rule="Neptune" aria-pressed="false">Neptune</button>
-      <button type="button" data-planet-rule="Pluto" aria-pressed="true">Pluto</button>
-      <button type="button" data-planet-rule="Ceres" aria-pressed="false">Ceres</button>
-      <button type="button" data-planet-rule="Eris" aria-pressed="false">Eris</button>
+      <button type="button" data-planet-rule="Earth" disabled aria-pressed="false">Earth</button>
+      <button type="button" data-planet-rule="Neptune" disabled aria-pressed="false">Neptune</button>
+      <button type="button" data-planet-rule="Pluto" disabled aria-pressed="true">Pluto</button>
+      <button type="button" data-planet-rule="Ceres" disabled aria-pressed="false">Ceres</button>
+      <button type="button" data-planet-rule="Eris" disabled aria-pressed="false">Eris</button>
+    </div>
+    <p id="ruleInitNote" class="planet-rule-ready">The default Pluto comparison is readable now. Other choices become available when the interactive lesson initializes.</p>
+    <div class="planet-rule-neighborhood" id="ruleNeighborhood" aria-label="Compare gravitational dominance in orbital neighborhoods">
+      <div class="planet-rule-compare">
+        <section class="planet-rule-compare-side">
+          <h4>Earth · dominant planet (reference)</h4>
+          <svg viewBox="0 0 360 172" role="img" aria-labelledby="ruleEarthTitle ruleEarthDesc">
+            <title id="ruleEarthTitle">Earth controls its orbital neighborhood, but it is not empty</title>
+            <desc id="ruleEarthDesc">A schematic zone with a dominant Earth symbol, small surviving objects, and arrows indicating long-term gravitational influence. Symbols are not actual positions, populations or relative sizes.</desc>
+            <rect width="360" height="172" rx="3" fill="#0d1823"/>
+            <rect x="18" y="43" width="324" height="84" rx="42" fill="#253847" stroke="#7591a4" stroke-dasharray="5 5"/>
+            <path d="M163 78 Q114 43 77 73 M200 99 Q248 142 298 109" fill="none" stroke="#f2bc72" stroke-width="2"/>
+            <path d="M80 63L76 74L89 69 M285 107L300 110L294 97" fill="none" stroke="#f2bc72" stroke-width="2"/>
+            <circle cx="181" cy="85" r="22" fill="#83b9d9" stroke="#e6eef3" stroke-width="2"/>
+            <circle cx="70" cy="84" r="4" fill="#e5eef5"/><circle cx="306" cy="89" r="4" fill="#e5eef5"/>
+            <text x="181" y="90" text-anchor="middle" fill="#0d1823" font-size="12" font-weight="bold">E</text>
+            <text x="180" y="21" text-anchor="middle" fill="#f3f5f6" font-size="12">A planet strongly shapes this region</text>
+            <text x="180" y="150" text-anchor="middle" fill="#cedee8" font-size="11">Small neighbors can still remain</text>
+          </svg>
+          <p>Earth is gravitationally dominant despite remaining nearby small bodies. “Cleared” never means completely empty.</p>
+        </section>
+        <section class="planet-rule-compare-side">
+          <h4 id="ruleNeighborHeading">Pluto · shares its orbital region</h4>
+          <svg id="ruleNeighborhoodDiagram" viewBox="0 0 360 172" role="img" aria-labelledby="ruleNeighborTitle ruleNeighborDesc">
+            <title id="ruleNeighborTitle">Pluto is not the dominant body in its orbital neighborhood</title>
+            <desc id="ruleNeighborDesc">A conceptual shared-zone diagram comparing Pluto with other Kuiper Belt members. Marker positions, numbers and sizes are illustrative, not measured.</desc>
+            <rect width="360" height="172" rx="3" fill="#0d1823"/>
+            <rect x="18" y="43" width="324" height="84" rx="42" fill="#253847" stroke="#7591a4" stroke-dasharray="5 5"/>
+            <circle id="ruleSelectedBody" cx="181" cy="85" r="18" fill="#f2bc72" stroke="#f5e9d5" stroke-width="2"/>
+            <g id="ruleModelShared">
+              <circle cx="72" cy="88" r="12" fill="#7aa0b4" stroke="#d4e4ec"/>
+              <circle cx="114" cy="62" r="9" fill="#7aa0b4" stroke="#d4e4ec"/>
+              <circle cx="263" cy="105" r="11" fill="#7aa0b4" stroke="#d4e4ec"/>
+              <circle cx="306" cy="82" r="8" fill="#7aa0b4" stroke="#d4e4ec"/>
+              <text x="180" y="21" text-anchor="middle" fill="#f3f5f6" font-size="12">Other bodies share a wider region</text>
+              <text x="180" y="150" text-anchor="middle" fill="#cedee8" font-size="11">Selected body is not dominant</text>
+            </g>
+            <g id="ruleModelDominant" display="none">
+              <path d="M164 78 Q114 43 77 73 M199 98 Q248 142 297 109" fill="none" stroke="#f2bc72" stroke-width="2"/>
+              <path d="M80 63L76 74L89 69 M285 107L300 110L294 97" fill="none" stroke="#f2bc72" stroke-width="2"/>
+              <circle cx="70" cy="84" r="4" fill="#e5eef5"/><circle cx="306" cy="89" r="4" fill="#e5eef5"/>
+              <text x="180" y="21" text-anchor="middle" fill="#f3f5f6" font-size="12">A planet strongly shapes this region</text>
+              <text x="180" y="150" text-anchor="middle" fill="#cedee8" font-size="11">Small neighbors can still remain</text>
+            </g>
+          </svg>
+          <p id="ruleRegionContext">Pluto is part of the Kuiper Belt population, not the dominant body throughout that orbital neighborhood.</p>
+        </section>
+      </div>
+      <p class="planet-rule-diagram-note"><strong>Conceptual relationship diagram, not an orbital map.</strong> The zone is unwrapped into a strip. Marker numbers, sizes and positions are symbolic, not observations or proportional masses/distances. Arrows indicate long-term gravitational influence, <em>not</em> measured trajectories or force directions.</p>
     </div>
     <ol class="planet-rule-steps" aria-label="Official three-step planet classification">
       <li class="passes"><span class="rule-mark" id="ruleOrbitsMark">✓</span><div><strong>Orbits the Sun</strong><span>The object follows an orbit around our star.</span></div></li>
@@ -41,7 +90,7 @@
     </ol>
     <p id="ruleClassification" class="planet-rule-outcome" role="status"><strong>Pluto: dwarf planet.</strong> It meets the first two conditions but has not cleared its orbital neighborhood.</p>
     <p class="planet-rule-caveat">“Cleared” does <strong>not</strong> mean every small object has vanished from a planet's orbit. It describes an object's gravitational dominance over comparable bodies in that orbital region. This is the IAU's official 2006 definition for the Solar System; some planetary scientists disagree with this classification criterion.</p>
-    <p class="planet-rule-source">Sources: <a href="https://www.iau.org/IAU/Iau/News/PR2006/iau-2006-general-assembly-resolution-votes.aspx" target="_blank" rel="noreferrer">IAU Resolution 5A (2006)</a> and <a href="https://ssd.jpl.nasa.gov/planets/def.html" target="_blank" rel="noreferrer">NASA/JPL explanation</a>.</p>
+    <p class="planet-rule-source">Sources: <a href="https://www.iau.org/IAU/Iau/News/PR2006/iau-2006-general-assembly-resolution-votes.aspx" target="_blank" rel="noreferrer">IAU Resolution 5A (2006)</a> and <a href="https://science.nasa.gov/solar-system/kuiper-belt/facts/" target="_blank" rel="noopener noreferrer">NASA Kuiper Belt facts</a>.</p>
   </div>
   <p class="scale-caption" style="margin-top:14px">"Cleared its neighborhood" is a criterion about gravitational dominance, not a perfectly empty orbit. Pluto shares the Kuiper Belt region with many icy objects of broadly comparable scale, unlike a dominant planet.</p>
  </div>
