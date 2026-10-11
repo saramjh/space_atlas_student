@@ -30,6 +30,7 @@ jobs:
       - name: Verify 27 lessons, release history and learning interactions
         run: |
           python3 ci/verify_build.py
+          python3 ci/verify_seo_metadata.py
           python3 ci/verify_updates.py
           python3 ci/verify_footer.py
           python3 ci/verify_user_flows.py

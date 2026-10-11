@@ -32,6 +32,7 @@ jobs:
       - name: Verify generated site
         run: |
           python3 ci/verify_build.py
+          python3 ci/verify_seo_metadata.py
           python3 ci/verify_updates.py
           python3 ci/verify_footer.py
           python3 ci/verify_user_flows.py

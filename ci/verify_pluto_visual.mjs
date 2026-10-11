@@ -10,7 +10,7 @@ for (const marker of [
   'id="ruleNeighborhoodDiagram"', 'id="ruleModelDominant"', 'id="ruleModelShared"',
   'id="ruleNeighborHeading"', 'id="ruleRegionContext"', 'id="ruleInitNote"',
   'Conceptual relationship diagram, not an orbital map', 'Marker numbers',
-  'science.nasa.gov/solar-system/kuiper-belt/facts/', 'IAU Resolution 5A'
+  'science.nasa.gov/solar-system/kuiper-belt/facts/', 'iauarchive.eso.org/administration/resolutions/ga2006/'
 ]) assert.ok(html.includes(marker), 'Missing static Pluto model evidence ' + marker);
 assert.equal((html.match(/data-planet-rule="[^"]+" disabled/g)||[]).length,5,'Choices must wait until JS ready.');
 assert.match(html, /id="ruleModelDominant" display="none"/);

@@ -65,7 +65,7 @@ function store(){
 for(const [slug,parts] of [
  ['galaxies/types',['galaxyInclination','galaxyTiltDisk','geometric projection','NASA Science — Types of Galaxies','class="galaxy-example"']],
  ['galaxies/milky-way',['mwAddressLab','mwSunMark','mwDistanceSlider','26,000 light-years','NASA Goddard']],
- ['solar-system/pluto-dwarf-planet',['planetRuleExplorer','ruleClassification','IAU Resolution 5A','criterion about gravitational dominance']]
+ ['solar-system/pluto-dwarf-planet',['planetRuleExplorer','ruleClassification','IAU 2006 planet-definition resolutions','criterion about gravitational dominance']]
 ]){
  const html=readFileSync('public/'+slug+'/index.html','utf8');
  for(const part of parts)assert.ok(html.includes(part),slug+' missing '+part);

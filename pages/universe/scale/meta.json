@@ -9,20 +9,6 @@
   "jsonldName": "Scale of the Universe — Interactive Size Walkthrough",
   "jsonldDescription": "An interactive scale-of-the-universe walkthrough from human size to the observable universe, with explicit units and relative size jumps.",
   "script": "/assets/js/universe-scale.js",
-  "faq": [
-    {
-      "q": "How can the observable universe be about 93 billion light-years across if the universe is about 13.8 billion years old?",
-      "a": "Because the universe has expanded while the light was traveling. The matter that emitted the oldest light we can observe is now roughly 46 billion light-years away in comoving distance, so the observable region is about 93 billion light-years across."
-    },
-    {
-      "q": "Is the observable universe the entire universe?",
-      "a": "No. The observable universe is the region from which signals have had time to reach us. Observations do not establish the total size of the full universe, which may extend far beyond the observable region."
-    },
-    {
-      "q": "How does the Milky Way compare with the observable universe?",
-      "a": "Using a rounded Milky Way diameter of about 100,000 light-years and an observable-universe diameter of about 93 billion light-years, the observable universe is roughly 930,000 times wider."
-    }
-  ],
   "learningResourceType": "Interactive Visualization",
   "interactivityType": "mixed",
   "secondaryAd": true

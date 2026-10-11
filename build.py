@@ -208,22 +208,6 @@ def build_structured_data(meta):
             ],
         })
 
-    if meta.get("faq"):
-        graph.append({
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": item.get("q", ""),
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": item.get("a", ""),
-                    },
-                }
-                for item in meta["faq"]
-            ],
-        })
-
     payload = {"@context": "https://schema.org", "@graph": graph}
     return (
         '<script type="application/ld+json">\n'
@@ -257,12 +241,14 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_ve
     html = html.replace("{{FOOTER}}", footer)
     html = html.replace("{{CONTENT}}", content)
     tokens = {
-        "{{TITLE}}": meta.get("title", ""),
-        "{{DESCRIPTION}}": meta.get("description", ""),
-        "{{CANONICAL}}": meta.get("canonical", ""),
-        "{{OG_TITLE}}": meta.get("ogTitle", meta.get("title", "")),
-        "{{OG_DESCRIPTION}}": meta.get("ogDescription", meta.get("description", "")),
-        "{{OG_IMAGE}}": meta.get("ogImage", ""),
+        # Titles and meta values enter HTML text/quoted-attribute contexts.
+        # Keep literal quotation marks in authored copy without corrupting meta tags.
+        "{{TITLE}}": escape_html(meta.get("title", ""), quote=True),
+        "{{DESCRIPTION}}": escape_html(meta.get("description", ""), quote=True),
+        "{{CANONICAL}}": escape_html(meta.get("canonical", ""), quote=True),
+        "{{OG_TITLE}}": escape_html(meta.get("ogTitle", meta.get("title", "")), quote=True),
+        "{{OG_DESCRIPTION}}": escape_html(meta.get("ogDescription", meta.get("description", "")), quote=True),
+        "{{OG_IMAGE}}": escape_html(meta.get("ogImage", ""), quote=True),
         "{{BASE}}": SITE_BASE,
         "{{TOPIC_COUNT}}": str(topic_count),
         "{{CSS_VERSION}}": css_version,
