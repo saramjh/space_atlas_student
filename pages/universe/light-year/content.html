@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Universe · Question</div>
     <h1>Is a light-year a measurement of time or distance?</h1>
-    <p class="lead">Despite the word "year," a light-year measures distance: how far light travels in one Earth year, about 9.46 trillion km. Pick a star below to see what year its light actually left.</p>
+    <p class="lead">Despite the word "year," a light-year measures distance: how far light travels in one Earth year, about 9.46 trillion km. Select a light source below to compare its distance and explore how long its light takes to reach Earth.</p>
   </div>
 </section>
 
@@ -22,8 +22,50 @@
       <button type="button" data-ly="2500000" aria-pressed="false" disabled>Andromeda Galaxy</button>
     </div>
     <p class="interaction-init-note" id="lyInitNote" role="status">Preparing the comparison controls. The Sun reference below is available now.</p>
+    <div class="ly-distance-map" aria-labelledby="lyDistanceMapTitle">
+      <div class="cosmic-visual-head"><strong id="lyDistanceMapTitle">Eight sources, vastly different distances</strong><span>Light-years from Earth · logarithmic scale</span></div>
+      <div class="ly-distance-scroll" tabindex="0" aria-label="Scrollable logarithmic distance ruler; equal lengths indicate equal factors of ten">
+        <svg id="lyDistanceRuler" viewBox="0 0 900 118" role="img" aria-label="Eight destinations by logarithmic light-travel distance; the Sun is selected">
+          <line x1="36" y1="57" x2="864" y2="57" class="cosmic-axis-base"/>
+          <line x1="36.0" y1="30" x2="36.0" y2="89" class="cosmic-axis-grid"/><text x="36.0" y="110" text-anchor="middle" class="cosmic-axis-text">10^-8 ly</text>
+<line x1="201.6" y1="30" x2="201.6" y2="89" class="cosmic-axis-grid"/><text x="201.6" y="110" text-anchor="middle" class="cosmic-axis-text">10^-5 ly</text>
+<line x1="477.6" y1="30" x2="477.6" y2="89" class="cosmic-axis-grid"/><text x="477.6" y="110" text-anchor="middle" class="cosmic-axis-text">10^0 ly</text>
+<line x1="753.6" y1="30" x2="753.6" y2="89" class="cosmic-axis-grid"/><text x="753.6" y="110" text-anchor="middle" class="cosmic-axis-text">10^5 ly</text>
+<line x1="864.0" y1="30" x2="864.0" y2="89" class="cosmic-axis-grid"/><text x="864.0" y="110" text-anchor="middle" class="cosmic-axis-text">10^7 ly</text>
+          <circle class="ly-scale-point" data-ly-point="4.12e-8" cx="69.942" cy="57" r="4"><title>Moon: approximately 4.12e-8 light-years away</title></circle>
+<circle class="ly-scale-point active" data-ly-point="0.0000158" cx="212.566" cy="57" r="7"><title>Sun: approximately 0.0000158 light-years away</title></circle>
+<circle class="ly-scale-point" data-ly-point="0.000468" cx="293.798" cy="57" r="4"><title>Neptune: approximately 0.000468 light-years away</title></circle>
+<circle class="ly-scale-point" data-ly-point="4.25" cx="512.287" cy="57" r="4"><title>Proxima Centauri: approximately 4.25 light-years away</title></circle>
+<circle class="ly-scale-point" data-ly-point="8.6" cx="529.184" cy="57" r="4"><title>Sirius: approximately 8.6 light-years away</title></circle>
+<circle class="ly-scale-point" data-ly-point="433" cx="623.134" cy="57" r="4"><title>Polaris: approximately 433 light-years away</title></circle>
+<circle class="ly-scale-point" data-ly-point="26000" cx="721.307" cy="57" r="4"><title>Milky Way center: approximately 26000 light-years away</title></circle>
+<circle class="ly-scale-point" data-ly-point="2500000" cx="830.766" cy="57" r="4"><title>Andromeda: approximately 2500000 light-years away</title></circle>
+          <line id="lySelectedTick" x1="212.566" x2="212.566" y1="16" y2="57" class="cosmic-axis-highlight"/>
+        </svg>
+      </div>
+      <p class="ly-source-position" id="lyCurrentPosition" aria-live="polite">Selected on ruler: <strong>Sun</strong> · ~0.0000158 light-years from Earth</p>
+      <p class="cosmic-visual-note">The Moon is near the left; Andromeda is far to the right. <strong>Equal horizontal gaps mean equal distance multipliers</strong>, not equal kilometres. Choose a source above and watch its mark move.</p>
+    </div>
     <div class="ly-readout" id="lyReadout" role="status" aria-live="polite" aria-atomic="true"><div class="big">8.3 minutes</div><p>Sunlight takes about 8.3 minutes to reach Earth. This is the starting reference for comparing light-travel distances.</p></div>
-    <noscript><p class="scale-caption">JavaScript is needed to change the comparison, but the reference distances below remain readable.</p></noscript>
+    <div class="ly-journey" id="lyJourney" aria-labelledby="lyJourneyTitle">
+      <div class="cosmic-visual-head"><strong id="lyJourneyTitle">Follow a single light signal</strong><span>Scrub through the trip</span></div>
+      <div class="ly-path-labels"><span id="lyEmitter">Sun · light emitted</span><span>Earth · observer</span></div>
+      <svg id="lyPhotonDiagram" viewBox="0 0 900 76" role="img" aria-label="Illustrative normalized path: sunlight has completed 100 percent of its travel to Earth">
+        <line x1="38" y1="35" x2="862" y2="35" class="ly-photon-base"/>
+        <line id="lyPhotonTrail" x1="38" y1="35" x2="862" y2="35" class="ly-photon-progress"/>
+        <circle cx="38" cy="35" r="9" class="ly-emitter"/><circle cx="862" cy="35" r="9" class="ly-receiver"/>
+        <circle id="lyPhotonMarker" cx="862" cy="35" r="13" class="ly-photon-marker"/>
+      </svg>
+      <label class="ly-journey-slider-label" for="lyPhotonSlider">Fraction of journey completed <output id="lyPhotonPercent" for="lyPhotonSlider">100%</output></label>
+      <input id="lyPhotonSlider" type="range" min="0" max="100" step="1" value="100" disabled/>
+      <div class="ly-journey-results" role="status" aria-live="polite" aria-atomic="true">
+        <div><span>Travel time elapsed</span><strong id="lyPhotonElapsed">8.3 minutes</strong></div>
+        <div><span>Travel time remaining</span><strong id="lyPhotonRemaining">0.0 seconds</strong></div>
+      </div>
+      <p id="lyPhotonExplanation" class="ly-journey-explanation">At 100%, light from the Sun is arriving at Earth after approximately 8.3 minutes.</p>
+      <p class="cosmic-visual-note">The path always fills the width for <strong>one selected journey</strong>. It is not a distance scale between different objects. Use the logarithmic ruler above for comparing sources. There is no autoplay or simulated measurement; move the slider to explore travel time.</p>
+    </div>
+    <noscript><p class="scale-caption">JavaScript is needed for changing the source and scrubbing the light path. The Sun reference, logarithmic ruler and distance table remain readable.</p></noscript>
   </div>
  </div>
 </section>

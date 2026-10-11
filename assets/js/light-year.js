@@ -1,8 +1,55 @@
 import { initQuiz } from './quiz-widget.js';
+import { logPosition, LIGHT_DOMAIN, photonProgress, intervalLabel } from './scale-visual-math.js';
 
 const picker = document.querySelector('#lyPicker');
 const readout = document.querySelector('#lyReadout');
 const NOW_YEAR = new Date().getFullYear();
+const photonSlider = document.querySelector('#lyPhotonSlider');
+const sourcePoints = [...document.querySelectorAll('[data-ly-point]')];
+let selectedLy = 0.0000158;
+let selectedSource = 'The Sun';
+
+function renderPhoton() {
+  const percent = Number(photonSlider.value);
+  const {progress, elapsedSeconds, remainingSeconds} = photonProgress(selectedLy, percent);
+  const elapsed = intervalLabel(elapsedSeconds);
+  const remaining = intervalLabel(remainingSeconds);
+  const x = (38 + progress * 824).toFixed(2);
+  document.querySelector('#lyPhotonTrail').setAttribute('x2', x);
+  document.querySelector('#lyPhotonMarker').setAttribute('cx', x);
+  document.querySelector('#lyPhotonPercent').textContent = `${percent}%`;
+  document.querySelector('#lyPhotonElapsed').textContent = elapsed;
+  document.querySelector('#lyPhotonRemaining').textContent = remaining;
+  document.querySelector('#lyEmitter').textContent = `${selectedSource} · emitted`;
+  document.querySelector('#lyPhotonExplanation').textContent = percent === 0
+    ? `At emission, the light from ${selectedSource} still has its entire ${intervalLabel(photonProgress(selectedLy, 100).elapsedSeconds)} journey ahead. Moving the slider does not change the speed of light.`
+    : percent === 100
+      ? `The light from ${selectedSource} is now arriving at Earth after about ${elapsed} of travel.`
+      : `After ${percent}% of this illustrative path, the light has traveled for about ${elapsed}; about ${remaining} remains before it reaches Earth.`;
+  document.querySelector('#lyPhotonDiagram').setAttribute('aria-label', `Normalized light path from ${selectedSource} to Earth: ${percent}% complete, ${elapsed} traveled and ${remaining} remaining.`);
+}
+function updateVisuals(ly, label) {
+  selectedLy = ly;
+  selectedSource = label;
+  const selectedX = (36 + 828 * logPosition(ly, LIGHT_DOMAIN.min, LIGHT_DOMAIN.max)).toFixed(3);
+  const line = document.querySelector('#lySelectedTick');
+  line.setAttribute('x1', selectedX);
+  line.setAttribute('x2', selectedX);
+  for (const mark of sourcePoints) {
+    const active = Math.abs(Number(mark.dataset.lyPoint) - ly) < 1e-10;
+    mark.classList.toggle('active', active);
+    mark.setAttribute('r', active ? '7' : '4');
+  }
+  document.querySelector('#lyDistanceRuler').setAttribute('aria-label', `Logarithmic source distances in light-years; ${label} selected, approximately ${ly} light-years from Earth.`);
+  const distanceLabel = ly < 0.001 ? ly.toPrecision(3) : Number(ly.toPrecision(4)).toLocaleString('en-US');
+  document.querySelector('#lyCurrentPosition').textContent = `Selected on ruler: ${label} · approximately ${distanceLabel} light-years from Earth`;
+  const viewport = document.querySelector('.ly-distance-scroll');
+  const plotWidth = viewport.querySelector('svg').getBoundingClientRect().width;
+  viewport.scrollLeft = Math.max(0, plotWidth * Number(selectedX) / 900 - viewport.clientWidth / 2);
+  renderPhoton();
+}
+photonSlider.addEventListener('input', renderPhoton);
+
 
 function describe(ly, label) {
   const seconds = ly * 365.25 * 24 * 3600;
@@ -37,11 +84,14 @@ picker.querySelectorAll('button').forEach((btn) => {
     btn.classList.add('active');
     btn.setAttribute('aria-pressed', 'true');
     readout.innerHTML = describe(Number(btn.dataset.ly), btn.textContent);
+    updateVisuals(Number(btn.dataset.ly), btn.textContent);
   };
 });
 
 const initial = picker.querySelector('button.active') || picker.querySelector('button');
 readout.innerHTML = describe(Number(initial.dataset.ly), initial.textContent);
+updateVisuals(Number(initial.dataset.ly), initial.textContent);
+photonSlider.disabled = false;
 picker.querySelectorAll('button').forEach((button) => { button.disabled = false; });
 document.querySelector('#lyInitNote').hidden = true;
 

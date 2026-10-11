@@ -334,6 +334,63 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .zoom-dots span{width:7px;height:7px;border-radius:50%;background:var(--rule)}
 .zoom-dots span.active{background:var(--accent)}
 
+
+/* Space Atlas: logarithmic scale and manipulable photon journey, no decorative 3D. */
+.cosmic-visual,.ly-distance-map,.ly-journey{margin-top:24px;padding-top:20px;border-top:1px solid var(--rule)}
+.cosmic-visual-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 22px;margin-bottom:12px}
+.cosmic-visual-head strong{font:600 17px/1.3 Georgia,serif;letter-spacing:-.02em}
+.cosmic-visual-head>span{font:600 10px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);letter-spacing:.02em}
+.cosmic-ruler-viewport,.ly-distance-scroll{overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin;max-width:100%;border:1px solid var(--rule);background:#f4f1eb}
+.cosmic-ruler-viewport:focus-visible,.ly-distance-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cosmic-ruler-plot{position:relative;min-width:720px}
+.cosmic-ruler-plot svg,.ly-distance-scroll svg{display:block;width:100%;min-width:720px;height:auto}
+.cosmic-axis-base{stroke:#888b85;stroke-width:1.7}
+.cosmic-axis-grid{stroke:#cecbc4;stroke-width:1;stroke-dasharray:3 4}
+.cosmic-axis-text{fill:#525c5c;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.cosmic-axis-highlight{stroke:#b4472b;stroke-width:3;pointer-events:none}
+.cosmic-stop-layer{position:absolute;inset:0;pointer-events:none}
+.cosmic-stop{position:absolute;left:var(--point-left);top:50%;transform:translate(-50%,-50%);width:26px;height:26px;border:2px solid #f4f1eb;border-radius:50%;background:#626f73;color:white;cursor:pointer;pointer-events:auto;font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px #424b4e;transition:background .15s ease,box-shadow .15s ease}
+.cosmic-stop.selected,.cosmic-stop[aria-pressed="true"]{background:#b4472b;box-shadow:0 0 0 3px #e1b8a6;color:#fff}
+.cosmic-stop:disabled{cursor:wait;opacity:.65}
+.cosmic-stop:focus-visible{outline:3px solid #0a5962;outline-offset:4px;z-index:2}
+.cosmic-visual-note{font-size:11px;line-height:1.6;color:#626565;margin:10px 0 0}
+.cosmic-jump{padding:18px 0 0;min-height:110px}
+.cosmic-jump>strong{font:600 14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.cosmic-jump>p{font-size:12px;line-height:1.6;color:var(--muted);margin:9px 0 0;max-width:800px}
+.cosmic-decades{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0 0;align-items:center}
+.cosmic-tenfold{background:#1b292e;color:#f3f1eb;border-radius:2px;padding:8px 9px;font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.cosmic-tenfold-tail{background:#a94429}
+.ly-distance-map{margin-top:10px;margin-bottom:20px}
+.ly-scale-point{fill:#64767a;stroke:#f4f1eb;stroke-width:1.7}
+.ly-scale-point.active{fill:#b4472b;stroke:#fde7d4;stroke-width:3}
+.ly-source-position{margin:8px 0 0;font:600 11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.ly-source-position strong{color:var(--accent)}
+.ly-path-labels{display:flex;justify-content:space-between;gap:10px;font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.4;color:var(--ink)}
+.ly-journey svg{display:block;width:100%;height:auto;overflow:visible;margin:8px 0}
+.ly-photon-base{stroke:#a7aaa5;stroke-width:12;stroke-linecap:round}
+.ly-photon-progress{stroke:#b4472b;stroke-width:12;stroke-linecap:round}
+.ly-emitter{fill:#f1bf5d;stroke:#8b5d13;stroke-width:2}
+.ly-receiver{fill:#346d8c;stroke:#eff2f2;stroke-width:2}
+.ly-photon-marker{fill:#f8cb64;stroke:#a34226;stroke-width:6}
+.ly-journey-slider-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font:600 11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;margin:2px 0 6px}
+.ly-journey-slider-label output{font-size:17px;color:var(--accent);font-variant-numeric:tabular-nums}
+#lyPhotonSlider{width:100%;accent-color:var(--accent);cursor:pointer}
+#lyPhotonSlider:disabled{cursor:wait;opacity:.65}
+.ly-journey-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:13px 0 4px}
+.ly-journey-results>div{padding:12px 14px;border-left:2px solid #b4472b;background:#f4f1eb;min-width:0}
+.ly-journey-results span{display:block;font:600 10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.ly-journey-results strong{font:600 clamp(15px,2.2vw,23px)/1.4 Georgia,serif;overflow-wrap:anywhere}
+.ly-journey-explanation{font-size:13px;line-height:1.6;color:var(--ink);margin:12px 0 0}
+@media(max-width:620px){
+.cosmic-visual-head{gap:5px}.cosmic-visual-head strong{font-size:15px}
+.cosmic-stop{width:28px;height:28px}
+.ly-journey-results{grid-template-columns:1fr;gap:6px}
+.ly-distance-scroll{min-height:97px}
+.cosmic-jump{min-height:120px}
+.zoom-nav{gap:8px}.zoom-nav button{padding:9px 10px}
+}
+@media(prefers-reduced-motion:reduce){.cosmic-stop{transition:none}}
+
 /* Gravity comparison page */
 .weight-input{display:flex;align-items:center;gap:10px;margin-bottom:24px}
 .weight-input input{width:110px;font:600 20px Georgia,serif;padding:8px 12px;border:1px solid var(--rule);border-radius:3px}

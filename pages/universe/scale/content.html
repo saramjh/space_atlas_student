@@ -17,6 +17,35 @@
       <div class="zoom-size">~1.7 m tall</div>
       <p class="zoom-desc">Everything else on this ladder is measured relative to something you already understand: your own height.</p>
     </div>
+    <div class="cosmic-visual" aria-labelledby="cosmicRulerTitle">
+      <div class="cosmic-visual-head"><strong id="cosmicRulerTitle">A ruler across 27 powers of ten</strong><span>Size / separation in metres · logarithmic scale</span></div>
+      <div class="cosmic-ruler-viewport" tabindex="0" aria-label="Scrollable logarithmic scale from about one metre to 10 to the power 27 metres; numbered markers select a step">
+        <div class="cosmic-ruler-plot">
+          <svg id="cosmicRuler" viewBox="0 0 900 122" role="img" aria-label="Eight scientifically positioned magnitudes on a logarithmic metre axis; human height selected">
+            <line x1="36" y1="61" x2="864" y2="61" class="cosmic-axis-base"/>
+            <line x1="36.0" y1="28" x2="36.0" y2="95" class="cosmic-axis-grid"/><text x="36.0" y="114" text-anchor="middle" class="cosmic-axis-text">10^0 m</text>
+<line x1="189.3" y1="28" x2="189.3" y2="95" class="cosmic-axis-grid"/><text x="189.3" y="114" text-anchor="middle" class="cosmic-axis-text">10^5 m</text>
+<line x1="342.7" y1="28" x2="342.7" y2="95" class="cosmic-axis-grid"/><text x="342.7" y="114" text-anchor="middle" class="cosmic-axis-text">10^10 m</text>
+<line x1="496.0" y1="28" x2="496.0" y2="95" class="cosmic-axis-grid"/><text x="496.0" y="114" text-anchor="middle" class="cosmic-axis-text">10^15 m</text>
+<line x1="649.3" y1="28" x2="649.3" y2="95" class="cosmic-axis-grid"/><text x="649.3" y="114" text-anchor="middle" class="cosmic-axis-text">10^20 m</text>
+<line x1="802.7" y1="28" x2="802.7" y2="95" class="cosmic-axis-grid"/><text x="802.7" y="114" text-anchor="middle" class="cosmic-axis-text">10^25 m</text>
+            <line id="cosmicRulerSelection" x1="43.07" y1="18" x2="43.07" y2="61" class="cosmic-axis-highlight"/>
+          </svg>
+          <div class="cosmic-stop-layer" id="cosmicStops" role="group" aria-label="Choose a reference magnitude">
+            <button type="button" class="cosmic-stop selected" data-cosmic-step="0" style="--point-left:4.7852%" aria-pressed="true" aria-label="Step 1: Human height" disabled><span>01</span></button>
+<button type="button" class="cosmic-stop" data-cosmic-step="1" style="--point-left:28.2104%" aria-pressed="false" aria-label="Step 2: Earth diameter" disabled><span>02</span></button>
+<button type="button" class="cosmic-stop" data-cosmic-step="2" style="--point-left:33.2519%" aria-pressed="false" aria-label="Step 3: Earth–Moon separation" disabled><span>03</span></button>
+<button type="button" class="cosmic-stop" data-cosmic-step="3" style="--point-left:48.1404%" aria-pressed="false" aria-label="Step 4: Solar-system orbital span" disabled><span>04</span></button>
+<button type="button" class="cosmic-stop" data-cosmic-step="4" style="--point-left:60.5777%" aria-pressed="false" aria-label="Step 5: Proxima Centauri distance" disabled><span>05</span></button>
+<button type="button" class="cosmic-stop" data-cosmic-step="5" style="--point-left:75.4735%" aria-pressed="false" aria-label="Step 6: Milky Way disk diameter" disabled><span>06</span></button>
+<button type="button" class="cosmic-stop" data-cosmic-step="6" style="--point-left:82.2883%" aria-pressed="false" aria-label="Step 7: Local Group approximate extent" disabled><span>07</span></button>
+<button type="button" class="cosmic-stop" data-cosmic-step="7" style="--point-left:95.8106%" aria-pressed="false" aria-label="Step 8: Observable-universe diameter" disabled><span>08</span></button>
+          </div>
+        </div>
+      </div>
+      <p class="cosmic-visual-note">Equal horizontal gaps on this ruler represent equal <strong>multipliers of ten</strong>, not equal kilometres. The eight marks are positioned by actual approximate values. The measures differ (height, diameter, orbit span, distance): check the description when comparing them.</p>
+      <div class="cosmic-jump" id="cosmicJump" role="status" aria-live="polite" aria-atomic="true"><strong>Starting scale: one human height</strong><p>This point represents roughly 1.7 metres. Select Earth to see how many tenfold jumps separate these lengths.</p></div>
+    </div>
     <div class="zoom-nav">
       <button type="button" id="zoomPrev" disabled>← Zoom in</button>
       <div class="zoom-dots" id="zoomDots" aria-hidden="true"><span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
