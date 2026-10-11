@@ -566,11 +566,28 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .teacher-classroom-share{font-weight:600}
 @media(max-width:620px){.teacher-use-list>div{grid-template-columns:1fr;gap:5px}.teacher-use-section{padding-top:38px;padding-bottom:38px}}
 
+
+/* Read space images: an observational example first, then a source-reading reference. */
+.image-evidence-key{margin-top:44px;padding-top:28px;border-top:1px solid var(--rule)}
+.image-evidence-key-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:32px;align-items:baseline;margin-bottom:22px}
+.image-evidence-key-head h3{font:600 clamp(22px,2.2vw,30px)/1.15 Georgia,serif;letter-spacing:-.025em;margin:0}
+.image-evidence-key-head p,.image-evidence-note{font-size:12px;line-height:1.65;color:var(--muted);margin:0}
+.image-evidence-rows{margin:0;border-top:2px solid var(--ink)}
+.image-evidence-rows>div{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:28px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.image-evidence-rows dt span{display:block;font:700 10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.055em;color:var(--accent);margin-bottom:9px}
+.image-evidence-rows dt strong{display:block;font:600 20px/1.25 Georgia,serif}
+.image-evidence-rows dd{margin:0;min-width:0}
+.image-evidence-rows dd p{margin:0;font-size:12px;line-height:1.65;color:var(--muted)}
+.image-evidence-rows dd .image-evidence-test{color:var(--ink);margin-top:8px}
+.image-evidence-test b{font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);text-transform:uppercase;margin-right:9px}
+.image-evidence-note{max-width:820px;margin:19px 0 0}
+@media(max-width:700px){.image-evidence-key-head,.image-evidence-rows>div{grid-template-columns:1fr;gap:10px}.image-evidence-rows>div{padding:18px 0}}
+
 /* Observational image provenance lab: full NASA dual-source composite, no synthetic pixels. */
 .truth-disclosure[open] .truth-hint{color:var(--ink)}
 .truth .viz-pulse,.truth .viz-orbit-group,.truth .viz-scan-line,.truth:hover .viz-orbit-group,.truth:hover .viz-scan-line{animation:none}
 
-.image-provenance-lab{margin-top:54px;padding-top:30px;border-top:1px solid var(--rule)}
+.image-provenance-lab{margin-top:12px;padding-top:12px}
 .provenance-intro .kicker{margin-bottom:12px}
 .provenance-intro h3{font:600 clamp(27px,3vw,36px)/1.1 Georgia,serif;letter-spacing:-.025em;margin:0 0 12px}
 .provenance-intro p{max-width:760px;color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 20px}

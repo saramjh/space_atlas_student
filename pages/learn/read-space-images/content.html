@@ -9,45 +9,7 @@
 
 <section class="section">
  <div class="wrap">
-  <div class="section-head"><div class="section-id">Visual model</div><div><h2>Three kinds of truth a space image can show.</h2></div></div>
-  <div class="truth-grid">
-    <article class="truth">
-      <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
-        <rect width="100" height="84" fill="#101419"/>
-        <g fill="#3e6f91" opacity=".5"><circle cx="18" cy="20" r="1"/><circle cx="60" cy="12" r="1.3"/><circle cx="82" cy="34" r="1"/><circle cx="34" cy="60" r="1.3"/><circle cx="70" cy="66" r="1"/></g>
-        <circle cx="50" cy="42" r="14" fill="none" stroke="#6f97b3" stroke-width="1"/>
-        <circle cx="50" cy="42" r="8" fill="#3e6f91" class="viz-pulse"/>
-        <g class="viz-scan-line"><rect x="0" y="0" width="14" height="84" fill="#8fb8d4" opacity=".22"/></g>
-      </svg></div>
-      <code>OBSERVATION</code><h3>Recorded by an instrument</h3><p>Ask which telescope, spacecraft, wavelength, date, and processing steps produced the image or measurement.</p>
-      <details class="truth-disclosure"><summary><span class="truth-hint">Open example ↓</span></summary>
-      <div class="truth-example">Example: Hubble's photo of Jupiter combines several exposures taken through separate color filters, then aligned and color-composited — it is real data, but the final color image is assembled, not a single snapshot.</div>
-      </details>
-    </article>
-    <article class="truth">
-      <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
-        <rect width="100" height="84" fill="#101419"/>
-        <circle cx="50" cy="42" r="6" fill="#d29b42"/>
-        <ellipse cx="50" cy="42" rx="30" ry="12" fill="none" stroke="#8a8f5f" stroke-width="1" opacity=".6"/>
-        <g class="viz-orbit-group"><circle cx="80" cy="42" r="3" fill="#bd4c2f"/></g>
-      </svg></div>
-      <code>MODEL / SIMULATION</code><h3>A calculation made visible</h3><p>Ask which variables were simplified, whether time or distance is compressed, and which data constrain the model.</p>
-      <details class="truth-disclosure"><summary><span class="truth-hint">Open example ↓</span></summary>
-      <div class="truth-example">Example: Space Atlas 3D scenes are explanatory models, not telescope measurements. Planet sizes, distances and motion may be adjusted to make relationships visible; consult each model's scale note.</div>
-      </details>
-    </article>
-    <article class="truth">
-      <div class="truth-viz"><svg viewBox="0 0 100 84" aria-hidden="true">
-        <rect width="100" height="84" fill="#101419"/>
-        <path d="M14 66 L38 24 L58 46 L72 20 L90 60" fill="none" stroke="#c6ccd1" stroke-width="1.4" stroke-dasharray="4 3" class="viz-pulse"/>
-        <circle cx="38" cy="24" r="2.4" fill="#d29b42"/><circle cx="72" cy="20" r="2.4" fill="#bd4c2f"/>
-      </svg></div>
-      <code>ILLUSTRATION</code><h3>An explanation, not a photograph</h3><p>Useful for things we cannot photograph directly. A trustworthy source should label an artist's concept or schematic clearly.</p>
-      <details class="truth-disclosure"><summary><span class="truth-hint">Open example ↓</span></summary>
-      <div class="truth-example">Example: a detailed landscape view of a distant exoplanet is an artist's concept, not a resolved surface photograph. Black-hole environments can be observed, including at radio wavelengths, but dramatic side-on cutaway scenes are often scientific visualizations.</div>
-      </details>
-    </article>
-  </div>
+  <div class="section-head"><div class="section-id">Real observations</div><div><h2>Same place. Different wavelengths. Different evidence.</h2><p>Start with an actual NASA observation, then examine which claims are supported by the image.</p></div></div>
   <div class="image-provenance-lab" id="imageProvenanceLab" data-view="compare">
     <div class="provenance-intro">
       <div>
@@ -91,6 +53,27 @@
       <p class="provenance-credit">Source and image credit: NASA, ESA, CSA, STScI, Hubble Heritage Project. Image processing: Joseph DePasquale (STScI), Anton Koekemoer (STScI), Alyssa Pagan (STScI). Space Atlas optimized the official composite for delivery; NASA and its partners do not endorse Space Atlas. <a href="https://science.nasa.gov/asset/webb/pillars-of-creation-hubble-and-webb-images-side-by-side/" target="_blank" rel="noreferrer">View NASA's image, observation dates and filter metadata ↗</a></p>
     </div>
   </div>
+  <section class="image-evidence-key" aria-labelledby="imageEvidenceKeyTitle">
+    <div class="image-evidence-key-head">
+      <h3 id="imageEvidenceKeyTitle">How to tell what an image actually shows</h3>
+      <p>First identify the source. Then decide what the image can and cannot establish.</p>
+    </div>
+    <dl class="image-evidence-rows">
+      <div>
+        <dt><span>01 · OBSERVATION</span><strong>Measured light, processed into a view</strong></dt>
+        <dd><p>The Pillars images above come from real telescope detectors. Their color mappings are assigned, not what a person would see through an eyepiece.</p><p class="image-evidence-test"><b>Verify</b> instrument · wavelengths · acquisition date · composite processing</p></dd>
+      </div>
+      <div>
+        <dt><span>02 · SIMULATION</span><strong>A prediction from stated assumptions</strong></dt>
+        <dd><p>Orbit animations calculate a simplified model. An appealing 3D representation does not mean planet sizes, distances, or speeds are shown to scale.</p><p class="image-evidence-test"><b>Verify</b> input variables · model limits · scale · independent observations</p></dd>
+      </div>
+      <div>
+        <dt><span>03 · ARTIST'S CONCEPT</span><strong>An interpretation, not a resolved photo</strong></dt>
+        <dd><p>A detailed landscape on a distant exoplanet is not a photograph of its surface. Such views may be informed by scientific measurements, but depicted terrain is not observed detail.</p><p class="image-evidence-test"><b>Verify</b> explicit concept label · observed facts · speculative features</p></dd>
+      </div>
+    </dl>
+    <p class="image-evidence-note">An observation can be processed, a simulation can use observations, and an illustration can be scientifically informed. These labels describe <em>how evidence supports the image</em>, not a ranking of visual quality. Read the original caption and source before drawing conclusions.</p>
+  </section>
  </div>
 </section>
 
