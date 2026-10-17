@@ -70,7 +70,7 @@ function store(){
  get('#modelEarthDistance').value='1';get('#modelDistanceUnit').value='m';
  evaluate('assets/js/distance-scale.js',{querySelector:get},false);
  assert.equal(get('#distancePhysicalMarker').style.left,'3.3278%');
- assert.equal(get('#distanceSceneMarker').style.left,'31.1111%');
+ assert.equal(get('#distanceSceneMarker').style.left,'28.0000%');
  assert.match(get('#distanceFocusReadout').textContent,/1.00 AU/);
  get('#distanceFocusPlanet').value='Neptune';get('#distanceFocusPlanet').fire('change');
  assert.equal(get('#distancePhysicalMarker').style.left,'100.0000%');

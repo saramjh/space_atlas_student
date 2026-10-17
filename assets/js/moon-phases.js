@@ -91,29 +91,43 @@ const earthViewCtx = earthViewCanvas.getContext('2d');
 const phaseNameEl = document.querySelector('#phaseName');
 const phaseMetricsEl = document.querySelector('#phaseMetrics');
 
+// The visible lunar hemisphere is a sphere, never an overlapping moving
+// black disk. At angle 0 the Sun is behind the Moon as seen from Earth;
+// at 180 degrees the Sun is behind the viewer. The terminator is the
+// projected great-circle boundary on that sphere (elliptical at gibbous
+// and crescent phases), NOT Earth's shadow during a lunar eclipse.
 function drawEarthView(thetaRad) {
   const size = earthViewCanvas.width;
   const r = size / 2 - 4;
   const cx = size / 2, cy = size / 2;
+  const image = earthViewCtx.createImageData(size, size);
+  const pixels = image.data;
+  const lightX = Math.sin(thetaRad);
+  const lightZ = -Math.cos(thetaRad);
+
+  // Use the same lit hemisphere over the entire lunar sphere; the visible
+  // fraction is (1 - cos(theta))/2. A narrow terminator softening prevents
+  // aliasing without creating a circular sweeping "eclipse" silhouette.
+  for (let py = 0; py < size; py++) {
+    for (let px = 0; px < size; px++) {
+      const x = (px + 0.5 - cx) / r;
+      const y = (cy - py - 0.5) / r;
+      const rho2 = x * x + y * y;
+      if (rho2 >= 1.015) continue;
+      const z = Math.sqrt(Math.max(0, 1 - rho2));
+      const sunFacing = x * lightX + z * lightZ;
+      const daylight = Math.min(1, Math.max(0, (sunFacing + 0.017) / 0.034));
+      const limb = Math.min(1, Math.max(0, (1 - Math.sqrt(rho2)) * r));
+      const shade = 0.86 + 0.14 * Math.sqrt(Math.max(0, sunFacing));
+      const i = (py * size + px) * 4;
+      pixels[i] = Math.round(22 * (1 - daylight) + 239 * shade * daylight);
+      pixels[i + 1] = Math.round(26 * (1 - daylight) + 232 * shade * daylight);
+      pixels[i + 2] = Math.round(34 * (1 - daylight) + 212 * shade * daylight);
+      pixels[i + 3] = Math.round(limb * 255);
+    }
+  }
   earthViewCtx.clearRect(0, 0, size, size);
-
-  earthViewCtx.save();
-  earthViewCtx.beginPath();
-  earthViewCtx.arc(cx, cy, r, 0, Math.PI * 2);
-  earthViewCtx.clip();
-
-  earthViewCtx.fillStyle = '#1a1d22';
-  earthViewCtx.fillRect(cx - r, cy - r, r * 2, r * 2);
-
-  const k = (1 - Math.cos(thetaRad)) / 2; // illuminated fraction, 0..1
-  const waxing = thetaRad <= Math.PI;
-  const offset = 2 * r * (1 - k);
-  const dir = waxing ? 1 : -1;
-  earthViewCtx.fillStyle = '#efe7d4';
-  earthViewCtx.beginPath();
-  earthViewCtx.arc(cx + dir * offset, cy, r, 0, Math.PI * 2);
-  earthViewCtx.fill();
-  earthViewCtx.restore();
+  earthViewCtx.putImageData(image, 0, 0);
 }
 
 const slider = document.querySelector('#moonAngle');

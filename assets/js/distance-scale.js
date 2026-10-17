@@ -32,7 +32,7 @@ const physicalMark = document.querySelector('#distancePhysicalMarker');
 const sceneMark = document.querySelector('#distanceSceneMarker');
 const focusReadout = document.querySelector('#distanceFocusReadout');
 const MAX_AU = 30.05;
-const MAX_SCENE_RADIUS = 45;
+const MAX_SCENE_RADIUS = PLANETS.at(-1).orbit;
 function tracePlanet(name) {
   const p = PLANETS.find(planet => planet.name === name);
   if (!p) return;
@@ -41,7 +41,7 @@ function tracePlanet(name) {
   const sceneFraction = 100 * p.orbit / MAX_SCENE_RADIUS;
   physicalMark.style.left = `${actualFraction.toFixed(4)}%`;
   sceneMark.style.left = `${sceneFraction.toFixed(4)}%`;
-  focusReadout.textContent = `${p.name}: ${au.toFixed(2)} AU (${actualFraction.toFixed(2)}% of the 30.05 AU physical ruler), but ${p.orbit} scene units (${sceneFraction.toFixed(2)}% of the 45-unit illustrative ruler). These positions do not describe current orbital positions.`;
+  focusReadout.textContent = `${p.name}: ${au.toFixed(2)} AU (${actualFraction.toFixed(2)}% of the 30.05 AU physical ruler), but ${p.orbit} scene units (${sceneFraction.toFixed(2)}% of the ${MAX_SCENE_RADIUS}-unit illustrative ruler). These positions do not describe current orbital positions.`;
 }
 focusPlanet?.addEventListener('change', () => tracePlanet(focusPlanet.value));
 if (focusPlanet && physicalMark && sceneMark) tracePlanet(focusPlanet.value);

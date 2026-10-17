@@ -44,6 +44,7 @@ jobs:
           node ci/verify_planet_3d.mjs
           node ci/verify_true_scale.mjs
           node ci/verify_science_truth.mjs
+          node ci/verify_jeff_feedback.mjs
           node ci/verify_ready_content.mjs
           node ci/verify_gravity_mechanism.mjs
           node ci/verify_orbit_framing.mjs

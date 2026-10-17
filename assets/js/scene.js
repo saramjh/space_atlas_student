@@ -9,15 +9,17 @@ const fallback = document.querySelector('#sceneFallback');
 const panel = document.querySelector('#planetPanel');
 
 const DEFAULT_MIN_DISTANCE = 22;
-const DEFAULT_CAM_POS = new THREE.Vector3(0, 29, 57);
-const TOP_CAM_POS = new THREE.Vector3(0, 72, .1);
+const DEFAULT_CAM_POS = new THREE.Vector3(0, 100, 112);
+const TOP_CAM_POS = new THREE.Vector3(0, 155, .1);
 
 const { scene, camera, renderer, controls, shell, canvas } = createSceneBase({
   canvasSelector: '#threeCanvas',
   shellSelector: '#sceneShell',
   cameraPos: DEFAULT_CAM_POS,
   minDistance: DEFAULT_MIN_DISTANCE,
-  fog: { color: 0x0b1016, near: 55, far: 125 },
+  far: 350,
+  maxDistance: 210,
+  fog: { color: 0x0b1016, near: 170, far: 300 },
 });
 canvas.setAttribute('aria-label','3D solar system camera. Use arrow keys to orbit.');
 
@@ -72,7 +74,7 @@ sunGlow.scale.set(16, 16, 1);
 sun.add(sunGlow);
 const planetGroup=new THREE.Group();scene.add(planetGroup);
 const selectable=[];
-function makePlanet(p,i){scene.add(orbitRing(p.orbit));const pivot=new THREE.Group();planetGroup.add(pivot);const tex=getPlanetTexture(p.name);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,48,32),new THREE.MeshStandardMaterial(tex?{map:tex,roughness:.85,metalness:0}:{color:p.color,roughness:.85,metalness:0}));mesh.rotation.y=Math.random()*Math.PI*2;mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
+function makePlanet(p,i){scene.add(orbitRing(p.orbit, 0x8095a9, 0.82));const pivot=new THREE.Group();planetGroup.add(pivot);const tex=getPlanetTexture(p.name);const mesh=new THREE.Mesh(new THREE.SphereGeometry(p.r,48,32),new THREE.MeshStandardMaterial(tex?{map:tex,roughness:.85,metalness:0}:{color:p.color,roughness:.85,metalness:0}));mesh.rotation.y=Math.random()*Math.PI*2;mesh.position.x=p.orbit;mesh.userData={...p,index:i};pivot.rotation.y=i*.78; pivot.add(mesh); selectable.push(mesh);
 if(p.name==='Saturn'){const rg=new THREE.RingGeometry(4.1,5.5,64);const rm=new THREE.MeshBasicMaterial({color:0xb8a67e,side:THREE.DoubleSide,transparent:true,opacity:.65});const rings=new THREE.Mesh(rg,rm);rings.rotation.x=Math.PI/2.35;mesh.add(rings);} return {pivot,mesh,p};}
 const planets=PLANETS.map(makePlanet);
 
