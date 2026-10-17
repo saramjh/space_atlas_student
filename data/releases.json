@@ -3,6 +3,33 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-18-moon-phase-spherical-light-and-orbit-spacing",
+      "date": "2026-10-18",
+      "category": "Scientific accuracy and visual clarity",
+      "title": "Moon phases now follow sunlight across a sphere",
+      "summary": "Astronomy-educator feedback identified an eclipse-like Moon-phase graphic and closely packed, faint solar-orbit paths. Both views now use more accurate geometry and more readable presentation while keeping the real-distance lessons separate.",
+      "students": "Move the Moon and see right-side waxing crescents, half-illuminated quarters and left-side waning phases formed by a spherical day/night boundary, not a moving Earth shadow. In the home Solar System model, clearer orbit rings and more separation prevent oversized gas giants from colliding with nearby orbital tracks.",
+      "teachers": "Compare new, first quarter and full Moon to challenge the misconception that the monthly phases are eclipses. The Sun-Earth-Moon diagram still compresses distance and flattens inclination. Solar System ring spacings remain illustrative scene units, not astronomical units or equal-size planets; use the actual distance-scale page for physical AU.",
+      "developers": "Replaced translated overlapping Moon disks with a lit surface-normal renderer; separated Saturn/Uranus/Neptune model radii and reconciled the 50-unit distance-scene static marker, made orbital paths visible and extended camera framing. Added physically targeted nine-phase/orbit-annulus CI, headless Chrome at 320/390/1280px, all prior quality gates and evidence audit. No change to existing AdSense, canonical paths or JSON-LD.",
+      "links": [
+        {
+          "label": "See the corrected Moon phases",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Inspect the orbit model",
+          "path": "/"
+        },
+        {
+          "label": "Compare true orbital distances",
+          "path": "/solar-system/distance-scale/"
+        }
+      ],
+      "commits": [
+        "5eee623"
+      ]
+    },
+    {
       "id": "2026-10-11-cosmic-magnitude-and-light-journey-visuals",
       "date": "2026-10-11",
       "category": "Visual scientific learning",
