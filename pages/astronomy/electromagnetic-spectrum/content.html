@@ -40,6 +40,14 @@
         <div><span>Frequency</span><output id="spectrumFrequency" for="spectrumSlider">546 THz</output></div>
         <div><span>Photon energy</span><output id="spectrumEnergy" for="spectrumSlider">2.26 eV</output></div>
       </div>
+      <div class="spectrum-compare" aria-labelledby="spectrumCompareTitle">
+        <div class="spectrum-compare-title"><h3 id="spectrumCompareTitle">Compare photon energies</h3><button type="button" id="spectrumReferenceSet">Save current wavelength as reference</button></div>
+        <div class="spectrum-compare-track" aria-hidden="true">
+          <span id="spectrumReferenceTick" class="reference-tick" style="left:51.9%"></span>
+          <span id="spectrumCurrentTick" class="current-tick" style="left:51.9%"></span>
+        </div>
+        <output id="spectrumComparison" aria-live="polite">Set a wavelength, then choose another. The energy ratio is the inverse wavelength ratio: shorter light carries more energy per photon.</output>
+      </div>
       <div class="spectrum-signal">
         <div class="spectrum-signal-head"><span>Wave relationship · conceptual preview</span><button type="button" id="spectrumWaveToggle" aria-pressed="false">Play motion</button></div>
         <svg viewBox="0 0 640 110" role="img" aria-labelledby="spectrumWaveTitle spectrumWaveDesc" preserveAspectRatio="none">

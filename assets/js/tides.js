@@ -1,4 +1,5 @@
 import { initQuiz } from './quiz-widget.js';
+import {tideResultant} from './tide-model.js';
 
 const btnSpring = document.querySelector('#btnSpring');
 const btnNeap = document.querySelector('#btnNeap');
@@ -46,7 +47,11 @@ function setTideAngle(degrees) {
   tideMoonLabel.setAttribute('x', x.toFixed(2));
   tideMoonLabel.setAttribute('y', (y + 22).toFixed(2));
   tidePresets.forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.tideAngle) === angle)));
-  const relative = 100 * Math.hypot(SOLAR + LUNAR * Math.cos(2 * angle * DEG), LUNAR * Math.sin(2 * angle * DEG)) / (SOLAR + LUNAR);
+  const model=tideResultant(angle);
+  const relative=model.percent;
+  document.querySelector('#tideResultantBar').style.width=relative.toFixed(1)+'%';
+  document.querySelector('#tideResultantValue').textContent=relative.toFixed(0)+
+    '% of aligned model · bulge axis '+model.majorAxisDeg.toFixed(1)+'° from Sun reference';
   const state = angle === 0 ? 'Spring pattern: aligned contributions reinforce.' :
     angle === 90 ? 'Neap pattern: perpendicular contributions partially oppose.' :
     'Intermediate alignment: the strength and orientation of the idealized pattern change.';

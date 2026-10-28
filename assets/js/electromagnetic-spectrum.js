@@ -21,6 +21,31 @@ const bandEl = document.querySelector('#spectrumBand');
 const descEl = document.querySelector('#spectrumDesc');
 const wave = document.querySelector('#spectrumWave');
 const waveToggle = document.querySelector('#spectrumWaveToggle');
+const referenceButton=document.querySelector('#spectrumReferenceSet');
+const comparison=document.querySelector('#spectrumComparison');
+const referenceTick=document.querySelector('#spectrumReferenceTick');
+const currentTick=document.querySelector('#spectrumCurrentTick');
+let referenceWavelength=null;
+function renderComparison(meters,position) {
+  currentTick.style.left=(position/14)+'%';
+  if(referenceWavelength===null) {
+    comparison.textContent='No reference yet. Save this wavelength, then select another to compare photon energy and frequency.';
+    return;
+  }
+  const energyRatio=referenceWavelength/meters;
+  const wavelengthRatio=meters/referenceWavelength;
+  comparison.textContent='Stored reference '+formatWavelength(referenceWavelength)+
+    ' → current '+formatWavelength(meters)+'. Current wavelength is '+
+    wavelengthRatio.toPrecision(3)+'× the reference; frequency and photon energy are '+
+    energyRatio.toPrecision(3)+'× the reference. These ratios come from c/λ and hc/λ, not the illustrative wave spacing.';
+}
+referenceButton.addEventListener('click',()=>{
+ const position=Number(slider.value);
+ referenceWavelength=10**(1-position/100);
+ referenceTick.style.left=(position/14)+'%';
+ renderComparison(referenceWavelength,position);
+});
+
 const buttons = [...document.querySelectorAll('[data-spectrum-sample]')];
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -95,6 +120,7 @@ function render() {
   document.querySelector('#spectrumEnergy').textContent = formatEnergy(energy);
   slider.setAttribute('aria-valuetext', `${formatWavelength(meters)}, ${band.name}, ${formatFrequency(frequency)}`);
   cursor.style.left = `${position / 14}%`;
+  renderComparison(meters,position);
   buttons.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.textContent.trim() === band.name || (btn.textContent.trim() === 'UV' && band.name === 'Ultraviolet') || (btn.textContent.trim() === 'Gamma' && band.name === 'Gamma ray'))));
 
   cycles = 2 + position / 1400 * 18;

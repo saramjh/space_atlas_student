@@ -14,11 +14,11 @@ Each item must have a specific learner misconception, an input-driven observable
 | TRA-004 | P1 | /exoplanets/transit-method/ | Existing quantitative planet vs light curve kept; added user-started 12s full phase playback synchronized to both | **New improvement: deployed and live verified (0d0a7ff)** |
 | TID-005 | P1 | /moon/tidal-locking/ | Existing textured 3D Moon marker now linked with a 2D Earth-facing orientation guide and cosine readout | **New improvement: deployed and live verified (0d0a7ff)** |
 | GRV-006 | P1 | /solar-system/gravity-and-orbits/ | Existing Newtonian cannonball trajectories now show velocity/gravity arrows and analytic launch forecast | **New improvement: deployed and live verified (0d0a7ff)** |
-| TDE-007 | P2 | /moon/tides/ | Existing 0–90° spring/neap forcing model and live contour (90°→33% idealized amplitude) | **Existing feature browser-audited; no duplicate code** |
-| LYR-008 | P2 | /universe/light-year/ | Existing 8-source logarithmic distance ruler and photon progress/elapsed/remaining time | **Existing feature browser-audited; no duplicate code** |
-| STR-009 | P2 | /stars/life-cycle/ | Existing six-stage Sun-like/massive branch and stage comparison | **Existing feature browser-audited; no duplicate code** |
-| SPT-010 | P2 | /astronomy/electromagnetic-spectrum/ | Existing wavelength/frequency/energy log ruler and opt-in wave preview | **Existing feature browser-audited; no duplicate code** |
-| GAL-011 | P2 | /galaxies/types/ | Existing projected spiral disk angle 0°–80° and NASA morphology explanation | **Existing feature browser-audited; no duplicate code** |
+| TDE-007 | P2 | /moon/tides/ | New lunar/solar contribution and resultant tide-force bars synchronized to the 2D contour/angle | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
+| LYR-008 | P2 | /universe/light-year/ | New 10-second optional normalized photon journey, linked to physical time estimates, with pause/reduced motion | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
+| STR-009 | P2 | /stars/life-cycle/ | New finite six-stage pathway stepper with explicitly nonphysical timing and readable controls | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
+| SPT-010 | P2 | /astronomy/electromagnetic-spectrum/ | New stored reference and actual wavelength vs frequency/energy ratio comparison | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
+| GAL-011 | P2 | /galaxies/types/ | New opt-in actual Three.js generated 3D spiral star disk, camera tilt, finite angle sweep and SVG fallback | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
 
 ## BH-001 evidence and limitations
 

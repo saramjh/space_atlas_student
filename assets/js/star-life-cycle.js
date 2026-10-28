@@ -30,6 +30,37 @@ const cause = document.querySelector('#lifeStageCause');
 const previous = document.querySelector('#lifePrevious');
 const next = document.querySelector('#lifeNext');
 const switchMass = document.querySelector('#lifeSwitchMass');
+const playButton=document.querySelector('#lifePlay');
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let playing=false,timer=null;
+function stopSequence() {
+  playing=false;
+  if(timer!==null)clearInterval(timer);
+  timer=null;
+  playButton.setAttribute('aria-pressed','false');
+  playButton.textContent='Step through this pathway';
+  playButton.disabled=reduceMotion.matches;
+}
+function startSequence() {
+  if(playing){stopSequence();return;}
+  if(reduceMotion.matches)return;
+  stageIndex=0;
+  render(true);
+  playing=true;
+  playButton.setAttribute('aria-pressed','true');
+  playButton.textContent='Pause stage sequence';
+  timer=setInterval(()=>{
+    if(stageIndex>=PATHS[selectedMass].length-1){stopSequence();return;}
+    stageIndex+=1;
+    render();
+    if(stageIndex>=PATHS[selectedMass].length-1)stopSequence();
+  },1100);
+}
+playButton.addEventListener('click',startSequence);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSequence();});
+reduceMotion.addEventListener?.('change',()=>stopSequence());
+playButton.disabled=reduceMotion.matches;
+
 let selectedMass = 'sun';
 let stageIndex = 0;
 
@@ -61,6 +92,7 @@ function render(rebuildSteps = false) {
 }
 
 toggle.addEventListener('click', (event) => {
+  stopSequence();
   const btn = event.target.closest('[data-mass]');
   if (!btn || !toggle.contains(btn)) return;
   selectedMass = btn.dataset.mass;
@@ -68,16 +100,19 @@ toggle.addEventListener('click', (event) => {
   render(true);
 });
 switchMass.addEventListener('click', () => {
+  stopSequence();
   selectedMass = selectedMass === 'sun' ? 'massive' : 'sun';
   render(true);
 });
 stages.addEventListener('click', (event) => {
+  stopSequence();
   const btn = event.target.closest('[data-stage]');
   if (!btn || !stages.contains(btn)) return;
   stageIndex = Number(btn.dataset.stage);
   render();
 });
 previous.addEventListener('click', () => {
+  stopSequence();
   if (stageIndex > 0) {
     stageIndex -= 1;
     render();
@@ -85,6 +120,7 @@ previous.addEventListener('click', () => {
   }
 });
 next.addEventListener('click', () => {
+  stopSequence();
   if (stageIndex < PATHS[selectedMass].length - 1) {
     stageIndex += 1;
     render();

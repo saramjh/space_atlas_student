@@ -51,6 +51,7 @@
       <p>Change the viewing angle of the <strong>same disk-shaped galaxy</strong>. The spiral arms become harder to recognize as the disk turns edge-on. That does not turn it into an elliptical galaxy.</p>
     </div>
     <div class="galaxy-view-layout">
+      <div class="galaxy-view-visual" id="galaxy3DShell">
       <svg class="galaxy-view-image" viewBox="0 0 320 220" role="img" aria-labelledby="galaxyViewTitle galaxyViewDesc">
         <title id="galaxyViewTitle">Schematic spiral galaxy seen at different inclinations</title>
         <desc id="galaxyViewDesc">A stylized spiral disk with four spiral arms. A projection compresses the minor axis as the viewing angle increases from face-on toward edge-on.</desc>
@@ -68,6 +69,8 @@
         </g>
         <text x="13" y="19" font-size="10" font-family="ui-monospace,monospace" fill="#d5e3f2">Geometric illustration · not a telescope image</text>
       </svg>
+      <canvas id="galaxy3DCanvas" class="galaxy-3d-canvas" hidden aria-hidden="true"></canvas>
+      </div>
       <div class="galaxy-view-tools">
         <label for="galaxyInclination">Viewing angle to the galaxy disk</label>
         <input type="range" id="galaxyInclination" min="0" max="80" step="10" value="0" aria-controls="galaxyAngleOutput" />
@@ -78,6 +81,11 @@
           <button type="button" data-galaxy-angle="60" aria-pressed="false">Inclined</button>
           <button type="button" data-galaxy-angle="80" aria-pressed="false">Edge-on</button>
         </div>
+        <div class="galaxy-3d-actions">
+          <button type="button" id="galaxy3DActivate" aria-pressed="false">Explore conceptual 3D star disk</button>
+          <button type="button" id="galaxy3DPlay" aria-pressed="false">Sweep viewing angle (8 s)</button>
+        </div>
+        <p class="galaxy-3d-note">3D uses generated stars in spiral arms with an illustrative central bulge — <strong>not a telescope photo or a reconstruction of real star positions</strong>. The disk does not physically change type when your viewing angle changes.</p>
         <p class="galaxy-view-note">This is a <strong>geometric projection of one illustrative disk</strong>, not a physical 3D observation. Real spiral galaxies also contain central bulges, gas and dust, so their appearance depends on more than inclination.</p>
       </div>
     </div>

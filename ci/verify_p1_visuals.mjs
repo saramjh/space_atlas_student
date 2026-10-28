@@ -17,7 +17,12 @@ class Node {
 }
 function evaluate(file,doc) {
   const src=readFileSync(file,'utf8').replace("import { initQuiz } from './quiz-widget.js';",'const initQuiz=()=>{};');
-  runInNewContext(src,{document:doc,console});
+  doc.addEventListener=()=>{};
+  doc.hidden=false;
+  runInNewContext(src,{document:doc,console,
+    window:{matchMedia:()=>({matches:false,addEventListener:()=>{}})},
+    setInterval:()=>1,clearInterval:()=>{}});
+
 }
 function makePlanet() {
   const cards=Object.fromEntries(['rocky','gas','ice'].map(k=>[k,new Node()]));
@@ -52,11 +57,15 @@ function makeStars(){
   const steps=Array.from({length:6},(_,i)=>{const b=new Node();b.dataset.stage=String(i);b.focus=()=>{b.focused=true;};return b;});
   stages.querySelectorAll=()=>steps;
   stages.querySelector=(sel)=>{const n=/data-stage="([0-9]+)"/.exec(sel);return n?steps[Number(n[1])]:null;};
-  const refs=Object.fromEntries(['#massToggle','#lifeStages','#lifeStageCount','#lifeStageTitle','#lifeStageDescription','#lifeStageCause','#lifePrevious','#lifeNext','#lifeSwitchMass'].map(k=>[k,new Node()]));
+  const refs=Object.fromEntries(['#massToggle','#lifeStages','#lifeStageCount','#lifeStageTitle','#lifeStageDescription','#lifeStageCause','#lifePrevious','#lifeNext','#lifeSwitchMass','#lifePlay'].map(k=>[k,new Node()]));
   refs['#massToggle']=toggle; refs['#lifeStages']=stages;
   evaluate('assets/js/star-life-cycle.js',{querySelector:(sel)=>{assert.ok(refs[sel],sel);return refs[sel];}});
   const selected=(stage)=>{const b=new Node();b.dataset.stage=String(stage);stages.fire('click',b);};
   assert.match(refs['#lifeStageTitle'].textContent,/Nebula/);
+  refs['#lifePlay'].fire('click');
+  assert.equal(refs['#lifePlay'].getAttribute('aria-pressed'),'true');
+  refs['#lifePlay'].fire('click');
+  assert.equal(refs['#lifePlay'].getAttribute('aria-pressed'),'false');
   assert.equal(refs['#lifePrevious'].disabled,true);
   selected(4);
   assert.match(refs['#lifeStageTitle'].textContent,/Planetary nebula/);

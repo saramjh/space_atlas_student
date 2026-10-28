@@ -3,6 +3,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
+import {tideResultant} from '../assets/js/tide-model.js';
 class E {
   constructor(value=''){this.value=value;this.dataset={};this.style={};this.attrs={};this.textContent='';this.innerHTML='';this.listeners=new Map();this.classList={toggle(){},add(){},remove(){}};}
   addEventListener(event, fn){this.listeners.set(event, fn);}
@@ -24,7 +25,7 @@ function evaluate(path, document, skipQuiz=false){
       src=src.slice(0,pos)+src.slice(end+7);
     }
   }
-  runInNewContext(src, {document,PLANETS:data.PLANETS,console});
+  runInNewContext(src, {document,PLANETS:data.PLANETS,tideResultant,console});
 }
 function store(){
   const db=new Map();
@@ -52,10 +53,12 @@ function store(){
  const presets=[0,45,90].map(deg=>{const el=new E();el.dataset.tideAngle=String(deg);return el;});
  evaluate('assets/js/tides.js',{querySelector:get,querySelectorAll:()=>presets},true);
  assert.match(get('#tideModelReadout').textContent,/100%/);
+ assert.match(get('#tideResultantValue').textContent,/100%/);
  assert.match(get('#tideBulgeShape').getAttribute('d'),/^M /);
  presets[2].fire('click');
  assert.equal(get('#tideAngle').value,'90');
  assert.match(get('#tideModelReadout').textContent,/33%/);
+ assert.equal(get('#tideResultantBar').style.width,'33.3%');
  assert.equal(get('#tideMoonMarker').getAttribute('cy'),'17.00');
  assert.equal(presets[2].getAttribute('aria-pressed'),'true');
  get('#tideAngle').value='45';get('#tideAngle').fire('input');

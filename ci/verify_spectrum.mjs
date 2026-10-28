@@ -29,6 +29,8 @@ for (const id of [
   'spectrumSlider', 'spectrumCursor', 'spectrumBand', 'spectrumDesc',
   'spectrumWave', 'spectrumWaveToggle', 'spectrumWavelength',
   'spectrumFrequency', 'spectrumEnergy',
+  'spectrumReferenceSet', 'spectrumComparison', 'spectrumReferenceTick',
+  'spectrumCurrentTick',
 ]) ids.set('#' + id, new Element());
 ids.get('#spectrumSlider').value = '726';
 const samples = [
@@ -78,6 +80,12 @@ assert.equal(value('spectrumEnergy'), '2.26 eV');
 assert.ok(Math.abs(parseFloat(ids.get('#spectrumCursor').style.left) - 51.86) < 0.1);
 assert.ok(ids.get('#spectrumWave').attrs.d.length > 500);
 
+select('Visible');
+ids.get('#spectrumReferenceSet').fire('click');
+select('UV');
+assert.match(value('spectrumComparison'), /550 nm/);
+assert.match(value('spectrumComparison'), /100 nm/);
+assert.match(value('spectrumComparison'), /5.50×/);
 select('Radio');
 assert.equal(value('spectrumBand'), 'Radio');
 assert.equal(value('spectrumWavelength'), '1 m');

@@ -15,7 +15,13 @@ function evaluate(path,doc){
  const script=readFileSync(path,'utf8').replace(/^import .*;\s*$/gm,'');
  const at=script.indexOf('initQuiz([');
  assert.ok(at>0,'quiz entry marker missing');
- runInNewContext(script.slice(0,at),{document:doc,console});
+ doc.addEventListener=()=>{};
+ doc.hidden=false;
+ runInNewContext(script.slice(0,at),{
+   document:doc,console,
+   window:{matchMedia:()=>({matches:false,addEventListener:()=>{}})},
+   requestAnimationFrame:()=>1,cancelAnimationFrame:()=>{}
+ });
 }
 function store(){
  const m=new Map();

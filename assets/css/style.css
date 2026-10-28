@@ -523,7 +523,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .life-stage-panel p{font-size:13px;line-height:1.6;max-width:800px;margin:0 0 12px;color:#e0e5eb}
 .life-stage-panel .life-cause{color:#bad1dd;font-size:12px}
 .life-navigation{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;margin-top:20px}
-.life-navigation button{font-size:12px;background:transparent;color:#fff;border:1px solid #95a7b5;padding:10px 13px;cursor:pointer;border-radius:2px}
+.life-navigation button{font-size:14px;min-height:44px;line-height:1.45;background:transparent;color:#fff;border:1px solid #95a7b5;padding:10px 13px;cursor:pointer;border-radius:2px}
 .life-navigation button:hover:not(:disabled){background:#364b59}
 .life-navigation button.life-switch{border-color:#a9c2d6;background:#2c4251;font-weight:600}
 .life-navigation button:disabled{opacity:.35;cursor:not-allowed}
@@ -1184,3 +1184,47 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .orbit-vectors-option input{accent-color:var(--accent);width:18px;height:18px}
 .orbit-prediction{margin:14px 20px 4px;padding:12px 14px;border-left:3px solid #a65b33;background:#e8e8e2;font-size:15px;line-height:1.6;color:#273640}
 .orbit-vector-legend{margin:6px 20px 12px;font-size:13px;line-height:1.55;color:#404c53}
+
+/* Tidal-force combination: consistent comparison across all Moon angles. */
+.tide-force-bars{padding:16px 0;display:grid;gap:10px}
+.tide-force-bars>div:not(.tide-force-track){display:grid;grid-template-columns:minmax(125px,220px) minmax(0,1fr);align-items:center;gap:12px}
+.tide-force-bars span{font-size:14px;line-height:1.4}
+.tide-force-track{height:19px;border:1px solid #a3b0b5;background:#dce3e5;position:relative}
+.tide-force-track>span{display:block;height:100%;max-width:100%}
+.tide-force-track .moon{width:66.6667%;background:#497d99}
+.tide-force-track>span.sun{position:static;transform:none;border-radius:0;box-shadow:none;width:33.3333%;height:100%;background:#cd9b54}
+.tide-force-track .combined{background:#ab603f}
+.tide-force-bars output{font:600 15px/1.5 var(--font-reading)}
+@media(max-width:500px){.tide-force-bars>div:not(.tide-force-track){grid-template-columns:1fr;gap:4px}}
+
+/* Bounded timeline explorations: never imply physically proportional durations. */
+.ly-motion-controls{display:flex;align-items:center;gap:13px;padding:13px 0;flex-wrap:wrap}
+.ly-motion-controls button,.life-navigation #lifePlay{border:1px solid #455966;background:#15394f;color:#fff;font:600 14px/1.45 var(--font-reading);padding:10px 14px;min-height:44px;cursor:pointer;scroll-margin-top:140px}
+.ly-motion-controls button:disabled,.life-navigation #lifePlay:disabled{opacity:.55;cursor:not-allowed}
+.ly-motion-controls p,.life-motion-note{margin:0;font-size:14px;line-height:1.6;color:#46515a;max-width:66ch}
+.life-motion-note{margin:13px 20px 8px}
+.ly-motion-controls button:focus-visible,.life-navigation #lifePlay:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* Exact wavelength/energy ratio comparison; colors identify reference and current. */
+.spectrum-compare{padding:17px 20px;background:#e9ebea;border-top:1px solid #c0c4c2}
+.spectrum-compare-title{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.spectrum-compare-title h3{font:600 19px/1.35 var(--font-display);margin:0}
+.spectrum-compare-title button{font:600 14px/1.4 var(--font-reading);border:1px solid #59646b;background:#f9faf7;color:#213440;min-height:43px;padding:9px 12px;cursor:pointer}
+.spectrum-compare-title button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.spectrum-compare-track{height:20px;border:1px solid #8b999f;background:linear-gradient(90deg,#adc3cf,#677d90);position:relative;margin:15px 0}
+.spectrum-compare-track .reference-tick,.spectrum-compare-track .current-tick{position:absolute;top:-3px;bottom:-3px;width:4px;transform:translateX(-50%);background:#f4e4ae;border:1px solid #6b5732}
+.spectrum-compare-track .current-tick{top:4px;bottom:4px;width:7px;background:#a3482f;border-color:#462b23}
+.spectrum-compare output{font:500 15px/1.6 var(--font-reading);color:#273944;display:block}
+
+/* Opt-in spatial galaxy from deterministic simulated stars; 2D remains first. */
+.galaxy-view-visual{position:relative;min-width:0;aspect-ratio:320/220;background:#0c1420}
+.galaxy-view-visual>svg,.galaxy-view-visual>canvas{display:block;width:100%;height:100%}
+.galaxy-view-visual>canvas{position:absolute;inset:0}
+.galaxy-view-visual>svg[hidden],.galaxy-view-visual>canvas[hidden]{display:none}
+.galaxy-3d-actions{display:flex;flex-wrap:wrap;gap:8px}
+.galaxy-3d-actions button{background:#172b3b;color:#fff;border:1px solid #72848d;padding:10px 12px;min-height:44px;font:600 14px/1.4 var(--font-reading);cursor:pointer}
+.galaxy-3d-actions button[aria-pressed=true]{background:#a15b34}
+.galaxy-3d-actions button:disabled{opacity:.5;cursor:not-allowed}
+.galaxy-3d-actions button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.galaxy-3d-note{font-size:14px;line-height:1.6;color:#48535a;margin:10px 0}
+@media(max-width:600px){.galaxy-3d-actions button{width:100%}}

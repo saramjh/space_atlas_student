@@ -74,6 +74,12 @@
           <button data-tide-angle="45" type="button" aria-pressed="false">Between · 45°</button>
           <button data-tide-angle="90" type="button" aria-pressed="false">Neap · 90°</button>
         </div>
+        <div class="tide-force-bars" aria-label="Compare fixed lunar and solar forcing with combined strength">
+          <div><span>Moon · 2 parts</span><div class="tide-force-track"><span class="moon"></span></div></div>
+          <div><span>Sun · 1 part</span><div class="tide-force-track"><span class="sun"></span></div></div>
+          <div><span>Combined pattern · angle-dependent</span><div class="tide-force-track"><span id="tideResultantBar" class="combined" style="width:100%"></span></div></div>
+          <output id="tideResultantValue" aria-live="polite">100% of aligned model · bulge axis 0°</output>
+        </div>
         <p id="tideModelReadout" role="status" class="tide-model-readout">0° — Spring configuration: lunar and solar tidal patterns reinforce in this model.</p>
         <p class="tide-model-caveat">The combined <strong>equilibrium quadrupole</strong> is a teaching approximation using a constant lunar contribution and a solar contribution half as large (NOAA). It excludes continents, ocean-basin resonance, local delays, the Moon's distance changes and unequal high tides. Shape distortion has no sea-level units.</p>
       </div>

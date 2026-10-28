@@ -5,6 +5,37 @@ const picker = document.querySelector('#lyPicker');
 const readout = document.querySelector('#lyReadout');
 const NOW_YEAR = new Date().getFullYear();
 const photonSlider = document.querySelector('#lyPhotonSlider');
+const playButton = document.querySelector('#lyPlay');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let playing=false,frame=null,lastFrame=null,progress=0;
+function setPlaying(value) {
+  playing=Boolean(value)&&!document.hidden&&!reduceMotion.matches;
+  if(frame!==null)cancelAnimationFrame(frame);
+  frame=null;lastFrame=null;
+  playButton.setAttribute('aria-pressed',String(playing));
+  playButton.textContent=playing?'Pause light journey':'Play this light journey';
+  playButton.disabled=reduceMotion.matches;
+  if(playing)frame=requestAnimationFrame(advanceJourney);
+}
+function advanceJourney(time) {
+  if(!playing)return;
+  if(lastFrame!==null) {
+    progress=Math.min(100,progress+Math.min(.15,(time-lastFrame)/1000)*10);
+    photonSlider.value=String(Math.round(progress));
+    renderPhoton();
+    if(progress>=100){setPlaying(false);return;}
+  }
+  lastFrame=time;
+  frame=requestAnimationFrame(advanceJourney);
+}
+playButton.addEventListener('click',()=>{
+  if(playing){setPlaying(false);return;}
+  progress=0;photonSlider.value='0';renderPhoton();
+  setPlaying(true);
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(false);});
+reduceMotion.addEventListener?.('change',()=>setPlaying(false));
+
 const sourcePoints = [...document.querySelectorAll('[data-ly-point]')];
 let selectedLy = 0.0000158;
 let selectedSource = 'The Sun';
@@ -29,6 +60,7 @@ function renderPhoton() {
   document.querySelector('#lyPhotonDiagram').setAttribute('aria-label', `Normalized light path from ${selectedSource} to Earth: ${percent}% complete, ${elapsed} traveled and ${remaining} remaining.`);
 }
 function updateVisuals(ly, label) {
+  setPlaying(false);
   selectedLy = ly;
   selectedSource = label;
   const selectedX = (36 + 828 * logPosition(ly, LIGHT_DOMAIN.min, LIGHT_DOMAIN.max)).toFixed(3);
@@ -48,7 +80,7 @@ function updateVisuals(ly, label) {
   viewport.scrollLeft = Math.max(0, plotWidth * Number(selectedX) / 900 - viewport.clientWidth / 2);
   renderPhoton();
 }
-photonSlider.addEventListener('input', renderPhoton);
+photonSlider.addEventListener('input',()=>{setPlaying(false);progress=Number(photonSlider.value);renderPhoton();});
 
 
 function describe(ly, label) {
@@ -92,6 +124,7 @@ const initial = picker.querySelector('button.active') || picker.querySelector('b
 readout.innerHTML = describe(Number(initial.dataset.ly), initial.textContent);
 updateVisuals(Number(initial.dataset.ly), initial.textContent);
 photonSlider.disabled = false;
+playButton.disabled=reduceMotion.matches;
 picker.querySelectorAll('button').forEach((button) => { button.disabled = false; });
 document.querySelector('#lyInitNote').hidden = true;
 
