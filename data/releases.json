@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-moon-phase-causal-simulator-and-classroom-geometry",
+      "date": "2026-10-28",
+      "category": "Scientific accuracy and controlled visual learning",
+      "title": "Moon phases: follow sunlight, drag the orbit, and see why the bright side changes",
+      "summary": "A review of the Moon phase simulator found a hidden Sun, missing Earth-to-Moon sightline, an unrotated Moon surface and misleading phase names. The model now connects the viewing geometry, correct phase label, illuminated disk and textured lunar orientation; the classroom lamp diagram now directs its light toward the ball.",
+      "students": "Tap or drag the Moon along its orbit or select any of eight phases; watch the Earth sightline, visible illuminated area, Sun–Earth–Moon angle and day update together. Play an explicitly initiated, pausable 24-second illustrative model cycle, or use still native controls with reduced-motion preferences. A bright 67% disk is now called waxing gibbous, not First Quarter.",
+      "teachers": "The first-quarter CER activity remains device-free as a two-page printable. The revised classroom top-down geometry distinguishes the actual lamp-to-ball light ray from the observer's perpendicular gaze lines, has a legible mobile diagram and explains why a nearby lamp approximates ideal parallel sunlight.",
+      "developers": "Single pure testable phase-geometry model with nine phase invariants, idealized tidal orientation and direct orbit inverse; idle WebGL no longer continuously spins Earth. Local browser tested drag, play/pause, mobile layout and reduced motion. Existing NASA citations, canonical/JSON-LD, ad boundaries and independent astronomy-educator CER evidence retained. This is not measured pupil learning or a real ephemeris.",
+      "links": [
+        {
+          "label": "Try the Moon phase simulator",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Explore tidal locking",
+          "path": "/moon/tidal-locking/"
+        }
+      ],
+      "commits": [
+        "7b9e17c"
+      ]
+    },
+    {
       "id": "2026-10-28-seasons-zero-tilt-teacher-test",
       "date": "2026-10-28",
       "category": "Feedback-led classroom activity",
