@@ -7,6 +7,53 @@
   </div>
 </section>
 
+<section class="section moon-cer-prediction" id="moon-cer-activity" aria-labelledby="moonCerHeading">
+ <div class="wrap">
+  <div class="section-head">
+   <div class="section-id">01 / Predict before you model</div>
+   <div><h2 id="moonCerHeading">At First Quarter, how much of the Moon looks bright?</h2><p>Before touching the simulator, choose one of three equally sized drawings. Make a claim; then gather evidence from the Moon model below or a lamp-and-ball activity.</p></div>
+  </div>
+  <fieldset class="cer-prediction-fieldset" id="moonCerPrediction">
+   <legend>Choose the illuminated part you expect to see from Earth.</legend>
+   <div class="cer-phase-choices">
+    <label class="cer-phase-choice">
+     <input type="radio" name="cerMoonPrediction" value="quarter" aria-label="One quarter of the visible Moon appears bright" />
+     <svg class="cer-phase-icon" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+      <circle cx="48" cy="48" r="40" fill="#1b2732" />
+      <path d="M48 8 A40 40 0 0 1 48 88 Q88 48 48 8 Z" fill="#f3f0d9" />
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#73808b" stroke-width="1.5" />
+     </svg>
+     <span><strong>One quarter</strong><small>About 25% bright</small></span>
+    </label>
+    <label class="cer-phase-choice">
+     <input type="radio" name="cerMoonPrediction" value="half" aria-label="One half of the visible Moon appears bright" />
+     <svg class="cer-phase-icon" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+      <circle cx="48" cy="48" r="40" fill="#1b2732" />
+      <path d="M48 8 A40 40 0 0 1 48 88 L48 8 Z" fill="#f3f0d9" />
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#73808b" stroke-width="1.5" />
+     </svg>
+     <span><strong>One half</strong><small>About 50% bright</small></span>
+    </label>
+    <label class="cer-phase-choice">
+     <input type="radio" name="cerMoonPrediction" value="full" aria-label="The entire visible Moon appears bright" />
+     <svg class="cer-phase-icon" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+      <circle cx="48" cy="48" r="40" fill="#f3f0d9" stroke="#73808b" stroke-width="1.5" />
+     </svg>
+     <span><strong>The whole disk</strong><small>About 100% bright</small></span>
+    </label>
+   </div>
+  </fieldset>
+  <div class="cer-check-row">
+   <button type="button" id="moonCerCheck">Check in the simulator</button>
+   <p id="moonCerFeedback" aria-live="polite">Pick a drawing, then compare its bright area with First Quarter in the simulator below.</p>
+  </div>
+  <details id="moonCerFallback" class="cer-explanation">
+   <summary>Read the scientific explanation (works without JavaScript)</summary>
+   <p>At <strong>First Quarter</strong>, approximately <strong>half of the disk we see from Earth</strong> is illuminated. The word “quarter” refers to the Moon being about one quarter through its roughly 29.5-day phase cycle. The Sun lights half of the Moon’s entire sphere at all ordinary phases; our viewing angle changes. Ordinary phases are not Earth’s shadow. The diagram’s right-hand bright side is a standard northern-view schematic; its orientation in the real sky varies by observing location and viewing angle.</p>
+  </details>
+ </div>
+</section>
+
 <section class="section">
  <div class="wrap">
   <div class="phase-lab" id="phaseLab" data-growth-model>
@@ -72,16 +119,69 @@
 
 <section class="section teacher-use-section" aria-labelledby="teacher-moon-title">
  <div class="wrap">
-  <div class="section-head"><div class="section-id">Teacher quick use</div><div><h2 id="teacher-moon-title">Separate Moon phases from eclipses.</h2><p>A short prediction-and-check activity built around the two synchronized views.</p></div></div>
+  <div class="section-head"><div class="section-id">Teacher-ready / device-free</div><div><h2 id="teacher-moon-title">One Moon, three evidence checks.</h2><p>A suggested Claim–Evidence–Reasoning (CER) activity for U.S. upper elementary classrooms. No student device, login, or website is required.</p></div></div>
   <dl class="teacher-use-list">
-    <div><dt>Learning objective</dt><dd>Explain Moon phases with Sun–Earth–Moon geometry instead of Earth’s shadow.</dd></div>
-    <div><dt>Activity</dt><dd>Have students predict New, First Quarter, and Full Moon, then compare each prediction with the Earth view.</dd></div>
-    <div><dt>Misconception to test</dt><dd>“Earth’s shadow causes the ordinary monthly phases of the Moon.”</dd></div>
+    <div><dt>Grades &amp; time</dt><dd><strong>Grades 3–5 · 30–35 minutes</strong> (suggested; not classroom-tested).</dd></div>
+    <div><dt>Learning objectives</dt><dd>Predict the bright portion of a First Quarter Moon, collect evidence from a physical or paper model, and explain why Earth’s shadow does not cause ordinary monthly phases.</dd></div>
+    <div><dt>Materials</dt><dd>Paper, pencils, three teacher-drawn Moon disks of equal size, and optionally a small matte white ball and <strong>cool LED lamp controlled by the teacher</strong>. The activity also works with only the printable diagram and drawings.</dd></div>
+    <div><dt>Sequence</dt><dd>5 minutes to predict → 12–15 minutes to observe or model → 10 minutes to write claim, evidence and reasoning → 5 minutes for a final check.</dd></div>
   </dl>
+  <div class="cer-setup-layout">
+   <div class="cer-setup-instructions">
+    <h3>Set up the lamp, ball and observer</h3>
+    <ol>
+     <li>Keep a steady, <strong>cool LED lamp</strong> well to the left of the seated observer (Earth). A teacher positions and controls it; never shine light into eyes.</li>
+     <li>Hold the <strong>white ball (Moon)</strong> about an arm’s length in front of the observer, near eye height. Keep it outside the observer’s own shadow. Put the lamp several times farther away than the ball if space allows.</li>
+     <li>Move the ball to one side of the line from observer to lamp: from above, the observer-to-ball direction is roughly <strong>90°</strong> from the observer-to-lamp direction. Keep the lamp fixed.</li>
+     <li>Look at the ball, not the lamp. Sketch the visible bright fraction; compare it with the prediction. Rotate the ball around the observer to compare new and full phases. Use the paper diagram instead if no lamp is available.</li>
+    </ol>
+    <p class="cer-caution">Conceptual positions only — not to scale. A nearby lamp produces only an approximate quarter-phase demonstration. Do not use the real Sun or a hot lamp.</p>
+   </div>
+   <figure class="cer-setup-figure">
+    <svg viewBox="0 0 640 310" role="img" aria-labelledby="cerSetupTitle cerSetupDesc" focusable="false">
+     <title id="cerSetupTitle">Top-down lamp, Moon ball and observer arrangement</title>
+     <desc id="cerSetupDesc">The teacher-controlled lamp sits far to the observer's left. The observer is at the lower right, holding the ball in front. Dashed lines from observer to lamp and observer to ball make an approximately 90 degree angle.</desc>
+     <rect x="1" y="1" width="638" height="308" fill="#ece9e1" stroke="#bdb8ae" />
+     <path d="M125 188 H484 V75" fill="none" stroke="#65727c" stroke-width="2" stroke-dasharray="7 7" />
+     <path d="M462 188 V166 H484" fill="none" stroke="#ad4327" stroke-width="2.5" />
+     <path d="M144 157 L385 90" stroke="#c78a27" stroke-width="2.5" stroke-dasharray="7 6" />
+     <path d="M384 90 l-10 -2 l6 9 Z" fill="#c78a27" />
+     <circle cx="125" cy="188" r="32" fill="#d69c38" stroke="#8f5b17" stroke-width="2" />
+     <path d="M110 174 L140 202 M140 174 L110 202" stroke="#fff1c9" stroke-width="4" />
+     <circle cx="484" cy="188" r="27" fill="#406b87" stroke="#18354a" stroke-width="2" />
+     <circle cx="484" cy="75" r="20" fill="#76828d" stroke="#6b6d70" stroke-width="2" />
+     <path d="M484 55 A20 20 0 0 0 484 95 Z" fill="#dedbd0" />
+     <g fill="#16212a" font-size="14" font-family="system-ui,sans-serif" text-anchor="middle">
+      <text x="125" y="239" font-weight="700">LED lamp</text><text x="125" y="255" font-size="11">teacher-controlled</text>
+      <text x="484" y="243" font-weight="700">Observer (Earth)</text><text x="484" y="259" font-size="11">look toward ball</text>
+      <text x="484" y="35" font-weight="700">Ball (Moon)</text><text x="484" y="113" font-size="11">arm’s length</text>
+      <text x="404" y="159" font-size="12">≈90°</text>
+      <text x="249" y="111" font-size="11" fill="#8f5b17">light direction</text>
+     </g>
+    </svg>
+    <figcaption>Original top-down classroom schematic. The lamp is much farther from the observer than the ball; relative size and distance are not to scale.</figcaption>
+   </figure>
+  </div>
+  <div class="cer-reasoning-guide">
+   <h3>Student-friendly CER prompts</h3>
+   <dl>
+    <div><dt>Claim</dt><dd>“At First Quarter, how much of the Moon’s visible circle is bright?”</dd></div>
+    <div><dt>Evidence</dt><dd>“What did you see on the ball, in your drawing, or in the Moon model? Record two specific observations.”</dd></div>
+    <div><dt>Reasoning</dt><dd>“How do the lamp, observer and ball positions explain the evidence? Why is it not Earth’s shadow?”</dd></div>
+   </dl>
+   <details>
+    <summary>Show a sample student response (hypothetical, not collected from pupils)</summary>
+    <p><strong>Claim:</strong> At First Quarter, about half the Moon’s visible circle looks bright. <strong>Evidence:</strong> When I held the ball to the side of the lamp, I saw a bright half and a dark half; moving the ball changed which part I could see. <strong>Reasoning:</strong> The lamp lit one side of the ball all the time, but my viewing position changed how much of that lit side I saw. Earth’s shadow was not needed.</p>
+   </details>
+   <p><strong>Differentiate:</strong> For emerging writers, offer sentence stems and allow labelled sketches instead of full paragraphs. For students ready for extension, compare Last Quarter and discuss why the real Moon’s orientation differs by location; ask what this lamp model leaves out (real sizes, distances and orbital tilt).</p>
+   <p><strong>Exit check:</strong> “Why can the Moon be half bright at First Quarter when its name says quarter?” Look for the distinction between <em>fraction of the cycle</em> and <em>visible illuminated disk</em>.</p>
+  </div>
   <div class="teacher-use-actions">
-    <a href="#evidence" data-evidence-open>Jump to evidence ↓</a>
+    <a class="cer-print-link" href="{{BASE}}/assets/handouts/moon-phases-cer.html">Open the printable teacher guide + student worksheet</a>
+    <a href="#phaseLab">Compare with the interactive model</a>
     <a class="teacher-classroom-share" href="https://classroom.google.com/share?url=https%3A%2F%2Fsaramjh.github.io%2Fspace_atlas_student%2Fmoon%2Fphases%2F%3Futm_source%3Dgoogle_classroom%26utm_medium%3Dshare%26utm_campaign%3Dspace_atlas_teacher_test" target="_blank" rel="noopener noreferrer" data-teacher-share>Share to Google Classroom ↗</a>
   </div>
+  <p class="cer-source-line">Science basis: <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer">NASA Moon Phases</a> and <a href="https://science.nasa.gov/mission/lro/lunar-activities/" target="_blank" rel="noopener noreferrer">NASA lunar learning activities</a>. Suggested lesson, not a classroom-tested or accredited curriculum. The printable guide is device-free and contains no ads or trackers.</p>
  </div>
 </section>
 

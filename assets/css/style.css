@@ -962,3 +962,47 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .home-update-note span{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;color:var(--muted)}
 .home-update-note a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 @media(max-width:760px){.updates-audiences,.updates-readers{grid-template-columns:1fr;gap:10px}.updates-audiences{margin-top:22px}.updates-audiences a{padding:13px 14px}.updates-readers{gap:20px}.updates-audience-copy{grid-template-columns:1fr;gap:12px}.updates-release{padding:23px 0}}
+
+/* Moon phases CER: three equally sized, purposeful prediction diagrams + teacher-ready activity. */
+.moon-cer-prediction{background:#eae7df;padding-top:52px;padding-bottom:50px}
+.cer-prediction-fieldset{min-width:0;margin:0;padding:0;border:0}
+.cer-prediction-fieldset legend{font-size:13px;font-weight:600;margin-bottom:16px;padding:0;color:var(--ink)}
+.cer-phase-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
+.cer-phase-choice{display:flex;align-items:center;gap:20px;padding:20px;cursor:pointer;min-width:0;border-right:1px solid var(--rule);position:relative}
+.cer-phase-choice:last-child{border-right:0}
+.cer-phase-choice:hover,.cer-phase-choice:has(input:checked){background:#dcd8cd}
+.cer-phase-choice:focus-within{outline:3px solid var(--accent);outline-offset:-3px}
+.cer-phase-choice input{width:18px;height:18px;accent-color:var(--accent);flex:none}
+.cer-phase-choice span{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cer-phase-choice strong{font:600 19px/1.2 Georgia,serif;color:var(--ink)}
+.cer-phase-choice small{font-size:12px;color:var(--muted)}
+.cer-phase-icon{width:96px;height:96px;max-width:34%;flex:none}
+.cer-check-row{display:flex;align-items:center;gap:24px;margin-top:18px;flex-wrap:wrap}
+#moonCerCheck{padding:12px 18px;background:var(--ink);color:#fff;border:1px solid var(--ink);font-weight:600;font-size:12px;cursor:pointer;border-radius:3px}
+#moonCerCheck:hover{background:var(--accent);border-color:var(--accent)}
+#moonCerCheck:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+#moonCerFeedback{margin:0;max-width:670px;color:#394047;font-size:13px;line-height:1.55}
+.cer-explanation{margin-top:19px;padding-top:14px;border-top:1px solid var(--rule);max-width:900px}
+.cer-explanation summary,.cer-reasoning-guide summary{cursor:pointer;font-size:13px;font-weight:650;text-decoration:underline;text-underline-offset:3px}
+.cer-explanation p{max-width:850px;font-size:13px;line-height:1.65;color:#394047}
+.cer-setup-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;margin-top:36px;padding-top:28px;border-top:1px solid var(--rule);align-items:start}
+.cer-setup-instructions h3,.cer-reasoning-guide h3{font:600 26px/1.18 Georgia,serif;margin:0 0 18px}
+.cer-setup-instructions ol{padding-left:20px;margin:0;display:grid;gap:11px}
+.cer-setup-instructions li{font-size:13px;line-height:1.6;max-width:680px;padding-left:4px}
+.cer-caution{font-size:12px;color:#5b4240;border-left:3px solid var(--accent);padding-left:12px;line-height:1.5;margin-top:20px}
+.cer-setup-figure{margin:0;min-width:0}
+.cer-setup-figure svg{display:block;width:100%;height:auto;max-height:400px}
+.cer-setup-figure figcaption{color:var(--muted);font-size:12px;line-height:1.55;margin-top:10px}
+.cer-reasoning-guide{border-top:1px solid var(--rule);margin-top:38px;padding-top:28px}
+.cer-reasoning-guide dl{margin:0 0 18px;display:grid;gap:0}
+.cer-reasoning-guide dl>div{display:grid;grid-template-columns:160px minmax(0,1fr);gap:22px;border-bottom:1px solid var(--rule);padding:12px 0}
+.cer-reasoning-guide dt{font-weight:700;color:var(--ink);font-size:13px}
+.cer-reasoning-guide dd{margin:0;font-size:13px;line-height:1.55;color:#394047}
+.cer-reasoning-guide p{font-size:13px;line-height:1.55;max-width:910px}
+.cer-reasoning-guide details p{border-left:3px solid #527185;padding-left:13px}
+.cer-print-link{font-weight:700;color:var(--accent)!important}
+.cer-source-line{margin:22px 0 0;color:var(--muted);font-size:11px;line-height:1.6;max-width:940px}
+.cer-source-line a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:1100px){.cer-phase-choice{gap:13px;padding:14px}.cer-phase-icon{width:76px;height:76px}.cer-phase-choice strong{font-size:17px}}
+@media(max-width:800px){.cer-setup-layout{grid-template-columns:1fr}.cer-setup-figure{max-width:610px}}
+@media(max-width:660px){.cer-phase-choices{grid-template-columns:1fr}.cer-phase-choice{border-right:0;border-bottom:1px solid var(--rule)}.cer-phase-choice:last-child{border-bottom:0}.cer-phase-icon{width:78px;height:78px;max-width:none}.cer-check-row{align-items:stretch;gap:12px}.cer-reasoning-guide dl>div{grid-template-columns:1fr;gap:4px}.moon-cer-prediction{padding-top:38px;padding-bottom:38px}}

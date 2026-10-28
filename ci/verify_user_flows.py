@@ -117,7 +117,15 @@ def main():
                 continue
             route, frag = dest
             if route not in documents:
-                broken.append((src, href, "missing static page"))
+                # A printable/static file is not an indexable topic page. Verify
+                # the real bundled asset exists; never count it as a sitemap
+                # route, inbound lesson edge or a missing canonical page.
+                asset = (PUBLIC / route.lstrip("/")).resolve()
+                if (route.startswith("/assets/")
+                        and asset.is_relative_to(PUBLIC.resolve())
+                        and asset.is_file() and not frag):
+                    continue
+                broken.append((src, href, "missing static page or asset"))
                 continue
             if frag and frag not in documents[route].ids:
                 broken.append((src, href, "missing fragment target"))

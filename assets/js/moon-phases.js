@@ -6,6 +6,7 @@ import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
 import { getPlanetTexture } from './textures.js';
 import { initQuiz } from './quiz-widget.js';
 import { initTeacherDistribution } from './teacher-distribution.js';
+import { initMoonCerActivity } from './moon-cer.js';
 
 const MOON_ORBIT_RADIUS = 9;
 
@@ -161,6 +162,11 @@ document.querySelectorAll('[data-moon-angle]').forEach((button) => {
   });
 });
 applyAngle(Number(slider.value));
+
+initMoonCerActivity((angle) => {
+  slider.value = String(angle);
+  applyAngle(angle);
+});
 
 animateLoop(() => {
   earth.rotation.y += 0.002;
