@@ -9,7 +9,7 @@ Each item must have a specific learner misconception, an input-driven observable
 | ID | Priority | Page | Specific experiment / lesson | Status |
 | --- | --- | --- | --- | --- |
 | BH-001 | P0 | /black-holes/ | Opt-in Three.js 3D disk, observer elevation 15–80°, 20°/80° presets, Schwarzschild mass/radius, shadow vs horizon size guide, finite illustrative gas motion | **Deployed, live verified (a1b51bf)** |
-| ECL-002 | P0 | /moon/eclipses/ | Tilt toggle (15° visually exaggerated, real ~5.1°); Sun-aligned vs perpendicular node orientation, synchronized 3D rings and side view, finite opt-in orbital frames | **Implemented, live deployment verification pending** |
+| ECL-002 | P0 | /moon/eclipses/ | Tilt toggle (15° visually exaggerated, real ~5.1°); Sun-aligned vs perpendicular node orientation, synchronized 3D rings and side view, finite opt-in orbital frames | **Deployed, live verified (0fb5fb2)** |
 | SEA-003 | P0 | /earth/seasons/ | Same June/December scrub changes axial-tilt beam angle and hemisphere evidence | Queued |
 | TRA-004 | P1 | /exoplanets/transit-method/ | Planet path crossing star synchronized with simplified ingress/egress light curve | Queued |
 | TID-005 | P1 | /moon/tidal-locking/ | Synchronous Moon near-side marker and contrast with nonrotating sphere | Queued |
@@ -44,3 +44,9 @@ The 3D tilted-ring geometry and two intersection markers share the same source m
 The old unconditional render loop was removed. A user-initiated 12-second Moon cycle can be paused, stops after one revolution, stops in hidden tabs and is disabled on reduced-motion devices; native range/buttons and unchanged 3D scientific view remain operable. No new WebGL dependency, data storage, analytics or paid services. Static no-JavaScript explanation and quiz/SEO remain.
 
 TDD RED absence of the pure node geometry module, GREEN: orbital radius and plane invariants, node-aligned versus misaligned new/full, invalid input and synchronized UI/motion/accessibility contracts. Browser local desktop 1280 and mobile 390/320: 90-degree node at new Moon gives -0.26 modeled radii and off-plane, node0 gives 0 and possible alignment; same at full Moon with flipped offset. The four major widgets and mobile readable SVG are visible. 320 reduced motion disables Play and preserves manual comparison; on an unrestricted 800 screen an actual 12-second user-started orbit returns to paused with live-readout announcements restored. These are technical/visual tests, not direct evidence of student comprehension improvement.
+
+## Verified releases (2026-10-28)
+
+- BH-001: commit a1b51bfdb7006bf96f4362639140dafde7c492b5, Pages run 40682688340, live /black-holes/ loaded 3D only by click, 20° and 80° ratios 0.34 and 0.98, 2D fallback verified.
+- ECL-002: commit 0fb5fb2a2405e4b8d536d57b13451f70cda670e4, Pages run 40684631956, live /moon/eclipses/ node 90° offset ~0.26 versus node 0° offset 0 at new Moon with tilted orbit, corrected mobile readout and side view; full 13 Python +22 Node site checks passed.
+- Next queued P0 is SEA-003 Earth Seasons. No background execution or completion is claimed for any queued item.

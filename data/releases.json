@@ -3,6 +3,44 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-eclipse-node-orbit-causal-lab",
+      "date": "2026-10-28",
+      "category": "Eclipse geometry and interactive visual learning",
+      "title": "Moon eclipses: move the lunar orbit nodes and watch alignment or a near miss",
+      "summary": "A fixed orbital-tilt toggle could show only missed eclipses. Students can now rotate the line of nodes, compare a modeled alignment or miss at new/full Moon, and see synchronized 3D tilted orbit and side-on evidence.",
+      "students": "Turn on the illustrated 15° lunar orbit tilt (real tilt ~5.1°), change node orientation from 90° to 0°, and watch the side-view Moon offset change from about 0.26 to 0.00 model orbital radii. A short orbit animation is optional and respects reduced motion.",
+      "teachers": "An orbital-plane match means eclipse alignment is possible, not guaranteed. The model does not compute real eclipse dates, shadow cones or apparent-size effects. Mobile has a separate legible SVG, and no-JS static explanation remains.",
+      "developers": "Pure circular orbit/node-axis rotation model, relative offset, no perpetual Three.js rendering, 12-second opt-in cycle and TDD. Full 13 Python +22 Node site regression passed; actual live phone-width controls and NASA-backed caveats verified.",
+      "links": [
+        {
+          "label": "Compare eclipse node alignment",
+          "path": "/moon/eclipses/"
+        }
+      ],
+      "commits": [
+        "0fb5fb2"
+      ]
+    },
+    {
+      "id": "2026-10-28-black-hole-3d-inquiry-lab",
+      "date": "2026-10-28",
+      "category": "3D scientific visual learning",
+      "title": "Black holes: compare viewpoints, mass and the apparent shadow in 3D",
+      "summary": "Replaced a static-only anatomy presentation with an opt-in Three.js classroom model of an accretion disk, viewing-angle-dependent projection, and Schwarzschild mass/radius comparison. The original labeled 2D diagram remains available without WebGL.",
+      "students": "Change the viewing elevation between near edge-on and near overhead, inspect the projected disk ratio, compare one to one billion solar masses, toggle an illustrative horizon-size guide, and start/stop a short conceptual gas-motion cycle.",
+      "teachers": "The glowing lensing arcs and disk texture are labeled educational illustrations, not GR photon ray tracing or Event Horizon Telescope photography; the event horizon and black-hole shadow remain distinct. Real measurements use the sourced nonrotating mass formula.",
+      "developers": "One pure physics model, lazy reuse of existing Three.js, finite opt-in 10-second motion, reduced-motion, WebGL failure fallback, responsive controls, scientific TDD and SEO/JSON-LD regression. Browser verified desktop and mobile, full site CI.",
+      "links": [
+        {
+          "label": "Explore the black-hole 3D model",
+          "path": "/black-holes/"
+        }
+      ],
+      "commits": [
+        "a1b51bf"
+      ]
+    },
+    {
       "id": "2026-10-28-moon-diagram-visible-right-angle",
       "date": "2026-10-28",
       "category": "Classroom diagram clarity and visual quality",

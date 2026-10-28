@@ -47,4 +47,9 @@ assert.match(css,/\.eclipse-side-mobile/,'Mobile labels need a separate diagram'
 assert.match(built,/rel="canonical"/);
 assert.match(html,/aria-busy="false"/,"No-JS fallback must not stay aria-busy forever");
 assert.match(built,/application\/ld\+json/);
+const releases=JSON.parse(source('data/releases.json')).releases;
+const record=releases.find(x=>x.id==='2026-10-28-eclipse-node-orbit-causal-lab');
+assert.ok(record&&record.commits.includes('0fb5fb2'));
+assert.ok(record.links.some(link=>link.path==='/moon/eclipses/'));
+assert.match(source('public/updates/index.html'),/0fb5fb2/);
 console.log('ECLIPSE_NODE_LAB_TDD_PASS physical node/tilt invariants, synchronized side view, finite motion, SEO');
