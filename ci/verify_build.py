@@ -62,9 +62,9 @@ def local_target(page, href):
 
 errors = []
 pages = sorted(PUBLIC.rglob("index.html"))
-learning_pages = [page for page in pages if page.relative_to(PUBLIC).as_posix() != "updates/index.html"]
-if len(pages) != 28 or len(learning_pages) != 27:
-    errors.append(f"expected 27 learning pages + 1 updates page, got {len(learning_pages)}+{len(pages)-len(learning_pages)}")
+learning_pages = [page for page in pages if page.relative_to(PUBLIC).as_posix() not in ("updates/index.html", "privacy/index.html")]
+if len(pages) != 29 or len(learning_pages) != 27:
+    errors.append(f"expected 27 learning pages + 2 site information pages, got {len(learning_pages)}+{len(pages)-len(learning_pages)}")
 
 # Production builds contain the AdSense loader; local/default builds deliberately do not.
 # When monetization is enabled, keep the site on the controlled one-slot contract.
@@ -112,6 +112,8 @@ for page in pages:
         errors.append(f"{rel}: fingerprinted stylesheet missing/mismatched")
 
     is_update_page = rel.as_posix() == "updates/index.html"
+    is_privacy_page = rel.as_posix() == "privacy/index.html"
+    is_ad_free_page = is_update_page or is_privacy_page
     is_teacher_experiment = rel.as_posix() in teacher_experiment_pages
     if is_teacher_experiment:
         if text.count('class="section teacher-use-section"') != 1:
@@ -125,7 +127,7 @@ for page in pages:
     elif 'teacher-use-section' in text or 'data-teacher-share' in text:
         errors.append(f"{rel}: teacher experiment leaked to a non-target page")
 
-    if monetized and is_update_page:
+    if monetized and is_ad_free_page:
         if "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" in text:
             errors.append(f"{rel}: release history must not load AdSense")
         if 'data-ad-slot=' in text:
@@ -188,7 +190,13 @@ for page in pages:
 
     graph = data.get("@graph", [])
     resources = [item for item in graph if item.get("@type") == "LearningResource"]
-    if is_update_page:
+    if is_privacy_page:
+        if resources:
+            errors.append(f"{rel}: policy is not a LearningResource")
+        notice_pages = [item for item in graph if item.get("@type") == "WebPage"]
+        if len(notice_pages) != 1 or notice_pages[0].get("url") != "https://saramjh.github.io/space_atlas_student/privacy/":
+            errors.append(f"{rel}: expected one canonical WebPage")
+    elif is_update_page:
         if resources:
             errors.append(f"{rel}: release notes are not LearningResource")
         collections = [item for item in graph if item.get("@type") == "CollectionPage"]

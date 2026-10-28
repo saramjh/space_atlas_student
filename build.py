@@ -138,6 +138,20 @@ def git_lastmod_for_page(meta):
 
 def build_structured_data(meta):
     canonical = meta.get("canonical", "")
+    if meta.get("pageType") == "WebPage":
+        page = {
+            "@type": "WebPage", "@id": f"{canonical}#site-notice",
+            "url": canonical, "name": meta.get("jsonldName", meta.get("title", "")),
+            "description": meta.get("jsonldDescription", meta.get("description", "")),
+            "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Space Atlas", "url": SITE_URL},
+        }
+        graph = [page, {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Space Atlas", "item": SITE_URL},
+            {"@type": "ListItem", "position": 2, "name": "Privacy", "item": canonical},
+        ]}]
+        return '<script type="application/ld+json">\n' + json.dumps(
+            {"@context": "https://schema.org", "@graph": graph}, indent=2, ensure_ascii=False
+        ) + '\n</script>'
     if meta.get("pageType") == "CollectionPage":
         resource = {
             "@type": "CollectionPage",

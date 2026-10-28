@@ -13,6 +13,7 @@ EXPECTED = {
     "/learn/not-to-scale/",
     "/sources/space-resources-for-students/",
     "/updates/",
+    "/privacy/",
 }
 SITE_BASE = "/space_atlas_student"
 

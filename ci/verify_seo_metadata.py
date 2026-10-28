@@ -85,7 +85,7 @@ for path in source_pages:
     # FAQ markup was previously generated from answers absent from visible page text.
     # Do not reinstate hidden FAQ rich-result claims without explicit visible Q&A.
     assert all(node.get("@type") != "FAQPage" for node in graph), f"{rel}: unsupported FAQPage markup"
-    typ = "CollectionPage" if meta["path"] == "/updates/" else "LearningResource"
+    typ = meta.get("pageType", "LearningResource")
     resources = [node for node in graph if node.get("@type") == typ]
     assert len(resources) == 1, f"{rel}: expected one {typ}"
     resource = resources[0]
@@ -98,7 +98,7 @@ for path in source_pages:
 sitemap = ET.parse(PUBLIC / "sitemap.xml")
 ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 locations = [element.text for element in sitemap.findall(".//s:loc", ns)]
-assert len(locations) == len(set(locations)) == len(canonical_urls) == 28, "Sitemap duplicates or missing pages"
+assert len(locations) == len(set(locations)) == len(canonical_urls) == 29, "Sitemap duplicates or missing pages"
 assert set(locations) == canonical_urls, "Sitemap URLs disagree with canonical pages"
 robots = (PUBLIC / "robots.txt").read_text(encoding="utf-8")
 assert f"Sitemap: {PREFIX}sitemap.xml" in robots, "Project robots copy must reference correct sitemap"

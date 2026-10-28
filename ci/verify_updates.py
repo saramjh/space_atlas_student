@@ -95,7 +95,7 @@ for href in parse.hrefs:
         require((PUBLIC / clean / "index.html").is_file() or (PUBLIC / clean).is_file(),
                 f"broken local link {href}")
 sitemap = (PUBLIC / "sitemap.xml").read_text(encoding="utf-8")
-require(sitemap.count("<url>") == 28, "28 public sitemap pages required")
+require(sitemap.count("<url>") == 29, "29 public sitemap pages required")
 require("<loc>https://saramjh.github.io/space_atlas_student/updates/</loc>" in sitemap,
         "sitemap missing release page")
 for entry in PUBLIC.rglob("index.html"):

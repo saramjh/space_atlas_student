@@ -48,7 +48,7 @@ class Structure(HTMLParser):
 
 
 def main():
-    assert len(PAGES) == 28, f"expected 28 generated pages, found {len(PAGES)}"
+    assert len(PAGES) == 29, f"expected 29 generated pages, found {len(PAGES)}"
     for page in PAGES:
         parsed = Structure()
         parsed.feed(page.read_text(encoding="utf-8"))
@@ -131,7 +131,7 @@ def main():
     assert "btnUnlocked.setAttribute('aria-pressed', 'true')" in lock_js
 
     print(
-        "UI control regression PASS: 28-page DOM semantics, 3 native homepage "
+        "UI control regression PASS: 29-page DOM semantics, 3 native homepage "
         "disclosures, 8 keyboard planet selectors, stable mobile Search, "
         "3 independent galaxy examples, no duplicate CSS state owners"
     )

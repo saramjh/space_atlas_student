@@ -94,13 +94,13 @@ def main():
         parsed = PageParser()
         parsed.feed(p.read_text(encoding="utf-8"))
         documents[route] = parsed
-    assert len(documents) == 28, f"expected 27 lessons and public updates, got {len(documents)}"
+    assert len(documents) == 29, f"expected 27 lessons, updates and privacy page, got {len(documents)}"
     assert len(set(documents)) == len(documents)
     home = documents["/"]
     for anchor in ("atlas-directory", *CATEGORIES.values()):
         assert anchor in home.ids, f"missing real homepage category anchor {anchor}"
 
-    topic_pages = set(documents) - {"/", "/updates/"}
+    topic_pages = set(documents) - {"/", "/updates/", "/privacy/"}
     assert len(topic_pages) == 26
     inbound = Counter()
     main_edges = set()
@@ -153,7 +153,7 @@ def main():
 
     duplicates = []
     source_pages = [p for p in PAGES.rglob("content.html")
-                    if p.relative_to(PAGES).as_posix() not in {"index/content.html", "updates/content.html"}]
+                    if p.relative_to(PAGES).as_posix() not in {"index/content.html", "updates/content.html", "privacy/content.html"}]
     for p in source_pages:
         html = p.read_text(encoding="utf-8")
         parts = re.findall(r'<section class="section section-last">([\s\S]*?)</section>', html)

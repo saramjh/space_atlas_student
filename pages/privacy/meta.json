@@ -1,0 +1,15 @@
+{
+  "path": "/privacy/",
+  "title": "Privacy, analytics and advertising | Space Atlas",
+  "description": "How Space Atlas uses Google Analytics 4, Google AdSense and third-party resources, and what teachers and families should know before student use.",
+  "canonical": "https://saramjh.github.io/space_atlas_student/privacy/",
+  "ogTitle": "Privacy and data use | Space Atlas",
+  "ogDescription": "Transparent information about website analytics, advertisements, external resources, cookies and children's use.",
+  "ogImage": "https://saramjh.github.io/space_atlas_student/assets/favicon.svg",
+  "jsonldName": "Space Atlas — Privacy and data use",
+  "jsonldDescription": "Website data use, third-party services and contact information.",
+  "script": null,
+  "pageType": "WebPage",
+  "excludeFromTopicSearch": true,
+  "adFree": true
+}
