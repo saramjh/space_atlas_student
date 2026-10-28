@@ -3,6 +3,37 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-visual-learning-wave2-four-lessons",
+      "date": "2026-10-28",
+      "category": "Interactive science diagrams and explanatory motion",
+      "title": "Four more lesson improvements: seasons, lunar face, gravity arrows and transit motion",
+      "summary": "Four previously under-connected model controls now update visible evidence: day length and solar noon altitude for north/south seasons; Moon surface-marker Earth-facing direction; Newtonian trajectory prediction and velocity/gravity vectors; and opt-in transit replay tied to the light curve. Existing already interactive lessons were independently checked rather than rewritten.",
+      "students": "At 40° latitude, compare June, December and zero tilt; compare locked versus faster-spinning Moon markers; launch a cannonball with directional vectors; play one 12-second transit while watching the star brightness and graph cursor.",
+      "teachers": "The seasons model assumes a spherical Earth, no atmospheric refraction and a fixed latitude of 40°. Gravity arrows show direction and are normalized for visibility; orbital speeds use model units rather than km/s. Transit animation is an illustration, not a measured planet orbital period. None are student outcome measurements.",
+      "developers": "Physical equations isolated in three pure modules; four RED/GREEN regression gates added to Pages and site-health. Actual Chromium desktop and mobile exercised model changes, 12s finite transit animation/reduced motion, and existing Tides, Light-Year, Stars, Spectrum, Galaxies functionality without duplicate feature code. All 13 Python and 26 Node site checks passed, exact deployment SHA live verified.",
+      "links": [
+        {
+          "label": "Sunlight and day length by season",
+          "path": "/earth/seasons/"
+        },
+        {
+          "label": "Moon Earth-facing marker",
+          "path": "/moon/tidal-locking/"
+        },
+        {
+          "label": "Gravity vectors and orbit outcomes",
+          "path": "/solar-system/gravity-and-orbits/"
+        },
+        {
+          "label": "Transit motion and light curve",
+          "path": "/exoplanets/transit-method/"
+        }
+      ],
+      "commits": [
+        "0d0a7ff"
+      ]
+    },
+    {
       "id": "2026-10-28-eclipse-node-orbit-causal-lab",
       "date": "2026-10-28",
       "category": "Eclipse geometry and interactive visual learning",

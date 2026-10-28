@@ -10,10 +10,10 @@ Each item must have a specific learner misconception, an input-driven observable
 | --- | --- | --- | --- | --- |
 | BH-001 | P0 | /black-holes/ | Opt-in Three.js 3D disk, observer elevation 15–80°, 20°/80° presets, Schwarzschild mass/radius, shadow vs horizon size guide, finite illustrative gas motion | **Deployed, live verified (a1b51bf)** |
 | ECL-002 | P0 | /moon/eclipses/ | Tilt toggle (15° visually exaggerated, real ~5.1°); Sun-aligned vs perpendicular node orientation, synchronized 3D rings and side view, finite opt-in orbital frames | **Deployed, live verified (0fb5fb2)** |
-| SEA-003 | P0 | /earth/seasons/ | Same orbit/tilt state now updates 40° N/S solar-noon altitude and modeled daylight hours; zero tilt compare | **New improvement: implemented, QA pass, deployment pending** |
-| TRA-004 | P1 | /exoplanets/transit-method/ | Existing quantitative planet vs light curve kept; added user-started 12s full phase playback synchronized to both | **New improvement: implemented, QA pass, deployment pending** |
-| TID-005 | P1 | /moon/tidal-locking/ | Existing textured 3D Moon marker now linked with a 2D Earth-facing orientation guide and cosine readout | **New improvement: implemented, QA pass, deployment pending** |
-| GRV-006 | P1 | /solar-system/gravity-and-orbits/ | Existing Newtonian cannonball trajectories now show velocity/gravity arrows and analytic launch forecast | **New improvement: implemented, QA pass, deployment pending** |
+| SEA-003 | P0 | /earth/seasons/ | Same orbit/tilt state now updates 40° N/S solar-noon altitude and modeled daylight hours; zero tilt compare | **New improvement: deployed and live verified (0d0a7ff)** |
+| TRA-004 | P1 | /exoplanets/transit-method/ | Existing quantitative planet vs light curve kept; added user-started 12s full phase playback synchronized to both | **New improvement: deployed and live verified (0d0a7ff)** |
+| TID-005 | P1 | /moon/tidal-locking/ | Existing textured 3D Moon marker now linked with a 2D Earth-facing orientation guide and cosine readout | **New improvement: deployed and live verified (0d0a7ff)** |
+| GRV-006 | P1 | /solar-system/gravity-and-orbits/ | Existing Newtonian cannonball trajectories now show velocity/gravity arrows and analytic launch forecast | **New improvement: deployed and live verified (0d0a7ff)** |
 | TDE-007 | P2 | /moon/tides/ | Existing 0–90° spring/neap forcing model and live contour (90°→33% idealized amplitude) | **Existing feature browser-audited; no duplicate code** |
 | LYR-008 | P2 | /universe/light-year/ | Existing 8-source logarithmic distance ruler and photon progress/elapsed/remaining time | **Existing feature browser-audited; no duplicate code** |
 | STR-009 | P2 | /stars/life-cycle/ | Existing six-stage Sun-like/massive branch and stage comparison | **Existing feature browser-audited; no duplicate code** |
@@ -63,3 +63,15 @@ The previous task stopped after two new features; this wave addresses the remain
 - TDE-007, LYR-008, STR-009, SPT-010, GAL-011: browser exercised actual interaction: tides 90° contour changed to33% ideal forcing; Light-Year Andromeda50% yields ~1.25 million years elapsed/remaining; massive star stage6 endpoint changed; Spectrum Radio1m 300MHz/1.24µeV; Galaxies80° scale ratio0.1736. No rewrite of working lessons solely for 3D quota.
 
 Measured student comprehension and full screen-reader coverage have not been established. Preexisting external mobile AdSense overflow remains separate.
+
+
+## Wave 2 production verification
+
+- Commit 0d0a7ffcf2ccdf7f9c459165c975cc44cffb2a05; GitHub Pages run 40696768136 SUCCESS for exact SHA.
+- Public HTTP200 page/source assets for all four routes and all three new pure model modules; preserved canonical links and source-backed content.
+- Real public Chromium at width390: Seasons June 40°N 73.5° noon /14.9h vs 40°S 26.5°/9.1h; December inverted; zero obliquity both 50°/12h.
+- Public live Tidal Locking 90° orbital phase: locked surface marker x220 and hypothetical nonlocked x278 with facing dot product -0.71.
+- Public live Gravity at speed4.5: Newtonian unbound prediction with 3.68 escape reference; vector toggle checked.
+- Public Transit user-started motion advanced phase0→117° and updated planet/light curve state. A prior local browser test inspected phase105° showing a 1% dip and 99% stellar brightness.
+- Full 13 Python +26 Node regression and JS syntax checks passed, with four new science/visual gate scripts included in both release and scheduled site health.
+- Existing 5 other browser audits are evidence of working prior features, not newly coded changes. Separate provider ad mobile width and measured learner outcomes remain unresolved.
