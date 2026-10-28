@@ -98,7 +98,10 @@ def main():
     phase_buttons = re.findall(r'<button[^>]+data-moon-angle="(0|90|180|270)"[^>]*>', moon)
     assert phase_buttons == ["0", "90", "180", "270"]
     assert re.search(r'<button[^>]+data-moon-angle="180"[^>]+aria-pressed="true"', moon)
-    assert moon.count('data-moon-angle=') == 4
+    assert moon.count('data-moon-angle=') == 8
+    for angle in (45, 135, 225, 315):
+        assert f'data-moon-angle="{angle}"' in moon, f'additional phase {angle} must be selectable'
+    assert '<details class="phase-intermediate"' in moon, 'intermediate phases must be optionally expanded'
     moon_js = (ROOT / "assets/js/moon-phases.js").read_text(encoding="utf-8")
     assert "button.setAttribute('aria-pressed', String(selected))" in moon_js
     tide = (PUBLIC / "moon/tides/index.html").read_text(encoding="utf-8")

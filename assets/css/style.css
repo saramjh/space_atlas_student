@@ -246,7 +246,25 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .phase-lab{border:1px solid var(--rule)}
 .phase-views{display:grid;grid-template-columns:1.3fr 1fr}
 .phase-view-system{position:relative;background:var(--space);min-height:380px;overflow:hidden;color:#f4f6f8;border-right:1px solid var(--rule)}
-.phase-view-system canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.phase-view-system canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair;touch-action:pan-y}
+.phase-sunlight-guide{position:absolute;left:16px;top:52px;z-index:2;pointer-events:none;color:#ffd38a;display:flex;align-items:flex-start;flex-direction:column;gap:4px;text-shadow:0 1px 3px #080c11}
+.phase-sunlight-guide span{font:500 12px/1.35 var(--font-reading)}
+.phase-sunlight-guide strong{font:650 16px/1.1 var(--font-data);letter-spacing:.02em}
+.phase-system-key{position:absolute;bottom:9px;left:16px;right:14px;z-index:2;margin:0;pointer-events:none;color:#b9cad7;font-size:12px;line-height:1.4;text-shadow:0 1px 3px #080c11}
+.phase-transport{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:14px 0 17px}
+.phase-transport button{background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:3px;cursor:pointer;font:600 14px/1.4 var(--font-reading);padding:9px 15px;min-height:42px}
+.phase-transport button:hover:not(:disabled){background:var(--accent);border-color:var(--accent)}
+.phase-transport button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.phase-transport button:disabled{opacity:.55;cursor:not-allowed}
+.phase-transport button[aria-pressed="true"]{background:#a43f26}
+.phase-transport p{font-size:13px;line-height:1.5;color:var(--muted);margin:0;flex:1;min-width:185px}
+.phase-geometry-note{display:block;font-size:14px;line-height:1.5;color:var(--ink);margin-top:10px}
+.phase-intermediate{margin-top:12px;margin-bottom:14px;padding-top:11px;border-top:1px solid var(--rule)}
+.phase-intermediate summary{font-size:14px;font-weight:600;cursor:pointer;color:var(--ink);padding:7px 0}
+.phase-intermediate summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.phase-intermediate .query-preset-row{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+
+
 .phase-view-label{position:absolute;z-index:2;left:16px;top:14px;font:600 10px var(--font-data);letter-spacing:.1em;text-transform:uppercase;color:#b9c0c7;pointer-events:none}
 .phase-view-earth{background:#ece9e1;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .phase-view-earth .phase-view-label{position:static;color:var(--muted);margin-bottom:14px}
@@ -1006,6 +1024,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .cer-caution{font-size:12px;color:#5b4240;border-left:3px solid var(--accent);padding-left:12px;line-height:1.5;margin-top:20px}
 .cer-setup-figure{margin:0;min-width:0}
 .cer-setup-figure svg{display:block;width:100%;height:auto;max-height:400px}
+.cer-setup-figure .cer-setup-mobile{display:none}
 .cer-setup-figure figcaption{color:var(--muted);font-size:12px;line-height:1.55;margin-top:10px}
 .cer-reasoning-guide{border-top:1px solid var(--rule);margin-top:38px;padding-top:28px}
 .cer-reasoning-guide dl{margin:0 0 18px;display:grid;gap:0}
@@ -1019,6 +1038,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .cer-source-line a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:1100px){.cer-phase-choice{gap:13px;padding:14px}.cer-phase-icon{width:76px;height:76px}.cer-phase-choice strong{font-size:17px}}
 @media(max-width:800px){.cer-setup-layout{grid-template-columns:1fr}.cer-setup-figure{max-width:610px}}
+@media(max-width:660px){.cer-setup-figure .cer-setup-desktop{display:none}.cer-setup-figure .cer-setup-mobile{display:block}.cer-setup-figure figcaption{font-size:14px;line-height:1.55}}
 @media(max-width:660px){.cer-phase-choices{grid-template-columns:1fr}.cer-phase-choice{border-right:0;border-bottom:1px solid var(--rule)}.cer-phase-choice:last-child{border-bottom:0}.cer-phase-icon{width:78px;height:78px;max-width:none}.cer-check-row{align-items:stretch;gap:12px}.cer-reasoning-guide dl>div{grid-template-columns:1fr;gap:4px}.moon-cer-prediction{padding-top:38px;padding-bottom:38px}}
 
 /* Lesson-level acknowledgments remain one line unless the reader opts in. */

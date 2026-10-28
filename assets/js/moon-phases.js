@@ -2,7 +2,8 @@
 // angle: a top-down Sun-Earth-Moon system model (Three.js) and a 2D canvas
 // showing the Moon's illuminated fraction as seen from Earth.
 import * as THREE from 'three';
-import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
+import { createSceneBase, orbitRing } from './three-base.js';
+import { moonModelAtDegrees, phaseLabelAtDegrees, angleForOrbitPosition } from './moon-geometry.js';
 import { getPlanetTexture } from './textures.js';
 import { initQuiz } from './quiz-widget.js';
 import { initTeacherDistribution } from './teacher-distribution.js';
@@ -22,6 +23,7 @@ const { scene, camera, renderer, controls, canvas } = createSceneBase({
   minDistance: 10,
   maxDistance: 30,
   background: 0x0b1016,
+  enableKeyboard: false, // Slider supplies keyboard access; the canvas is visual.
 });
 canvas.setAttribute('aria-hidden', 'true');
 // This is a fixed pedagogical diagram, not a free-roam scene — lock the camera.
@@ -32,19 +34,21 @@ controls.enablePan = false;
 // Low ambient on purpose: the whole point of this page is to make the
 // lit/dark hemisphere split visible, unlike the home page's solar-system
 // scene where a strong ambient avoids far planets going black.
-scene.add(new THREE.AmbientLight(0xaab4c2, 0.55));
+scene.add(new THREE.AmbientLight(0xaab4c2, 0.12));
 
-const sunDir = new THREE.Vector3(-1, 0, 0);
 const sunLight = new THREE.DirectionalLight(0xfff3d6, 2.2);
 sunLight.position.set(-40, 4, 0);
 sunLight.target.position.set(0, 0, 0);
 scene.add(sunLight, sunLight.target);
 
-const sunIcon = new THREE.Mesh(new THREE.SphereGeometry(1.6, 24, 16), new THREE.MeshBasicMaterial({ color: 0xf5c15c }));
-sunIcon.position.set(-30, 0, 0);
-scene.add(sunIcon);
-
-scene.add(orbitRing(MOON_ORBIT_RADIUS, 0x44515f, 0.5));
+// The actual Sun lies far off-frame to the left of this compressed orbit.
+scene.add(orbitRing(MOON_ORBIT_RADIUS, 0x667786, 0.75));
+// Dashed Earth-to-Moon line links the overhead geometry to what Earth sees.
+const earthSightline = new THREE.Line(
+  new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]),
+  new THREE.LineDashedMaterial({color:0x91b4d6, dashSize:0.4, gapSize:0.27, opacity:0.85, transparent:true})
+);
+scene.add(earthSightline);
 
 const earth = new THREE.Mesh(
   new THREE.SphereGeometry(2.1, 40, 28),
@@ -67,25 +71,7 @@ for (let i = 0; i < 500; i++) {
 starGeo.setAttribute('position', new THREE.Float32BufferAttribute(stars, 3));
 scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xdde6ef, size: 0.12, transparent: true, opacity: 0.6 })));
 
-// theta: 0 = New Moon (between Earth and Sun), PI = Full Moon (opposite the Sun).
-function moonPositionForAngle(thetaRad) {
-  return {
-    x: -MOON_ORBIT_RADIUS * Math.cos(thetaRad),
-    z: MOON_ORBIT_RADIUS * Math.sin(thetaRad),
-  };
-}
 
-const PHASE_NAMES = [
-  [0, 'New Moon'], [22.5, 'Waxing Crescent'], [67.5, 'First Quarter'], [112.5, 'Waxing Gibbous'],
-  [157.5, 'Full Moon'], [202.5, 'Waning Gibbous'], [247.5, 'Last Quarter'], [292.5, 'Waning Crescent'],
-  [337.5, 'New Moon'],
-];
-function phaseNameForDegrees(deg) {
-  for (let i = PHASE_NAMES.length - 1; i >= 0; i--) {
-    if (deg >= PHASE_NAMES[i][0]) return PHASE_NAMES[i][1];
-  }
-  return 'New Moon';
-}
 
 const earthViewCanvas = document.querySelector('#moonEarthView');
 const earthViewCtx = earthViewCanvas.getContext('2d');
@@ -132,6 +118,10 @@ function drawEarthView(thetaRad) {
 }
 
 const slider = document.querySelector('#moonAngle');
+const playButton = document.querySelector('#moonPlay');
+const motionNote = document.querySelector('#moonMotionNote');
+const geometryNote = document.querySelector('#moonGeometryNote');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 function applyAngle(deg) {
   document.querySelectorAll('[data-moon-angle]').forEach(button => {
@@ -139,40 +129,153 @@ function applyAngle(deg) {
     button.classList.toggle('active', selected);
     button.setAttribute('aria-pressed', String(selected));
   });
-  const theta = (deg * Math.PI) / 180;
-  const pos = moonPositionForAngle(theta);
-  moon.position.set(pos.x, 0, pos.z);
-  drawEarthView(theta);
-  phaseNameEl.textContent = phaseNameForDegrees(deg);
+  const model = moonModelAtDegrees(deg);
+  moon.position.set(model.position.x, 0, model.position.z);
+  // Keep the near-side texture aimed at Earth instead of sliding around.
+  moon.rotation.y = model.moonRotationY;
+  earthSightline.geometry.setFromPoints([
+    new THREE.Vector3(0, 0.02, 0),
+    new THREE.Vector3(model.position.x, 0.02, model.position.z),
+  ]);
+  earthSightline.computeLineDistances();
+  drawEarthView(deg * Math.PI / 180);
+  phaseNameEl.textContent = phaseLabelAtDegrees(deg);
   if (phaseMetricsEl) {
-    const illuminated = ((1 - Math.cos(theta)) / 2) * 100;
-    const day = (deg / 360) * 29.53059;
-    phaseMetricsEl.textContent = `Day ${day.toFixed(1)} of 29.5 · ${illuminated.toFixed(0)}% illuminated as seen from Earth`;
+    phaseMetricsEl.textContent = 'Day ' + model.phaseAgeDays.toFixed(1) + ' of 29.5 · ' +
+      (model.illuminatedFraction * 100).toFixed(0) + '% illuminated as seen from Earth';
   }
+  if (geometryNote) {
+    geometryNote.textContent = 'Sun–Earth–Moon angle: ' + Math.round(model.elongationDegrees) +
+      '°. Sunlight always lights half of the Moon’s whole sphere; Earth sees ' +
+      (model.illuminatedFraction * 100).toFixed(0) + '% of its disk illuminated.';
+  }
+  renderer.render(scene, camera);
 }
 
+// No decorative perpetual loop. Motion starts only after a user presses Play.
+let playing = false;
+let frameId = null;
+let lastTime = null;
+let continuousAngle = Number(slider.value);
+let traveledDegrees = 0;
+const DEGREES_PER_SECOND = 15; // One idealized phase cycle in 24 seconds.
+function setPlayState(next) {
+  playing = Boolean(next) && !reducedMotion.matches && !document.hidden;
+  if (playing) traveledDegrees = 0;
+  if (frameId !== null) cancelAnimationFrame(frameId);
+  frameId = null;
+  lastTime = null;
+  if (playButton) {
+    playButton.textContent = playing ? 'Pause phase cycle' : 'Play phase cycle';
+    playButton.setAttribute('aria-pressed', String(playing));
+    playButton.disabled = reducedMotion.matches;
+  }
+  if (motionNote) {
+    motionNote.textContent = reducedMotion.matches
+      ? 'Motion is disabled by your reduced-motion preference. Use the slider or phase buttons.'
+      : playing ? 'Animated comparison: one idealized 29.5-day cycle in 24 seconds.'
+      : 'Start or pause one idealized phase cycle. The model stays still while paused.';
+  }
+  // Do not flood screen readers with a continuously changing percentage.
+  phaseMetricsEl.setAttribute('aria-live', playing ? 'off' : 'polite');
+  if (playing) frameId = requestAnimationFrame(stepCycle);
+}
+function stepCycle(now) {
+  if (!playing) return;
+  if (lastTime !== null) {
+    const elapsed = Math.min(0.1, Math.max(0, (now - lastTime) / 1000));
+    const travel = elapsed * DEGREES_PER_SECOND;
+    traveledDegrees += travel;
+    continuousAngle = (continuousAngle + travel) % 360;
+    const angle = Math.round(continuousAngle);
+    slider.value = String(angle);
+    applyAngle(angle);
+    if (traveledDegrees >= 360) {
+      setPlayState(false);
+      motionNote.textContent = 'One cycle complete. Play again or use the slider to compare phases.';
+      return;
+    }
+  }
+  lastTime = now;
+  frameId = requestAnimationFrame(stepCycle);
+}
+playButton?.addEventListener('click', () => {
+  continuousAngle = Number(slider.value);
+  setPlayState(!playing);
+});
 slider.addEventListener('input', () => {
-  applyAngle(Number(slider.value));
+  setPlayState(false);
+  continuousAngle = Number(slider.value);
+  applyAngle(continuousAngle);
 });
 document.querySelectorAll('[data-moon-angle]').forEach((button) => {
   button.addEventListener('click', () => {
-    const angle = Number(button.dataset.moonAngle);
-    slider.value = String(angle);
-    applyAngle(angle);
+    setPlayState(false);
+    continuousAngle = Number(button.dataset.moonAngle);
+    slider.value = String(continuousAngle);
+    applyAngle(continuousAngle);
   });
 });
-applyAngle(Number(slider.value));
-
 initMoonCerActivity((angle) => {
+  setPlayState(false);
+  continuousAngle = angle;
   slider.value = String(angle);
   applyAngle(angle);
 });
-
-animateLoop(() => {
-  earth.rotation.y += 0.002;
-  controls.update();
-  renderer.render(scene, camera);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) setPlayState(false);
 });
+reducedMotion.addEventListener?.('change', () => setPlayState(false));
+// Shared renderer resizes internally; refresh a single idle scene frame after.
+new ResizeObserver(() => {
+  requestAnimationFrame(() => renderer.render(scene, camera));
+}).observe(document.querySelector('#moonSceneShell'));
+// Direct orbit interaction complements the native keyboard/touch-friendly
+// range slider. Only capture on the orbit annulus, so swiping outside it
+// still scrolls normally on touch devices.
+const orbitRay = new THREE.Raycaster();
+const orbitPlane = new THREE.Plane(new THREE.Vector3(0,1,0),0);
+const orbitPoint = new THREE.Vector3();
+let activePointer = null;
+function pointerOrbitAngle(event) {
+  const rect = canvas.getBoundingClientRect();
+  const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+  orbitRay.setFromCamera(new THREE.Vector2(x,y),camera);
+  if (!orbitRay.ray.intersectPlane(orbitPlane,orbitPoint)) return null;
+  const distance = Math.hypot(orbitPoint.x,orbitPoint.z);
+  // Reject attempts on the central planet and unrelated empty background.
+  if (distance < MOON_ORBIT_RADIUS - 2.5 || distance > MOON_ORBIT_RADIUS + 2.5) return null;
+  return angleForOrbitPosition(orbitPoint.x,orbitPoint.z);
+}
+function applyOrbitPointer(event) {
+  const angle = pointerOrbitAngle(event);
+  if (angle === null) return false;
+  setPlayState(false);
+  continuousAngle = Math.round(angle);
+  slider.value = String(continuousAngle);
+  applyAngle(continuousAngle);
+  return true;
+}
+canvas.addEventListener('pointerdown', (event) => {
+  if (!applyOrbitPointer(event)) return;
+  activePointer = event.pointerId;
+  canvas.setPointerCapture(event.pointerId);
+});
+canvas.addEventListener('pointermove', (event) => {
+  if (activePointer === event.pointerId) applyOrbitPointer(event);
+});
+function stopDragging(event) {
+  if (activePointer !== event.pointerId) return;
+  activePointer = null;
+  if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+}
+canvas.addEventListener('pointerup', stopDragging);
+canvas.addEventListener('pointercancel', stopDragging);
+canvas.addEventListener('lostpointercapture', () => { activePointer = null; });
+
+applyAngle(Number(slider.value));
+setPlayState(false);
 
 // Misconception-check quiz uses the shared quiz owner.
 const QUIZ_BANK = [

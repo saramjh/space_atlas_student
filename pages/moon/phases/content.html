@@ -58,9 +58,11 @@
  <div class="wrap">
   <div class="phase-lab" id="phaseLab" data-growth-model>
     <div class="phase-views">
-      <div class="phase-view-system" id="moonSceneShell" aria-label="Top-down Sun-Earth-Moon system model">
-        <div class="phase-view-label">System view — top-down</div>
+      <div class="phase-view-system" id="moonSceneShell" aria-label="Top-down Sun-Earth-Moon system model, idealized and not to scale">
+        <div class="phase-view-label">System view — above Earth's north pole</div>
+        <div class="phase-sunlight-guide" aria-hidden="true"><span>Sun (far left, off-screen)</span><strong>Sunlight →</strong></div>
         <canvas id="moonCanvas"></canvas>
+        <p class="phase-system-key">Tap or drag a point on the orbit · dashed line: Earth to Moon · not to scale</p>
       </div>
       <div class="phase-view-earth">
         <div class="phase-view-label">What you see from Earth</div>
@@ -69,15 +71,29 @@
       </div>
     </div>
     <div class="phase-controls">
-      <input type="range" id="moonAngle" min="0" max="360" value="180" step="1" aria-label="Moon's position around Earth, in degrees" />
+      <input type="range" id="moonAngle" min="0" max="360" value="180" step="1" aria-label="Move the Moon around Earth through one idealized phase cycle, 0 to 360 degrees" />
+      <div class="phase-transport">
+        <button type="button" id="moonPlay" aria-pressed="false">Play phase cycle</button>
+        <p id="moonMotionNote">Start or pause one idealized phase cycle. The model stays still while paused.</p>
+      </div>
       <div class="query-preset-row" role="group" aria-label="Jump to a Moon phase">
         <button type="button" data-moon-angle="0" aria-pressed="false">New Moon</button>
         <button type="button" data-moon-angle="90" aria-pressed="false">First Quarter</button>
         <button type="button" data-moon-angle="180" aria-pressed="true" class="active">Full Moon</button>
         <button type="button" data-moon-angle="270" aria-pressed="false">Last Quarter</button>
       </div>
+      <details class="phase-intermediate" id="moonIntermediatePhases">
+        <summary>Explore four in-between phases</summary>
+        <div class="query-preset-row" role="group" aria-label="Intermediate phases">
+          <button type="button" data-moon-angle="45" aria-pressed="false">Waxing Crescent</button>
+          <button type="button" data-moon-angle="135" aria-pressed="false">Waxing Gibbous</button>
+          <button type="button" data-moon-angle="225" aria-pressed="false">Waning Gibbous</button>
+          <button type="button" data-moon-angle="315" aria-pressed="false">Waning Crescent</button>
+        </div>
+      </details>
       <div class="tool-readout" id="phaseMetrics" aria-live="polite">Day 14.8 of 29.5 · 100% illuminated as seen from Earth</div>
-      <div class="phase-hint">Drag to move the Moon around Earth. In the Earth view, the curved day–night boundary is on the Moon itself, not Earth’s shadow. The system view is top-down; sunlight comes from the left.</div>
+      <output class="phase-geometry-note" id="moonGeometryNote">Sun–Earth–Moon angle: 180°. Sunlight lights half of the Moon’s whole sphere; Earth sees 100% of its disk illuminated.</output>
+      <div class="phase-hint">Move the Moon using the slider, phase buttons, or orbit itself; watch the dashed Earth-to-Moon sightline rotate. The Earth view shows that observer's illuminated fraction; the curved day–night boundary is on the Moon itself, not Earth’s shadow. The Sun is far off-screen to the left. This simplified fixed-Sun cycle maps one model revolution to 29.5 days (the real Moon’s sidereal orbital period is about 27.3 days). Orbital tilt and eclipses are not simulated.</div>
     </div>
   </div>
 
@@ -138,28 +154,63 @@
     <p class="cer-caution">Conceptual positions only — not to scale. A nearby lamp produces only an approximate quarter-phase demonstration. Do not use the real Sun or a hot lamp.</p>
    </div>
    <figure class="cer-setup-figure">
-    <svg viewBox="0 0 640 310" role="img" aria-labelledby="cerSetupTitle cerSetupDesc" focusable="false">
-     <title id="cerSetupTitle">Top-down lamp, Moon ball and observer arrangement</title>
-     <desc id="cerSetupDesc">The teacher-controlled lamp sits far to the observer's left. The observer is at the lower right, holding the ball in front. Dashed lines from observer to lamp and observer to ball make an approximately 90 degree angle.</desc>
+    <svg class="cer-setup-desktop" viewBox="0 0 640 310" role="img" aria-labelledby="cerSetupTitle cerSetupDesc" focusable="false">
+     <title id="cerSetupTitle">Classroom lamp, Moon ball, and observing positions from above</title>
+     <desc id="cerSetupDesc">The teacher-controlled LED lamp is well left of the observer. The ball is held above the observer on this top-down plan. Two dashed sightlines from the observer make an approximately right angle. A gold arrow runs from the lamp directly toward the ball's lit side; because a classroom lamp is not infinitely distant, this is only an approximation of the Moon's first-quarter geometry.</desc>
+     <defs>
+      <marker id="cerLightArrow" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6 Z" fill="#a66e17" /></marker>
+      <marker id="cerGazeArrow" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6 Z" fill="#466a83" /></marker>
+     </defs>
      <rect x="1" y="1" width="638" height="308" fill="#ece9e1" stroke="#bdb8ae" />
-     <path d="M125 188 H484 V75" fill="none" stroke="#65727c" stroke-width="2" stroke-dasharray="7 7" />
-     <path d="M462 188 V166 H484" fill="none" stroke="#ad4327" stroke-width="2.5" />
-     <path d="M144 157 L385 90" stroke="#c78a27" stroke-width="2.5" stroke-dasharray="7 6" />
-     <path d="M384 90 l-10 -2 l6 9 Z" fill="#c78a27" />
-     <circle cx="125" cy="188" r="32" fill="#d69c38" stroke="#8f5b17" stroke-width="2" />
-     <path d="M110 174 L140 202 M140 174 L110 202" stroke="#fff1c9" stroke-width="4" />
-     <circle cx="484" cy="188" r="27" fill="#406b87" stroke="#18354a" stroke-width="2" />
-     <circle cx="484" cy="75" r="20" fill="#76828d" stroke="#6b6d70" stroke-width="2" />
-     <path d="M484 55 A20 20 0 0 0 484 95 Z" fill="#dedbd0" />
-     <g fill="#16212a" font-size="14" font-family="system-ui,sans-serif" text-anchor="middle">
-      <text x="125" y="239" font-weight="700">LED lamp</text><text x="125" y="255" font-size="11">teacher-controlled</text>
-      <text x="484" y="243" font-weight="700">Observer (Earth)</text><text x="484" y="259" font-size="11">look toward ball</text>
-      <text x="484" y="35" font-weight="700">Ball (Moon)</text><text x="484" y="113" font-size="11">arm’s length</text>
-      <text x="404" y="159" font-size="12">≈90°</text>
-      <text x="249" y="111" font-size="11" fill="#8f5b17">light direction</text>
+     <!-- The two lines at right angles are OBSERVER sightlines, not sunlight. -->
+     <path d="M149 183 H474 V96" fill="none" stroke="#566c7b" stroke-width="2.5" stroke-dasharray="7 7" />
+     <path d="M451 183 V160 H474" fill="none" stroke="#466a83" stroke-width="2.5" />
+     <!-- Actual finite-distance lamp ray MUST terminate at the Moon ball. -->
+     <line id="cerSetupRayToBall" x1="159" y1="167" x2="454" y2="77" stroke="#b87815" stroke-width="3.5" marker-end="url(#cerLightArrow)" />
+     <line id="cerSetupObserverGaze" x1="474" y1="151" x2="474" y2="96" stroke="#466a83" stroke-width="2.7" marker-end="url(#cerGazeArrow)" />
+     <circle cx="125" cy="183" r="32" fill="#d69c38" stroke="#8f5b17" stroke-width="2" />
+     <path d="M110 169 L140 197 M140 169 L110 197" stroke="#fff1c9" stroke-width="4" />
+     <circle cx="474" cy="183" r="26" fill="#406b87" stroke="#18354a" stroke-width="2" />
+     <circle cx="474" cy="73" r="20" fill="#6e7a84" stroke="#34424d" stroke-width="2" />
+     <!-- Bright hemisphere faces the lamp below-left, not a global eclipse. -->
+     <path d="M474 53 A20 20 0 0 0 474 93 Z" fill="#f3eed9" transform="rotate(-17 474 73)" />
+     <circle cx="474" cy="73" r="20" fill="none" stroke="#34424d" stroke-width="2" />
+     <g fill="#16212a" font-size="16" font-family="system-ui,sans-serif" text-anchor="middle">
+      <text x="125" y="234" font-weight="700">LED lamp</text><text x="125" y="255" font-size="14">teacher-controlled</text>
+      <text x="474" y="232" font-weight="700">Observer (Earth)</text><text x="474" y="253" font-size="14">look toward ball</text>
+      <text x="474" y="35" font-weight="700">Ball (Moon)</text><text x="535" y="113" font-size="14">arm’s length</text>
+      <text x="411" y="158" font-size="14">≈90°</text>
+      <text x="308" y="107" font-size="14" fill="#835a1a">light toward ball</text>
      </g>
     </svg>
-    <figcaption>Original top-down classroom schematic. The lamp is much farther from the observer than the ball; relative size and distance are not to scale.</figcaption>
+    <svg class="cer-setup-mobile" viewBox="0 0 360 330" role="img" aria-labelledby="cerMobileSetupTitle cerMobileSetupDesc" focusable="false">
+     <title id="cerMobileSetupTitle">Classroom lamp-and-ball arrangement from above</title>
+     <desc id="cerMobileSetupDesc">The lamp is left, the observer is right, the Moon ball is above the observer. Gold light goes diagonally from lamp directly to the Moon; blue dashed observer sightlines form 90 degrees. Distances and sizes are not to scale.</desc>
+     <defs>
+      <marker id="cerMobileLightArrow" markerWidth="6" markerHeight="6" refX="4.5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6 Z" fill="#a66e17"/></marker>
+      <marker id="cerMobileEyeArrow" markerWidth="6" markerHeight="6" refX="4.5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6 Z" fill="#466a83"/></marker>
+     </defs>
+     <rect x="1" y="1" width="358" height="328" fill="#ece9e1" stroke="#bdb8ae"/>
+     <path d="M105 175 H265 V78" fill="none" stroke="#566c7b" stroke-width="2.5" stroke-dasharray="6 6"/>
+     <path d="M244 175 V153 H265" fill="none" stroke="#466a83" stroke-width="2.5"/>
+     <line id="cerSetupMobileRayToBall" x1="103" y1="156" x2="244" y2="64" stroke="#b87815" stroke-width="3.5" marker-end="url(#cerMobileLightArrow)"/>
+     <line x1="265" y1="149" x2="265" y2="78" stroke="#466a83" stroke-width="2.5" marker-end="url(#cerMobileEyeArrow)"/>
+     <circle cx="75" cy="175" r="27" fill="#d69c38" stroke="#8f5b17" stroke-width="2"/>
+     <path d="M63 163 L87 187 M87 163 L63 187" stroke="#fff1c9" stroke-width="4"/>
+     <circle cx="265" cy="175" r="23" fill="#406b87" stroke="#18354a" stroke-width="2"/>
+     <circle cx="265" cy="57" r="19" fill="#6e7a84" stroke="#34424d" stroke-width="2"/>
+     <path d="M265 38 A19 19 0 0 0 265 76 Z" fill="#f3eed9" transform="rotate(-30 265 57)"/>
+     <circle cx="265" cy="57" r="19" fill="none" stroke="#34424d" stroke-width="2"/>
+     <g fill="#16212a" font-family="system-ui,sans-serif" font-size="16" text-anchor="middle">
+      <text x="265" y="25" font-weight="700">Moon ball</text>
+      <text x="75" y="224" font-weight="700">LED lamp</text><text x="75" y="246" font-size="14">teacher controls</text>
+      <text x="265" y="224" font-weight="700">Observer</text><text x="265" y="246" font-size="14">(Earth)</text>
+      <text x="211" y="148" font-size="14">90°</text>
+      <text x="157" y="94" fill="#835a1a" font-size="14">Light → ball</text>
+      <text x="265" y="290" font-size="14">Not to scale</text>
+     </g>
+    </svg>
+    <figcaption>A classroom plan seen from above, not a view of the Moon as seen from Earth. <strong>Gold:</strong> light travels from the lamp to the ball. <strong>Blue dashed:</strong> the observer's two viewing directions, about 90° apart. The lit side of the ball faces the lamp. Distances and sizes are not to scale; a nearby lamp gives an approximate quarter-phase demonstration rather than exact parallel sunlight.</figcaption>
    </figure>
   </div>
   <div class="cer-reasoning-guide">
