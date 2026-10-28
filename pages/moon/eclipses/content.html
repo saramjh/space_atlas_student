@@ -9,18 +9,67 @@
 
 <section class="section">
  <div class="wrap">
-  <div class="eclipse-lab" id="eclipseLab" aria-busy="true">
-    <p class="scale-caption" id="eclipseLoading" role="status">Preparing the interactive 3D model. The explanation and NASA sources below remain readable while it loads.</p>
+  <div class="eclipse-lab" id="eclipseLab" aria-busy="false">
+    <p class="scale-caption" id="eclipseLoading" role="status">Interactive controls require JavaScript and WebGL. The scientific explanation and NASA sources below remain readable if the model is unavailable.</p>
     <div class="eclipse-view" id="eclipseShell" aria-label="Sun-Earth-Moon alignment model">
       <canvas id="eclipseCanvas"></canvas>
     </div>
     <div class="eclipse-controls">
       <button type="button" id="btnSolarPos" disabled>Jump to new moon (solar eclipse position)</button>
       <button type="button" id="btnLunarPos" disabled>Jump to full moon (lunar eclipse position)</button>
-      <label><input type="checkbox" id="tiltToggle" disabled /> Illustrate orbital tilt (drawn as 15° for clarity; real tilt ~5.1°)</label>
+      <label><input type="checkbox" id="tiltToggle" disabled /> Illustrate orbital tilt — drawn as 15° for clarity; real tilt ~5.1°</label>
     </div>
     <input type="range" id="eclipseAngle" disabled min="0" max="360" value="0" step="1" aria-label="Moon's position around Earth, in degrees" style="width:calc(100% - 44px);margin:0 22px 18px;accent-color:var(--accent)" />
-    <div class="eclipse-readout" id="eclipseReadout" role="status" aria-live="polite"><strong>New Moon alignment.</strong> An eclipse needs a new or full moon AND close alignment with the Moon's orbital nodes. The model will show how tilt affects the alignment.</div>
+    <div class="eclipse-node-controls">
+      <label for="eclipseNode">Where the orbit crosses Earth's plane <output id="eclipseNodeValue" for="eclipseNode">90° away from Sun–Earth direction</output></label>
+      <input type="range" min="0" max="90" value="90" step="1" id="eclipseNode" disabled aria-describedby="eclipseNodeNote" />
+      <div class="eclipse-node-presets" role="group" aria-label="Choose orbital node direction">
+        <button type="button" data-eclipse-node="0" disabled>0°: nodes along Sun–Earth line</button>
+        <button type="button" data-eclipse-node="90" disabled>90°: nodes away from Sun–Earth line</button>
+      </div>
+      <p id="eclipseNodeNote">An eclipse requires a new or full moon near the tilted orbit's nodes. Change node orientation to test an alignment versus an orbital-plane miss.</p>
+    </div>
+    <figure class="eclipse-side-view" id="eclipseSideView">
+      <svg class="eclipse-side-desktop" viewBox="0 0 600 180" role="img" aria-labelledby="eclipseSideTitle eclipseSideDesc" focusable="false">
+        <title id="eclipseSideTitle">Side-on model: is the Moon above or below Earth's orbital plane?</title>
+        <desc id="eclipseSideDesc">The Sun is far to the left. Earth is centered on the horizontal ecliptic line. The Moon position moves vertically as the plane tilt and orbital nodes change; distances, body sizes and vertical offset are deliberately exaggerated.</desc>
+        <rect x="1" y="1" width="598" height="178" fill="#10202b" stroke="#455562" />
+        <path d="M34 90 H576" stroke="#8398a8" stroke-width="1.6" stroke-dasharray="7 5"/>
+        <path d="M60 54 H105" stroke="#dba05b" stroke-width="3"/>
+        <path d="M98 47 L109 54 L98 61" stroke="#dba05b" stroke-width="2" fill="none"/>
+        <circle cx="300" cy="90" r="20" fill="#407f9c" stroke="#bfd4e0" stroke-width="2"/>
+        <circle id="eclipseMoonSide" cx="147" cy="90" r="11" fill="#d8d8d1" stroke="#fff4dd" stroke-width="1.5"/>
+        <path id="eclipseSideSightline" d="M300 90 L147 90" stroke="#8db4cb" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <g fill="#eaf0f5" font-family="system-ui,sans-serif" font-size="19">
+          <text x="30" y="32" fill="#e7b979">Sunlight →</text>
+          <text x="300" y="127" text-anchor="middle">Earth</text>
+          <text id="eclipseMoonSideLabel" x="147" y="68" text-anchor="middle">Moon</text>
+          <text x="575" y="83" text-anchor="end" font-size="13">Ecliptic plane</text>
+        </g>
+      </svg>
+      <svg class="eclipse-side-mobile" viewBox="0 0 360 230" role="img" aria-labelledby="eclipseMobileTitle eclipseMobileDesc" focusable="false">
+        <title id="eclipseMobileTitle">Side-on Moon orbit and Earth with readable labels</title>
+        <desc id="eclipseMobileDesc">A blue Earth at center-right and a pale Moon changing from above to below Earth's orbital plane. An arrow points from the Sun at far left toward Earth, and a horizontal dashed line is the ecliptic reference plane. Drawing is not to scale.</desc>
+        <rect x="1" y="1" width="358" height="228" fill="#10202b" stroke="#455562"/>
+        <path d="M23 107 H337" stroke="#8398a8" stroke-width="1.8" stroke-dasharray="7 5"/>
+        <path d="M28 73 H78 M71 66 L82 73 L71 80" stroke="#dba05b" stroke-width="2.5" fill="none"/>
+        <circle cx="220" cy="107" r="17" fill="#407f9c" stroke="#bfd4e0" stroke-width="2"/>
+        <path id="eclipseSideMobileSightline" d="M220 107 L130 107" stroke="#8db4cb" stroke-width="1.8" stroke-dasharray="5 4"/>
+        <circle id="eclipseMoonMobile" cx="130" cy="107" r="11" fill="#d8d8d1" stroke="#fff4dd" stroke-width="1.5"/>
+        <g fill="#eaf0f5" font-family="system-ui,sans-serif" font-size="19">
+          <text x="26" y="43" fill="#e7b979">Sunlight →</text>
+          <text x="220" y="151" text-anchor="middle">Earth</text>
+          <text x="130" y="79" text-anchor="middle" id="eclipseMoonMobileLabel">Moon</text>
+          <text x="22" y="210" font-size="19">Dashed: ecliptic plane</text>
+        </g>
+      </svg>
+      <figcaption>Side-on educational diagram · body sizes, distances and the 15° drawn inclination are not to scale. <strong id="eclipseOffset">The Moon's model offset from the ecliptic plane is 0.00 orbital radii.</strong></figcaption>
+    </figure>
+    <div class="eclipse-play-row">
+      <button type="button" id="eclipsePlay" aria-pressed="false" disabled>Play one Moon orbit</button>
+      <span>Optional 12-second illustrative cycle. Use the slider for still comparisons.</span>
+    </div>
+    <div class="eclipse-readout" id="eclipseReadout" role="status" aria-live="polite"><strong>New Moon alignment.</strong> An eclipse needs a new or full moon AND close alignment with the Moon's orbital nodes. Rotate the Moon's orbital nodes: a new/full Moon can be exactly on the reference plane or miss it. This is a model, not a prediction of an actual eclipse.</div>
   </div>
  </div>
 </section>

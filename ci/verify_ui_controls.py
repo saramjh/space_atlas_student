@@ -114,15 +114,15 @@ def main():
     # silently accept clicks before handlers are ready. Static science remains.
     eclipse = (PUBLIC / "moon/eclipses/index.html").read_text(encoding="utf-8")
     eclipse_js = (ROOT / "assets/js/eclipses.js").read_text(encoding="utf-8")
-    assert 'id="eclipseLab" aria-busy="true"' in eclipse
-    for control in ("btnSolarPos", "btnLunarPos", "tiltToggle", "eclipseAngle"):
+    assert 'id="eclipseLab" aria-busy="false"' in eclipse, "no-JS static content must not stay busy"
+    for control in ("btnSolarPos", "btnLunarPos", "tiltToggle", "eclipseAngle", "eclipseNode", "eclipsePlay"):
         assert re.search(r'<(?:button|input)[^>]*id="' + control + r'"[^>]*disabled', eclipse), control
     assert 'id="eclipseReadout" role="status" aria-live="polite"' in eclipse
     assert "15° for clarity; real tilt ~5.1°" in eclipse
-    assert "const TILT_RAD = (15 * Math.PI) / 180;" in eclipse_js
-    assert "element.disabled = false" in eclipse_js
-    assert "setAttribute('aria-busy', 'false')" in eclipse_js
-    assert "document.querySelector('#eclipseLoading').hidden = true" in eclipse_js
+    assert "eclipseModel" in eclipse_js and "DISPLAY_TILT_DEGREES" in eclipse_js
+    assert "el.disabled=false" in eclipse_js
+    assert "setAttribute('aria-busy','false')" in eclipse_js
+    assert "document.querySelector('#eclipseLoading').hidden=true" in eclipse_js
     assert "With the Moon's real tilt on" not in eclipse_js
 
     lock = (PUBLIC / "moon/tidal-locking/index.html").read_text(encoding="utf-8")
