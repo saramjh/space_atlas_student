@@ -1092,3 +1092,44 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .teacher-hypothesis-source{color:var(--muted)!important;font-size:11px!important;margin-top:18px}
 .teacher-hypothesis-source a{text-decoration:underline;text-underline-offset:2px}
 @media(max-width:620px){.teacher-hypothesis-test>summary{flex-wrap:wrap;gap:7px}.teacher-hypothesis-test>summary span{width:100%;text-align:left;margin-left:28px}.teacher-hypothesis-body{padding-left:0}}
+
+/* Black-hole inquiry lab. The default is a complete static educational diagram;
+   extra WebGL and motion are loaded only on the learner's request. */
+.bh-diagram{position:relative;aspect-ratio:2.15/1;min-height:300px;padding:0;overflow:hidden;background:#080d16}
+.bh-diagram>svg{display:block;width:100%;height:100%;object-fit:contain}
+.bh-scene{width:100%;height:100%;position:absolute;inset:0;display:block;touch-action:pan-y;cursor:grab}
+.bh-scene:active{cursor:grabbing}
+.bh-scene[hidden],.bh-scene-caption[hidden],.bh-controls[hidden]{display:none}
+.bh-scene-caption{position:absolute;bottom:10px;left:12px;right:12px;pointer-events:none;color:#e6d9c1;background:#111923c9;font-size:12px;line-height:1.45;padding:6px 9px;border-left:2px solid #ecaa5c}
+.bh-lab-controls{padding:20px 22px 22px;border-bottom:1px solid #bdb8ae;background:#f0ede5}
+.bh-lab-intro{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.bh-lab-intro h3{font:650 23px/1.25 var(--font-display);margin:0 0 7px}
+.bh-lab-intro p{font-size:15px;line-height:1.55;color:#424749;max-width:55ch;margin:0}
+.bh-activate,.bh-presets button{border:1px solid #555850;border-radius:2px;padding:10px 13px;min-height:42px;font:600 14px/1.35 var(--font-reading);background:#fcfbf7;color:#18222a;cursor:pointer}
+.bh-activate{background:#18222a;color:#fff;flex-shrink:0}
+.bh-presets button[aria-pressed="true"],.bh-activate[aria-pressed="true"]{background:#a74b25;border-color:#a74b25;color:#fff}
+.bh-activate:focus-visible,.bh-presets button:focus-visible,.bh-controls input:focus-visible{outline:3px solid #af4e24;outline-offset:3px}
+.bh-presets button:disabled{opacity:.5;cursor:not-allowed}
+.bh-controls{display:grid;gap:9px;margin-top:20px;padding:16px 0;border-top:1px solid #c5bfb3}
+.bh-controls label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:15px;font-weight:600}
+.bh-controls output{font:600 14px/1.35 var(--font-data)}
+.bh-controls input[type=range]{width:100%;accent-color:#a94d25;cursor:pointer;min-height:32px}
+.bh-presets{display:flex;gap:8px;flex-wrap:wrap}
+.bh-transport{margin-top:5px}
+.bh-lab-readout{display:block;margin:14px 0 10px;font:500 15px/1.6 var(--font-reading);color:#1e303b}
+.bh-lab-note{font-size:13px;line-height:1.65;color:#45494d;margin:8px 0 0;max-width:90ch}
+.bh-lab-note a{color:#82411f}
+.bh-legend b{font-size:16px}
+.bh-legend span{font-size:14px;line-height:1.55}
+@media(max-width:620px){
+ .bh-diagram{aspect-ratio:4/3;min-height:240px}
+ .bh-lab-intro{align-items:stretch;flex-direction:column}
+ .bh-lab-intro h3{font-size:21px}
+ .bh-activate{width:100%}
+ .bh-lab-controls{padding:18px 15px}
+ .bh-presets button{flex:1 1 auto}
+}
+@media(prefers-reduced-motion:reduce){.bh-scene,.bh-activate,.bh-presets button{animation:none;transition:none}}
+
+/* Keep lab controls below sticky header when keyboard focus scrolls. */
+.bh-activate,.bh-presets button,.bh-controls input{scroll-margin-top:148px}

@@ -63,6 +63,7 @@ jobs:
           node ci/verify_moon_prediction_comparison.mjs
           node ci/verify_moon_learning_geometry.mjs
           node ci/verify_moon_diagram_visibility.mjs
+          node ci/verify_black_hole_lab.mjs
           node ci/verify_ready_content.mjs
           node ci/verify_gravity_mechanism.mjs
           node ci/verify_orbit_framing.mjs
