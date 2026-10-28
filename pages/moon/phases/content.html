@@ -182,13 +182,15 @@
      <rect x="1" y="1" width="638" height="308" fill="#ece9e1" stroke="#bdb8ae" />
      <!-- The two lines at right angles are OBSERVER sightlines, not sunlight. -->
      <path d="M149 183 H474 V96" fill="none" stroke="#566c7b" stroke-width="2.5" stroke-dasharray="7 7" />
-     <path d="M451 183 V160 H474" fill="none" stroke="#466a83" stroke-width="2.5" />
+
      <!-- Actual finite-distance lamp ray MUST terminate at the Moon ball. -->
      <line id="cerSetupRayToBall" x1="159" y1="167" x2="454" y2="77" stroke="#b87815" stroke-width="3.5" marker-end="url(#cerLightArrow)" />
      <line id="cerSetupObserverGaze" x1="474" y1="151" x2="474" y2="96" stroke="#466a83" stroke-width="2.7" marker-end="url(#cerGazeArrow)" />
      <circle cx="125" cy="183" r="32" fill="#d69c38" stroke="#8f5b17" stroke-width="2" />
      <path d="M110 169 L140 197 M140 169 L110 197" stroke="#fff1c9" stroke-width="4" />
      <circle cx="474" cy="183" r="26" fill="#406b87" stroke="#18354a" stroke-width="2" />
+     <!-- External quarter-circle: keeps the angle visible outside the opaque observer. -->
+     <path id="cerSetupRightAngleDesktop" d="M432 183 A42 42 0 0 1 474 141" fill="none" stroke="#315d7d" stroke-width="3.5" stroke-linecap="round" />
      <circle cx="474" cy="73" r="20" fill="#6e7a84" stroke="#34424d" stroke-width="2" />
      <!-- Bright hemisphere faces the lamp below-left, not a global eclipse. -->
      <path d="M474 53 A20 20 0 0 0 474 93 Z" fill="#f3eed9" transform="rotate(-17 474 73)" />
@@ -197,7 +199,7 @@
       <text x="125" y="234" font-weight="700">LED lamp</text><text x="125" y="255" font-size="14">teacher-controlled</text>
       <text x="474" y="232" font-weight="700">Observer (Earth)</text><text x="474" y="253" font-size="14">look toward ball</text>
       <text x="474" y="35" font-weight="700">Ball (Moon)</text><text x="535" y="113" font-size="14">arm’s length</text>
-      <text x="411" y="158" font-size="14">≈90°</text>
+      <text x="405" y="131" font-size="16" font-weight="700" fill="#315d7d">90°</text>
       <text x="308" y="107" font-size="14" fill="#835a1a">light toward ball</text>
      </g>
     </svg>
@@ -210,12 +212,13 @@
      </defs>
      <rect x="1" y="1" width="358" height="328" fill="#ece9e1" stroke="#bdb8ae"/>
      <path d="M105 175 H265 V78" fill="none" stroke="#566c7b" stroke-width="2.5" stroke-dasharray="6 6"/>
-     <path d="M244 175 V153 H265" fill="none" stroke="#466a83" stroke-width="2.5"/>
+
      <line id="cerSetupMobileRayToBall" x1="103" y1="156" x2="244" y2="64" stroke="#b87815" stroke-width="3.5" marker-end="url(#cerMobileLightArrow)"/>
      <line x1="265" y1="149" x2="265" y2="78" stroke="#466a83" stroke-width="2.5" marker-end="url(#cerMobileEyeArrow)"/>
      <circle cx="75" cy="175" r="27" fill="#d69c38" stroke="#8f5b17" stroke-width="2"/>
      <path d="M63 163 L87 187 M87 163 L63 187" stroke="#fff1c9" stroke-width="4"/>
      <circle cx="265" cy="175" r="23" fill="#406b87" stroke="#18354a" stroke-width="2"/>
+     <path id="cerSetupRightAngleMobile" d="M225 175 A40 40 0 0 1 265 135" fill="none" stroke="#315d7d" stroke-width="3.6" stroke-linecap="round"/>
      <circle cx="265" cy="57" r="19" fill="#6e7a84" stroke="#34424d" stroke-width="2"/>
      <path d="M265 38 A19 19 0 0 0 265 76 Z" fill="#f3eed9" transform="rotate(-30 265 57)"/>
      <circle cx="265" cy="57" r="19" fill="none" stroke="#34424d" stroke-width="2"/>
@@ -223,7 +226,7 @@
       <text x="265" y="25" font-weight="700">Moon ball</text>
       <text x="75" y="224" font-weight="700">LED lamp</text><text x="75" y="246" font-size="14">teacher controls</text>
       <text x="265" y="224" font-weight="700">Observer</text><text x="265" y="246" font-size="14">(Earth)</text>
-      <text x="211" y="148" font-size="14">90°</text>
+      <text x="201" y="124" font-size="16" font-weight="700" fill="#315d7d">90°</text>
       <text x="157" y="94" fill="#835a1a" font-size="14">Light → ball</text>
       <text x="265" y="290" font-size="14">Not to scale</text>
      </g>
