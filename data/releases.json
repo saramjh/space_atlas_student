@@ -3,6 +3,25 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-moon-diagram-visible-right-angle",
+      "date": "2026-10-28",
+      "category": "Classroom diagram clarity and visual quality",
+      "title": "The 90° corner in the lamp-and-ball classroom diagram is visible again",
+      "summary": "The original 90-degree marker was hidden behind the opaque Earth observer circle, despite the caption describing perpendicular viewing directions. The desktop, mobile and printable teacher diagrams now mark the same observer angle with visible arcs outside the circle.",
+      "students": "Look for the blue 90° arc outside the Earth observer. It shows the two viewing directions to the lamp and Moon ball forming a right angle, while the gold arrow still shows light travelling from the lamp to the ball.",
+      "teachers": "Both web diagrams and the separate device-free paper activity now show the angle clearly. A geometry test checks the observer disk, the arc's distance from it, its layering and labelled angle; the original lamp/ball science caveat remains.",
+      "developers": "TDD RED on missing external markers, GREEN for desktop/mobile/print. Real Chromium rendered hit tests at 320, 390, 800, 1280 and in offline handout show the visible arc is the foreground element. The broader 35-SVG source survey is triage, not a site-wide no-defects claim. Existing Moon CER and SEO tests pass.",
+      "links": [
+        {
+          "label": "Inspect the Moon phase classroom diagram",
+          "path": "/moon/phases/"
+        }
+      ],
+      "commits": [
+        "91cba15"
+      ]
+    },
+    {
       "id": "2026-10-28-moon-prediction-vs-observation",
       "date": "2026-10-28",
       "category": "Learning interaction clarity and correctness",
