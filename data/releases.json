@@ -3,6 +3,25 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-moon-prediction-vs-observation",
+      "date": "2026-10-28",
+      "category": "Learning interaction clarity and correctness",
+      "title": "Your Moon-phase prediction is now separate from the real observation",
+      "summary": "A reader reported that all three answer choices appeared to produce the same Moon simulator output. First Quarter is physically 50% illuminated regardless of the guess, but the interface had not distinguished predictions from actual observations. It now shows both results side by side and explains any mismatch.",
+      "students": "Selecting 25%, 50%, or 100% immediately displays your chosen prediction. Compare to reveal the scientifically correct First Quarter (50%) beside it; choosing another answer clears the earlier comparison. The model is never altered to match a wrong prediction.",
+      "teachers": "Preserves the Claim–Evidence–Reasoning exercise and the device-free printable handout. Students can discuss why the scientific model stays at 50% but their own 25/50/100 guesses differ. No pupil results are stored, and no classroom outcome is claimed.",
+      "developers": "Clarified hypothesis versus physical model with native radio choices, selected-vector previews, hidden-before-check observation visual, choice-sensitive explanation and state reset. Added a new focused TDD regression to production and scheduled CI. Browser-verified all three options at desktop and mobile widths; preserved static no-JS answer, SEO and NASA sources.",
+      "links": [
+        {
+          "label": "Compare a prediction with the Moon model",
+          "path": "/moon/phases/"
+        }
+      ],
+      "commits": [
+        "c758179"
+      ]
+    },
+    {
       "id": "2026-10-28-moon-phase-causal-simulator-and-classroom-geometry",
       "date": "2026-10-28",
       "category": "Scientific accuracy and controlled visual learning",
