@@ -235,11 +235,85 @@ def render_ad_slot(template, slot_id, position):
     )
 
 
+def load_lesson_acknowledgments():
+    """Explicit page-scoped, non-sensitive feedback archive. No public auto-discovery."""
+    path = ROOT / "data" / "lesson-acknowledgments.json"
+    if not path.is_file():
+        return {}
+    dataset = json.loads(read(path))
+    if dataset.get("schemaVersion") != 1 or not isinstance(dataset.get("records"), dict):
+        raise ValueError("Invalid lesson acknowledgments catalog")
+    return dataset["records"]
+
+
+def render_lesson_acknowledgments(path, records):
+    """Build a collapsed, bounded disclosure with names only after verified opt-in."""
+    items = records.get(path, [])
+    if not items:
+        return ""
+    if not isinstance(items, list):
+        raise ValueError(f"Invalid feedback entries for {path}")
+    ordered = []
+    seen = set()
+    for idx, item in enumerate(items):
+        if not isinstance(item, dict):
+            raise ValueError("Invalid feedback record")
+        for key in ("id", "date", "title", "change"):
+            if not isinstance(item.get(key), str) or not item[key].strip():
+                raise ValueError(f"Missing {key} in acknowledgment record")
+        if item["id"] in seen:
+            raise ValueError("Duplicate acknowledgment ID")
+        seen.add(item["id"])
+        date.fromisoformat(item["date"])
+        credit = item.get("credit", {})
+        if not isinstance(credit, dict):
+            raise ValueError("Invalid acknowledgment credit")
+        kind = credit.get("kind")
+        if kind == "anonymous":
+            if any(key in credit for key in ("name", "email", "profile")):
+                raise ValueError("Anonymous credit cannot carry identifying fields")
+            if not credit.get("label"):
+                raise ValueError("Anonymous credit requires a generic role label")
+            label = credit["label"]
+        elif kind == "named":
+            permission = credit.get("publicAttributionPermission", {})
+            if not (permission.get("verified") is True
+                    and isinstance(permission.get("recordReference"), str)
+                    and permission["recordReference"].strip()
+                    and isinstance(credit.get("name"), str)
+                    and credit["name"].strip()):
+                raise ValueError("Named attribution requires documented opt-in proof")
+            label = credit["name"]
+        else:
+            raise ValueError("Unknown public attribution status")
+        ordered.append((item["date"], idx, item, label))
+    ordered.sort(key=lambda row: (row[0], row[1]), reverse=True)
+    esc = lambda value: escape_html(str(value), quote=True)
+    snippets = "".join(
+        '<li class="lesson-acknowledgments-item">'
+        f'<time datetime="{esc(item["date"])}">{esc(item["date"])}</time>'
+        f'<div><strong>{esc(item["title"])}</strong>'
+        f'<p>{esc(item["change"])}</p>'
+        f'<span>{esc(label)}</span></div></li>'
+        for _, _, item, label in ordered[:3]
+    )
+    return (
+        '<section class="lesson-acknowledgments" id="lesson-acknowledgments">'
+        '<div class="wrap"><details aria-label="Lesson improvement acknowledgments">'
+        '<summary><span>Acknowledgments</span><small>Educator and expert feedback helped improve this lesson</small></summary>'
+        '<div class="lesson-acknowledgments-body"><ol>' + snippets + '</ol>'
+        '<p class="lesson-acknowledgments-note">Suggestions informed specific improvements. '
+        'No endorsement, formal evaluation or classroom trial is implied.</p>'
+        f'<a href="{SITE_BASE}/updates/">See all updates</a>'
+        '</div></details></div></section>'
+    )
+
+
 def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_version):
     html = layout
     html = html.replace("{{NAV}}", nav)
     html = html.replace("{{FOOTER}}", footer)
-    html = html.replace("{{CONTENT}}", content)
+    html = html.replace("{{CONTENT}}", content + render_lesson_acknowledgments(meta.get("path", ""), load_lesson_acknowledgments()))
     tokens = {
         # Titles and meta values enter HTML text/quoted-attribute contexts.
         # Keep literal quotation marks in authored copy without corrupting meta tags.

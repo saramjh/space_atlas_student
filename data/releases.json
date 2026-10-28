@@ -3,6 +3,25 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-teacher-ready-moon-cer-and-acknowledgments",
+      "date": "2026-10-28",
+      "category": "Classroom investigation and responsive learning",
+      "title": "A classroom-ready Moon phase investigation informed by educator feedback",
+      "summary": "Feedback from elementary and astronomy educators led to a three-choice Moon prediction activity, a clearer lamp-and-ball demonstration, an offline two-page CER lesson, and a compact acknowledgement of practical improvements.",
+      "students": "Choose whether First Quarter should appear one-quarter, one-half or fully bright, then check your prediction in the existing 3D Moon model. The explanation remains available without JavaScript.",
+      "teachers": "A suggested 30–35 minute Grades 3–5 activity offers objectives, safe materials, a reproducible original setup diagram, student prompts, example reasoning, differentiation, and a device-free printable guide. Neither adoption nor classroom effectiveness has been measured.",
+      "developers": "Native radio inputs and a no-JS answer connect to the original phase model. Scoped static acknowledgments preserve private contributor identities until confirmed opt-in; the disclosure shows at most three improvements and leaves the lesson layout uncluttered. CI verifies privacy, bounded rendering, static assets, SEO, and offline print compatibility.",
+      "links": [
+        {
+          "label": "Try the Moon phases CER activity",
+          "path": "/moon/phases/"
+        }
+      ],
+      "commits": [
+        "f88bc57"
+      ]
+    },
+    {
       "id": "2026-10-18-moon-phase-spherical-light-and-orbit-spacing",
       "date": "2026-10-18",
       "category": "Scientific accuracy and visual clarity",

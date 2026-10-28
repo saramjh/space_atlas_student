@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "description": "Curated public, lesson-scoped improvement facts. No private contact details or identity guesses. Approved names require explicit opt-in.",
+  "records": {
+    "/moon/phases/": [
+      {
+        "id": "2026-10-18-lunar-illumination-and-orbit-clarity",
+        "date": "2026-10-18",
+        "title": "Moon illumination and model clarity",
+        "change": "Astronomy educator feedback helped correct eclipse-like illumination in the phase model and improve orbital visibility in the Solar System view.",
+        "credit": {
+          "kind": "anonymous",
+          "label": "Astronomy educator feedback"
+        }
+      },
+      {
+        "id": "2026-10-28-classroom-cer-investigation",
+        "date": "2026-10-28",
+        "title": "Classroom CER investigation",
+        "change": "Elementary educator editorial feedback informed three Moon prediction choices, clearer lamp-and-ball instructions, and a printable Claim–Evidence–Reasoning worksheet.",
+        "credit": {
+          "kind": "anonymous",
+          "label": "Elementary educator editorial feedback"
+        }
+      }
+    ]
+  }
+}

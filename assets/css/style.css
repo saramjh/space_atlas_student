@@ -1006,3 +1006,25 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 @media(max-width:1100px){.cer-phase-choice{gap:13px;padding:14px}.cer-phase-icon{width:76px;height:76px}.cer-phase-choice strong{font-size:17px}}
 @media(max-width:800px){.cer-setup-layout{grid-template-columns:1fr}.cer-setup-figure{max-width:610px}}
 @media(max-width:660px){.cer-phase-choices{grid-template-columns:1fr}.cer-phase-choice{border-right:0;border-bottom:1px solid var(--rule)}.cer-phase-choice:last-child{border-bottom:0}.cer-phase-icon{width:78px;height:78px;max-width:none}.cer-check-row{align-items:stretch;gap:12px}.cer-reasoning-guide dl>div{grid-template-columns:1fr;gap:4px}.moon-cer-prediction{padding-top:38px;padding-bottom:38px}}
+
+/* Lesson-level acknowledgments remain one line unless the reader opts in. */
+.lesson-acknowledgments{padding:0;background:var(--paper);border-top:1px solid var(--rule)}
+.lesson-acknowledgments details{max-width:950px;margin:0}
+.lesson-acknowledgments summary{display:flex;align-items:center;gap:15px;list-style:none;cursor:pointer;padding:19px 0;color:var(--ink)}
+.lesson-acknowledgments summary::-webkit-details-marker{display:none}
+.lesson-acknowledgments summary::after{content:"+";font-size:20px;line-height:1;margin-left:auto;font-weight:400;color:var(--muted)}
+.lesson-acknowledgments details[open] summary::after{content:"−"}
+.lesson-acknowledgments summary>span{font-weight:650;font-size:13px}
+.lesson-acknowledgments summary>small{font-size:11px;line-height:1.35;color:var(--muted)}
+.lesson-acknowledgments summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.lesson-acknowledgments-body{padding:2px 0 24px}
+.lesson-acknowledgments-body ol{list-style:none;padding:0;margin:0;border-top:1px solid var(--rule)}
+.lesson-acknowledgments-item{display:grid;grid-template-columns:100px minmax(0,1fr);gap:15px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.lesson-acknowledgments-item time{font-size:11px;color:var(--muted)}
+.lesson-acknowledgments-item strong{font:600 16px/1.3 Georgia,serif}
+.lesson-acknowledgments-item p{font-size:12px;line-height:1.6;margin:5px 0;color:#444b50;max-width:780px}
+.lesson-acknowledgments-item span{display:block;font-size:11px;color:var(--muted)}
+.lesson-acknowledgments-note{font-size:11px;line-height:1.6;color:var(--muted);margin:15px 0 8px}
+.lesson-acknowledgments-body>a{font-size:12px;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:600px){.lesson-acknowledgments summary{flex-wrap:wrap;gap:4px 12px}.lesson-acknowledgments summary small{flex-basis:calc(100% - 28px);order:2}.lesson-acknowledgments summary::after{order:1}.lesson-acknowledgments-item{grid-template-columns:1fr;gap:4px}}
+@media(max-width:600px){.lesson-acknowledgments summary{flex-wrap:nowrap}.lesson-acknowledgments summary small{display:none}}
