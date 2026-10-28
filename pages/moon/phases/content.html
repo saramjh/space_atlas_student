@@ -44,8 +44,26 @@
    </div>
   </fieldset>
   <div class="cer-check-row">
-   <button type="button" id="moonCerCheck">Check in the simulator</button>
-   <p id="moonCerFeedback" aria-live="polite">Pick a drawing, then compare its bright area with First Quarter in the simulator below.</p>
+   <button type="button" id="moonCerCheck">Compare with actual First Quarter</button>
+   <p id="moonCerFeedback" aria-live="polite">Pick a prediction. Your answer will appear separately from the actual First Quarter model.</p>
+  </div>
+  <div class="cer-compare-grid" id="moonCerComparisonWorkspace" hidden>
+   <div class="cer-compare-item" id="moonCerPredictionPreview">
+    <h3>Your prediction — not the simulator</h3>
+    <div class="cer-compare-disc" id="moonCerPredictionVisual" aria-hidden="true"></div>
+    <p id="moonCerPredictionLabel">Choose one drawing to make your prediction.</p>
+   </div>
+   <div class="cer-compare-item cer-compare-actual" id="moonCerComparison" hidden>
+    <h3>Actual First Quarter — scientific model</h3>
+    <div class="cer-compare-disc" id="moonCerActualVisual" aria-hidden="true">
+     <svg viewBox="0 0 96 96" focusable="false">
+      <circle cx="48" cy="48" r="40" fill="#1b2732"/>
+      <path d="M48 8 A40 40 0 0 1 48 88 L48 8 Z" fill="#f3f0d9"/>
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#73808b" stroke-width="1.5"/>
+     </svg>
+    </div>
+    <p id="moonCerActualLabel">Observed First Quarter: 50% bright.</p>
+   </div>
   </div>
   <details id="moonCerFallback" class="cer-explanation">
    <summary>Read the scientific explanation (works without JavaScript)</summary>

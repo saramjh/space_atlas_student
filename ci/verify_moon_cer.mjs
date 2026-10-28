@@ -14,7 +14,7 @@ for(const answer of ['quarter','half','full']){
  assert.match(page,new RegExp('value="'+answer+'"'),'all three prediction answers');
 }
 assert.equal((page.match(/class="cer-phase-icon"/g)||[]).length,3,'three equally sized original disk drawings');
-assert.equal((page.match(/viewBox="0 0 96 96"/g)||[]).length,3,'uniform disk geometry');
+assert.equal((page.match(/viewBox="0 0 96 96"/g)||[]).length,4,'three original choices and one separate scientific observation disk');
 assert.match(page,/id="moonCerCheck"/);
 assert.match(page,/id="moonCerFeedback"[^>]*aria-live="polite"/);
 assert.match(page,/id="moonCerFallback"/,'no-JS answer works through native details');
