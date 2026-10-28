@@ -48,4 +48,11 @@ const galaxy=src('assets/js/galaxy-types.js');
 assert.match(galaxy,/import\('\.\/galaxy-3d\.js'\)/);
 assert.match(galaxy,/prefers-reduced-motion/);
 assert.match(src('assets/js/galaxy-3d.js'),/import\('three'\)/);
+const releases=JSON.parse(src('data/releases.json')).releases;
+const wave3=releases.find(r=>r.id==='2026-10-28-visual-learning-wave3-five-lessons');
+assert.ok(wave3 && wave3.commits.includes('7c25e05'),'public release must retain actual implementation commit');
+for(const route of ['moon/tides','universe/light-year','stars/life-cycle','astronomy/electromagnetic-spectrum','galaxies/types']){
+ assert.ok(wave3.links.some(link=>link.path==='/'+route+'/'),'missing public navigation '+route);
+}
+assert.match(src('public/updates/index.html'),/7c25e05/);
 console.log('WAVE3_CAUSAL_VISUAL_TDD_PASS: tides/light-year/stars/spectrum/3D-galaxy');

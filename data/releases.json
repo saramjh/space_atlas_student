@@ -3,6 +3,41 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-visual-learning-wave3-five-lessons",
+      "date": "2026-10-28",
+      "category": "3D astronomy and causal visual learning",
+      "title": "Five more visual lessons: tides, light travel, star pathways, light energy, 3D galaxies",
+      "summary": "Added new science-driven visual interaction to all five remaining backlog lessons: tidal forcing contribution comparison, a bounded light-travel demonstration, stellar stage walkthrough, wavelength-versus-photon-energy reference comparison, and an opt-in spatial 3D spiral galaxy with 2D fallback.",
+      "students": "Move the tidal-force model from aligned (100%) to perpendicular (33%) and watch Moon/Sun contribution bars; play a normalized photon journey with linked elapsed time; step through a selected stellar path; save a wavelength and compare actual photon energy ratios; rotate a synthetic 3D spiral disk from face-on toward edge-on.",
+      "teachers": "All model caveats remain on the page. The tidal bars are an idealized lunar/solar quadrupole with no coastal water heights; light-path motion and stellar steps do not represent real time; the spectral ratios follow physical wavelength equations; galaxy stars are generated conceptual coordinates, not observational reconstruction.",
+      "developers": "Pure tide resultant invariants and UI state gates; optional bounded progress controls with Pause, tab visibility and reduced-motion settings; lazy existing Three.js galaxy scene with fallback on unavailable WebGL; measured browser interactions and screenshots at 320,390,1280. Site-wide browser SVG audit checked 16 source routes, 27 visible SVGs and 68 text nodes at 320/1280 with no defined text clipping/occlusion flags. 13 Python +27 Node regression suite passed before release; provider AdSense mobile overflow remains independent.",
+      "links": [
+        {
+          "label": "Explore the combined tidal force model",
+          "path": "/moon/tides/"
+        },
+        {
+          "label": "Follow a light-year signal",
+          "path": "/universe/light-year/"
+        },
+        {
+          "label": "Step through a star life cycle",
+          "path": "/stars/life-cycle/"
+        },
+        {
+          "label": "Compare electromagnetic photon energies",
+          "path": "/astronomy/electromagnetic-spectrum/"
+        },
+        {
+          "label": "Explore a 3D galaxy viewpoint",
+          "path": "/galaxies/types/"
+        }
+      ],
+      "commits": [
+        "7c25e05"
+      ]
+    },
+    {
       "id": "2026-10-28-visual-learning-wave2-four-lessons",
       "date": "2026-10-28",
       "category": "Interactive science diagrams and explanatory motion",

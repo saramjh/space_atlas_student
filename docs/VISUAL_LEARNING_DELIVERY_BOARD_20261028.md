@@ -14,11 +14,11 @@ Each item must have a specific learner misconception, an input-driven observable
 | TRA-004 | P1 | /exoplanets/transit-method/ | Existing quantitative planet vs light curve kept; added user-started 12s full phase playback synchronized to both | **New improvement: deployed and live verified (0d0a7ff)** |
 | TID-005 | P1 | /moon/tidal-locking/ | Existing textured 3D Moon marker now linked with a 2D Earth-facing orientation guide and cosine readout | **New improvement: deployed and live verified (0d0a7ff)** |
 | GRV-006 | P1 | /solar-system/gravity-and-orbits/ | Existing Newtonian cannonball trajectories now show velocity/gravity arrows and analytic launch forecast | **New improvement: deployed and live verified (0d0a7ff)** |
-| TDE-007 | P2 | /moon/tides/ | New lunar/solar contribution and resultant tide-force bars synchronized to the 2D contour/angle | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
-| LYR-008 | P2 | /universe/light-year/ | New 10-second optional normalized photon journey, linked to physical time estimates, with pause/reduced motion | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
-| STR-009 | P2 | /stars/life-cycle/ | New finite six-stage pathway stepper with explicitly nonphysical timing and readable controls | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
-| SPT-010 | P2 | /astronomy/electromagnetic-spectrum/ | New stored reference and actual wavelength vs frequency/energy ratio comparison | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
-| GAL-011 | P2 | /galaxies/types/ | New opt-in actual Three.js generated 3D spiral star disk, camera tilt, finite angle sweep and SVG fallback | **Wave 3 improved: local TDD and browser QC passed; deployment pending** |
+| TDE-007 | P2 | /moon/tides/ | New lunar/solar contribution and resultant tide-force bars synchronized to the 2D contour/angle | **Wave 3 implemented, deployed and live verified (7c25e05)** |
+| LYR-008 | P2 | /universe/light-year/ | New 10-second optional normalized photon journey, linked to physical time estimates, with pause/reduced motion | **Wave 3 implemented, deployed and live verified (7c25e05)** |
+| STR-009 | P2 | /stars/life-cycle/ | New finite six-stage pathway stepper with explicitly nonphysical timing and readable controls | **Wave 3 implemented, deployed and live verified (7c25e05)** |
+| SPT-010 | P2 | /astronomy/electromagnetic-spectrum/ | New stored reference and actual wavelength vs frequency/energy ratio comparison | **Wave 3 implemented, deployed and live verified (7c25e05)** |
+| GAL-011 | P2 | /galaxies/types/ | New opt-in actual Three.js generated 3D spiral star disk, camera tilt, finite angle sweep and SVG fallback | **Wave 3 implemented, deployed and live verified (7c25e05)** |
 
 ## BH-001 evidence and limitations
 
@@ -75,3 +75,10 @@ Measured student comprehension and full screen-reader coverage have not been est
 - Public Transit user-started motion advanced phase0→117° and updated planet/light curve state. A prior local browser test inspected phase105° showing a 1% dip and 99% stellar brightness.
 - Full 13 Python +26 Node regression and JS syntax checks passed, with four new science/visual gate scripts included in both release and scheduled site health.
 - Existing 5 other browser audits are evidence of working prior features, not newly coded changes. Separate provider ad mobile width and measured learner outcomes remain unresolved.
+
+
+## Wave 3 deployed result (2026-10-28)
+
+All five remaining items TDE-007, LYR-008, STR-009, SPT-010, GAL-011 received actual source changes in commit 7c25e05af9a91110e6cf3bce0e1503dd77a5c7d4, GitHub Pages run 40710617154 SUCCESS with exact SHA. Production site HTML and model JS returned HTTP200. Actual live 390px Chromium verified: tidal bar at 90 degrees 33.3% and rectangular Sun bar, light journey sourced from Proxima Centauri advanced to14% in roughly1.4 seconds, Sun-like star stage sequence advanced toStage3, 550nm-vs100nm spectral energy ratio5.50x and WebGL Galaxy scene loaded at 358px within390px. Local 320/390/1280 screenshots and finite/reduced-motion/fallback tests passed. Production source build and full 13 Python+27 Node+JS syntax pass; CI has required visual_wave3 gate.
+
+The backlog is now 11 of 11 items with new implemented source changes across Waves1,2,3, but this is not an assertion of exhaustive 3D realism or full site visual defect elimination. Explicit future issues: third-party AdSense overflow at320px on tides; SVG nontext path/line occlusion cannot be certified by the text-only 16-route automated audit; real student comprehension improvement unmeasured.
