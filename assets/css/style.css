@@ -24,9 +24,9 @@ header nav a:hover{border-color:var(--ink)}
 .nav-drop-btn{background:none;border:none;cursor:pointer;font-size:13px;padding:23px 0 20px;display:inline-flex;align-items:center;gap:4px;color:var(--ink);border-bottom:1px solid transparent}
 .nav-drop-btn:hover,.nav-dropdown:hover .nav-drop-btn{border-color:var(--ink)}
 .nav-drop-btn .caret{font-size:10px;color:var(--muted);transition:transform .2s ease}
-.nav-dropdown:hover .nav-drop-btn .caret{transform:rotate(180deg)}
+.nav-dropdown.nav-open .nav-drop-btn .caret{transform:rotate(180deg)}
 .nav-drop-menu{position:absolute;top:100%;left:-12px;background:rgba(244,242,236,.98);border:1px solid var(--rule);min-width:260px;box-shadow:0 8px 24px rgba(0,0,0,.08);backdrop-filter:blur(10px);display:none;padding:8px 0;z-index:30;border-radius:0 0 4px 4px}
-.nav-dropdown:hover .nav-drop-menu,.nav-dropdown:focus-within .nav-drop-menu,.nav-dropdown.nav-open .nav-drop-menu{display:block}
+.nav-dropdown.nav-open .nav-drop-menu{display:block}
 .nav-drop-menu a{display:block;padding:8px 16px;text-decoration:none;border-bottom:none;white-space:normal;line-height:1.25}
 .nav-drop-menu a:hover{background:rgba(0,0,0,.04)}
 .nav-drop-menu a b{display:block;font-size:12px;font-weight:600;color:var(--ink)}
