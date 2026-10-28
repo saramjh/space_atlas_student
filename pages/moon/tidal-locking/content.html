@@ -19,6 +19,20 @@
       <button type="button" id="btnUnlocked" aria-pressed="false">Not locked (hypothetical)</button>
     </div>
     <input type="range" id="lockAngle" min="0" max="360" value="0" step="1" aria-label="Moon's position in orbit" style="width:calc(100% - 44px);margin:0 22px 18px;accent-color:var(--accent)" />
+    <figure class="lock-observer-figure" id="lockObserverDiagram">
+      <svg viewBox="0 0 400 170" role="img" aria-labelledby="lockObserverTitle lockObserverDesc">
+        <title id="lockObserverTitle">Top-down Earth-to-Moon direction and lunar surface marker</title>
+        <desc id="lockObserverDesc">Earth is on the left, Moon on the right. The fixed dark-red surface marker either points toward Earth for a tidally locked Moon or changes direction in the hypothetical comparison.</desc>
+        <rect width="400" height="170" fill="#12202b"/>
+        <path d="M84 85 H245" stroke="#a5c2d4" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="70" cy="85" r="26" fill="#367995" stroke="#9cc0d3" stroke-width="2"/>
+        <circle cx="254" cy="85" r="34" fill="#ddd8ce" stroke="#fff2da" stroke-width="2"/>
+        <line id="lockFaceAngle" x1="254" y1="85" x2="220" y2="85" stroke="#c96e45" stroke-width="3.5"/>
+        <circle id="lockFaceMarker" cx="220" cy="85" r="7" fill="#d96936" stroke="#fff4d1" stroke-width="2"/>
+        <g fill="#f0f2f3" font-family="system-ui,sans-serif" font-size="16"><text x="70" y="134" text-anchor="middle">Earth</text><text x="254" y="140" text-anchor="middle">Moon</text><text x="256" y="36" text-anchor="middle" fill="#f1b085">Surface marker</text></g>
+      </svg>
+      <figcaption id="lockFaceReadout" role="status" aria-live="polite">Real tidal locking: the marked side faces Earth throughout the orbit. The Moon rotates once per orbit, not zero times. Marker position is a top-down orientation guide, not a view of lunar features from Earth.</figcaption>
+    </figure>
   </div>
  </div>
 </section>

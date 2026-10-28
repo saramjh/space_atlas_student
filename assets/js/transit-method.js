@@ -10,6 +10,41 @@ const radiusValue = document.querySelector('#transitRadiusValue');
 const planetFront = document.querySelector('#transitPlanetFront');
 const planetBack = document.querySelector('#transitPlanetBack');
 const scene = document.querySelector('#transitScene');
+const playButton=document.querySelector('#transitPlay');
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let playing=false,frameId=null,lastTime=null,traveled=0,continuousDeg=0;
+const TRANSIT_DEG_PER_SEC=30;
+function setPlaying(next) {
+  playing=Boolean(next)&&!reducedMotion.matches&&!document.hidden;
+  if(frameId!==null)cancelAnimationFrame(frameId);
+  frameId=null;lastTime=null;
+  if(playing)traveled=0;
+  playButton.disabled=reducedMotion.matches;
+  playButton.setAttribute('aria-pressed',String(playing));
+  playButton.textContent=playing?'Pause illustrated orbit':'Play one illustrated orbit';
+  readout.setAttribute('aria-live',playing?'off':'polite');
+  if(playing)frameId=requestAnimationFrame(advanceFrame);
+}
+function advanceFrame(now) {
+  if(!playing)return;
+  if(lastTime!==null){
+    const delta=Math.min(.1,Math.max(0,(now-lastTime)/1000))*TRANSIT_DEG_PER_SEC;
+    traveled+=delta;
+    continuousDeg=(continuousDeg+delta)%360;
+    phase.value=String(Math.round(continuousDeg));
+    render();
+    if(traveled>=360){setPlaying(false);return;}
+  }
+  lastTime=now;
+  frameId=requestAnimationFrame(advanceFrame);
+}
+playButton.addEventListener('click',()=>{
+  continuousDeg=Number(phase.value);
+  setPlaying(!playing);
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(false);});
+reducedMotion.addEventListener?.('change',()=>setPlaying(false));
+
 const curve = document.querySelector('#transitCurve');
 const marker = document.querySelector('#transitCurveMarker');
 const progress = document.querySelector('#transitProgress');
@@ -54,11 +89,12 @@ function render() {
   readout.textContent = 'Phase ' + deg + '° · Light blocked ' + percent + '% · Star brightness ' + ((1-blocked)*100).toFixed(3) + '%. ' + position;
   scene.setAttribute('aria-label', 'Idealized sky projection: planet radius ' + radius.value + '% of star radius, phase ' + deg + ' degrees. ' + position + ' Positions and orbital spacing are not to scale.');
 }
-phase.addEventListener('input',render);
-radius.addEventListener('input',render);
+phase.addEventListener('input',()=>{setPlaying(false);render();});
+radius.addEventListener('input',()=>{setPlaying(false);render();});
 render();
 phase.disabled = false;
 radius.disabled = false;
+playButton.disabled=reducedMotion.matches;
 document.querySelector('#transitInitNote').hidden = true;
 
 initQuiz([

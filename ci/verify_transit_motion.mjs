@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const page=readFileSync('pages/exoplanets/transit-method/content.html','utf8');
+const built=readFileSync('public/exoplanets/transit-method/index.html','utf8');
+const js=readFileSync('assets/js/transit-method.js','utf8');
+assert.match(page,/id="transitPlay"/);
+assert.match(built,/id="transitPlay"/);
+assert.match(js,/requestAnimationFrame/);
+assert.match(js,/prefers-reduced-motion/);
+assert.match(js,/visibilitychange/);
+assert.match(js,/setPlaying\(false\)/);
+assert.match(js,/phase\.value=String/);
+assert.match(js,/render\(\)/);
+assert.match(js,/aria-live/);
+assert.match(built,/rel="canonical"/);
+console.log('TRANSIT_MOTION_TDD_PASS bounded user motion, linked orbit and light curve, reduced motion');

@@ -2,7 +2,8 @@
 // rotation directly, so the viewer can see whether the marker stays
 // pointed at Earth (locked) or sweeps around (not locked).
 import * as THREE from 'three';
-import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
+import { createSceneBase, orbitRing } from './three-base.js';
+import {lunarFacing} from './tidal-facing.js';
 import { getPlanetTexture } from './textures.js';
 import { orbitFitDistance } from './orbit-framing.js';
 import { initQuiz } from './quiz-widget.js';
@@ -18,6 +19,7 @@ const { scene, camera, controls, renderer, canvas, shell } = createSceneBase({
   minDistance: 10,
   maxDistance: 100,
   background: 0x0b1016,
+  enableKeyboard: false,
 });
 canvas.setAttribute('aria-hidden', 'true');
 controls.enableRotate = false;
@@ -88,6 +90,18 @@ function applyAngle(deg) {
   } else {
     moon.rotation.y = theta * 3.5;
   }
+  const facing=lunarFacing(deg,locked);
+  const x=(254+34*facing.markerX).toFixed(1);
+  const y=(85+34*facing.markerY).toFixed(1);
+  document.querySelector('#lockFaceMarker').setAttribute('cx',x);
+  document.querySelector('#lockFaceMarker').setAttribute('cy',y);
+  document.querySelector('#lockFaceAngle').setAttribute('x2',x);
+  document.querySelector('#lockFaceAngle').setAttribute('y2',y);
+  document.querySelector('#lockFaceReadout').textContent=locked
+    ? 'Locked (real): the orange marker keeps facing Earth. The Moon turns once on its axis during each orbit.'
+    : 'Hypothetical faster spin: the marker rotates away from the Earth-facing direction. At this orbital phase, its dot product with that direction is '+
+      facing.facingCosine.toFixed(2)+' (1 means directly toward Earth; −1 directly away).';
+  renderer.render(scene,camera);
 }
 
 btnLocked.onclick = () => {
@@ -111,10 +125,8 @@ btnUnlocked.onclick = () => {
 slider.addEventListener('input', () => applyAngle(Number(slider.value)));
 applyAngle(Number(slider.value));
 
-animateLoop(() => {
-  controls.update();
-  renderer.render(scene, camera);
-});
+// No perpetual animation loop for a slider-driven 3D diagram.
+new ResizeObserver(()=>requestAnimationFrame(()=>renderer.render(scene,camera))).observe(shell);
 
 initQuiz([
   {

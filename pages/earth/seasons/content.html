@@ -32,6 +32,24 @@
         <button type="button" id="tiltZero">Compare: 0° tilt</button>
       </div>
       <div class="tool-readout" id="seasonExperiment" aria-live="polite">23.5° tilt: seasonal contrast changes as Earth orbits the Sun.</div>
+      <section class="season-evidence" aria-labelledby="seasonEvidenceTitle">
+        <h3 id="seasonEvidenceTitle">What changes at 40° north and 40° south?</h3>
+        <p>With the same modeled Earth position and axial tilt, compare the Sun's height at local solar noon and the approximate hours of daylight. These two measurable outcomes change together with tilt.</p>
+        <div class="season-evidence-grid">
+          <div class="season-evidence-row">
+            <strong>40° N</strong>
+            <div class="season-day-bar"><span id="seasonNorthDay" style="width:62%"></span></div>
+            <output id="seasonNorthNoon">Noon Sun 73.5° · daylight 14.8 h</output>
+          </div>
+          <div class="season-evidence-row">
+            <strong>40° S</strong>
+            <div class="season-day-bar"><span id="seasonSouthDay" style="width:38%"></span></div>
+            <output id="seasonSouthNoon">Noon Sun 26.5° · daylight 9.2 h</output>
+          </div>
+        </div>
+        <p class="season-sunlight-readout" id="seasonSunlightReadout" aria-live="polite">June solstice, 23.5° tilt · the subsolar point is near 23.5° N. This is a geometric model, not temperature or weather.</p>
+        <p class="season-evidence-note">Simplified spherical Earth at 40° latitude, level horizon, no atmospheric refraction, daylight computed from solar declination. Daylight lengths and angles are approximate, not site-specific forecasts. <a href="https://science.nasa.gov/earth/facts/" target="_blank" rel="noopener noreferrer">NASA Earth facts</a>.</p>
+      </section>
     </div>
   </div>
  </div>

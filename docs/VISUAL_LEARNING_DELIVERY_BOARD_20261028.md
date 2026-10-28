@@ -10,15 +10,15 @@ Each item must have a specific learner misconception, an input-driven observable
 | --- | --- | --- | --- | --- |
 | BH-001 | P0 | /black-holes/ | Opt-in Three.js 3D disk, observer elevation 15–80°, 20°/80° presets, Schwarzschild mass/radius, shadow vs horizon size guide, finite illustrative gas motion | **Deployed, live verified (a1b51bf)** |
 | ECL-002 | P0 | /moon/eclipses/ | Tilt toggle (15° visually exaggerated, real ~5.1°); Sun-aligned vs perpendicular node orientation, synchronized 3D rings and side view, finite opt-in orbital frames | **Deployed, live verified (0fb5fb2)** |
-| SEA-003 | P0 | /earth/seasons/ | Same June/December scrub changes axial-tilt beam angle and hemisphere evidence | Queued |
-| TRA-004 | P1 | /exoplanets/transit-method/ | Planet path crossing star synchronized with simplified ingress/egress light curve | Queued |
-| TID-005 | P1 | /moon/tidal-locking/ | Synchronous Moon near-side marker and contrast with nonrotating sphere | Queued |
-| GRV-006 | P1 | /solar-system/gravity-and-orbits/ | Change speed and inspect trajectory and velocity/force vectors | Queued |
-| TDE-007 | P2 | /moon/tides/ | Spring/neap tidal-force contribution comparison, not local tide prediction | Queued |
-| LYR-008 | P2 | /universe/light-year/ | Step through light travel time and distance with explicit scale compression | Queued |
-| STR-009 | P2 | /stars/life-cycle/ | Existing stage/branch already interactive; validate specific gap before coding | Audit first |
-| SPT-010 | P2 | /astronomy/electromagnetic-spectrum/ | Existing log wavelength interactive; evaluate targeted enhancement | Audit first |
-| GAL-011 | P2 | /galaxies/ and cosmology | Inventory current representations before choosing a scientifically defensible interaction | Triage |
+| SEA-003 | P0 | /earth/seasons/ | Same orbit/tilt state now updates 40° N/S solar-noon altitude and modeled daylight hours; zero tilt compare | **New improvement: implemented, QA pass, deployment pending** |
+| TRA-004 | P1 | /exoplanets/transit-method/ | Existing quantitative planet vs light curve kept; added user-started 12s full phase playback synchronized to both | **New improvement: implemented, QA pass, deployment pending** |
+| TID-005 | P1 | /moon/tidal-locking/ | Existing textured 3D Moon marker now linked with a 2D Earth-facing orientation guide and cosine readout | **New improvement: implemented, QA pass, deployment pending** |
+| GRV-006 | P1 | /solar-system/gravity-and-orbits/ | Existing Newtonian cannonball trajectories now show velocity/gravity arrows and analytic launch forecast | **New improvement: implemented, QA pass, deployment pending** |
+| TDE-007 | P2 | /moon/tides/ | Existing 0–90° spring/neap forcing model and live contour (90°→33% idealized amplitude) | **Existing feature browser-audited; no duplicate code** |
+| LYR-008 | P2 | /universe/light-year/ | Existing 8-source logarithmic distance ruler and photon progress/elapsed/remaining time | **Existing feature browser-audited; no duplicate code** |
+| STR-009 | P2 | /stars/life-cycle/ | Existing six-stage Sun-like/massive branch and stage comparison | **Existing feature browser-audited; no duplicate code** |
+| SPT-010 | P2 | /astronomy/electromagnetic-spectrum/ | Existing wavelength/frequency/energy log ruler and opt-in wave preview | **Existing feature browser-audited; no duplicate code** |
+| GAL-011 | P2 | /galaxies/types/ | Existing projected spiral disk angle 0°–80° and NASA morphology explanation | **Existing feature browser-audited; no duplicate code** |
 
 ## BH-001 evidence and limitations
 
@@ -50,3 +50,16 @@ TDD RED absence of the pure node geometry module, GREEN: orbital radius and plan
 - BH-001: commit a1b51bfdb7006bf96f4362639140dafde7c492b5, Pages run 40682688340, live /black-holes/ loaded 3D only by click, 20° and 80° ratios 0.34 and 0.98, 2D fallback verified.
 - ECL-002: commit 0fb5fb2a2405e4b8d536d57b13451f70cda670e4, Pages run 40684631956, live /moon/eclipses/ node 90° offset ~0.26 versus node 0° offset 0 at new Moon with tilted orbit, corrected mobile readout and side view; full 13 Python +22 Node site checks passed.
 - Next queued P0 is SEA-003 Earth Seasons. No background execution or completion is claimed for any queued item.
+
+
+## Wave 2 delivery evidence (2026-10-28)
+
+The previous task stopped after two new features; this wave addresses the remaining nine. Four source changes are new; five others already meet their target through previously deployed interactions. Auditing an existing capability is not new implementation.
+
+- SEA-003: pure solar-declination and spherical-daylength formula; 40°N/S June/Dec noon altitude 73.5°/26.5° and daylight 14.9h/9.1h swap; 0° tilt gives 12h and noon 50°; idle WebGL loop removed. Browser1280/320 and TDD.
+- TID-005: pure Moon marker model and linked 2D top view. At 90° orbital phase locked surface marker remains Earthward; hypothetical 3.5-turn spin has dot product -0.71 and marker moves away. Existing Three.js remains, idle loop removed. Browser1280/320 and TDD.
+- GRV-006: analytic Newtonian launch forecast: circular/escape thresholds, periapsis/collision and eccentricity for model units; separate instantaneous velocity and central-gravity arrows on Canvas. Arrow lengths normalized, not equal-scale magnitudes. At speed0.5 collision,2.6 near circle,4.5 escape. Browser1280/320 and TDD.
+- TRA-004: existing planet/star overlap and light curve synchronized already. Added opt-in12s orbit motion with pause, finite stop and reduced-motion/manual fallback. Browser390 at phase105° blocks1% for radius10%, dims to99%, marker moves then one-cycle stops.
+- TDE-007, LYR-008, STR-009, SPT-010, GAL-011: browser exercised actual interaction: tides 90° contour changed to33% ideal forcing; Light-Year Andromeda50% yields ~1.25 million years elapsed/remaining; massive star stage6 endpoint changed; Spectrum Radio1m 300MHz/1.24µeV; Galaxies80° scale ratio0.1736. No rewrite of working lessons solely for 3D quota.
+
+Measured student comprehension and full screen-reader coverage have not been established. Preexisting external mobile AdSense overflow remains separate.

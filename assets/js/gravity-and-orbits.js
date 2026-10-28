@@ -1,6 +1,7 @@
 // Newton's cannonball sandbox — plain 2D canvas physics, no Three.js needed
 // for a single-plane gravity simulation.
 import { initQuiz } from './quiz-widget.js';
+import {launchOrbitPrediction} from './gravity-reference.js';
 
 const shell = document.querySelector('#orbitShell');
 const canvas = document.querySelector('#orbitCanvas');
@@ -8,6 +9,22 @@ const ctx = canvas.getContext('2d');
 const statusEl = document.querySelector('#orbitStatus');
 const speedSlider = document.querySelector('#orbitSpeed');
 const speedVal = document.querySelector('#orbitSpeedVal');
+const showVectors=document.querySelector('#orbitVectorsToggle');
+const predictionText=document.querySelector('#orbitPrediction');
+function updatePrediction() {
+  const p=launchOrbitPrediction(Number(speedSlider.value));
+  const outcome={
+    collision:'collision with the central body',
+    'near-circular':'approximately circular reference orbit',
+    'bound-ellipse':'bound elliptical trajectory',
+    unbound:'unbound escape trajectory'
+  }[p.classification];
+  predictionText.textContent='At launch speed '+Number(speedSlider.value).toFixed(1)+
+    ' model units/frame, the ideal Newtonian prediction is '+outcome+
+    '. Circular reference ≈ '+p.circularSpeed.toFixed(1)+
+    '; escape threshold ≈ '+p.escapeSpeed.toFixed(2)+
+    ' model units/frame. Actual drawn paths are discrete approximations, not spacecraft navigation.';
+}
 
 function resize() {
   canvas.width = shell.clientWidth;
@@ -94,6 +111,21 @@ function step() {
   raf = requestAnimationFrame(step);
 }
 
+function drawArrow(x,y,dx,dy,color,label) {
+  const length=Math.hypot(dx,dy);
+  if(length<.000001)return;
+  const ux=dx/length,uy=dy/length;
+  const lengthPx=34;
+  const endX=x+ux*lengthPx,endY=y+uy*lengthPx;
+  ctx.strokeStyle=color;
+  ctx.fillStyle=color;
+  ctx.lineWidth=2.8;
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(endX,endY);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(endX,endY);
+  ctx.lineTo(endX-ux*9-uy*5,endY-uy*9+ux*5);
+  ctx.lineTo(endX-ux*9+uy*5,endY-uy*9-ux*5);
+  ctx.closePath();ctx.fill();
+}
 function render() {
   drawStatic();
   ctx.strokeStyle = 'rgba(240,168,64,.6)';
@@ -106,6 +138,11 @@ function render() {
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, 4, 0, Math.PI * 2);
     ctx.fill();
+    if(showVectors.checked) {
+      const c=center();
+      drawArrow(ball.x,ball.y,ball.vx,ball.vy,'#90d7ff','velocity');
+      drawArrow(ball.x,ball.y,c.x-ball.x,c.y-ball.y,'#ffd178','gravity');
+    }
   }
 }
 
@@ -126,7 +163,10 @@ document.addEventListener('visibilitychange', () => {
 });
 speedSlider.addEventListener('input', () => {
   speedVal.textContent = Number(speedSlider.value).toFixed(1);
+  updatePrediction();
 });
+showVectors.addEventListener('change',render);
+updatePrediction();
 
 drawStatic();
 

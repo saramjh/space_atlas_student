@@ -21,7 +21,10 @@
       <input type="range" id="orbitSpeed" min="0.5" max="6" step="0.1" value="2.6" aria-describedby="orbitSpeedNote" />
       <output class="speed-val" id="orbitSpeedVal" for="orbitSpeed">2.6</output>
       <button id="orbitReset" style="background:transparent;color:var(--ink)">Reset trail</button>
+      <label class="orbit-vectors-option"><input type="checkbox" id="orbitVectorsToggle" checked/> Show velocity and gravitational acceleration arrows</label>
     </div>
+    <div class="orbit-prediction" id="orbitPrediction" role="status" aria-live="polite">At 2.6 model speed, a circular reference orbit is expected. Red arrows point toward the central mass; blue arrows show sideways motion.</div>
+    <p class="orbit-vector-legend" id="orbitVectorLegend">Blue arrow: instantaneous velocity · Gold arrow: acceleration toward the central body. Arrow lengths are normalized for visibility, not to the same unit scale.</p>
     <p class="scale-caption" id="orbitSpeedNote">Launch speed uses arbitrary <strong>model units</strong>, not km/s. At 2.6, this idealized one-body orbit is approximately circular. Real orbital and escape speeds are listed below.</p>
   </div>
  </div>

@@ -2,7 +2,8 @@
 // axis whose direction is FIXED in space (not relative to the Sun) — the
 // core fact that explains seasons without invoking distance.
 import * as THREE from 'three';
-import { createSceneBase, animateLoop, orbitRing } from './three-base.js';
+import { createSceneBase, orbitRing } from './three-base.js';
+import {seasonSunlight} from './season-sunlight.js';
 import { getPlanetTexture } from './textures.js';
 import { initTeacherDistribution } from './teacher-distribution.js';
 
@@ -21,6 +22,7 @@ const { scene, camera, controls, renderer, canvas } = createSceneBase({
   minDistance: 14,
   maxDistance: 30,
   background: 0x0b1016,
+  enableKeyboard: false,
 });
 canvas.setAttribute('aria-hidden', 'true');
 controls.enableRotate = false;
@@ -93,6 +95,23 @@ function applyAngle(deg) {
   const theta = (deg * Math.PI) / 180;
   earth.position.set(Math.cos(theta) * ORBIT_RADIUS, 0, Math.sin(theta) * ORBIT_RADIUS);
   readout.textContent = currentTiltDeg === 0 ? 'No strong seasons' : seasonForAngle(deg);
+  const model=seasonSunlight(deg,currentTiltDeg);
+  const northBar=document.querySelector('#seasonNorthDay');
+  const southBar=document.querySelector('#seasonSouthDay');
+  if(northBar&&southBar){
+    northBar.style.width=(model.northHours/24*100).toFixed(1)+'%';
+    southBar.style.width=(model.southHours/24*100).toFixed(1)+'%';
+    document.querySelector('#seasonNorthNoon').textContent=
+      'Noon Sun '+model.northNoonElevation.toFixed(1)+'° · daylight '+model.northHours.toFixed(1)+' h';
+    document.querySelector('#seasonSouthNoon').textContent=
+      'Noon Sun '+model.southNoonElevation.toFixed(1)+'° · daylight '+model.southHours.toFixed(1)+' h';
+    document.querySelector('#seasonSunlightReadout').textContent=
+      'Sun declination '+(model.declination>=0?'+':'')+model.declination.toFixed(1)+'° · '+
+      (currentTiltDeg===0?'With zero tilt, both midlatitudes have approximately 12-hour days year-round.':
+        'At this position, opposite hemispheres have different daylight lengths.')+
+      ' The circular orbit and sky model do not predict temperature.';
+  }
+  renderer.render(scene,camera);
 }
 
 slider.addEventListener('input', () => {
@@ -112,8 +131,7 @@ tiltReal?.addEventListener('click', () => updateAxisTilt(23.5));
 tiltZero?.addEventListener('click', () => updateAxisTilt(0));
 applyAngle(Number(slider.value));
 
-animateLoop(() => {
-  controls.update();
-  renderer.render(scene, camera);
-});
+// A learner changes discrete states using range/presets: no idle WebGL loop.
+new ResizeObserver(()=>requestAnimationFrame(()=>renderer.render(scene,camera)))
+  .observe(document.querySelector('#seasonShell'));
 initTeacherDistribution('seasons');
