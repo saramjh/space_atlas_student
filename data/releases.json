@@ -3,6 +3,25 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-28-seasons-zero-tilt-teacher-test",
+      "date": "2026-10-28",
+      "category": "Feedback-led classroom activity",
+      "title": "Test a no-tilt Earth directly: predict, compare, explain",
+      "summary": "A science educator-editor suggested testing the zero-tilt counterfactual directly with a globe. The already-existing 0° simulator control now has an explicit teacher-led prediction-and-evidence sequence and a new printable classroom worksheet; the older toggle is not attributed to that suggestion.",
+      "students": "Predict what happens to opposing hemisphere sunlight patterns with no axial tilt. Compare June and December at 23.5° and 0° and explain which model variable matters, without implying the model measures weather or climate.",
+      "teachers": "A suggested 12–15 minute lesson can run with the existing simulator or with a cool lamp, a foam globe, and two marked orbit positions. A device-free two-page printable offers classroom setup, safety notes and a student prediction/evidence/reasoning table; no pupil outcome is claimed.",
+      "developers": "Added an accessible no-JS native details disclosure in the existing Earth Seasons teacher-use area; used scoped anonymous acknowledgment data and no new UI framework or JS bundle. Retains canonical, structured data, original model, ads and existing experimental teacher-share lane.",
+      "links": [
+        {
+          "label": "Try the zero-tilt classroom experiment",
+          "path": "/earth/seasons/"
+        }
+      ],
+      "commits": [
+        "eb247f9"
+      ]
+    },
+    {
       "id": "2026-10-28-teacher-ready-moon-cer-and-acknowledgments",
       "date": "2026-10-28",
       "category": "Classroom investigation and responsive learning",

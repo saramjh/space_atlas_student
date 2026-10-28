@@ -38,4 +38,9 @@ assert 'name' not in item['credit']
 assert '0°' in item['change']
 assert 'id="lesson-acknowledgments"' in built
 assert '0°' in built[built.index('id="lesson-acknowledgments"'):]
+release=json.loads((root/'data/releases.json').read_text(encoding='utf-8'))['releases'][0]
+assert release['id']=='2026-10-28-seasons-zero-tilt-teacher-test'
+assert 'eb247f9' in release['commits']
+assert any(x['path']=='/earth/seasons/' for x in release['links'])
+assert 'no-tilt' in (root/'public/updates/index.html').read_text(encoding='utf-8').lower()
 print('SEASONS_NO_TILT_CLASSROOM_GATE_PASS')
