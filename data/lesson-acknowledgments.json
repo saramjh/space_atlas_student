@@ -23,6 +23,18 @@
           "label": "Elementary educator editorial feedback"
         }
       }
+    ],
+    "/earth/seasons/": [
+      {
+        "id": "2026-10-28-zero-tilt-controlled-teacher-test",
+        "date": "2026-10-28",
+        "title": "A no-tilt hypothesis students can test",
+        "change": "An astronomy editor's teaching suggestion prompted a new classroom activity: predict what changes at 0° axial tilt, compare June and December with the existing simulator or a lamp-and-globe model, and record evidence and reasoning in a printable worksheet. The 0° toggle itself predates this feedback.",
+        "credit": {
+          "kind": "anonymous",
+          "label": "Astronomy editor's pedagogical feedback"
+        }
+      }
     ]
   }
 }

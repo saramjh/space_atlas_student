@@ -44,6 +44,7 @@ jobs:
           python3 ci/verify_seo_metadata.py
           python3 ci/verify_updates.py
           python3 ci/verify_lesson_acknowledgments.py
+          python3 ci/verify_seasons_no_tilt_classroom.py
           python3 ci/verify_footer.py
           python3 ci/verify_user_flows.py
           python3 ci/verify_ui_controls.py

@@ -34,7 +34,10 @@ require("/space_atlas_student/updates/" in built,"archive uses correct static ba
 require("No endorsement" in built, "editorial advice not represented as endorsement")
 require(built.index('id="lesson-acknowledgments"') > built.index('class="section section-last"'), "placed after learning content")
 require("Christine Weis" not in built and "Jeff Adkins" not in built, "unapproved personal names never published")
-require('id="lesson-acknowledgments"' not in (ROOT / "public" / "earth" / "seasons" / "index.html").read_text(encoding="utf-8"), "unrelated lessons stay untouched")
+seasons = (ROOT / "public" / "earth" / "seasons" / "index.html").read_text(encoding="utf-8")
+require('id="lesson-acknowledgments"' in seasons and 'no-tilt hypothesis' in seasons.lower(), "new actual seasons lesson outcome credited")
+require(data["records"]["/earth/seasons/"][0]["credit"]["kind"] == "anonymous", "no unauthorised educator naming")
+require('id="lesson-acknowledgments"' not in (ROOT / "public" / "solar-system" / "gravity-and-orbits" / "index.html").read_text(encoding="utf-8"), "unrelated lessons stay untouched")
 require(built.count('rel="canonical"')==1 and "application/ld+json" in built, "SEO preserved")
 require("adsbygoogle" in built, "original site advertising stays unchanged")
 # Renderer must bound lists to three even if many later contributions accumulate.

@@ -1028,3 +1028,20 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 Georgia,serif;letter-spacing:-.03em;marg
 .lesson-acknowledgments-body>a{font-size:12px;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:600px){.lesson-acknowledgments summary{flex-wrap:wrap;gap:4px 12px}.lesson-acknowledgments summary small{flex-basis:calc(100% - 28px);order:2}.lesson-acknowledgments summary::after{order:1}.lesson-acknowledgments-item{grid-template-columns:1fr;gap:4px}}
 @media(max-width:600px){.lesson-acknowledgments summary{flex-wrap:nowrap}.lesson-acknowledgments summary small{display:none}}
+
+
+/* Zero-tilt hypothesis experiment, native closed disclosure. */
+.teacher-hypothesis-test{margin-top:24px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.teacher-hypothesis-test>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:18px 0;cursor:pointer;font:600 15px/1.4 Georgia,serif;color:var(--ink)}
+.teacher-hypothesis-test>summary::-webkit-details-marker{display:none}
+.teacher-hypothesis-test>summary::before{content:"+";flex:0 0 16px;color:var(--accent);font:600 19px/1 ui-monospace,monospace}
+.teacher-hypothesis-test[open]>summary::before{content:"−"}
+.teacher-hypothesis-test>summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.teacher-hypothesis-test>summary span{margin-left:auto;font:500 11px/1.4 ui-monospace,monospace;color:var(--muted);text-align:right}
+.teacher-hypothesis-body{padding:0 0 24px 26px;max-width:880px}
+.teacher-hypothesis-body>p,.teacher-hypothesis-body li{font-size:13px;line-height:1.62;color:var(--ink)}
+.teacher-hypothesis-body ol{padding-left:22px;margin:14px 0 18px;display:grid;gap:11px}
+.teacher-hypothesis-body li{padding-left:3px}
+.teacher-hypothesis-source{color:var(--muted)!important;font-size:11px!important;margin-top:18px}
+.teacher-hypothesis-source a{text-decoration:underline;text-underline-offset:2px}
+@media(max-width:620px){.teacher-hypothesis-test>summary{flex-wrap:wrap;gap:7px}.teacher-hypothesis-test>summary span{width:100%;text-align:left;margin-left:28px}.teacher-hypothesis-body{padding-left:0}}
