@@ -1228,3 +1228,45 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .galaxy-3d-actions button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .galaxy-3d-note{font-size:14px;line-height:1.6;color:#48535a;margin:10px 0}
 @media(max-width:600px){.galaxy-3d-actions button{width:100%}}
+
+/* Learner-flow review: expose 3D at the figure, without implicit WebGL downloads. */
+.bh-figure-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#101b27;padding:9px 12px;color:#dce6ef}
+.bh-figure-toolbar .bh-activate{min-height:44px;max-width:100%;border-color:#bfcbd1}
+.bh-figure-toolbar>span{font-size:13px;line-height:1.5;flex:1 1 130px}
+.bh-scene-caption:not([hidden]){bottom:10px}
+.galaxy-view-preview{display:flex;flex-direction:column;min-width:0;gap:8px;align-self:start}
+.galaxy-view-switch{width:100%;min-height:44px;background:#192d3d;color:#fff;border:1px solid #758c98;font:600 14px/1.45 var(--font-reading);padding:10px 12px;text-align:center;cursor:pointer}
+.galaxy-view-switch[aria-pressed=true]{background:#a15b34}
+.galaxy-view-switch:disabled{opacity:.65;cursor:not-allowed}
+.galaxy-view-switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:620px){.bh-figure-toolbar .bh-activate{width:100%}.bh-figure-toolbar>span{flex-basis:100%;text-align:center}}
+
+/* A motion preference is an intentional accessibility state, not a broken button. */
+.motion-preference-note{display:none;font:500 14px/1.55 var(--font-reading);color:#544735;max-width:68ch;margin:4px 0}
+@media (prefers-reduced-motion: reduce) {.motion-preference-note{display:block}}
+.bh-transport .motion-preference-note{flex:1 1 100%;font-size:14px}
+.eclipse-play-row .motion-preference-note,.transit-play-controls .motion-preference-note,.ly-motion-controls .motion-preference-note,.galaxy-3d-actions .motion-preference-note{flex:1 1 100%}
+
+/* Touch-first scientific model controls: tested at 390px. */
+.ly-picker button{min-height:44px;font-size:14px;line-height:1.35}
+.tide-angle-presets button{min-height:44px;font-size:14px}
+.mass-toggle button{min-height:44px;font-size:14px}
+.galaxy-view-presets button{min-height:44px;font-size:14px}
+.season-controls button{min-height:44px}
+.eclipse-node-presets button{min-height:44px}
+.spectrum-band-picker button{min-height:44px;font-size:14px}
+#transitPlay{min-height:44px}
+#orbitLaunch,#orbitReset{min-height:44px}
+#btnLocked,#btnUnlocked{min-height:44px}
+.eclipse-play-row button,.eclipse-controls button{min-height:44px}
+
+/* Recoverable 3D loading failure: never leave an unexplained dead control. */
+.viz-load-status{flex:1 1 100%;font:500 14px/1.55 var(--font-reading);color:#ffded2;margin:0}
+.viz-load-status[hidden]{display:none}
+.galaxy-view-preview .viz-load-status{color:#553626;background:#f7e4d8;padding:9px 12px}
+
+/* Second responsive pass: wide-screen lesson controls must also meet touch size. */
+#btnSpring,#btnNeap,#spectrumWaveToggle{min-height:44px}
+
+.bh-figure-toolbar .bh-activate:disabled,.galaxy-view-switch:disabled{cursor:not-allowed;opacity:.65}
+.viz-noscript-note{font-size:14px;line-height:1.6;margin:3px 0;color:inherit}

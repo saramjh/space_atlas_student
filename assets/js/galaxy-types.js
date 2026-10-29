@@ -7,6 +7,7 @@ const incline = document.querySelector('#galaxyInclination');
 const disk = document.querySelector('#galaxyTiltDisk');
 const readout = document.querySelector('#galaxyAngleOutput');
 const galaxy3DActivate=document.querySelector('#galaxy3DActivate');
+const galaxy3DStatus=document.querySelector('#galaxy3DStatus');
 const galaxy3DCanvas=document.querySelector('#galaxy3DCanvas');
 const galaxy3DShell=document.querySelector('#galaxy3DShell');
 const galaxy3DPlay=document.querySelector('#galaxy3DPlay');
@@ -47,23 +48,29 @@ galaxy3DActivate.addEventListener('click',async()=>{
   const enabled=galaxy3DCanvas.hidden;
   galaxy3DCanvas.hidden=!enabled;galaxy2D.hidden=enabled;
   galaxy3DActivate.setAttribute('aria-pressed',String(enabled));
-  galaxy3DActivate.textContent=enabled?'Return to 2D diagram':'Explore conceptual 3D star disk';
+  galaxy3DActivate.textContent=enabled?'Return to labeled 2D':'Explore this galaxy in 3D';
   if(enabled){engine.resize();engine.update(Number(incline.value));}
   return;
  }
- loading=true;galaxy3DActivate.disabled=true;galaxy3DActivate.textContent='Loading spatial model…';
+ loading=true;galaxy3DShell.setAttribute('aria-busy','true');
+ galaxy3DStatus.hidden=true;
+ galaxy3DActivate.disabled=true;galaxy3DActivate.textContent='Loading spatial model…';
  try{
   const {createGalaxy3D}=await import('./galaxy-3d.js');
   engine=await createGalaxy3D(galaxy3DCanvas,galaxy3DShell);
   galaxy3DCanvas.hidden=false;galaxy2D.hidden=true;
   galaxy3DActivate.setAttribute('aria-pressed','true');
-  galaxy3DActivate.textContent='Return to 2D diagram';
+  galaxy3DActivate.textContent='Return to labeled 2D';
+  galaxy3DStatus.hidden=true;
   engine.resize();engine.update(Number(incline.value));
  }catch(error){
   galaxy3DCanvas.hidden=true;galaxy2D.hidden=false;
-  galaxy3DActivate.textContent='3D unavailable · use 2D';
+  galaxy3DActivate.textContent='Retry 3D view';
+  galaxy3DActivate.setAttribute('aria-pressed','false');
+  galaxy3DStatus.textContent='The 3D model could not load. The labeled 2D comparison is still available; retry if WebGL becomes available.';
+  galaxy3DStatus.hidden=false;
   console.warn('Galaxy 3D unavailable, keeping accessible SVG.',error);
- }finally{loading=false;if(engine)galaxy3DActivate.disabled=false;}
+ }finally{loading=false;galaxy3DActivate.disabled=false;galaxy3DShell.setAttribute('aria-busy','false');}
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSweep();});
 reduceMotion.addEventListener?.('change',()=>stopSweep());
@@ -85,6 +92,7 @@ function setInclination(angle) {
 incline?.addEventListener('input', () => {stopSweep();setInclination(incline.value);});
 presets.forEach(btn => btn.addEventListener('click', () => {stopSweep();setInclination(btn.dataset.galaxyAngle);}));
 if (incline && disk) setInclination(0);
+galaxy3DActivate.disabled=false; // Enabled only after the event listener is registered.
 
 initQuiz([
   {

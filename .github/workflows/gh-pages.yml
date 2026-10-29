@@ -70,6 +70,7 @@ jobs:
           node ci/verify_gravity_vector_lab.mjs
           node ci/verify_transit_motion.mjs
           node ci/verify_visual_wave3.mjs
+          node ci/verify_learner_flow_ux.mjs
           node ci/verify_ready_content.mjs
           node ci/verify_gravity_mechanism.mjs
           node ci/verify_orbit_framing.mjs

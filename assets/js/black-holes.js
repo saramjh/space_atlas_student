@@ -28,6 +28,7 @@ initQuiz([
 import {blackHoleModel} from './black-hole-model.js';
 
 const activate=document.querySelector('#bhActivate');
+const loadStatus=document.querySelector('#bhLoadStatus');
 const canvas=document.querySelector('#bhCanvas');
 const fallback=document.querySelector('#bhFallback');
 const shell=document.querySelector('#bhSceneShell');
@@ -257,11 +258,13 @@ activate?.addEventListener('click',async()=>{
     caption.hidden=!enabled;
     controlsPanel.hidden=!enabled;
     activate.setAttribute('aria-pressed',String(enabled));
-    activate.textContent=enabled?'Use 2D diagram':'Load 3D model';
+    activate.textContent=enabled?'Return to labeled 2D':'Explore this diagram in 3D';
     if(enabled){engine.resize();updateReadout();}
     return;
   }
   loading=true;
+  shell.setAttribute('aria-busy','true');
+  loadStatus.hidden=true;
   activate.disabled=true;
   activate.textContent='Loading 3D model…';
   try {
@@ -271,7 +274,8 @@ activate?.addEventListener('click',async()=>{
     caption.hidden=false;
     controlsPanel.hidden=false;
     activate.setAttribute('aria-pressed','true');
-    activate.textContent='Use 2D diagram';
+    activate.textContent='Return to labeled 2D';
+    loadStatus.hidden=true;
     engine.resize();
     updateReadout();
     animateButton.disabled=reducedMotion.matches;
@@ -279,11 +283,14 @@ activate?.addEventListener('click',async()=>{
   }catch(error){
     // Static labeled diagram remains usable for devices without WebGL.
     canvas.hidden=true;fallback.hidden=false;
-    activate.textContent='3D unavailable — keep 2D diagram';
-    activate.disabled=true;
+    activate.textContent='Retry 3D view';
+    activate.setAttribute('aria-pressed','false');
+    loadStatus.textContent='3D could not load on this device. The labeled 2D diagram is still available. You can try loading 3D again.';
+    loadStatus.hidden=false;
+    activate.disabled=false;
     readout.textContent='The labeled 2D diagram and scientific explanations remain available.';
     console.warn('Black-hole WebGL not available; static learning view preserved.',error);
-  }finally{loading=false;if(engine)activate.disabled=false;}
+  }finally{loading=false;activate.disabled=false;shell.setAttribute('aria-busy','false');}
 });
 elevationInput?.addEventListener('input',()=>{stopMotion();updateReadout();});
 massInput?.addEventListener('input',()=>{stopMotion();updateReadout();});
@@ -327,3 +334,4 @@ canvas?.addEventListener('pointerup',endPointer);
 canvas?.addEventListener('pointercancel',endPointer);
 canvas?.addEventListener('lostpointercapture',()=>{pointer=null;});
 updateReadout();
+activate.disabled=false; // Native controls are ready; fail inertly if JavaScript did not load.

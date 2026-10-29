@@ -29,6 +29,11 @@
       </div>
       <p id="eclipseNodeNote">An eclipse requires a new or full moon near the tilted orbit's nodes. Change node orientation to test an alignment versus an orbital-plane miss.</p>
     </div>
+    <div class="eclipse-play-row">
+      <button type="button" id="eclipsePlay" aria-pressed="false" disabled>Play one Moon orbit</button>
+      <span>Optional 12-second illustrative cycle. Use the slider for still comparisons.</span>
+      <span class="motion-preference-note">Motion is off because your device requests reduced motion. The phase and node sliders and side-on comparison still work.</span>
+    </div>
     <figure class="eclipse-side-view" id="eclipseSideView">
       <svg class="eclipse-side-desktop" viewBox="0 0 600 180" role="img" aria-labelledby="eclipseSideTitle eclipseSideDesc" focusable="false">
         <title id="eclipseSideTitle">Side-on model: is the Moon above or below Earth's orbital plane?</title>
@@ -65,10 +70,6 @@
       </svg>
       <figcaption>Side-on educational diagram · body sizes, distances and the 15° drawn inclination are not to scale. <strong id="eclipseOffset">The Moon's model offset from the ecliptic plane is 0.00 orbital radii.</strong></figcaption>
     </figure>
-    <div class="eclipse-play-row">
-      <button type="button" id="eclipsePlay" aria-pressed="false" disabled>Play one Moon orbit</button>
-      <span>Optional 12-second illustrative cycle. Use the slider for still comparisons.</span>
-    </div>
     <div class="eclipse-readout" id="eclipseReadout" role="status" aria-live="polite"><strong>New Moon alignment.</strong> An eclipse needs a new or full moon AND close alignment with the Moon's orbital nodes. Rotate the Moon's orbital nodes: a new/full Moon can be exactly on the reference plane or miss it. This is a model, not a prediction of an actual eclipse.</div>
   </div>
  </div>

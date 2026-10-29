@@ -42,11 +42,18 @@
       </svg>
       <canvas id="bhCanvas" class="bh-scene" aria-label="Interactive 3D conceptual black-hole visualization" hidden></canvas>
       <div class="bh-scene-caption" id="bhSceneCaption" hidden>3D educational illustration · not a ray-traced black hole image</div>
+
+    </div>
+    <div class="bh-figure-toolbar">
+      <button type="button" id="bhActivate" class="bh-activate" aria-pressed="false" aria-controls="bhCanvas" disabled>Explore this diagram in 3D</button>
+      <span>2D labels remain available if 3D is unsupported.</span>
+      <span class="viz-load-status" id="bhLoadStatus" role="status" hidden></span>
+      <noscript><p class="viz-noscript-note">Interactive 3D requires JavaScript and WebGL; the labeled 2D diagram and NASA explanations remain available.</p></noscript>
     </div>
     <div class="bh-lab-controls">
       <div class="bh-lab-intro">
         <div><h3>Explore a black hole in 3D</h3><p>The same hot gas disk looks narrower when you view it from the side. Use the angle slider, or drag across the 3D model to change your viewpoint. The central shadow and the event horizon are not identical objects.</p></div>
-        <button type="button" id="bhActivate" class="bh-activate" aria-pressed="false">Load 3D model</button>
+
       </div>
       <div class="bh-controls" id="bhControls" hidden>
         <label for="bhElevation">View above disk plane <output id="bhElevationValue" for="bhElevation">45°</output></label>
@@ -59,7 +66,7 @@
         <input id="bhMassExponent" type="range" min="0" max="9" step="1" value="1" aria-describedby="bhScienceNote"/>
         <div class="bh-presets bh-transport">
           <button type="button" id="bhGuide" aria-pressed="false">Show horizon size guide</button>
-          <button type="button" id="bhAnimate" aria-pressed="false">Animate gas (illustrative)</button>
+          <button type="button" id="bhAnimate" aria-pressed="false">Animate gas (illustrative)</button><span class="motion-preference-note">Motion is off because your device requests reduced motion. The viewpoint and mass controls still work.</span>
           <button type="button" id="bhReset">Reset view</button>
         </div>
       </div>
