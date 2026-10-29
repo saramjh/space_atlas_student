@@ -33,6 +33,76 @@ if (mechanism) {
   };
   const choices = [...mechanism.querySelectorAll('[data-gravity-scenario]')];
   const get = (selector) => mechanism.querySelector(selector);
+  const immersiveActivate=get('#gravity3DActivate');
+  const immersiveStage=get('#gravity3DStage');
+  const immersiveCanvas=get('#gravity3DCanvas');
+  const immersiveControls=get('#gravity3DControls');
+  const immersiveStatus=get('#gravity3DStatus');
+  const probePlay=get('#gravityProbePlay');
+  let immersiveEngine=null,immersiveLoading=false;
+  function onProbeStatus(message){
+    immersiveStatus.textContent=message;
+    if(message.startsWith('Test probe reached')){
+      probePlay.textContent='Release probe again';
+      probePlay.setAttribute('aria-pressed','false');
+      immersiveStatus.setAttribute('aria-live','polite');
+    }
+  }
+  if(immersiveActivate){
+    immersiveActivate.disabled=false;
+    immersiveActivate.addEventListener('click',async()=>{
+      if(immersiveLoading)return;
+      if(immersiveEngine){
+        const activate=immersiveStage.hidden;
+        immersiveStage.hidden=!activate;immersiveControls.hidden=!activate;
+        immersiveActivate.textContent=activate?'Return to the 2D reference':'Enter the 3D test bench';
+        immersiveActivate.setAttribute('aria-pressed',String(activate));
+        if(activate){immersiveEngine.resize();immersiveEngine.setParameters(Number(massInput.value),Number(radiusInput.value));}
+        else {immersiveEngine.stop();probePlay.setAttribute('aria-pressed','false');}
+        return;
+      }
+      immersiveLoading=true;immersiveActivate.disabled=true;immersiveActivate.textContent='Loading 3D physics…';
+      try{
+        const {createGravityImmersive}=await import('./gravity-immersive.js');
+        immersiveStage.hidden=false;
+        immersiveEngine=await createGravityImmersive(immersiveCanvas,immersiveStage,onProbeStatus);
+        immersiveEngine.setParameters(Number(massInput.value),Number(radiusInput.value));
+        immersiveControls.hidden=false;immersiveActivate.setAttribute('aria-pressed','true');
+        immersiveActivate.textContent='Return to the 2D reference';
+        probePlay.disabled=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }catch(error){
+        immersiveStage.hidden=true;immersiveControls.hidden=true;
+        immersiveActivate.setAttribute('aria-pressed','false');
+        immersiveActivate.textContent='Retry the 3D test bench';
+        immersiveStatus.textContent='3D is unavailable. The 2D force/radius model still works.';
+        console.warn('Gravity WebGL unavailable; preserving accessible mathematical diagram',error);
+      }finally{immersiveLoading=false;immersiveActivate.disabled=false;}
+    });
+    probePlay.addEventListener('click',()=>{
+      if(!immersiveEngine)return;
+      if(immersiveEngine.isPlaying()){
+        immersiveEngine.stop();probePlay.textContent='Continue probe';
+        probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');
+      }else if(immersiveEngine.start()){
+        probePlay.textContent='Pause probe';probePlay.setAttribute('aria-pressed','true');
+        immersiveStatus.setAttribute('aria-live','off');
+      }
+    });
+    get('#gravityProbeReset').addEventListener('click',()=>{
+      immersiveEngine?.resetProbe();probePlay.textContent='Release test probe';
+      probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');
+    });
+    get('#gravity3DZoomIn').addEventListener('click',()=>immersiveEngine?.zoomBy(.77));
+    get('#gravity3DZoomOut').addEventListener('click',()=>immersiveEngine?.zoomBy(1.3));
+    get('#gravity3DRotate').addEventListener('click',()=>immersiveEngine?.rotateBy(.32));
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){immersiveEngine?.stop();probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');}
+    });
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change',event=>{
+      probePlay.disabled=event.matches;
+      if(event.matches){immersiveEngine?.stop();probePlay.setAttribute('aria-pressed','false');}
+    });
+  }
 
   function modelGravity(mass, radius) {
     return mass / (radius * radius);
@@ -48,6 +118,7 @@ if (mechanism) {
     get('#gravityDenominator').textContent = radiusSquared.toFixed(2);
     const formatted = quotient < 0.1 ? quotient.toFixed(3) : quotient.toFixed(2);
     get('#gravityModelResult').textContent = `${formatted}× Earth`;
+    if(immersiveEngine){immersiveEngine.setParameters(mass,radius);probePlay.textContent='Release test probe';probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');}
     const radiusPx = 6 * radius;
     const x = 92 + radiusPx;
     get('#gravityBody').setAttribute('r', radiusPx.toFixed(2));
