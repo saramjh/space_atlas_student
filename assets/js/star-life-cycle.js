@@ -32,6 +32,26 @@ const next = document.querySelector('#lifeNext');
 const switchMass = document.querySelector('#lifeSwitchMass');
 const playButton=document.querySelector('#lifePlay');
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+const sceneCanvas=document.querySelector('#stellarCinemaCanvas');
+const sceneFallback=document.querySelector('#stellarCinemaFallback');
+const sceneProcess=document.querySelector('#stellarCinemaProcess');
+const PROCESS_LABELS={
+ sun:['Cloud collapse','Protostar heats','Core hydrogen fusion','Envelope expansion','Outer layers eject','Exposed cooling core'],
+ massive:['Cloud collapse','Mass accretion','Rapid hydrogen fusion','Giant shell burning','Core collapse / possible explosion','Compact remnant: possibilities'],
+};
+let sceneEngine=null;
+async function loadScene(){
+ try{
+  const {createStellarEvolutionScene}=await import('./stellar-evolution-scene.js');
+  sceneEngine=createStellarEvolutionScene(sceneCanvas);
+  sceneCanvas.hidden=false;sceneFallback.hidden=true;
+  sceneEngine.resize();sceneEngine.setStage(stageIndex,selectedMass);
+ }catch(error){
+  sceneCanvas.hidden=true;sceneFallback.hidden=false;
+  console.warn('Star evolution painting unavailable; retained accessible evidence and stage explorer',error);
+ }
+}
+
 let playing=false,timer=null;
 function stopSequence() {
   playing=false;
@@ -77,6 +97,8 @@ function render(rebuildSteps = false) {
     btn.setAttribute('aria-pressed', String(active));
   });
   const stage = path[stageIndex];
+  sceneProcess.textContent=`${String(stageIndex+1).padStart(2,'0')} / 06 · ${PROCESS_LABELS[selectedMass][stageIndex].toUpperCase()}`;
+  sceneEngine?.setStage(stageIndex,selectedMass);
   count.textContent = `Stage ${stageIndex + 1} of ${path.length} · ${selectedMass === 'sun' ? 'Sun-like' : 'Massive'} pathway`;
   heading.textContent = stage.title;
   description.textContent = stage.desc;
@@ -128,6 +150,7 @@ next.addEventListener('click', () => {
   }
 });
 render();
+if(sceneCanvas?.getContext) void loadScene();
 
 initQuiz([
   {

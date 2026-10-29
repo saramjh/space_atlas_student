@@ -7,20 +7,20 @@ Scope: user-reported shortcomings across the student learning experience. This d
 | Lesson / surface | Specific acceptance signal | Current disposition (2026-10-29) |
 |---|---|---|
 | Navigation + literal `\\n\\n` | Four identical subject families on desktop/mobile, coherent menu/lesson labels, no escaped head text | **Live verified** in 2c9dbc4 |
-| Galaxy types and orientation | Actual direct orbit, scroll/pinch zoom, easing, opt-in stellar motion; disk changes appearance with inclination; 2D fallback | **Implemented and browser-tested in isolated feature branch; not yet released** |
-| Eight cosmic zoom-outs | Visually continuous-feeling inward/outward transition, 8 distinct scenes, wheel/pinch/arrows, accurate log ruler retained, scale caveat | **Implemented and browser-tested in isolated feature branch; not yet released** |
+| Galaxy types and orientation | Actual direct orbit, scroll/pinch zoom, easing, opt-in stellar motion; disk changes appearance with inclination; 2D fallback | **Published c6c3e89; Pages CI success, live 3D/browser confirmed** |
+| Eight cosmic zoom-outs | Visually continuous-feeling inward/outward transition, 8 distinct scenes, wheel/pinch/arrows, accurate log ruler retained, scale caveat | **Published c6c3e89; Pages CI success, live 3D/browser confirmed** |
 | Gravity comparison | Legible same-scale planet surfaces, gravity/radius relation visibly responds to parameters | **Open — aesthetic/interaction acceptance** |
 | Kepler third law | Clickable and linked animated orbit/camera with period plot and readable invariant | **Open — local unfinished separate changes; not part of this release** |
 | Earth–Moon physical separation | User-driven apparent-camera traversal, returning Earth, incoming Moon, physically honest true-scale reference | **Open — aesthetic/interaction acceptance** |
 | Tides | Distinct tidal equilibrium shape vs surface waves; visibly shifting near/far bulges and moon/sun relative alignments | **Open — aesthetic/interaction acceptance** |
-| Stellar life cycles | Evolutions are transformations, not just labeled stage dots; uncertainty and discontinuous timescales clearly noted | **Open — aesthetic/interaction acceptance** |
-| Black hole accretion | Flowing and turbulent disk, gravitational-lensing explanation, adjustable camera and motion, no claim of GR ray-traced result | **Second scoped branch implementation under verification; live evidence pending** |
+| Stellar life cycles | Evolutions are transformations, not just labeled stage dots; uncertainty and discontinuous timescales clearly noted | **Stage-specific painted evolution implemented and local browser-tested; live verification pending** |
+| Black hole accretion | Flowing and turbulent disk, gravitational-lensing explanation, adjustable camera and motion, no claim of GR ray-traced result | **Published 4890f5b; Pages CI success, live WebGL and zoom confirmed** |
 | Galactic address | Galaxy to Orion Spur to Sun spatial orientation, actual camera/zoom and grounded radial annotations | **Open — aesthetic/interaction acceptance** |
-| Exoplanet transit | Immersive star with visibly moving planetary silhouette and synchronized flux dip; correct radius² relation | **Second scoped branch: photosphere and camera focus implemented; browser/live evidence pending** |
+| Exoplanet transit | Immersive star with visibly moving planetary silhouette and synchronized flux dip; correct radius² relation | **Published 4890f5b; Pages CI success, live focus/return confirmed** |
 | Electromagnetic spectrum | Parameter-driven wavelength/frequency/energy visual effects, true logarithmic spectrum and UV/X-ray invisibility clarified | **Open — aesthetic/interaction acceptance** |
 | Light travel and lookback time | Source-specific photon journey with meaningful departure/arrival space and timeline; no physically false travel-speed implication | **Open — local unfinished separate changes; not part of this release** |
 | Solar system size vs orbital distance | Camera scale changes make why one static diagram cannot show both visually obvious, with linked true-scale reference | **Open — aesthetic/interaction acceptance** |
-| Space-resource quick picker | Distinct evidence-based iconography/visual mapping rather than text-only choices; accessible links | **Open — aesthetic/interaction acceptance** |
+| Space-resource quick picker | Distinct evidence-based iconography/visual mapping rather than text-only choices; accessible links | **Five purpose-linked semantic SVG cues, clickable accessible source expansion locally tested; live verification pending** |
 | Global quality / 3D device tiers | Thoughtful lighting, depth/shadows, opt-in loading, touch/mouse separation, responsive FOV, memory/battery and no-JS fallback | **Partially applied, no sitewide clearance** |
 | All-page release performance | On-device 320/390/tablet/desktop verification, no horizontal overflow unrelated to provider ads, reduced motion, repeatable 60fps target or documented 30fps fallback | **Open — device benchmark not yet recorded** |
 
@@ -47,3 +47,9 @@ The existing black-hole 3D diagram already exposes optical explanatory guides an
 ## Follow-up exoplanet transit interaction (second scoped change)
 
 The existing analytic light curve remains coupled to planetary disk overlap: the profile remains uniform-brightness, no limb darkening/noise and the depth is (planet radius / stellar radius)². Its star surface now has a richer **illustrative** glow/gradient/corona and a native zoom-focus control that changes the SVG viewBox with a bounded easing animation. Controls also work with reduced motion, without JS, or when no animation is possible; the fallback remains the original linked sky projection, numeric controls and fixed-range light curve. No new library/assets. Important: the richly shaded rendered star is only an educational appearance; it is **not a calculation of stellar limb darkening**.
+
+## Follow-up stellar / guide field-design (2026-10-29)
+
+Stellar: lightweight deterministic Canvas2D scene with six visually distinct states per pathway (nebula, protostar, fusion-bearing star, swollen giant, ejected shell / possible supernova, white dwarf / possible compact remnant). Stage selection controls the depiction and process text, while the pre-rendered accessible SVG default and all original pathway controls/SEO information remain. Transitions are bounded to 630ms, can stop on page hide, honor reduced motion and DPR tier, and do not continuously animate idle states. All colors, diameters and relative stage transition times are *artist concepts*, not sampled stellar data, radii or actual lifetimes. Massive-star remnant rendering is one illustrative possibility, not a deterministic black-hole prediction.
+
+Resources: avoid stock or unrelated illustrations; use five original line-drawn education icons with visible purpose labels and `<details>` expansion to the preserved official NASA/JPL/ESA external resources. Small screens use single-column tap targets. No additional data fetch or animation library.

@@ -21,6 +21,16 @@
       <div><span>Very massive star · approximate total lifespan</span><strong>Only a few million years</strong></div>
     </div>
     <p class="life-timescale-note">These are representative orders of magnitude, <strong>not equal points on a shared clock</strong>. Actual lifetimes depend strongly on mass and other stellar properties. The stages below are sequential, not time-proportional.</p>
+    <div class="stellar-cinema" id="stellarCinema" aria-label="Illustrative changing appearance of a star during six representative life stages">
+      <canvas id="stellarCinemaCanvas" aria-hidden="true" hidden></canvas>
+      <svg id="stellarCinemaFallback" viewBox="0 0 800 320" role="img" aria-label="A colorful cloud of dust and gas from which a star will form. The stage buttons explain how it evolves.">
+        <defs><radialGradient id="stellarFallbackNebula"><stop offset="0" stop-color="#c98fb6" stop-opacity=".75"/><stop offset=".5" stop-color="#506aaf" stop-opacity=".45"/><stop offset="1" stop-color="#050c1c" stop-opacity="0"/></radialGradient></defs>
+        <rect width="800" height="320" fill="#080f20"/><ellipse cx="400" cy="160" rx="290" ry="150" fill="url(#stellarFallbackNebula)"/>
+        <circle cx="400" cy="160" r="8" fill="#ffdfbb" opacity=".7"/>
+      </svg>
+      <div class="stellar-cinema-caption" aria-hidden="true"><span id="stellarCinemaProcess">01 / 06 · GRAVITATIONAL COLLAPSE</span><span>ARTIST'S CONCEPT · NOT TO SCALE</span></div>
+    </div>
+    <p class="stellar-cinema-evidence">Select a stage or pathway to see gas condense, a star ignite and expand, and the possible remnant form. <strong>These visual sizes, colors and transition durations are illustrative</strong>, not observations, measured radii or a time-proportional record.</p>
     <ol class="life-stages" id="lifeStages" aria-label="Sun-like star evolution — select a stage">
       <li><button class="life-stage active" type="button" data-stage="0" aria-pressed="true"><span class="dot" style="--life-color:#4b72b9"></span><span class="lbl">Nebula</span></button></li>
       <li><button class="life-stage" type="button" data-stage="1" aria-pressed="false"><span class="dot" style="--life-color:#c9a681"></span><span class="lbl">Protostar</span></button></li>

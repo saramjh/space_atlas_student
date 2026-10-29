@@ -57,7 +57,7 @@ function makeStars(){
   const steps=Array.from({length:6},(_,i)=>{const b=new Node();b.dataset.stage=String(i);b.focus=()=>{b.focused=true;};return b;});
   stages.querySelectorAll=()=>steps;
   stages.querySelector=(sel)=>{const n=/data-stage="([0-9]+)"/.exec(sel);return n?steps[Number(n[1])]:null;};
-  const refs=Object.fromEntries(['#massToggle','#lifeStages','#lifeStageCount','#lifeStageTitle','#lifeStageDescription','#lifeStageCause','#lifePrevious','#lifeNext','#lifeSwitchMass','#lifePlay'].map(k=>[k,new Node()]));
+  const refs=Object.fromEntries(['#massToggle','#lifeStages','#lifeStageCount','#lifeStageTitle','#lifeStageDescription','#lifeStageCause','#lifePrevious','#lifeNext','#lifeSwitchMass','#lifePlay','#stellarCinemaCanvas','#stellarCinemaFallback','#stellarCinemaProcess'].map(k=>[k,new Node()]));
   refs['#massToggle']=toggle; refs['#lifeStages']=stages;
   evaluate('assets/js/star-life-cycle.js',{querySelector:(sel)=>{assert.ok(refs[sel],sel);return refs[sel];}});
   const selected=(stage)=>{const b=new Node();b.dataset.stage=String(stage);stages.fire('click',b);};
