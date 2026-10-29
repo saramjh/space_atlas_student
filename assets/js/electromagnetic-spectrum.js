@@ -21,6 +21,9 @@ const bandEl = document.querySelector('#spectrumBand');
 const descEl = document.querySelector('#spectrumDesc');
 const wave = document.querySelector('#spectrumWave');
 const waveToggle = document.querySelector('#spectrumWaveToggle');
+const beam = document.querySelector('#spectrumPhotonBeam');
+const beamBand = document.querySelector('#spectrumBeamBand');
+const beamMeaning = document.querySelector('#spectrumBeamMeaning');
 const referenceButton=document.querySelector('#spectrumReferenceSet');
 const comparison=document.querySelector('#spectrumComparison');
 const referenceTick=document.querySelector('#spectrumReferenceTick');
@@ -89,6 +92,7 @@ function stopMotion() {
   frame = 0;
   waveToggle.textContent = 'Play motion';
   waveToggle.setAttribute('aria-pressed', 'false');
+  beam.classList.remove('beam-running');
 }
 
 function tick(time) {
@@ -114,6 +118,18 @@ function render() {
   const band = BANDS.find((entry) => meters >= entry.min && meters < entry.max) || BANDS[BANDS.length - 1];
 
   bandEl.textContent = band.name === 'Visible' ? 'Visible light' : band.name;
+  beamBand.textContent = bandEl.textContent;
+  // In visible light, the display hue shifts with the chosen wavelength.
+  // RGB hues are approximate perceived-color teaching aids, not calibrated spectra.
+  // Invisible EM bands use distinct assigned FALSE colors, explicitly labeled below.
+  const falseColorHue = {Radio:196,Microwave:213,Infrared:7,Ultraviolet:271,'X-ray':196,'Gamma ray':289};
+  const visibleHue = Math.max(0, Math.min(270, (7e-7 - meters) / 3e-7 * 270));
+  beam.style.setProperty('--beam-hue', String(Math.round(band.name === 'Visible' ? visibleHue : falseColorHue[band.name])));
+  beamMeaning.textContent = band.name === 'Visible'
+    ? `Approximate visible hue for ${formatWavelength(meters)} — illustrative display color, not calibrated brightness or a physical spectrum measurement.`
+    : `${band.name} radiation cannot be seen directly by the human eye. The displayed ray is a false-color teaching illustration, not the appearance of this radiation.`;
+  beam.style.setProperty('--beam-energy', (position/1400).toFixed(3));
+  beam.style.setProperty('--beam-focus', (.3+.55*(position/1400)).toFixed(3));
   descEl.textContent = band.desc;
   document.querySelector('#spectrumWavelength').textContent = formatWavelength(meters);
   document.querySelector('#spectrumFrequency').textContent = formatFrequency(frequency);
@@ -140,6 +156,7 @@ waveToggle.addEventListener('click', () => {
     playing = true;
     waveToggle.textContent = 'Pause motion';
     waveToggle.setAttribute('aria-pressed', 'true');
+    beam.classList.add('beam-running');
     lastFrame = performance.now();
     frame = requestAnimationFrame(tick);
   }

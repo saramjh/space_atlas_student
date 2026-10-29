@@ -9,7 +9,8 @@ class Element {
   constructor(textContent = '') {
     this.textContent = textContent;
     this.value = '';
-    this.style = {};
+    this.style = {variables:{},setProperty(k,v){this.variables[k]=v;}};
+    const active=new Set();this.classList={add:v=>active.add(v),remove:v=>active.delete(v),contains:v=>active.has(v)};
     this.dataset = {};
     this.listeners = new Map();
     this.attrs = {};
@@ -30,7 +31,7 @@ for (const id of [
   'spectrumWave', 'spectrumWaveToggle', 'spectrumWavelength',
   'spectrumFrequency', 'spectrumEnergy',
   'spectrumReferenceSet', 'spectrumComparison', 'spectrumReferenceTick',
-  'spectrumCurrentTick',
+  'spectrumCurrentTick', 'spectrumPhotonBeam', 'spectrumBeamBand', 'spectrumBeamMeaning',
 ]) ids.set('#' + id, new Element());
 ids.get('#spectrumSlider').value = '726';
 const samples = [
@@ -75,6 +76,9 @@ const value = (id) => ids.get('#' + id).textContent;
 const select = (name) => samples.find((s) => s.textContent === name).fire('click');
 const range = ids.get('#spectrumSlider');
 assert.equal(value('spectrumBand'), 'Visible light');
+assert.equal(value('spectrumBeamBand'), 'Visible light');
+assert.match(value('spectrumBeamMeaning'),/approximate visible hue/i);
+assert.ok(Number(ids.get('#spectrumPhotonBeam').style.variables['--beam-hue'])>100);
 assert.equal(value('spectrumWavelength'), '550 nm');
 assert.equal(value('spectrumEnergy'), '2.26 eV');
 assert.ok(Math.abs(parseFloat(ids.get('#spectrumCursor').style.left) - 51.86) < 0.1);
@@ -88,6 +92,7 @@ assert.match(value('spectrumComparison'), /100 nm/);
 assert.match(value('spectrumComparison'), /5.50×/);
 select('Radio');
 assert.equal(value('spectrumBand'), 'Radio');
+assert.match(value('spectrumBeamMeaning'),/false-color/i);
 assert.equal(value('spectrumWavelength'), '1 m');
 assert.equal(value('spectrumFrequency'), '300 MHz');
 assert.equal(value('spectrumEnergy'), '1.24 µeV');
@@ -106,6 +111,7 @@ range.value = '0';
 range.fire('input');
 assert.equal(value('spectrumWavelength'), '10 m');
 assert.equal(value('spectrumBand'), 'Radio');
+assert.match(value('spectrumBeamMeaning'),/false-color/i);
 range.value = '1400';
 range.fire('input');
 assert.equal(value('spectrumWavelength'), '0.1 pm');
@@ -114,13 +120,16 @@ assert.equal(value('spectrumBand'), 'Gamma ray');
 const motionButton = ids.get('#spectrumWaveToggle');
 motionButton.fire('click');
 assert.equal(motionButton.getAttribute('aria-pressed'), 'true');
+assert.equal(ids.get('#spectrumPhotonBeam').classList.contains('beam-running'),true);
 motionButton.fire('click');
 assert.equal(motionButton.getAttribute('aria-pressed'), 'false');
+assert.equal(ids.get('#spectrumPhotonBeam').classList.contains('beam-running'),false);
 motionButton.fire('click');
 motion.matches = true;
 motionListeners.get('change')();
 assert.equal(motionButton.disabled, true);
 assert.equal(motionButton.getAttribute('aria-pressed'), 'false');
+assert.equal(ids.get('#spectrumPhotonBeam').classList.contains('beam-running'),false);
 
 const html = readFileSync('public/astronomy/electromagnetic-spectrum/index.html', 'utf8');
 assert.match(html, /<link rel="canonical" href="https:\/\/saramjh.github.io\/space_atlas_student\/astronomy\/electromagnetic-spectrum\/"/);

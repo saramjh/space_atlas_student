@@ -50,6 +50,18 @@
       </div>
       <div class="spectrum-signal">
         <div class="spectrum-signal-head"><span>Wave relationship · conceptual preview</span><button type="button" id="spectrumWaveToggle" aria-pressed="false">Play motion</button></div><p class="motion-preference-note">Motion is off because your device requests reduced motion. The wavelength ruler and numerical ratios still update.</p>
+        <div class="spectrum-beam" id="spectrumPhotonBeam" aria-hidden="true" style="--beam-hue:204;--beam-energy:.52;--beam-focus:.53">
+          <div class="spectrum-beam-halo"></div>
+          <div class="spectrum-beam-core"></div>
+          <div class="spectrum-beam-rays"></div>
+          <div class="spectrum-beam-particle" style="--beam-pos:.12"></div>
+          <div class="spectrum-beam-particle" style="--beam-pos:.33"></div>
+          <div class="spectrum-beam-particle" style="--beam-pos:.55"></div>
+          <div class="spectrum-beam-particle" style="--beam-pos:.79"></div>
+          <div class="spectrum-beam-readout"><span id="spectrumBeamBand">Visible light</span><span>Photon energy ↑ toward shorter wavelengths</span></div>
+        </div>
+        <p class="spectrum-beam-meaning" id="spectrumBeamMeaning">Visible light: approximate hue of the selected wavelength; the display color is not photometrically calibrated.</p>
+        <p class="spectrum-beam-caveat">Illustrative ray effect: <strong>invisible radio, microwave, infrared, ultraviolet, X-rays and gamma rays are shown in assigned false colors</strong>. Brightness, particle count and speed here are not measured intensity, photon density or physical wave cycles.</p>
         <svg viewBox="0 0 640 110" role="img" aria-labelledby="spectrumWaveTitle spectrumWaveDesc" preserveAspectRatio="none">
           <title id="spectrumWaveTitle">Example electromagnetic wave</title>
           <desc id="spectrumWaveDesc">Wave cycles increase toward shorter selected wavelengths. The preview is illustrative, not drawn to the ruler's physical scale.</desc>
