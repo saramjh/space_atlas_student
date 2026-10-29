@@ -33,6 +33,8 @@ def check():
         f"Different: {[p for p in desktop if directory.get(p) != desktop[p]]}"
     )
     assert 'Your mass on other worlds' not in NAV and 'Your mass on other worlds' not in HOME
+    assert 'Why Scale Diagrams Lie' not in NAV and 'Why Scale Diagrams Lie' not in HOME
+    assert 'Solar System: Size vs Distance' in NAV and 'Solar System: Size vs Distance' in HOME
     paths = {json.loads(meta.read_text(encoding="utf-8"))["path"] for meta in ROOT.glob("pages/**/meta.json")}
     assert set(desktop) == {path for path in paths if group_for(path)}, "Every lesson must have a correct menu route"
     assert NAV.count('class="nav-mobile-section"') == 4
