@@ -1,0 +1,20 @@
+/* Visible only after a genuine post-load, oversized publisher display ad.
+   Deliberately outside the ad itself; no iframe clipping or ad refresh. */
+.ad-resize-recovery{
+  box-sizing:border-box;max-width:var(--max,1100px);margin:12px auto 22px;
+  padding:14px 18px;border:1px solid #abb7bc;border-left:4px solid #446874;
+  background:#f0f4f4;color:#253b46;font:500 14px/1.55 system-ui,sans-serif;
+}
+.ad-resize-recovery[hidden]{display:none}
+.ad-resize-recovery p{margin:0 0 10px}
+.ad-resize-recovery-actions{display:flex;gap:9px;flex-wrap:wrap}
+.ad-resize-recovery-actions button{
+  font:600 14px/1.35 system-ui,sans-serif;min-height:44px;padding:9px 13px;
+  background:#fff;color:#23424f;border:1px solid #728f9e;cursor:pointer;
+}
+.ad-resize-recovery-actions button:first-child{color:#fff;background:#24556a}
+.ad-resize-recovery-actions button:focus-visible{outline:3px solid #c58a37;outline-offset:3px}
+@media(max-width:420px){
+  .ad-resize-recovery{margin:10px 12px 18px;padding:12px}
+  .ad-resize-recovery-actions button{flex:1 1 100%}
+}

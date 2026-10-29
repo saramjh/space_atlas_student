@@ -22,6 +22,7 @@ with tempfile.TemporaryDirectory(prefix='space-atlas-classroom-test-') as parent
  for path in pages:
   s=path.read_text()
   assert 'googletagmanager.com/gtag' not in s,path
+  assert 'ad-resize-recovery.js' not in s,path
   assert 'https://unpkg.com/three@' not in s,path
   assert '"three": "/space_atlas_student/assets/vendor/three/build/three.module.js"' in s,path
   assert 'G-DTCVV5XRD3' not in s,path

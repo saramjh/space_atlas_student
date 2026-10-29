@@ -263,6 +263,8 @@ def adsense_head():
     if not ADSENSE_ENABLED:
         return ""
     return (
+        '<link rel="stylesheet" href="' + SITE_BASE + '/assets/css/ad-resize-recovery.css">'
+        '<script type="module" src="' + SITE_BASE + '/assets/js/ad-resize-recovery.js"></script>'
         '<script async src="https://pagead2.googlesyndication.com/pagead/js/'
         'adsbygoogle.js?client=ca-pub-4410729598083068" crossorigin="anonymous"></script>'
     )
