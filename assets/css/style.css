@@ -195,8 +195,9 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .ref-table{font-variant-numeric:tabular-nums;width:100%;min-width:640px;border-collapse:collapse;border-top:2px solid var(--ink);font-size:var(--type-learning-reference);line-height:1.5}.ref-table th,.ref-table td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--rule);vertical-align:top}.ref-table th{font:600 12px/1.45 var(--font-data);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.ref-table a{text-decoration:none;border-bottom:1px solid #8d8980}.tag{font:600 9px var(--font-data);text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
 
 /* Editorial Ad Slot Styles */
-.ad-slot-wrapper{max-width:var(--max);margin:40px auto;padding:18px 28px;min-height:132px;background:rgba(235,232,223,.35);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ad-slot-wrapper{box-sizing:border-box;width:100%;max-width:var(--max);min-width:0;margin:40px auto;padding:18px 28px;min-height:132px;background:rgba(235,232,223,.35);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;justify-content:center}
 .ad-label{font:600 9px var(--font-data);letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;display:block;text-align:center}
+@media(max-width:599px){.ad-slot-wrapper{padding:16px 12px}}
 .adsbygoogle[data-ad-status="unfilled"]{display:none!important}
 .ad-slot-wrapper:has(> .adsbygoogle[data-ad-status="unfilled"]){display:none}
 
