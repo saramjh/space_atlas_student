@@ -10,6 +10,32 @@ const radiusValue = document.querySelector('#transitRadiusValue');
 const planetFront = document.querySelector('#transitPlanetFront');
 const planetBack = document.querySelector('#transitPlanetBack');
 const scene = document.querySelector('#transitScene');
+const focusButton = document.querySelector('#transitFocus');
+let focused = false, focusFrame = null;
+let viewBox = [0, 0, 420, 160];
+const wideBox = [0, 0, 420, 160], closeBox = [129, 19, 162, 122];
+function setViewBox(values) {
+ viewBox = values.map(Number);
+ scene.setAttribute('viewBox', viewBox.map(v=>v.toFixed(2)).join(' '));
+}
+function setFocus(next) {
+ focused = Boolean(next);
+ if (focusFrame !== null) cancelAnimationFrame(focusFrame);
+ focusFrame = null;
+ focusButton.setAttribute('aria-pressed',String(focused));
+ focusButton.textContent=focused?'Return to full projected orbit':'Zoom into the star';
+ const target = focused ? closeBox : wideBox;
+ if (reducedMotion.matches || document.hidden) {setViewBox(target);return;}
+ const initial=[...viewBox], started=performance.now();
+ function tick(now) {
+  const t=Math.min(1,Math.max(0,(now-started)/620));
+  const ease=1-Math.pow(1-t,3);
+  setViewBox(initial.map((v,i)=>v+(target[i]-v)*ease));
+  focusFrame=t<1 ? requestAnimationFrame(tick) : null;
+ }
+ focusFrame=requestAnimationFrame(tick);
+}
+focusButton.addEventListener('click',()=>setFocus(!focused));
 const playButton=document.querySelector('#transitPlay');
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 let playing=false,frameId=null,lastTime=null,traveled=0,continuousDeg=0;
@@ -23,6 +49,7 @@ function setPlaying(next) {
   playButton.setAttribute('aria-pressed',String(playing));
   playButton.textContent=playing?'Pause illustrated orbit':'Play one illustrated orbit';
   readout.setAttribute('aria-live',playing?'off':'polite');
+  scene.classList.toggle('transit-playing',playing);
   if(playing)frameId=requestAnimationFrame(advanceFrame);
 }
 function advanceFrame(now) {
@@ -42,8 +69,8 @@ playButton.addEventListener('click',()=>{
   continuousDeg=Number(phase.value);
   setPlaying(!playing);
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(false);});
-reducedMotion.addEventListener?.('change',()=>setPlaying(false));
+document.addEventListener('visibilitychange',()=>{if(document.hidden){setPlaying(false);if(focusFrame!==null){cancelAnimationFrame(focusFrame);focusFrame=null;setViewBox(focused?closeBox:wideBox);}}});
+reducedMotion.addEventListener?.('change',()=>{setPlaying(false);if(focusFrame!==null){cancelAnimationFrame(focusFrame);focusFrame=null;setViewBox(focused?closeBox:wideBox);}});
 
 const curve = document.querySelector('#transitCurve');
 const marker = document.querySelector('#transitCurveMarker');
@@ -95,6 +122,7 @@ render();
 phase.disabled = false;
 radius.disabled = false;
 playButton.disabled=reducedMotion.matches;
+focusButton.disabled=false;
 document.querySelector('#transitInitNote').hidden = true;
 
 initQuiz([

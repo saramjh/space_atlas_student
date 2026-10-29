@@ -16,10 +16,30 @@
       <svg id="transitScene" viewBox="0 0 420 160" role="img" aria-label="Planet radius ten percent of stellar radius at phase zero degrees, outside the stellar disk.">
         <title>Projected transit across a uniform star</title>
         <desc>Planet radius is ten percent of star radius. The planet crosses in front at 90 degrees and passes behind at 270 degrees.</desc>
-        <rect width="420" height="160" fill="#0b1016"/>
-        <path d="M55 80H365" fill="none" stroke="#78899a" stroke-dasharray="5 5"/>
+        <defs>
+          <radialGradient id="transitPhotosphere" cx="34%" cy="29%" r="78%">
+            <stop offset="0" stop-color="#fff8d8"/>
+            <stop offset=".34" stop-color="#ffe0a1"/>
+            <stop offset=".67" stop-color="#e8a34b"/>
+            <stop offset=".88" stop-color="#b96b2f"/>
+            <stop offset="1" stop-color="#7b321b"/>
+          </radialGradient>
+          <radialGradient id="transitCorona" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#ffc771" stop-opacity=".25"/>
+            <stop offset=".53" stop-color="#ff9d42" stop-opacity=".13"/>
+            <stop offset="1" stop-color="#ffae60" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="transitHaloBlur" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+        <rect width="420" height="160" fill="#070e1d"/>
+        <g aria-hidden="true" class="transit-stellar-atmosphere">
+          <circle cx="210" cy="80" r="72" fill="url(#transitCorona)"/>
+          <circle cx="210" cy="80" r="51" fill="#ffbf64" opacity=".42" filter="url(#transitHaloBlur)"/>
+          <path d="M167 78Q158 62 173 43 M248 103Q267 118 251 133 M194 38Q211 27 227 38" fill="none" stroke="#fbb15b" stroke-width="1.2" opacity=".38"/>
+        </g>
+        <path d="M55 80H365" fill="none" stroke="#849db9" stroke-dasharray="5 5" opacity=".8"/>
         <circle id="transitPlanetBack" cx="346" cy="80" r="4" fill="#202934" stroke="#e9edf0" style="display:none"/>
-        <circle cx="210" cy="80" r="40" fill="#edb763" stroke="#fff0b2"/>
+        <circle id="transitStar" cx="210" cy="80" r="40" fill="url(#transitPhotosphere)" stroke="#ffeec1" stroke-width=".7"/>
         <circle id="transitPlanetFront" cx="346" cy="80" r="4" fill="#101419" stroke="#e9edf0" stroke-width=".75"/>
         <text x="210" y="24" fill="#e9edf0" text-anchor="middle" font-size="11">STAR</text>
         <text x="12" y="145" fill="#dce3ea" font-size="10">Projected orbit · 90° in front · 270° behind</text>
@@ -46,7 +66,8 @@
       <label for="transitRadius">Planet radius <strong id="transitRadiusValue">10% of stellar radius</strong></label>
       <input type="range" id="transitRadius" min="1" max="25" value="10" step="1" disabled aria-label="Planet radius as percent of stellar radius" aria-controls="transitReadout"/>
       <div class="transit-play-controls">
-        <button id="transitPlay" type="button" aria-pressed="false" disabled>Play one illustrated orbit</button><span class="motion-preference-note">Motion is off because your device requests reduced motion. The phase and planet-size sliders remain available.</span>
+        <button id="transitPlay" type="button" aria-pressed="false" disabled>Play one illustrated orbit</button>
+        <button id="transitFocus" type="button" aria-pressed="false" aria-controls="transitScene" disabled>Zoom into the star</button><span class="motion-preference-note">Motion is off because your device requests reduced motion. The phase and planet-size sliders remain available.</span>
         <span>See the planet cross the star while the curve marker moves. One 12-second cycle, then stops. Motion is not an observed orbital period.</span>
       </div>
       <output id="transitReadout" for="transitAngle transitRadius" aria-live="polite">Phase 0° · Light blocked 0.000% · Star brightness 100.000%. At central transit this 10%-radius planet would block 1.000%.</output>
@@ -54,7 +75,7 @@
       <p>Try phase <strong>90°</strong> and compare 10% to 20% planet radii: blocked light increases from <strong>1%</strong> to <strong>4%</strong>. At 270°, the planet is behind the star and causes no dip.</p>
     </div>
   </div>
-  <p class="scale-caption">Hypothetical calculation, <strong>not telescope observations</strong>. Uniformly bright stellar disk, opaque planet, exactly edge-on circular orbit; no limb darkening, noise, blended stars or grazing paths. Central depth = (planet radius ÷ stellar radius)². Orbit spacing not to scale; phase is not time. Sources: <a href="https://science.nasa.gov/exoplanets/whats-a-transit/" target="_blank" rel="noopener noreferrer">NASA transit explanation</a> and <a href="https://science.nasa.gov/resource/light-curve-of-a-planet-transiting-its-star/" target="_blank" rel="noopener noreferrer">NASA light-curve interpretation</a>.</p>
+  <p class="scale-caption">Hypothetical calculation, <strong>not telescope observations</strong>. The warm surface gradient and corona are <strong>illustrative styling only</strong>; the depth calculation treats a uniformly bright stellar disk, opaque planet, exactly edge-on circular orbit; no limb darkening, noise, blended stars or grazing paths. Central depth = (planet radius ÷ stellar radius)². Orbit spacing not to scale; phase is not time. In the magnified view, the planet can move beyond the camera frame while it is outside transit. Sources: <a href="https://science.nasa.gov/exoplanets/whats-a-transit/" target="_blank" rel="noopener noreferrer">NASA transit explanation</a> and <a href="https://science.nasa.gov/resource/light-curve-of-a-planet-transiting-its-star/" target="_blank" rel="noopener noreferrer">NASA light-curve interpretation</a>.</p>
  </div>
 </section>
 

@@ -66,12 +66,14 @@ jobs:
           node ci/verify_moon_learning_geometry.mjs
           node ci/verify_moon_diagram_visibility.mjs
           node ci/verify_black_hole_lab.mjs
+          node ci/verify_black_hole_cinematic.mjs
           node ci/verify_eclipse_node_lab.mjs
           node ci/verify_eclipse_default_teaching.mjs
           node ci/verify_season_sunlight.mjs
           node ci/verify_tidal_face_lab.mjs
           node ci/verify_gravity_vector_lab.mjs
           node ci/verify_transit_motion.mjs
+          node ci/verify_transit_cinematic.mjs
           node ci/verify_visual_wave3.mjs
           node ci/verify_galaxy_immersive.mjs
           node ci/verify_cosmic_cinema.mjs

@@ -42,6 +42,10 @@ const readout=document.querySelector('#bhReadout');
 const animateButton=document.querySelector('#bhAnimate');
 const guideButton=document.querySelector('#bhGuide');
 const resetButton=document.querySelector('#bhReset');
+const zoomIn=document.querySelector('#bhZoomIn');
+const zoomOut=document.querySelector('#bhZoomOut');
+const flowSpeed=document.querySelector('#bhFlowSpeed');
+const flowSpeedValue=document.querySelector('#bhFlowSpeedValue');
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 
 let engine=null;
@@ -90,7 +94,7 @@ function animateFrame(now) {
   if(lastFrame!==null) {
     const dt=Math.min(.1,Math.max(0,(now-lastFrame)/1000));
     elapsedSeconds+=dt;
-    engine.spin(dt);
+    engine.spin(dt*Number(flowSpeed.value));
   }
   lastFrame=now;
   if(elapsedSeconds>=GAS_CYCLE_SECONDS) {
@@ -115,7 +119,8 @@ async function loadThreeLab() {
   scene.background=new THREE.Color('#080d16');
   const camera=new THREE.PerspectiveCamera(48,1,.1,120);
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,
+    matchMedia('(pointer: coarse)').matches ? 1.25 : 1.75));
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   renderer.toneMapping=THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure=1.25;
@@ -148,15 +153,22 @@ async function loadThreeLab() {
       'void main(){',
       ' float r=length(vPosition);',
       ' float p=atan(vPosition.y,vPosition.x);',
-      ' float wave=sin(p*18.0-r*4.5-uTime*1.8)*0.5+sin(p*31.0+r*3.5-uTime*3.0)*0.25;',
-      ' float filament=0.68+0.22*wave;',
+      ' // Angular speed falls with radius, evoking differential Keplerian shear.',
+      ' float orbit=uTime*(2.9/pow(max(r,2.6),1.5));',
+      ' float spiral=p+orbit-r*0.32;',
+      ' float wave=sin(spiral*14.0-r*3.8)*0.34+sin(spiral*29.0+r*5.7)*0.19;',
+      ' wave+=sin(spiral*51.0-r*12.0+uTime*0.24)*0.09;',
+      ' float turbulence=sin(spiral*9.0+r*16.0-uTime*0.5)*sin(spiral*23.0-r*8.0);',
+      ' float knots=pow(max(0.0,sin(spiral*7.0-r*4.0)),11.0);',
+      ' float filament=clamp(0.66+0.75*wave+0.16*turbulence+0.44*knots,0.24,1.32);',
       ' float inner=1.0-smoothstep(2.7,6.9,r);',
       ' float hot=pow(inner,1.2);',
-      ' float glow=0.62+hot*0.85;',
-      ' float facing=1.0+0.20*cos(p)*cos(uElevation);', // illustrative asymmetry, not quantitative Doppler
-      ' vec3 warm=mix(vec3(0.58,0.14,0.07),vec3(1.0,0.75,0.35),clamp(hot*1.2,0.0,1.0));',
+      ' float glow=0.50+hot*1.25;',
+      ' float facing=1.0+0.23*cos(p)*cos(uElevation);', // illustrative asymmetry, not quantitative Doppler
+      ' vec3 warm=mix(vec3(0.58,0.10,0.038),vec3(1.0,0.83,0.48),clamp(hot*1.15+wave*.20,0.0,1.0));',
+      ' warm+=vec3(0.24,0.15,0.065)*hot*knots;',
       ' float opacity=smoothstep(2.55,3.05,r)*(1.0-smoothstep(6.45,7.05,r));',
-      ' gl_FragColor=vec4(warm*glow*filament*facing,opacity*0.98);',
+      ' gl_FragColor=vec4(warm*glow*filament*facing,opacity*clamp(filament,0.50,1.0));',
       '}'
     ].join('\n'),
     transparent:true,side:THREE.DoubleSide,depthWrite:false,
@@ -219,10 +231,12 @@ async function loadThreeLab() {
   horizonGuide.visible=false;
   scene.add(horizonGuide);
 
+  let viewDistance=19.5;
   function resize() {
     const width=Math.max(1,shell.clientWidth),height=Math.max(1,shell.clientHeight);
     renderer.setSize(width,height,false);
     camera.aspect=width/height;
+    camera.fov=matchMedia('(pointer: coarse)').matches?56:48;
     camera.updateProjectionMatrix();
     draw();
   }
@@ -230,7 +244,7 @@ async function loadThreeLab() {
     if(!canvas.hidden)renderer.render(scene,camera);
   }
   function update(model,rotation,guide) {
-    const elevation=model.elevationDeg*Math.PI/180, distance=19.5;
+    const elevation=model.elevationDeg*Math.PI/180, distance=viewDistance;
     camera.position.set(distance*Math.cos(elevation)*Math.sin(rotation),
       distance*Math.sin(elevation),distance*Math.cos(elevation)*Math.cos(rotation));
     camera.lookAt(0,0,0);
@@ -245,7 +259,9 @@ async function loadThreeLab() {
   }
   const observer=new ResizeObserver(resize);
   observer.observe(shell);
-  const engine={draw,update,spin(dt){diskMaterial.uniforms.uTime.value+=dt;draw();},resize};
+  const engine={draw,update,spin(dt){diskMaterial.uniforms.uTime.value+=dt;draw();},resize,
+    zoomBy(factor){viewDistance=Math.max(11,Math.min(29,viewDistance*factor));update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');},
+    resetZoom(){viewDistance=19.5;update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');}};
   return engine;
 }
 activate?.addEventListener('click',async()=>{
@@ -306,32 +322,53 @@ guideButton?.addEventListener('click',()=>{
   updateReadout();
 });
 animateButton?.addEventListener('click',toggleMotion);
+flowSpeed?.addEventListener('input',()=>{
+ flowSpeedValue.textContent=Number(flowSpeed.value).toFixed(1)+'×';
+});
+zoomIn?.addEventListener('click',()=>engine?.zoomBy(.78));
+zoomOut?.addEventListener('click',()=>engine?.zoomBy(1.28));
+canvas?.addEventListener('wheel',event=>{
+ if(canvas.hidden||!engine)return;
+ event.preventDefault();
+ engine.zoomBy(Math.exp(Math.min(75,Math.max(-75,event.deltaY))*.004));
+},{passive:false});
 resetButton?.addEventListener('click',()=>{
-  stopMotion();azimuth=0;elevationInput.value='45';massInput.value='1';
+  stopMotion();azimuth=0;elevationInput.value='45';massInput.value='1';engine?.resetZoom();
   guideButton.setAttribute('aria-pressed','false');
   updateReadout();
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMotion();});
 reducedMotion.addEventListener?.('change',()=>{stopMotion();animateButton.disabled=reducedMotion.matches;});
 let pointer=null;
+const touchPoints=new Map();
+let lastPinch=0;
 canvas?.addEventListener('pointerdown',event=>{
   if(canvas.hidden)return;
-  pointer={id:event.pointerId,x:event.clientX,azimuth};
+  touchPoints.set(event.pointerId,{x:event.clientX,y:event.clientY});
+  if(touchPoints.size===1)pointer={id:event.pointerId,x:event.clientX,azimuth};
+  else{pointer=null;lastPinch=0;}
   canvas.setPointerCapture(event.pointerId);
 });
 canvas?.addEventListener('pointermove',event=>{
+  if(!touchPoints.has(event.pointerId))return;
+  touchPoints.set(event.pointerId,{x:event.clientX,y:event.clientY});
+  if(touchPoints.size===2){
+    const [a,b]=[...touchPoints.values()],distance=Math.hypot(a.x-b.x,a.y-b.y);
+    if(lastPinch>4)engine?.zoomBy(Math.max(.85,Math.min(1.15,lastPinch/Math.max(4,distance))));
+    lastPinch=distance;return;
+  }
   if(!pointer||event.pointerId!==pointer.id)return;
   stopMotion();
   azimuth=pointer.azimuth+(event.clientX-pointer.x)*.008;
   updateReadout();
 });
 function endPointer(event) {
-  if(!pointer||pointer.id!==event.pointerId)return;
-  pointer=null;
+  touchPoints.delete(event.pointerId);lastPinch=0;
+  if(pointer?.id===event.pointerId)pointer=null;
   if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId);
 }
 canvas?.addEventListener('pointerup',endPointer);
 canvas?.addEventListener('pointercancel',endPointer);
-canvas?.addEventListener('lostpointercapture',()=>{pointer=null;});
+canvas?.addEventListener('lostpointercapture',event=>{touchPoints.delete(event.pointerId);pointer=null;lastPinch=0;});
 updateReadout();
 activate.disabled=false; // Native controls are ready; fail inertly if JavaScript did not load.

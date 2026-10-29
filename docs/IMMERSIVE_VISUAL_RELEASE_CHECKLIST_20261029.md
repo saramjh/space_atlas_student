@@ -14,9 +14,9 @@ Scope: user-reported shortcomings across the student learning experience. This d
 | Earth–Moon physical separation | User-driven apparent-camera traversal, returning Earth, incoming Moon, physically honest true-scale reference | **Open — aesthetic/interaction acceptance** |
 | Tides | Distinct tidal equilibrium shape vs surface waves; visibly shifting near/far bulges and moon/sun relative alignments | **Open — aesthetic/interaction acceptance** |
 | Stellar life cycles | Evolutions are transformations, not just labeled stage dots; uncertainty and discontinuous timescales clearly noted | **Open — aesthetic/interaction acceptance** |
-| Black hole accretion | Flowing and turbulent disk, gravitational-lensing explanation, adjustable camera and motion, no claim of GR ray-traced result | **Open — aesthetic/interaction acceptance** |
+| Black hole accretion | Flowing and turbulent disk, gravitational-lensing explanation, adjustable camera and motion, no claim of GR ray-traced result | **Second scoped branch implementation under verification; live evidence pending** |
 | Galactic address | Galaxy to Orion Spur to Sun spatial orientation, actual camera/zoom and grounded radial annotations | **Open — aesthetic/interaction acceptance** |
-| Exoplanet transit | Immersive star with visibly moving planetary silhouette and synchronized flux dip; correct radius² relation | **Open — aesthetic/interaction acceptance** |
+| Exoplanet transit | Immersive star with visibly moving planetary silhouette and synchronized flux dip; correct radius² relation | **Second scoped branch: photosphere and camera focus implemented; browser/live evidence pending** |
 | Electromagnetic spectrum | Parameter-driven wavelength/frequency/energy visual effects, true logarithmic spectrum and UV/X-ray invisibility clarified | **Open — aesthetic/interaction acceptance** |
 | Light travel and lookback time | Source-specific photon journey with meaningful departure/arrival space and timeline; no physically false travel-speed implication | **Open — local unfinished separate changes; not part of this release** |
 | Solar system size vs orbital distance | Camera scale changes make why one static diagram cannot show both visually obvious, with linked true-scale reference | **Open — aesthetic/interaction acceptance** |
@@ -39,3 +39,11 @@ Galaxy types: already opt-in Three.js, so add accessible orbit/zoom controls wit
 Universe scale: use a self-contained local Canvas2D visual layer, no extra network dependency. All eight scenes are *artist illustrations* (humans / Earth / Earth–Moon / Solar System / Proxima / Milky Way / Local Group / cosmic web). Scene changes look like zoom-out/in, not a precise contiguous spatial zoom; the numerical model remains the original log ruler. Pointer/wheel/pinch/keyboard inputs share a synchronized state with text and numbers. Respect reduced-motion and do not draw continuously when idle; close at final scale boundary allows normal page scrolling.
 
 **Do not equate the visual QA of these two pages with the user's requested Awwwards-level sitewide completion.**
+
+## Follow-up black-hole disk interaction (second scoped change)
+
+The existing black-hole 3D diagram already exposes optical explanatory guides and an opt-in bounded animation. New controls allow wheel/pinch/keyboard-button zoom while its original elevation/mass scientific reference remains unchanged. A richer gas shader uses radial angular shear, filament waves and bounded bright knots; it is explicitly a non-relativistic, highly compressed illustration, **not ray tracing**, measured gas temperature, an actual observation or a physical 10-second orbital period. Pinch-only gesture capture is limited to the visible canvas; reduced-motion keeps the gas animation unavailable but camera buttons usable. The renderer caps DPR at 1.25 for coarse-pointer devices and 1.75 for desktops. Keep the labeled 2D fallback and avoid extra external assets.
+
+## Follow-up exoplanet transit interaction (second scoped change)
+
+The existing analytic light curve remains coupled to planetary disk overlap: the profile remains uniform-brightness, no limb darkening/noise and the depth is (planet radius / stellar radius)². Its star surface now has a richer **illustrative** glow/gradient/corona and a native zoom-focus control that changes the SVG viewBox with a bounded easing animation. Controls also work with reduced motion, without JS, or when no animation is possible; the fallback remains the original linked sky projection, numeric controls and fixed-range light curve. No new library/assets. Important: the richly shaded rendered star is only an educational appearance; it is **not a calculation of stellar limb darkening**.
