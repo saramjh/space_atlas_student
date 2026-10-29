@@ -354,9 +354,32 @@ def render_lesson_acknowledgments(path, records):
     )
 
 
+def render_page_navigation(nav, path):
+    """Highlight the matching lesson and subject without rewriting canonical routes."""
+    path = path if path.startswith("/") else "/" + path
+    category = path.strip("/").split("/")[0]
+    section = (
+        "solar-system" if category == "solar-system" else
+        "earth-moon" if category in {"earth", "moon"} else
+        "deep-space" if category in {"stars", "black-holes", "galaxies", "exoplanets", "astronomy", "universe"} else
+        "guides" if category in {"learn", "sources"} else None
+    )
+    if section:
+        marker = f'data-nav-section="{section}"'
+        nav = nav.replace('<div class="nav-dropdown" ' + marker,
+                          '<div class="nav-dropdown nav-section-active" ' + marker, 1)
+        nav = nav.replace('class="nav-mobile-section" ' + marker,
+                          'class="nav-mobile-section nav-section-active" ' + marker, 1)
+        link = f'href="{{{{BASE}}}}{path}"'
+        if link not in nav:
+            raise ValueError(f"Navigation has no link for {path}")
+        nav = nav.replace(link, link + ' aria-current="page"', 1)
+    return nav
+
+
 def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_version):
     html = layout
-    html = html.replace("{{NAV}}", nav)
+    html = html.replace("{{NAV}}", render_page_navigation(nav, meta.get("path", "/")))
     html = html.replace("{{FOOTER}}", footer)
     html = html.replace("{{CONTENT}}", content + render_lesson_acknowledgments(meta.get("path", ""), load_lesson_acknowledgments()))
     tokens = {

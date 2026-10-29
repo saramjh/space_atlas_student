@@ -38,6 +38,9 @@ header nav a:hover{border-color:var(--ink)}
 .nav-drop-btn:hover,.nav-dropdown:hover .nav-drop-btn{border-color:var(--ink)}
 .nav-drop-btn .caret{font-size:10px;color:var(--muted);transition:transform .2s ease}
 .nav-dropdown.nav-open .nav-drop-btn .caret{transform:rotate(180deg)}
+.nav-dropdown.nav-section-active .nav-drop-btn{font-weight:700;border-bottom-color:var(--accent)}
+.nav-drop-menu a[aria-current="page"]{background:rgba(173,67,39,.09);box-shadow:inset 3px 0 0 var(--accent)}
+.nav-mobile-section.nav-section-active{font-weight:700;color:var(--ink);border-bottom:2px solid var(--accent)}
 .nav-drop-menu{position:absolute;top:100%;left:-12px;background:rgba(244,242,236,.98);border:1px solid var(--rule);min-width:260px;box-shadow:0 8px 24px rgba(0,0,0,.08);backdrop-filter:blur(10px);display:none;padding:8px 0;z-index:30;border-radius:0 0 4px 4px}
 .nav-dropdown.nav-open .nav-drop-menu{display:block}
 .nav-drop-menu a{display:block;padding:8px 16px;text-decoration:none;border-bottom:none;white-space:normal;line-height:1.25}

@@ -3,21 +3,21 @@
     <a class="brand" href="{{BASE}}/">SPACE ATLAS<small>STUDENT REFERENCE · GRADES 4–8</small></a>
     <nav aria-label="Primary">
       <a href="{{BASE}}/">Home</a>
-      <div class="nav-dropdown">
+      <div class="nav-dropdown" data-nav-section="solar-system">
         <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="nav-solar-system">Solar System <span class="caret">▾</span></button>
         <div class="nav-drop-menu" id="nav-solar-system">
           <a href="{{BASE}}/solar-system/planet-types/"><b>Planet Types</b><span>Rocky vs Gas vs Ice Giants</span></a>
-          <a href="{{BASE}}/solar-system/planet-size-comparison/"><b>Planet Sizes</b><span>Scale comparison tool</span></a>
-          <a href="{{BASE}}/solar-system/distance-scale/"><b>Distance Scale</b><span>Real vs compressed space</span></a>
-          <a href="{{BASE}}/solar-system/astronomical-unit/"><b>Astronomical Unit</b><span>Measuring with AU</span></a>
-          <a href="{{BASE}}/solar-system/gravity-and-orbits/"><b>Gravity & Orbits</b><span>Newton's cannonball physics</span></a>
-          <a href="{{BASE}}/solar-system/gravity-comparison/"><b>Weight on Planets</b><span>Your mass on other worlds</span></a>
-          <a href="{{BASE}}/solar-system/temperature-comparison/"><b>Planetary Temperatures</b><span>Why Venus beats Mercury</span></a>
-          <a href="{{BASE}}/solar-system/orbital-periods/"><b>Orbital Periods</b><span>Calculate your planetary age</span></a>
-          <a href="{{BASE}}/solar-system/pluto-dwarf-planet/"><b>Pluto & Dwarf Planets</b><span>IAU definition criteria</span></a>
+          <a href="{{BASE}}/solar-system/planet-size-comparison/"><b>Compare Planet Sizes</b><span>Scale comparison tool</span></a>
+          <a href="{{BASE}}/solar-system/distance-scale/"><b>Solar System Distances</b><span>Real vs compressed space</span></a>
+          <a href="{{BASE}}/solar-system/astronomical-unit/"><b>What Is an AU?</b><span>Measuring with AU</span></a>
+          <a href="{{BASE}}/solar-system/gravity-and-orbits/"><b>Why Planets Stay in Orbit</b><span>Newton's cannonball physics</span></a>
+          <a href="{{BASE}}/solar-system/gravity-comparison/"><b>Planet Weight Calculator</b><span>Calculate weight, not mass</span></a>
+          <a href="{{BASE}}/solar-system/temperature-comparison/"><b>Why Venus Is Hotter</b><span>Why Venus beats Mercury</span></a>
+          <a href="{{BASE}}/solar-system/orbital-periods/"><b>Age on Other Planets</b><span>Calculate your planetary age</span></a>
+          <a href="{{BASE}}/solar-system/pluto-dwarf-planet/"><b>Why Pluto Isn't a Planet</b><span>IAU definition criteria</span></a>
         </div>
       </div>
-      <div class="nav-dropdown">
+      <div class="nav-dropdown" data-nav-section="earth-moon">
         <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="nav-earth-moon">Earth & Moon <span class="caret">▾</span></button>
         <div class="nav-drop-menu" id="nav-earth-moon">
           <a href="{{BASE}}/moon/phases/"><b>Moon Phases</b><span>Interactive 3D geometry</span></a>
@@ -28,20 +28,20 @@
           <a href="{{BASE}}/earth/seasons/"><b>Earth's Seasons</b><span>Axial tilt vs distance</span></a>
         </div>
       </div>
-      <div class="nav-dropdown">
+      <div class="nav-dropdown" data-nav-section="deep-space">
         <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="nav-deep-space">Deep Space <span class="caret">▾</span></button>
         <div class="nav-drop-menu" id="nav-deep-space">
           <a href="{{BASE}}/stars/life-cycle/"><b>Star Life Cycle</b><span>Mass, fusion & supernovae</span></a>
           <a href="{{BASE}}/black-holes/"><b>Black Holes</b><span>Event horizon & singularity</span></a>
           <a href="{{BASE}}/galaxies/milky-way/"><b>The Milky Way</b><span>Where Earth is located</span></a>
           <a href="{{BASE}}/galaxies/types/"><b>Galaxy Types</b><span>Spiral, elliptical, irregular</span></a>
-          <a href="{{BASE}}/exoplanets/transit-method/"><b>Exoplanet Transit</b><span>Kepler light curve lab</span></a>
-          <a href="{{BASE}}/astronomy/electromagnetic-spectrum/"><b>EM Spectrum</b><span>Beyond visible light</span></a>
-          <a href="{{BASE}}/universe/light-year/"><b>Light-Year</b><span>Distance through time</span></a>
-          <a href="{{BASE}}/universe/scale/"><b>Universe Scale</b><span>Step-by-step cosmic zoom</span></a>
+          <a href="{{BASE}}/exoplanets/transit-method/"><b>Exoplanet Transit</b><span>Star brightness during a transit</span></a>
+          <a href="{{BASE}}/astronomy/electromagnetic-spectrum/"><b>Electromagnetic Spectrum</b><span>Beyond visible light</span></a>
+          <a href="{{BASE}}/universe/light-year/"><b>What Is a Light-Year?</b><span>Distance through time</span></a>
+          <a href="{{BASE}}/universe/scale/"><b>Scale of the Universe</b><span>Step-by-step cosmic zoom</span></a>
         </div>
       </div>
-      <div class="nav-dropdown">
+      <div class="nav-dropdown" data-nav-section="guides">
         <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="nav-guides">Guides <span class="caret">▾</span></button>
         <div class="nav-drop-menu" id="nav-guides">
           <a href="{{BASE}}/learn/not-to-scale/"><b>Why Scale Diagrams Lie</b><span>How textbook models distort</span></a>
@@ -63,10 +63,9 @@
   <nav class="nav-mobile wrap" aria-label="Primary mobile">
     <a href="{{BASE}}/">Home</a>
     <a class="nav-mobile-all" href="{{BASE}}/#atlas-directory" aria-label="Browse all space topics">All topics</a>
-    <a href="{{BASE}}/solar-system/planet-types/">Solar System</a>
-    <a href="{{BASE}}/moon/phases/">Moon</a>
-    <a href="{{BASE}}/earth/seasons/">Earth</a>
-    <a href="{{BASE}}/stars/life-cycle/">Stars</a>
-    <a href="{{BASE}}/galaxies/milky-way/">Galaxies</a>
+    <a class="nav-mobile-section" data-nav-section="solar-system" href="{{BASE}}/#topics-solar-system">Solar System</a>
+    <a class="nav-mobile-section" data-nav-section="earth-moon" href="{{BASE}}/#topics-earth-moon">Earth &amp; Moon</a>
+    <a class="nav-mobile-section" data-nav-section="deep-space" href="{{BASE}}/#topics-deep-space">Deep Space</a>
+    <a class="nav-mobile-section" data-nav-section="guides" href="{{BASE}}/#topics-guides">Guides</a>
   </nav>
 </header>

@@ -69,7 +69,13 @@ def check():
         assert links[:2] == ["/space_atlas_student/", "/space_atlas_student/#atlas-directory"], (
             f"{page}: home/atlas directory must lead mobile subject links"
         )
-        assert len(links) == 7 and len(set(links)) == 7, f"{page}: duplicated/missing mobile topic shortcuts"
+        assert len(links) == 6 and len(set(links)) == 6, f"{page}: duplicated/missing mobile topic shortcuts"
+        assert links[2:] == [
+            "/space_atlas_student/#topics-solar-system",
+            "/space_atlas_student/#topics-earth-moon",
+            "/space_atlas_student/#topics-deep-space",
+            "/space_atlas_student/#topics-guides",
+        ], f"{page}: mobile sections must match desktop and the homepage directory"
         assert "🔍" not in header, f"{page}: emoji search icon disallowed"
         assert '<svg viewBox="0 0 24 24"' in header, f"{page}: expected monochrome vector icon"
 
