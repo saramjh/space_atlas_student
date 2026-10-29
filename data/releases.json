@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-29-google-ad-view-resize-user-recovery",
+      "date": "2026-10-29",
+      "category": "Mobile display resilience and reader control",
+      "title": "Recover an oversized ad after changing browser width",
+      "summary": "When a previously loaded desktop-size Google display ad exceeds a newly narrowed window, Space Atlas now detects the actual overflow and presents a clearly labeled choice to reload the page at the new width or continue reading. No ad creative or frame is changed by the site.",
+      "students": "Lesson content and the original model remain usable. A notice appears only when an already-loaded display ad no longer fits after the browser window narrows. Reloading restores the mobile-size layout but restarts lesson controls.",
+      "teachers": "The isolated, ad-free local classroom preview is unchanged. Supervised real learner research remains not conducted; the four classroom browser tasks are technical checks and not student comprehension scores.",
+      "developers": "Actual public Chromium reproduced desktop1280→mobile390 with a served Google publisher ad stuck at970px and document width680; code release bb1a0ab displayed the accessible recovery notice. Clicking the explicit reload button returned document width390 and ad width320 with no notice. Initial320 loaded with no warning. The code does not hide, resize, or auto-refresh Google ad creatives or change account settings. Regression gate CI verified alongside 14 Python and 32 Node checks.",
+      "links": [
+        {
+          "label": "Explore the seasons model",
+          "path": "/earth/seasons/"
+        },
+        {
+          "label": "Explore the Moon tides model",
+          "path": "/moon/tides/"
+        }
+      ],
+      "commits": [
+        "bb1a0ab"
+      ]
+    },
+    {
       "id": "2026-10-29-teacher-classroom-preview-and-eclipse-control",
       "date": "2026-10-29",
       "category": "Classroom readiness and evidence-based visual controls",
