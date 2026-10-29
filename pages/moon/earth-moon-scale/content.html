@@ -3,7 +3,7 @@
   <div class="wrap">
     <div class="kicker">Moon · Question</div>
     <h1>How far away is the Moon, really?</h1>
-    <p class="lead">Most solar-system diagrams compress size or distance. This scrollable Earth–Moon model keeps one physical scale for both. Compare how the real gap changes over the Moon's orbit, without enlarging either body.</p>
+    <p class="lead">Most solar-system diagrams compress size or distance. First travel through an illustrative perspective view between Earth and the Moon. Then verify the actual size ratio and orbital separation against an exact-scale ruler without enlarging either body.</p>
   </div>
 </section>
 
@@ -17,6 +17,39 @@
       <button type="button" data-emscale-distance="405500" aria-pressed="false">Farther · 405,500 km</button>
     </div>
     <p class="emscale-domain">Approximate near / average / far distances measured <strong>center to center</strong>. These are representative orbital distances, not today's measured separation. Body diameters and the distance scale remain unchanged.</p>
+    <div class="em-flight-experience" id="emFlightExperience">
+      <div class="em-flight-heading"><div><h3>Travel from Earth to the Moon.</h3><p>Watch Earth shrink behind you and the Moon emerge ahead. Scrub the journey, or launch a single guided flythrough.</p></div><button type="button" id="emFlightActivate" aria-pressed="false" aria-controls="emFlightCanvas" disabled>Launch the perspective journey</button></div>
+      <div class="em-flight-frame" id="emFlightFrame">
+        <svg id="emFlightFallback" viewBox="0 0 900 400" role="img" aria-label="Illustration of the Earth at left, a much smaller Moon at right, and stars between them. The scene is not to scale." preserveAspectRatio="xMidYMid slice">
+          <defs><radialGradient id="emFlightEarthGradient"><stop offset="0" stop-color="#c9f4f8"/><stop offset=".4" stop-color="#4a9cc5"/><stop offset=".76" stop-color="#26618d"/><stop offset="1" stop-color="#0c274b"/></radialGradient><radialGradient id="emFlightMoonGradient"><stop offset="0" stop-color="#e9e3d7"/><stop offset=".7" stop-color="#b0aba4"/><stop offset="1" stop-color="#49494d"/></radialGradient></defs>
+          <rect width="900" height="400" fill="#060d1a"/><g fill="#e0ecf9" opacity=".76"><circle cx="182" cy="56" r="1.4"/><circle cx="350" cy="102" r=".9"/><circle cx="511" cy="46" r="1.2"/><circle cx="720" cy="85" r="1"/><circle cx="809" cy="305" r="1.2"/><circle cx="409" cy="310" r="1"/><circle cx="600" cy="225" r=".9"/><circle cx="282" cy="276" r="1.3"/></g>
+          <circle cx="122" cy="235" r="125" fill="url(#emFlightEarthGradient)"/><path d="M95 154Q150 134 193 197L160 238L205 287L127 289Q91 252 87 214L56 195z" fill="#5aaf8f" opacity=".47"/>
+          <path d="M278 235H740" stroke="#76a8c4" stroke-width="2" stroke-dasharray="4 13" opacity=".56"/><circle cx="795" cy="221" r="28" fill="url(#emFlightMoonGradient)"/>
+          <text x="269" y="289" fill="#a2bfd8" font-size="14" font-family="ui-monospace,monospace">PERSPECTIVE JOURNEY · NOT A SCALE DIAGRAM</text>
+        </svg>
+        <canvas id="emFlightCanvas" hidden aria-label="Interactive Earth to Moon perspective journey. Use the slider, keyboard buttons or the mouse wheel and pinch gesture to travel. This depiction is educational, not a real space mission."></canvas>
+        <div class="em-flight-quick-actions" id="emFlightQuickActions" role="group" aria-label="In-scene Earth and Moon journey controls" hidden>
+          <button type="button" id="emFlightQuickEarth" aria-label="Return camera to Earth">Earth</button>
+          <button type="button" id="emFlightQuickPlay" aria-pressed="false" aria-label="Play Earth to Moon journey">Play</button>
+          <button type="button" id="emFlightQuickMoon" aria-label="Move camera to Moon">Moon</button>
+        </div>
+        <div class="em-flight-overlay" aria-hidden="true"><span>EARTH → MOON · CAMERA JOURNEY</span><span id="emFlightOverlayProgress">00% · DEPARTURE</span></div>
+      </div>
+      <div class="em-flight-controls" id="emFlightControls" hidden>
+        <label for="emFlightSlider">Position along the conceptual journey <output id="emFlightPercent" for="emFlightSlider">0%</output></label>
+        <input type="range" id="emFlightSlider" min="0" max="1000" step="1" value="0" aria-controls="emFlightStatus" disabled/>
+        <div class="em-flight-actions" role="group" aria-label="Journey camera controls">
+          <button type="button" id="emFlightEarth" aria-label="Return camera to Earth">Return to Earth</button>
+          <button type="button" id="emFlightPlay" aria-pressed="false">Play 12.5-second journey</button>
+          <button type="button" id="emFlightMoon" aria-label="Move camera toward Moon">Approach Moon</button>
+        </div>
+        <p class="motion-preference-note">Continuous motion is disabled by your reduced-motion setting. Use the position slider or Earth/Moon buttons to change the view.</p>
+      </div>
+      <p id="emFlightStatus" class="em-flight-status" role="status">The perspective journey is optional. The exact-scale distance reference below remains available.</p>
+      <p class="em-flight-caveat">The spheres' relative radii and center-to-center separation use one physical scale. <strong>Perspective, camera route, travel duration, lighting and Moon surface styling are illustrative.</strong> The 12.5-second playback does not represent a spacecraft speed, the light-travel time or today's lunar phase. Earth uses a processed NASA Blue Marble composite, not live weather. The Moon surface uses a compact map from the <a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener noreferrer">NASA SVS CGI Moon Kit</a>, based on Lunar Reconnaissance Orbiter camera data with polar supplemental imagery (visualization by Ernie Wright / NASA SVS); it is processed for educational rendering, not a live lunar photograph. A procedural appearance is used only if the lunar map cannot load.</p>
+    </div>
+    <details class="em-exact-ruler" id="emExactRuler">
+      <summary>Open the exact-scale distance ruler <span>Earth and Moon at proportional diameters, with the real gap</span></summary>
     <div class="emscale-outer">
       <div class="emscale-scroll" id="emscaleScroll">
         <div class="emscale-track">
@@ -33,8 +66,9 @@
       <button type="button" id="emscaleToEarth">← Return to Earth</button>
       <button type="button" id="emscaleToMoon">Find the Moon →</button>
     </div>
+    </details>
     <p class="emscale-hint" id="emscaleDistanceReadout" role="status">Mean center-to-center separation: 384,400 km (30.13 Earth diameters). One pixel ≈ 213 km. Earth is 60px across; Moon is 16px across.</p>
-    <p class="emscale-note">This is a scrollable ruler, not a simulation of orbital speed. The entire strip uses a single linear distance scale. Its large empty region is intentional.</p>
+    <p class="emscale-note">The reference ruler uses one linear distance scale — unlike the perspective camera view. Open it to check body sizes and the gap without any perspective exaggeration.</p>
   </div>
  </div>
 </section>

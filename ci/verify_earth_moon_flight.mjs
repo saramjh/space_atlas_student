@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import {readFileSync,statSync} from 'node:fs';
+import {earthMoonModel,flightFractionReadout,EARTH_RADIUS_KM,MOON_RADIUS_KM} from '../assets/js/earth-moon-flight-math.js';
+const source=p=>readFileSync(p,'utf8');
+const html=source('pages/moon/earth-moon-scale/content.html');
+const built=source('public/moon/earth-moon-scale/index.html');
+const controller=source('assets/js/earth-moon-scale.js');
+const engine=source('assets/js/earth-moon-flight.js');
+for(const key of ['emFlightExperience','emFlightActivate','emFlightFrame','emFlightCanvas','emFlightFallback','emFlightSlider','emFlightStatus','emFlightEarth','emFlightMoon','emFlightPlay','emFlightQuickActions','emFlightQuickEarth','emFlightQuickPlay','emFlightQuickMoon','emExactRuler']){
+ assert.match(html,new RegExp('id="'+key+'"'));
+ assert.match(built,new RegExp('id="'+key+'"'));
+}
+assert.equal(EARTH_RADIUS_KM,6378);
+assert.equal(MOON_RADIUS_KM,1737);
+for(const distanceKm of [363300,384400,405500]){
+ const model=earthMoonModel(distanceKm);
+ assert.equal(model.moonCenterScene, distanceKm/6378);
+ assert.equal(model.moonRadiusScene,1737/6378);
+ assert.equal(model.separationEarthDiameters,distanceKm/12756);
+ const q=flightFractionReadout(.5,distanceKm);
+ assert.equal(q.referenceKm,Math.round(distanceKm*.5));
+ assert.equal(q.remainingKm,Math.round(distanceKm*.5));
+}
+for(const invalid of [0,-1,384399,400000,NaN])assert.throws(()=>earthMoonModel(invalid),RangeError);
+for(const invalid of [-.001,1.1,NaN])assert.throws(()=>flightFractionReadout(invalid,384400),RangeError);
+assert.match(controller,/await import\('\.\/earth-moon-flight\.js'\)/);
+assert.match(controller,/flightEngine\?\.setSeparationKm\(distanceKm\)/);
+assert.match(controller,/flightControls\.hidden=false;flightQuickActions\.hidden=false;flightSlider\.disabled=false/);
+assert.match(controller,/flightFallback\.setAttribute\('hidden',''\)/);
+assert.match(controller,/flightFallback\.removeAttribute\('hidden'\)/);
+assert.match(controller,/flightFallback\.toggleAttribute\('hidden',next\)/);
+assert.match(controller,/flightQuickActions\.hidden=!next/);
+assert.match(controller,/flightQuickPlay\.addEventListener\('click',togglePlayback\)/);
+assert.match(controller,/flightStatus\.setAttribute\('aria-live','off'\)/);
+assert.match(controller,/if\(document\.hidden\)stopFlight\(\)/);
+assert.match(engine,/await import\('three'\)/);
+assert.match(engine,/SphereGeometry\(1,64,48\)/);
+assert.match(engine,/earthMoonModel\(\)\.moonRadiusScene/);
+assert.match(engine,/moon\.position\.x=model\.moonCenterScene/);
+assert.match(engine,/Math\.min\(window\.devicePixelRatio\|\|1,coarse\?1\.25:1\.75\)/);
+assert.match(engine,/camera\.fov=w<h\?60:48/);
+assert.match(engine,/prefers-reduced-motion/);
+assert.match(engine,/pointercancel/);
+assert.match(engine,/wheel',onWheel,\{passive:false\}/);
+assert.match(engine,/new URL\('\.\.\/images\/planet-earth-nasa\.webp',import\.meta\.url\)/);
+assert.ok(statSync('assets/images/planet-earth-nasa.webp').size<300000);
+assert.ok(statSync('assets/images/moon-lroc-nasa.webp').size<200000);
+const lunarFile=readFileSync('assets/images/moon-lroc-nasa.webp');
+assert.equal(lunarFile.toString('ascii',0,4),'RIFF');
+assert.equal(lunarFile.toString('ascii',8,12),'WEBP');
+assert.match(engine,/new URL\('\.\.\/images\/moon-lroc-nasa\.webp',import\.meta\.url\)/);
+assert.match(engine,/NASA LROC Moon texture unavailable; using procedural fallback/);
+assert.match(built,/NASA SVS CGI Moon Kit/);
+assert.match(built,/https:\/\/svs\.gsfc\.nasa\.gov\/4720\//);
+assert.match(built,/perspective, camera route, travel duration, lighting and Moon surface styling are illustrative/i);
+assert.match(built,/not represent a spacecraft speed/);
+assert.match(built,/svs\.gsfc\.nasa\.gov\/4720/);
+assert.match(controller,/flightFallback\.toggleAttribute\('hidden',next\)/);
+assert.match(built,/not a simulation of orbital speed|reference ruler uses one linear distance scale/i);
+assert.match(built,/id="emscaleScroll"/);
+assert.match(built,/rel="canonical"/);
+assert.match(built,/type="application\/ld\+json"/);
+console.log('EARTH_MOON_TRUE_RATIO_3D_CAMERA_INTERACTION_REGRESSION_PASS');

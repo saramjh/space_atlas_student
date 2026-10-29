@@ -21,10 +21,80 @@ const moonLabel = document.querySelector('#emscaleMoonLabel');
 const readout = document.querySelector('#emscaleDistanceReadout');
 const distancePresets = [...document.querySelectorAll('[data-emscale-distance]')];
 const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+const flightActivate=document.querySelector('#emFlightActivate');
+const flightCanvas=document.querySelector('#emFlightCanvas');
+const flightFallback=document.querySelector('#emFlightFallback');
+const flightFrame=document.querySelector('#emFlightFrame');
+const flightControls=document.querySelector('#emFlightControls');
+const flightSlider=document.querySelector('#emFlightSlider');
+const flightPercent=document.querySelector('#emFlightPercent');
+const flightOverlay=document.querySelector('#emFlightOverlayProgress');
+const flightStatus=document.querySelector('#emFlightStatus');
+const flightPlay=document.querySelector('#emFlightPlay');
+const flightQuickActions=document.querySelector('#emFlightQuickActions');
+const flightQuickPlay=document.querySelector('#emFlightQuickPlay');
+let flightEngine=null,flightLoading=false,flightProgress=0,flightDistanceKm=384400;
+function syncFlightProgress(next){
+ const p=Math.max(0,Math.min(1,Number(next)||0));flightProgress=p;
+ if(flightSlider)flightSlider.value=String(Math.round(p*1000));
+ if(flightPercent)flightPercent.textContent=Math.round(p*100)+'%';
+ if(flightOverlay)flightOverlay.textContent=String(Math.round(p*100)).padStart(2,'0')+'% · '+(p>.99?'MOON APPROACH':p<.01?'DEPARTURE':'IN TRANSIT');
+ if(flightStatus)flightStatus.textContent=`Conceptual journey: ${Math.round(p*100)}% of the ${flightDistanceKm.toLocaleString('en-US')} km center separation, equivalent to ${Math.round(p*flightDistanceKm).toLocaleString('en-US')} km along the reference line. This is not a measured spacecraft location.`;
+ if(p>=.999&&flightPlay){flightPlay.textContent='Replay the journey';flightPlay.setAttribute('aria-pressed','false');flightQuickPlay.textContent='Replay';flightQuickPlay.setAttribute('aria-pressed','false');flightStatus?.setAttribute('aria-live','polite');}
+}
+function stopFlight(){flightEngine?.setPlaying(false);flightStatus?.setAttribute('aria-live','polite');if(flightPlay){flightPlay.setAttribute('aria-pressed','false');flightPlay.textContent='Play 12.5-second journey';flightQuickPlay.setAttribute('aria-pressed','false');flightQuickPlay.textContent='Play';}}
+function setFlightProgress(p){stopFlight();flightEngine?.setProgress(p);syncFlightProgress(p);}
+if(flightActivate){
+ flightActivate.disabled=false;
+ flightActivate.addEventListener('click',async()=>{
+  if(flightLoading)return;
+  if(flightEngine){
+   const next=flightCanvas.hidden;flightCanvas.hidden=!next;flightFallback.toggleAttribute('hidden',next);flightControls.hidden=!next;flightQuickActions.hidden=!next;
+   flightActivate.setAttribute('aria-pressed',String(next));flightActivate.textContent=next?'Return to the illustration':'Launch the perspective journey';
+   if(next){flightEngine.resize();flightEngine.setProgress(flightProgress);}else stopFlight();
+   return;
+  }
+  flightLoading=true;flightActivate.disabled=true;flightActivate.textContent='Loading 3D scene…';
+  try{
+   const {createEarthMoonFlight}=await import('./earth-moon-flight.js');
+   flightCanvas.hidden=false;flightFallback.setAttribute('hidden','');
+   flightEngine=await createEarthMoonFlight(flightCanvas,flightFrame,(p)=>syncFlightProgress(p));
+   flightEngine.setSeparationKm(flightDistanceKm);
+   flightControls.hidden=false;flightQuickActions.hidden=false;flightSlider.disabled=false;
+   flightActivate.setAttribute('aria-pressed','true');flightActivate.textContent='Return to the illustration';
+   flightPlay.disabled=motionReduced.matches;flightQuickPlay.disabled=motionReduced.matches;
+   flightEngine.resize();syncFlightProgress(flightProgress);
+  }catch(error){
+   flightCanvas.hidden=true;flightFallback.removeAttribute('hidden');flightControls.hidden=true;flightQuickActions.hidden=true;
+   flightActivate.setAttribute('aria-pressed','false');flightActivate.textContent='Retry 3D journey';
+   flightStatus.textContent='3D could not initialize. The exact-scale ruler and NASA data are still available.';
+   console.warn('Earth–Moon 3D unavailable; keeping exact-scale reference',error);
+  }finally{flightLoading=false;flightActivate.disabled=false;}
+ });
+ flightSlider.addEventListener('input',()=>setFlightProgress(Number(flightSlider.value)/1000));
+ for(const id of ['#emFlightEarth','#emFlightQuickEarth'])document.querySelector(id).addEventListener('click',()=>setFlightProgress(0));
+ for(const id of ['#emFlightMoon','#emFlightQuickMoon'])document.querySelector(id).addEventListener('click',()=>setFlightProgress(1));
+ function togglePlayback(){
+  if(!flightEngine||motionReduced.matches||document.hidden)return;
+  if(flightEngine.isPlaying()){stopFlight();return;}
+  if(flightProgress>=.999){flightEngine.setProgress(0);syncFlightProgress(0);}
+  flightEngine.setPlaying(true);
+  flightStatus.setAttribute('aria-live','off');
+  flightPlay.textContent='Pause journey';flightPlay.setAttribute('aria-pressed','true');
+  flightQuickPlay.textContent='Pause';flightQuickPlay.setAttribute('aria-pressed','true');
+ }
+ flightPlay.addEventListener('click',togglePlayback);
+ flightQuickPlay.addEventListener('click',togglePlayback);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopFlight();});
+ motionReduced.addEventListener?.('change',()=>{if(motionReduced.matches)stopFlight();flightPlay.disabled=motionReduced.matches;flightQuickPlay.disabled=motionReduced.matches;});
+}
 function moonLeftAt(distanceKm) {
   return EARTH_CENTER_PX + distanceKm / kilometersPerPixel - MOON_RADIUS_PX;
 }
 function selectDistance(distanceKm) {
+  flightDistanceKm=distanceKm;
+  flightEngine?.setSeparationKm(distanceKm);
+  if(flightEngine)syncFlightProgress(flightProgress);
   const moonLeft = moonLeftAt(distanceKm);
   moon.style.left = `${moonLeft}px`;
   moonLabel.style.left = `${moonLeft}px`;
