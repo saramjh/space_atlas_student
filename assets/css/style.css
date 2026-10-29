@@ -1518,3 +1518,39 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .tide-cinema-caveat{font:400 12px/1.65 var(--font-reading);color:#48545c;margin:0;padding:8px 20px 20px}
 @media(max-width:700px){.tide-cinema-heading{display:block;padding:17px 14px}.tide-cinema-heading button{width:100%;margin-top:14px}.tide-cinema-stage{aspect-ratio:5/5;min-height:275px;max-height:53dvh}.tide-cinema-overlay{inset:auto 8px 8px;font-size:9px}.tide-cinema-controls{padding:14px 12px 0}.tide-cinema-sliders{grid-template-columns:1fr;gap:12px}.tide-cinema-actions{gap:6px}.tide-cinema-actions button{flex:1 1 120px}.tide-cinema-status{padding:10px 12px 3px}.tide-cinema-caveat{padding:6px 12px 17px}}
 @media(prefers-reduced-motion:reduce){.tide-cinema-stage,.tide-cinema{transition:none;animation:none}}
+
+/* Kepler observatory: cinematic-but-accurate temporal ratios, not actual AU scale. */
+.kepler-observatory{background:#eae6de;border:1px solid #beb9b1;margin:22px 0 28px;overflow:hidden}
+.kepler-observatory-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px}
+.kepler-observatory-head h4{font:600 clamp(21px,2.6vw,30px)/1.2 var(--font-display);margin:0 0 7px}
+.kepler-observatory-head p{max-width:620px;margin:0;color:#52606a;font:400 13px/1.6 var(--font-reading)}
+.kepler-observatory button{min-height:44px;cursor:pointer}
+.kepler-observatory button:focus-visible,.kepler-orbit-controls select:focus-visible,.kepler-orbit-controls input:focus-visible{outline:3px solid #c85b31;outline-offset:2px}
+.kepler-observatory-head button,.kepler-orbit-buttons button{background:#15354d;border:1px solid #46637a;color:#fff;font:600 12px/1.45 var(--font-reading);padding:11px 13px}
+.kepler-observatory-head button[aria-pressed=true],.kepler-orbit-buttons button[aria-pressed=true]{background:#ac5435}
+.kepler-observatory-head button:disabled,.kepler-orbit-buttons button:disabled{opacity:.5;cursor:wait}
+.kepler-orbit-stage{position:relative;background:#080e1c;aspect-ratio:17/9;min-height:300px;max-height:min(560px,65dvh);overflow:hidden}
+.kepler-orbit-stage canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none;overscroll-behavior:contain}
+.kepler-orbit-stage canvas[hidden],.kepler-orbit-fallback[hidden],.kepler-orbit-controls[hidden]{display:none}
+.kepler-orbit-stage canvas:active{cursor:grabbing}
+.kepler-orbit-fallback{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:15px;background:radial-gradient(ellipse at center,#1b344f,#0c182b 55%,#080e1c);color:#e5edf4;text-align:center;isolation:isolate;padding:35px;overflow:hidden}
+.kepler-orbit-fallback:before,.kepler-orbit-fallback:after{content:"";position:absolute;border:1px solid rgba(161,194,226,.32);border-radius:50%;width:min(40vw,340px);aspect-ratio:1;transform:scaleY(.56);z-index:-1;box-shadow:0 0 0 35px rgba(129,160,188,.08),0 0 0 75px rgba(129,160,188,.06),0 0 0 115px rgba(129,160,188,.05)}
+.kepler-orbit-fallback:after{width:min(23vw,220px);border-color:rgba(228,205,142,.38)}
+.kepler-fallback-sun{height:45px;width:45px;border-radius:50%;background:radial-gradient(circle at 35% 32%,#fff9dc,#f2c26d 52%,#a5683f);box-shadow:0 0 40px 12px rgba(243,183,92,.4);flex:none}
+.kepler-orbit-fallback p{max-width:40ch;color:#f0f4f9!important;font:600 13px/1.55 var(--font-reading)!important;margin:0!important;text-shadow:0 2px 8px #060b16}
+.kepler-orbit-stage-overlay{position:absolute;inset:auto 12px 11px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font:700 10px/1.5 var(--font-data);color:#dceaf9;text-shadow:0 1px 6px #080f1f;pointer-events:none}
+.kepler-orbit-chip-list{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;padding:15px 12px 0}
+.kepler-orbit-chip-list button{font:600 11px/1.2 var(--font-data);padding:9px 3px;border:1px solid #a9a7a0;background:#f1eee8;color:#293944;min-width:0;overflow-wrap:anywhere}
+.kepler-orbit-chip-list button[aria-pressed=true]{background:#183b51;color:#fff;border-color:#183b51}
+.kepler-observatory-selected{margin:0!important;padding:14px 17px 6px;color:#183b51!important;font:700 14px/1.55 var(--font-reading)!important}
+.kepler-orbit-controls{padding:12px 17px 10px;border-top:1px solid #c7c2b7;display:grid;grid-template-columns:minmax(180px,.8fr) minmax(0,1.5fr);gap:15px;align-items:end}
+.kepler-orbit-controls>label{font:600 12px/1.45 var(--font-reading);display:grid;gap:7px;color:#293944;margin:0}
+.kepler-orbit-controls select{max-width:100%;min-height:44px;font:600 12px var(--font-data);background:#fbfaf6;border:1px solid #a9a29b;padding:7px}
+.kepler-orbit-controls output{font:700 13px var(--font-data);color:#a34a2f}
+.kepler-orbit-controls input[type=range]{width:100%;min-height:35px;accent-color:#ae5636}
+.kepler-orbit-buttons{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:7px}
+.kepler-orbit-buttons button{flex:1 1 125px}
+.kepler-orbit-frame-status{padding:8px 17px;margin:0!important;color:#203949!important;font:600 12px/1.55 var(--font-reading)!important}
+.kepler-orbit-caveat{padding:4px 17px 20px;margin:0!important;font:400 11px/1.6 var(--font-reading)!important;color:#4a555c!important}
+@media(max-width:700px){.kepler-observatory-head{display:block;padding:16px 12px}.kepler-observatory-head button{width:100%;margin-top:11px}.kepler-orbit-stage{aspect-ratio:5/5;max-height:53dvh;min-height:280px}.kepler-orbit-chip-list{grid-template-columns:repeat(4,minmax(0,1fr));padding:11px 9px 0;gap:6px}.kepler-orbit-chip-list button{font-size:11px}.kepler-orbit-controls{grid-template-columns:1fr;padding:12px}.kepler-orbit-buttons{grid-column:1}.kepler-orbit-fallback p{font-size:12px!important}.kepler-observatory-selected,.kepler-orbit-frame-status{padding-left:12px}.kepler-orbit-caveat{padding:6px 12px 16px}.kepler-orbit-stage-overlay{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.kepler-observatory *{animation:none!important;transition:none!important}}

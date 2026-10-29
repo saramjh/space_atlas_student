@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {periodYearsFromAU,orbitAngleAtYears,displayOrbitFraction,completedOrbitalRevolutions} from '../assets/js/kepler-orbit-math.js';
+const src=p=>readFileSync(p,'utf8');
+const page=src('pages/solar-system/orbital-periods/content.html');
+const built=src('public/solar-system/orbital-periods/index.html');
+const ctrl=src('assets/js/orbital-periods.js');
+const engine=src('assets/js/kepler-orbit-cinema.js');
+const css=src('assets/css/style.css');
+assert.equal(periodYearsFromAU(1),1);
+assert.ok(Math.abs(periodYearsFromAU(5.2)-11.8578)<.001);
+assert.ok(Math.abs(periodYearsFromAU(30.05)-164.728)<.1);
+assert.ok(Math.abs(completedOrbitalRevolutions(1,1)-1)<1e-12);
+assert.ok(completedOrbitalRevolutions(.39,1)>4);
+assert.ok(completedOrbitalRevolutions(30.05,1)<.007);
+assert.ok(Math.abs(orbitAngleAtYears(1,1))<1e-12);
+assert.ok(displayOrbitFraction(.39)<displayOrbitFraction(1));
+assert.ok(displayOrbitFraction(1)<displayOrbitFraction(5.2));
+assert.ok(displayOrbitFraction(5.2)<displayOrbitFraction(30.05));
+for(const bad of [0,-1,NaN,Infinity])assert.throws(()=>periodYearsFromAU(bad),RangeError);
+for(const bad of [NaN,Infinity,-.1])assert.throws(()=>orbitAngleAtYears(1,bad),RangeError);
+for(const bad of [0,.1,36,NaN])assert.throws(()=>displayOrbitFraction(bad),RangeError);
+for(const id of ['keplerOrbitExperience','keplerOrbitStage','keplerOrbitCanvas','keplerOrbitFallback','keplerOrbitActivate','keplerOrbitControls','keplerOrbitSpan','keplerOrbitTime','keplerOrbitPlay','keplerOrbitReset','keplerOrbitZoomIn','keplerOrbitZoomOut','keplerOrbitFrameStatus','keplerOrbitSelected']){
+ assert.match(page,new RegExp(`id="${id}"`));assert.match(built,new RegExp(`id="${id}"`));
+}
+assert.equal((page.match(/data-kepler-planet="[^"]+"/g)||[]).length,8);
+assert.match(ctrl,/import\('\.\/kepler-orbit-cinema\.js'\)/);
+assert.match(engine,/select\.dispatchEvent\(new Event\('change',\{bubbles:true\}\)\)/);
+assert.match(engine,/onTime\(years\)/);
+assert.match(engine,/engine\?\.selectPlanet\(name\);updateTime\(Number\(timeSlider\.value\)\/1000\*spanYears\)/);
+assert.match(engine,/orbitAngleAtYears\(o\.au,years\)/);
+assert.match(engine,/Math\.min\(window\.devicePixelRatio\|\|1,coarse\?1\.25:1\.75\)/);
+assert.match(engine,/reduced\.matches/);
+assert.match(engine,/pointercancel/);
+assert.match(engine,/lastPinch/);
+assert.match(css,/\.kepler-orbit-stage canvas\{display:block;width:100%;height:100%;cursor:grab;touch-action:none/);
+assert.match(built,/Orbital radii are compressed logarithmically/);
+assert.match(built,/not actual astronomical speed/);
+assert.match(built,/rel="canonical"/);
+assert.match(built,/type="application\/ld\+json"/);
+console.log('KEPLER_SELECTABLE_ORBITS_LINKED_GRAPH_RELATIVE_TIME_REGRESSION_PASS');

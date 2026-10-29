@@ -69,6 +69,16 @@ if (keplerLab) {
       + 'Small differences reflect input rounding and model simplifications.';
   }
   select.addEventListener('change', () => selectPlanet(select.value));
+  // Keep the legacy calculator/graph independently usable if Canvas2D fails.
+  // The opt-in observatory only boots on the actual page (not headless fallback).
+  const orbitStage=keplerLab.querySelector('#keplerOrbitStage');
+  if(orbitStage?.dataset?.keplerCinema==='enabled'){
+    import('./kepler-orbit-cinema.js').catch(error=>{
+      console.warn('Kepler interactive orbit controls unavailable; static chart retained',error);
+      const status=keplerLab.querySelector('#keplerOrbitFrameStatus');
+      if(status)status.textContent='Orbit controls unavailable. The Kepler graph and numeric selector remain usable.';
+    });
+  }
   selectPlanet(select.value);
 }
 

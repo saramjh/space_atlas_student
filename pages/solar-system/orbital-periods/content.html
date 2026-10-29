@@ -47,7 +47,42 @@
   <div class="kepler-law-lab" id="keplerLawLab">
     <h3>Why does an outer planet's year grow so quickly?</h3>
     <p>Explore <strong>Kepler's third law</strong>: for planets around the Sun, orbital period squared is proportional to the semi-major axis cubed. Choose a planet to compare an idealized prediction with NASA's rounded orbital period.</p>
-    <label for="keplerPlanetSelect">Select a planet</label>
+    <div class="kepler-observatory" id="keplerOrbitExperience">
+      <div class="kepler-observatory-head"><div><h4>Choose a world. Watch its year unfold.</h4><p>Planet positions advance by the same elapsed Earth time. Inner worlds sweep around quickly; distant worlds barely move.</p></div><button id="keplerOrbitActivate" type="button" aria-pressed="false" aria-controls="keplerOrbitCanvas" disabled>Explore animated orbits</button></div>
+      <div class="kepler-orbit-stage" id="keplerOrbitStage" data-kepler-cinema="enabled">
+        <div id="keplerOrbitFallback" class="kepler-orbit-fallback" aria-label="Accessible static orbital overview: the Sun at center; planets are shown in order from Mercury through Neptune. Orbit drawing distances are compressed; the graph below provides correct AU values.">
+          <div class="kepler-fallback-sun" aria-hidden="true"></div>
+          <p>Eight planets orbit the Sun at very different distances and speeds.</p>
+          <p>Select a world below, then start the animated orbital map to compare it with the Kepler graph.</p>
+        </div>
+        <canvas id="keplerOrbitCanvas" hidden aria-label="Illustrative top-down orbit map. Click or tap a planet to select; drag to rotate view; wheel or pinch to zoom. Orbit drawing radii are logarithmically compressed, not true spatial AU."></canvas>
+        <div class="kepler-orbit-stage-overlay" aria-hidden="true"><span>ORBIT RADII COMPRESSED · TIME RATIOS PHYSICAL</span><span>EARTH-YEAR REFERENCE</span></div>
+      </div>
+      <div class="kepler-orbit-chip-list" role="group" aria-label="Select a planet and link it to Kepler's third law graph">
+        <button type="button" data-kepler-planet="Mercury" aria-pressed="false">Mercury</button>
+        <button type="button" data-kepler-planet="Venus" aria-pressed="false">Venus</button>
+        <button type="button" data-kepler-planet="Earth" aria-pressed="true">Earth</button>
+        <button type="button" data-kepler-planet="Mars" aria-pressed="false">Mars</button>
+        <button type="button" data-kepler-planet="Jupiter" aria-pressed="false">Jupiter</button>
+        <button type="button" data-kepler-planet="Saturn" aria-pressed="false">Saturn</button>
+        <button type="button" data-kepler-planet="Uranus" aria-pressed="false">Uranus</button>
+        <button type="button" data-kepler-planet="Neptune" aria-pressed="false">Neptune</button>
+      </div>
+      <p id="keplerOrbitSelected" class="kepler-observatory-selected">Earth · 1 AU · ~1 Earth-year orbit</p>
+      <div id="keplerOrbitControls" class="kepler-orbit-controls" hidden>
+        <label for="keplerOrbitSpan">Time window <select id="keplerOrbitSpan" aria-label="Elapsed Earth-years during one illustrated orbit animation"><option value="1">1 Earth year / 12 seconds</option><option value="10">10 Earth years / 12 seconds</option><option value="100">100 Earth years / 12 seconds</option></select></label>
+        <label for="keplerOrbitTime">Elapsed simulated Earth time <output id="keplerOrbitTimeValue" for="keplerOrbitTime">0.00 Earth yr</output><input id="keplerOrbitTime" type="range" min="0" max="1000" value="0" step="1"/></label>
+        <div class="kepler-orbit-buttons" role="group" aria-label="Kepler orbit playback and camera controls">
+          <button id="keplerOrbitPlay" type="button" aria-pressed="false">Play 1 Earth year</button>
+          <button id="keplerOrbitReset" type="button">Reset epoch</button>
+          <button id="keplerOrbitZoomIn" type="button">Zoom in +</button>
+          <button id="keplerOrbitZoomOut" type="button">Zoom out −</button>
+        </div>
+      </div>
+      <p id="keplerOrbitFrameStatus" class="kepler-orbit-frame-status" role="status">Choose a planet to explore its orbit. Animated time is compressed, not a physical 12-second year.</p>
+      <p class="kepler-orbit-caveat">This is a top-down <strong>schematic circular-orbit model</strong>. Orbital radii are compressed logarithmically to keep all eight worlds visible, and planet dots are not to scale. Relative motion follows <strong>T² ≈ a³</strong> in Earth years/AU; all planets begin at an arbitrary common epoch. 1, 10, or 100 simulated Earth years are played over 12 seconds, not actual astronomical speed. Actual orbit eccentricity and inclination are omitted. The logarithmic Kepler graph and NASA numbers below are the scientific reference.</p>
+    </div>
+    <label for="keplerPlanetSelect">Select a planet (accessible reference)</label>
     <select id="keplerPlanetSelect" aria-controls="keplerReadout">
       <option>Mercury</option><option>Venus</option><option selected>Earth</option><option>Mars</option>
       <option>Jupiter</option><option>Saturn</option><option>Uranus</option><option>Neptune</option>
