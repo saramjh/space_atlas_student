@@ -1491,3 +1491,30 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 @keyframes spectrum-core-pulse{from{opacity:.75;filter:drop-shadow(0 0 4px var(--beam-glow))}to{opacity:1;filter:drop-shadow(0 0 16px var(--beam-glow))}}
 @media(max-width:620px){.spectrum-beam.beam-running .spectrum-beam-core{animation:none}}
 @media(prefers-reduced-motion:reduce){.spectrum-beam.beam-running .spectrum-beam-core{animation:none}}
+
+/* Opt-in equilibrium tidal shell: Earth's rigid globe remains distinct from water. */
+.tide-cinema{background:#e9e5dd;border:1px solid #bcb9b1;margin:23px 0 28px;overflow:hidden}
+.tide-cinema-heading{display:flex;gap:20px;justify-content:space-between;align-items:center;padding:20px 23px}
+.tide-cinema-heading h4{font:600 clamp(22px,2.7vw,31px)/1.2 var(--font-display);margin:0 0 7px}
+.tide-cinema-heading p{font:400 13px/1.6 var(--font-reading);color:#45515b;max-width:670px;margin:0}
+.tide-cinema-heading button,.tide-cinema-actions button{min-height:44px;border:1px solid #4b687b;background:#16354b;color:#fff;font:600 13px/1.4 var(--font-reading);cursor:pointer;padding:10px 14px}
+.tide-cinema-heading button[aria-pressed=true]{background:#ad5634}
+.tide-cinema-heading button:disabled,.tide-cinema-actions button:disabled{opacity:.55;cursor:not-allowed}
+.tide-cinema-stage{position:relative;aspect-ratio:17/8;min-height:310px;max-height:min(610px,64dvh);overflow:hidden;background:#070f21}
+.tide-cinema-stage[hidden],.tide-cinema-controls[hidden]{display:none}
+.tide-cinema-stage canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none;overscroll-behavior:contain}
+.tide-cinema-stage canvas:active{cursor:grabbing}
+.tide-cinema-overlay{position:absolute;inset:auto 13px 12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;pointer-events:none;color:#daf4ff;text-shadow:0 1px 7px #000;font:700 10px/1.5 var(--font-data);letter-spacing:.04em}
+.tide-cinema-controls{padding:16px 20px 0}
+.tide-cinema-sliders{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tide-cinema-sliders label{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;font:600 13px/1.45 var(--font-reading)}
+.tide-cinema-sliders output{color:#a55331;font:700 14px var(--font-data)}
+.tide-cinema-sliders input{display:block;flex:1 0 100%;width:100%;min-height:38px;accent-color:#b35435}
+.tide-cinema-actions{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.tide-cinema-actions button{flex:1 1 145px}
+.tide-cinema-actions button[aria-pressed=true]{background:#a34f31}
+.tide-cinema-heading button:focus-visible,.tide-cinema-actions button:focus-visible,.tide-cinema-sliders input:focus-visible{outline:3px solid #bd5837;outline-offset:3px}
+.tide-cinema-status{font:600 13px/1.6 var(--font-reading);color:#163d50;margin:0;padding:13px 20px 2px}
+.tide-cinema-caveat{font:400 12px/1.65 var(--font-reading);color:#48545c;margin:0;padding:8px 20px 20px}
+@media(max-width:700px){.tide-cinema-heading{display:block;padding:17px 14px}.tide-cinema-heading button{width:100%;margin-top:14px}.tide-cinema-stage{aspect-ratio:5/5;min-height:275px;max-height:53dvh}.tide-cinema-overlay{inset:auto 8px 8px;font-size:9px}.tide-cinema-controls{padding:14px 12px 0}.tide-cinema-sliders{grid-template-columns:1fr;gap:12px}.tide-cinema-actions{gap:6px}.tide-cinema-actions button{flex:1 1 120px}.tide-cinema-status{padding:10px 12px 3px}.tide-cinema-caveat{padding:6px 12px 17px}}
+@media(prefers-reduced-motion:reduce){.tide-cinema-stage,.tide-cinema{transition:none;animation:none}}

@@ -51,6 +51,26 @@
   <div class="tide-equilibrium-lab" id="tideEquilibriumLab">
     <h3>Why does the tidal stretch change with alignment?</h3>
     <p>Move the Moon relative to a fixed Sun direction. The model combines two directional <strong>tidal-force patterns</strong>, with the Sun's contribution set to approximately half the Moon's. The stretched shape is greatly exaggerated and is <strong>not an ocean-height forecast</strong>.</p>
+    <div class="tide-cinema" id="tideCinemaExperience">
+      <div class="tide-cinema-heading"><div><h4>Watch Earth rotate through two tidal bulges.</h4><p>Keep the solid Earth separate from the transparent, exaggerated equilibrium water shell. Observe the near and far sides as the Moon's alignment changes.</p></div><button id="tideCinemaActivate" type="button" aria-pressed="false" aria-controls="tideCinemaStage" disabled>Enter the 3D tide experiment</button></div>
+      <div class="tide-cinema-stage" id="tideCinemaStage" hidden><canvas id="tideCinemaCanvas" aria-label="Opt-in 3D conceptual Earth with a distinct transparent equilibrium tidal water shell. Drag to orbit, pinch and wheel to zoom, or use native controls."></canvas><div class="tide-cinema-overlay" aria-hidden="true"><span>TRANSPARENT WATER EQUILIBRIUM · SHAPE EXAGGERATED</span><span>GOLD · ROTATING OBSERVER</span></div></div>
+      <div class="tide-cinema-controls" id="tideCinemaControls" hidden>
+        <div class="tide-cinema-sliders">
+          <label for="tideCinemaAngle">Moon–Sun alignment <output id="tideCinemaAngleValue" for="tideCinemaAngle">0°</output><input type="range" id="tideCinemaAngle" min="0" max="90" step="5" value="0"/></label>
+          <label for="tideCinemaObserver">Observer travel around Earth <output id="tideCinemaObserverValue" for="tideCinemaObserver">0°</output><input type="range" id="tideCinemaObserver" min="0" max="360" step="5" value="0"/></label>
+        </div>
+        <div class="tide-cinema-actions" role="group" aria-label="3D tide shell camera and observer controls">
+          <button type="button" id="tideCinemaPlay" aria-pressed="false">Rotate observer (12 s)</button>
+          <button type="button" id="tideCinemaReset">Reset observer</button>
+          <button type="button" id="tideCinemaZoomIn">Zoom in +</button>
+          <button type="button" id="tideCinemaZoomOut">Zoom out −</button>
+          <button type="button" id="tideCinemaRotate">Orbit camera</button>
+        </div>
+        <p class="motion-preference-note">Reduced-motion preference: automatic rotation is disabled; manually move the observer and alignment sliders.</p>
+      </div>
+      <p class="tide-cinema-status" id="tideCinemaStatus" role="status">The NOAA-based force-ratio diagram below works even without this optional 3D view.</p>
+      <p class="tide-cinema-caveat">The water shell visualizes a <strong>static equilibrium tide-raising potential</strong>, not real seawater oscillations or surface waves. Its shape and colors are intentionally exaggerated and are <strong>not measured water height</strong>. The observer takes 12 seconds on-screen to make a conceptually compressed rotation; this is not a real lunar day, global tide timetable or local coastal prediction. Sun/Moon distances and apparent sizes are schematic. The two bulges originate in differential gravitational acceleration across Earth, including both near and far sides.</p>
+    </div>
     <div class="tide-equilibrium-layout">
       <svg id="tideEquilibriumDiagram" viewBox="0 0 400 270" role="img" aria-labelledby="tideShapeTitle tideShapeDesc">
         <title id="tideShapeTitle">Illustrative two-bulge tidal-force pattern</title>

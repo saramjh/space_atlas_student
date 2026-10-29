@@ -25,6 +25,81 @@ const tideReadout = document.querySelector('#tideModelReadout');
 const tidePresets = [...document.querySelectorAll('[data-tide-angle]')];
 const DEG = Math.PI / 180;
 const LUNAR = 12, SOLAR = 6;
+const tide3DActivate=document.querySelector('#tideCinemaActivate');
+const tide3DStage=document.querySelector('#tideCinemaStage');
+const tide3DCanvas=document.querySelector('#tideCinemaCanvas');
+const tide3DControls=document.querySelector('#tideCinemaControls');
+const tide3DStatus=document.querySelector('#tideCinemaStatus');
+const tide3DAngle=document.querySelector('#tideCinemaAngle');
+const tide3DAngleValue=document.querySelector('#tideCinemaAngleValue');
+const tide3DObserver=document.querySelector('#tideCinemaObserver');
+const tide3DObserverValue=document.querySelector('#tideCinemaObserverValue');
+const tide3DPlay=document.querySelector('#tideCinemaPlay');
+let tide3DEngine=null,tide3DLoading=false;
+function report3D(message){
+ tide3DStatus.textContent=message;
+ const match=message.match(/Observer marker (\d+)°/);
+ if(match){tide3DObserver.value=match[1];tide3DObserverValue.textContent=match[1]+'°';}
+ if(message.includes('Observer marker 360°')){
+  tide3DPlay.setAttribute('aria-pressed','false');
+  tide3DPlay.textContent='Replay observer rotation';
+  tide3DStatus.setAttribute('aria-live','polite');
+ }
+}
+function stop3DRotation(){tide3DEngine?.stop();tide3DPlay.setAttribute('aria-pressed','false');tide3DPlay.textContent='Rotate observer (12 s)';tide3DStatus.setAttribute('aria-live','polite');}
+if(tide3DActivate){
+ tide3DActivate.disabled=false;
+ tide3DActivate.addEventListener('click',async()=>{
+  if(tide3DLoading)return;
+  if(tide3DEngine){
+   const next=tide3DStage.hidden;tide3DStage.hidden=!next;tide3DControls.hidden=!next;
+   tide3DActivate.setAttribute('aria-pressed',String(next));
+   tide3DActivate.textContent=next?'Return to 2D reference':'Enter the 3D tide experiment';
+   if(next){tide3DEngine.resize();tide3DEngine.setAngle(Number(tideAngle.value));}else stop3DRotation();return;
+  }
+  tide3DLoading=true;tide3DActivate.disabled=true;tide3DActivate.textContent='Loading tidal water shell…';
+  try{
+   const {createTideCinema}=await import('./tide-cinema.js');
+   tide3DStage.hidden=false;
+   tide3DEngine=await createTideCinema(tide3DCanvas,tide3DStage,report3D);
+   tide3DEngine.setAngle(Number(tideAngle.value));
+   tide3DControls.hidden=false;
+   tide3DPlay.disabled=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   tide3DActivate.setAttribute('aria-pressed','true');tide3DActivate.textContent='Return to 2D reference';tide3DEngine.resize();
+  }catch(error){
+   tide3DStage.hidden=true;tide3DControls.hidden=true;
+   tide3DActivate.setAttribute('aria-pressed','false');tide3DActivate.textContent='Retry 3D water shell';
+   tide3DStatus.textContent='3D could not start. The original NOAA-based 2D force model remains accessible.';
+   console.warn('Tidal WebGL unavailable; preserving source-linked 2D experiment',error);
+  }finally{tide3DLoading=false;tide3DActivate.disabled=false;}
+ });
+ tide3DAngle.addEventListener('input',()=>setTideAngle(tide3DAngle.value));
+ tide3DObserver.addEventListener('input',()=>{
+  // Preserve the newly selected value before stop() reports the old frame.
+  const v=Number(tide3DObserver.value);stop3DRotation();
+  tide3DObserver.value=String(v);tide3DObserverValue.textContent=`${v}°`;
+  tide3DEngine?.setObserver(v);
+ });
+ tide3DPlay.addEventListener('click',()=>{
+  if(!tide3DEngine)return;
+  if(tide3DEngine.isPlaying()){stop3DRotation();return;}
+  if(tide3DEngine.start()){
+   tide3DPlay.textContent='Pause rotation';tide3DPlay.setAttribute('aria-pressed','true');
+   tide3DStatus.setAttribute('aria-live','off');
+  }
+ });
+ document.querySelector('#tideCinemaReset').addEventListener('click',()=>{
+  stop3DRotation();tide3DObserver.value='0';tide3DObserverValue.textContent='0°';tide3DEngine?.setObserver(0);
+ });
+ document.querySelector('#tideCinemaZoomIn').addEventListener('click',()=>tide3DEngine?.zoomBy(.78));
+ document.querySelector('#tideCinemaZoomOut').addEventListener('click',()=>tide3DEngine?.zoomBy(1.28));
+ document.querySelector('#tideCinemaRotate').addEventListener('click',()=>tide3DEngine?.rotateBy(.28));
+ document.addEventListener?.('visibilitychange',()=>{if(document.hidden)stop3DRotation();});
+ if(typeof window!=='undefined')window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change',event=>{
+  tide3DPlay.disabled=event.matches;if(event.matches)stop3DRotation();
+ });
+}
+
 function equilibriumContour(angleDegrees) {
   const angle = angleDegrees * DEG;
   const points = [];
@@ -39,6 +114,9 @@ function equilibriumContour(angleDegrees) {
 function setTideAngle(degrees) {
   const angle = Math.min(90, Math.max(0, Number(degrees) || 0));
   tideAngle.value = String(angle);
+  if(tide3DAngle)tide3DAngle.value=String(angle);
+  if(tide3DAngleValue)tide3DAngleValue.textContent=`${angle}°`;
+  tide3DEngine?.setAngle(angle);
   tideShape.setAttribute('d', equilibriumContour(angle));
   const x = 200 + 115 * Math.cos(angle * DEG);
   const y = 132 - 115 * Math.sin(angle * DEG);
