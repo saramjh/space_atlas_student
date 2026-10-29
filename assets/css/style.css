@@ -1554,3 +1554,42 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .kepler-orbit-caveat{padding:4px 17px 20px;margin:0!important;font:400 11px/1.6 var(--font-reading)!important;color:#4a555c!important}
 @media(max-width:700px){.kepler-observatory-head{display:block;padding:16px 12px}.kepler-observatory-head button{width:100%;margin-top:11px}.kepler-orbit-stage{aspect-ratio:5/5;max-height:53dvh;min-height:280px}.kepler-orbit-chip-list{grid-template-columns:repeat(4,minmax(0,1fr));padding:11px 9px 0;gap:6px}.kepler-orbit-chip-list button{font-size:11px}.kepler-orbit-controls{grid-template-columns:1fr;padding:12px}.kepler-orbit-buttons{grid-column:1}.kepler-orbit-fallback p{font-size:12px!important}.kepler-observatory-selected,.kepler-orbit-frame-status{padding-left:12px}.kepler-orbit-caveat{padding:6px 12px 16px}.kepler-orbit-stage-overlay{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.kepler-observatory *{animation:none!important;transition:none!important}}
+
+/* A solar-system scale lens with correct relative AU markers and optional tiny physical bodies. */
+.true-scale-flight{border:1px solid #beb8ac;background:#eae6de;margin-bottom:30px;overflow:hidden}
+.true-scale-flight-head{display:flex;gap:18px;justify-content:space-between;align-items:center;padding:19px 21px}
+.true-scale-flight-head h3{font:600 clamp(22px,2.9vw,31px)/1.14 var(--font-display);margin:0 0 7px}
+.true-scale-flight-head p{max-width:650px;margin:0;color:#4c5b65;font:400 13px/1.6 var(--font-reading)}
+.true-scale-flight button{min-height:44px;cursor:pointer}
+.true-scale-flight button:focus-visible,.true-scale-flight select:focus-visible,.true-scale-flight input:focus-visible{outline:3px solid #bc5436;outline-offset:3px}
+.true-scale-flight-head button,.true-scale-control-row>button,.true-scale-focus-preset button{background:#153951;border:1px solid #436179;color:#fff;font:600 12px/1.3 var(--font-reading);padding:10px 13px}
+.true-scale-flight-head button[aria-pressed=true],.true-scale-control-row>button[aria-pressed=true]{background:#a65033}
+.true-scale-flight-head button:disabled,.true-scale-control-row>button:disabled{opacity:.55;cursor:not-allowed}
+.true-scale-stage{position:relative;background:#070f20;aspect-ratio:16/8;min-height:290px;max-height:min(610px,65dvh);overflow:hidden}
+.true-scale-stage canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:none;overscroll-behavior:contain}
+.true-scale-stage canvas:active{cursor:grabbing}
+.true-scale-stage canvas[hidden],.true-scale-fallback[hidden],.true-scale-controls[hidden]{display:none}
+.true-scale-fallback{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:13px;padding:32px;background:radial-gradient(ellipse at center,#214366,#0b1b34 68%,#060d19);color:#fff;text-align:center;overflow:hidden;isolation:isolate}
+.true-scale-fallback:before{content:"";position:absolute;z-index:-1;inset:19% auto auto 50%;border:1px solid rgba(165,205,226,.4);height:min(40vw,250px);width:min(40vw,250px);border-radius:50%;transform:translateX(-50%) scaleY(.65);box-shadow:0 0 0 45px rgba(124,161,200,.13),0 0 0 90px rgba(124,161,200,.085),0 0 0 135px rgba(124,161,200,.055)}
+.true-scale-sun{border-radius:50%;width:55px;height:55px;flex:none;background:radial-gradient(circle at 35% 34%,#fff7c3,#f4c36d 48%,#d27a40);box-shadow:0 0 35px 15px rgba(249,187,96,.29)}
+.true-scale-fallback p{font:600 13px/1.6 var(--font-reading);max-width:48ch;color:#f7f8fd;margin:0;text-shadow:0 2px 8px #050b16}
+.true-scale-stage-legend{position:absolute;inset:auto 10px 10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;pointer-events:none;font:700 9px/1.6 var(--font-data);color:#dfedfc;text-shadow:0 1px 5px #000}
+.true-scale-controls{padding:17px 19px 10px;display:grid;gap:13px}
+.true-scale-focus-preset{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.true-scale-focus-preset button{background:#f6f2e9;border-color:#b8b1a5;color:#213a4a}
+.true-scale-controls>label{font:600 13px/1.6 var(--font-reading);display:grid;gap:5px}
+.true-scale-controls input[type=range]{width:100%;accent-color:#b95d34;min-height:35px}
+.true-scale-control-row{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.true-scale-control-row>button{flex:1 1 110px}
+.true-scale-control-row label{display:flex;align-items:center;gap:8px;font:600 12px/1.4 var(--font-reading)}
+.true-scale-control-row select{min-height:44px;font:600 12px var(--font-reading);background:#fff;border:1px solid #a9a39b;padding:7px}
+.true-scale-checkbox{flex:1 1 190px;cursor:pointer}
+.true-scale-checkbox input{height:19px;width:19px;accent-color:#a75330}
+.true-scale-readout,.true-scale-selected{font:600 12px/1.6 var(--font-reading);padding:6px 19px 0;margin:0;color:#19394b}
+.true-scale-selected{color:#4f5c63}
+.true-scale-caveat{font:400 11px/1.65 var(--font-reading);color:#52606a;padding:9px 19px 18px;margin:0}
+@media(max-width:700px){.true-scale-flight-head{display:block;padding:16px 13px}.true-scale-flight-head button{width:100%;margin-top:13px}.true-scale-stage{aspect-ratio:5/5;max-height:52dvh;min-height:268px}.true-scale-focus-preset{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.true-scale-focus-preset button{padding:9px 6px}.true-scale-controls{padding:12px;gap:9px}.true-scale-control-row label{flex:1 1 auto}.true-scale-stage-legend{font-size:8px}.true-scale-readout,.true-scale-selected{padding:7px 12px 0}.true-scale-caveat{padding:9px 12px 16px}}
+@media(prefers-reduced-motion:reduce){.true-scale-flight *{transition:none!important;animation:none!important}}
+/* Visible educational reveal, with one uncluttered scale key. */
+.true-scale-reveal{position:absolute;left:50%;top:50%;width:min(84%,510px);transform:translate(-50%,-50%);z-index:2;margin:0;padding:19px 20px;background:rgba(5,19,36,.73);border:1px solid rgba(255,209,139,.54);box-shadow:0 12px 42px rgba(0,0,0,.2);text-align:center;color:#ffdda7;font:600 clamp(16px,2.4vw,25px)/1.45 var(--font-display);pointer-events:none;backdrop-filter:blur(4px)}
+.true-scale-reveal[hidden]{display:none}

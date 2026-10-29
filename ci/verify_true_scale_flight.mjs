@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {AU_KM,PLANET_ORBITS,SUN_DIAMETER_KM,radiusAUAtProgress,progressAtRadiusAU,physicalPlanetDiameterPx} from '../assets/js/not-to-scale-flight-math.js';
+const src=p=>readFileSync(p,'utf8');
+const page=src('pages/learn/not-to-scale/content.html');
+const html=src('public/learn/not-to-scale/index.html');
+const ctrl=src('assets/js/not-to-scale-flight.js');
+const core=src('assets/js/not-to-scale.js');
+const css=src('assets/css/style.css');
+assert.equal(AU_KM,149597870.7);
+assert.equal(PLANET_ORBITS.length,8);
+assert.equal(PLANET_ORBITS[2].name,'Earth');
+assert.equal(PLANET_ORBITS[7].name,'Neptune');
+assert.equal(radiusAUAtProgress(0),.55);
+assert.ok(Math.abs(radiusAUAtProgress(1)-35)<1e-8);
+for(const p of [0,.01,.1,.5,.72,.93,1])assert.ok(Math.abs(progressAtRadiusAU(radiusAUAtProgress(p))-p)<1e-10);
+assert.ok(radiusAUAtProgress(.25)<radiusAUAtProgress(.75));
+const earthDiameter=physicalPlanetDiameterPx(12756,35,330);
+assert.ok(earthDiameter<.01,'Earth should be effectively invisible in true size at 35 AU');
+assert.ok(physicalPlanetDiameterPx(142984,35,330)>earthDiameter);
+assert.ok(physicalPlanetDiameterPx(SUN_DIAMETER_KM,35,330)<.1);
+for(const bad of [-.1,1.1,Infinity,NaN])assert.throws(()=>radiusAUAtProgress(bad),RangeError);
+for(const bad of [0,-2,Infinity,NaN])assert.throws(()=>progressAtRadiusAU(bad),RangeError);
+assert.throws(()=>physicalPlanetDiameterPx(1,0,300),RangeError);
+for(const id of ['trueScaleFlight','trueScaleStage','trueScaleActivate','trueScaleCanvas','trueScaleFallback','trueScaleControls','trueScaleZoom','trueScaleSizeMode','trueScalePlay','trueScaleReverse','trueScalePlanet','trueScaleSelected','trueScaleReadout','trueScaleReveal']){
+ assert.match(page,new RegExp(`id="${id}"`));assert.match(html,new RegExp(`id="${id}"`));
+}
+assert.equal((page.match(/data-true-scale-focus="[^"]+"/g)||[]).length,4);
+assert.match(core,/import\('\.\/not-to-scale-flight\.js'\)/);
+assert.match(ctrl,/physicalPlanetDiameterPx\(p\.diameterKm,radiusAU,pxRadius\)/);
+assert.match(ctrl,/const ppau=pxRadius\/radiusAU/);
+assert.match(ctrl,/displayRadius=sizesAreTrue\?diameterPx\/2/);
+assert.match(ctrl,/reveal.hidden=!markerSize.checked/);
+assert.match(ctrl,/flightGoal=to;engine.start\(to\)/);
+assert.match(ctrl,/Math.abs\(p-flightGoal\)<\.0001/);
+assert.match(ctrl,/trueScaleSizeMode|#trueScaleSizeMode/);
+assert.match(ctrl,/const ro=new ResizeObserver\(resize\)/);
+assert.match(ctrl,/lastPinch|pinchLast/);
+assert.match(ctrl,/reduced\.matches/);
+assert.match(css,/\.true-scale-stage canvas\{width:100%;height:100%;display:block;cursor:grab;touch-action:none/);
+assert.match(html,/original linear size and logarithmic distance comparison below remains available/i);
+assert.match(html,/id="btnModeSize"/);
+assert.match(html,/id="btnModeDistance"/);
+assert.match(html,/rel="canonical"/);
+assert.match(html,/type="application\/ld\+json"/);
+console.log('PHYSICALLY_LINEAR_AU_CAMERA_SCALE_AND_TINY_BODIES_REGRESSION_PASS');

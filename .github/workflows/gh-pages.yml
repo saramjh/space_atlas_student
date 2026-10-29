@@ -62,6 +62,7 @@ jobs:
           node ci/verify_image_provenance.mjs
           node ci/verify_planet_3d.mjs
           node ci/verify_true_scale.mjs
+          node ci/verify_true_scale_flight.mjs
           node ci/verify_earth_moon_flight.mjs
           node ci/verify_science_truth.mjs
           node ci/verify_jeff_feedback.mjs

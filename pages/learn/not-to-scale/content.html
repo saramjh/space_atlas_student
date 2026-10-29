@@ -11,6 +11,30 @@
  <div class="wrap">
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Pick one: size, or distance. Not both.</h2></div></div>
 
+  <div class="true-scale-flight" id="trueScaleFlight" data-true-scale-flight="enabled">
+    <div class="true-scale-flight-head"><div><h3>Zoom until the planets disappear.</h3><p>Start near the Sun and pull back toward Neptune. The camera's distances remain physically proportional — and you'll see why classroom planet sizes must be enlarged.</p></div><button type="button" id="trueScaleActivate" aria-pressed="false" aria-controls="trueScaleCanvas" disabled>Explore the solar system by zoom</button></div>
+    <div class="true-scale-stage" id="trueScaleStage">
+      <div id="trueScaleFallback" class="true-scale-fallback" aria-label="Static solar-system overview. Actual distances must be compressed or shown with a scale ruler to fit all planets on one screen."><div class="true-scale-sun" aria-hidden="true"></div><p>From Mercury at 0.39 AU to Neptune at 30.05 AU, the empty distances grow much faster than the planet images.</p><p>Explore the zoomable model, or compare the original evidence diagrams below.</p></div>
+      <canvas id="trueScaleCanvas" hidden aria-label="Interactive logarithmic camera zoom through a solar-system map where displayed orbital radii follow actual AU ratios. Select symbols by tapping, pan orientation by dragging, zoom by wheel or pinch. Planet marker sizes can switch to physical diameter."></canvas>
+      <div class="true-scale-stage-legend" aria-hidden="true"><span>ORBIT POSITIONS · PHYSICAL AU RATIOS</span></div>
+      <p id="trueScaleReveal" class="true-scale-reveal" hidden>They vanished — because real planets are tiny compared with the space between them.</p>
+    </div>
+    <div class="true-scale-controls" id="trueScaleControls" hidden>
+      <div class="true-scale-focus-preset" role="group" aria-label="Jump between solar-system camera scales">
+        <button type="button" data-true-scale-focus="0">Mercury region</button><button type="button" data-true-scale-focus="0.265">Earth region</button><button type="button" data-true-scale-focus="0.72">Jupiter region</button><button type="button" data-true-scale-focus="1">Neptune region</button>
+      </div>
+      <label for="trueScaleZoom">Camera zoom: near Sun → outer solar system <input id="trueScaleZoom" type="range" min="0" max="1000" step="1" value="530"/></label>
+      <div class="true-scale-control-row">
+        <button id="trueScalePlay" type="button" aria-pressed="false">Fly outward</button><button id="trueScaleReverse" type="button" aria-pressed="false">Fly inward</button>
+        <label for="trueScalePlanet">Highlight <select id="trueScalePlanet"><option>Mercury</option><option>Venus</option><option selected>Earth</option><option>Mars</option><option>Jupiter</option><option>Saturn</option><option>Uranus</option><option>Neptune</option></select></label>
+        <label class="true-scale-checkbox" for="trueScaleSizeMode"><input id="trueScaleSizeMode" type="checkbox"/> Render physical planet diameters (tiny at distance)</label>
+      </div>
+      <p class="motion-preference-note">Reduced motion: the automatic fly-through is disabled; zoom and planet selection work manually.</p>
+    </div>
+    <p id="trueScaleReadout" class="true-scale-readout" role="status">Camera distance comparison ready.</p>
+    <p id="trueScaleSelected" class="true-scale-selected">Earth: approximate orbital separation and diameter appear here.</p>
+    <p class="true-scale-caveat">This is a <strong>schematic, top-down camera lens</strong>, not an observed planetary configuration or real space mission. Orbit radii use linear AU ratios, but shown planetary phases are arbitrary, paths are drawn circular and foreshortened for perspective, and space/background styling is artistic. Markers are deliberately oversized unless you select true diameters. A physically accurate body may be invisible at this scale. Camera zoom itself changes logarithmically; the underlying distances stay linear. No physical flight time or spacecraft velocity is implied. The original linear size and logarithmic distance comparison below remains available.</p>
+  </div>
   <div class="mode-toggle" role="group" aria-label="Select which aspect is shown to scale">
     <button id="btnModeSize" class="active" aria-pressed="true">Diameter · linear scale</button>
     <button id="btnModeDistance" aria-pressed="false">Distance · logarithmic scale</button>

@@ -15,3 +15,15 @@ function setMode(mode) {
 
 btnSize.onclick = () => setMode('size');
 btnDistance.onclick = () => setMode('distance');
+
+
+// Static size-accurate and log-distance diagrams are intentionally independent.
+// The cinematic AU zoom is progressive and never required to read the lesson.
+const trueScaleExperience=document.querySelector('#trueScaleFlight');
+if(trueScaleExperience?.dataset?.trueScaleFlight==='enabled'){
+  import('./not-to-scale-flight.js').catch(error=>{
+    console.warn('True-scale zoom lens unavailable; original comparison remains readable',error);
+    const status=trueScaleExperience.querySelector('#trueScaleReadout');
+    if(status)status.textContent='Interactive zoom unavailable; the two evidence diagrams below remain usable.';
+  });
+}
