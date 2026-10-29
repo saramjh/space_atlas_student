@@ -3,6 +3,33 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-29-teacher-classroom-preview-and-eclipse-control",
+      "date": "2026-10-29",
+      "category": "Classroom readiness and evidence-based visual controls",
+      "title": "Moon eclipse controls and isolated classroom-model preview",
+      "summary": "The eclipse teaching model now opens with a tilted lunar orbit, making node-alignment controls meaningfully change the side-on view from first interaction. A separate local teacher-supervised preview removes Google Analytics and AdSense scripts and serves the existing 3D engine locally.",
+      "students": "In the Moon Eclipses model, compare a New Moon at misaligned nodes with an aligned node. Moon phase prediction, transit brightness and galaxy viewing-angle controls continue to support manual scientific comparisons.",
+      "teachers": "The separately built classroom preview is a local, noindex research-preparation tool, not the publicly indexed site; it does not include Google ad or analytics calls. Four automated browser interaction tasks passed at 320, 390 and 1280 pixels and with reduced motion, but no real school, educator-supervised pupil, guardian consent, or measured learning study has taken place.",
+      "developers": "Added CLASSROOM_PREVIEW and strict output isolation to build.py, local MIT-licensed Three.js 0.179.1 importmap, disabled GA/AdSense in preview, script-less student data collection, classroom-build TDD, eclipse default tilt regression and actual Chromium 4/4 task-flow probes. Public first-load AdSense units fit 320/390/600/800px; after a 1280-to-390px browser resize a loaded Google 970px iframe persists, and reloading at 390px restores a 320px unit. Provider account settings and actual pupil studies were not changed.",
+      "links": [
+        {
+          "label": "Explore the new Moon eclipse alignment",
+          "path": "/moon/eclipses/"
+        },
+        {
+          "label": "Predict the first-quarter Moon phase",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Compare the galaxy viewing angle",
+          "path": "/galaxies/types/"
+        }
+      ],
+      "commits": [
+        "aeaa959"
+      ]
+    },
+    {
       "id": "2026-10-29-mobile-ad-svg-geometry-quality",
       "date": "2026-10-29",
       "category": "Mobile reading and visual reliability",

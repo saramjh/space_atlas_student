@@ -34,3 +34,8 @@ Release CI must run the two new Node regressions along with the existing science
 ## Verified production deployment
 
 Source release commit: 02b560eb6f5c9b4bb3403cad05a9806bea10c42d. GitHub Pages run 40811625204 completed SUCCESS for that exact source SHA. Actual public HTTPS HTTP200 for /moon/tides/, /solar-system/gravity-comparison/ and /assets/css/style.css with new exact sizes and radius geometry. In live 320px Chromium a temporarily simulated publisher unit measured 280px wide centered at x20 to x300 with document scrollWidth 320. Separate automatic Google ad elements remained present and were not hidden; their actual filled inventory was not verified. In live 390px Chromium the Gravity radius line had y116, contrasting gold stroke and explicit offset explanation. All 13 Python +30 Node scientific/UX/SEO/ad/vector regressions and JavaScript syntax were green before committing.
+
+
+## Later controlled initial-viewport forensic correction
+
+A subsequent browser investigation revealed that the earlier live 645–680px measurements arose when the browser loaded a 970px Google ad at desktop width1280 and was **resized to mobile after the ad request**. In separate tests where the viewport was set before first load, 320/390/600/800px all fit. Moon Phases table has its own intentional horizontal scroll container and does not cause a document overflow on first mobile load. Reloading at390 after a desktop-to-mobile resize recreates the ad at320px and clears the overflow. See docs/ADSENSE_AND_SUPERVISED_CLASSROOM_FINAL_AUDIT_20261029.md; provider post-load resizing behavior and actual AdSense site settings remain separate from publisher first-load CSS.
