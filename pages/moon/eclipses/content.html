@@ -17,7 +17,7 @@
     <div class="eclipse-controls">
       <button type="button" id="btnSolarPos" disabled>Jump to new moon (solar eclipse position)</button>
       <button type="button" id="btnLunarPos" disabled>Jump to full moon (lunar eclipse position)</button>
-      <label><input type="checkbox" id="tiltToggle" disabled /> Illustrate orbital tilt — drawn as 15° for clarity; real tilt ~5.1°</label>
+      <label><input type="checkbox" id="tiltToggle" checked disabled /> Illustrate orbital tilt — drawn as 15° for clarity; real tilt ~5.1°</label>
     </div>
     <input type="range" id="eclipseAngle" disabled min="0" max="360" value="0" step="1" aria-label="Moon's position around Earth, in degrees" style="width:calc(100% - 44px);margin:0 22px 18px;accent-color:var(--accent)" />
     <div class="eclipse-node-controls">
@@ -27,7 +27,7 @@
         <button type="button" data-eclipse-node="0" disabled>0°: nodes along Sun–Earth line</button>
         <button type="button" data-eclipse-node="90" disabled>90°: nodes away from Sun–Earth line</button>
       </div>
-      <p id="eclipseNodeNote">An eclipse requires a new or full moon near the tilted orbit's nodes. Change node orientation to test an alignment versus an orbital-plane miss.</p>
+      <p id="eclipseNodeNote">An eclipse requires a new or full moon near the tilted orbit's nodes. Change node orientation to test an alignment versus an orbital-plane miss. Node direction changes are meaningful only with tilt enabled; turn tilt off to compare the imaginary zero-tilt orbit.</p>
     </div>
     <div class="eclipse-play-row">
       <button type="button" id="eclipsePlay" aria-pressed="false" disabled>Play one Moon orbit</button>
@@ -70,7 +70,7 @@
       </svg>
       <figcaption>Side-on educational diagram · body sizes, distances and the 15° drawn inclination are not to scale. <strong id="eclipseOffset">The Moon's model offset from the ecliptic plane is 0.00 orbital radii.</strong></figcaption>
     </figure>
-    <div class="eclipse-readout" id="eclipseReadout" role="status" aria-live="polite"><strong>New Moon alignment.</strong> An eclipse needs a new or full moon AND close alignment with the Moon's orbital nodes. Rotate the Moon's orbital nodes: a new/full Moon can be exactly on the reference plane or miss it. This is a model, not a prediction of an actual eclipse.</div>
+    <div class="eclipse-readout" id="eclipseReadout" role="status" aria-live="polite"><strong>New Moon misses the reference plane.</strong> With orbital tilt on and the node line 90° away, the Moon passes above or below the reference plane. Move the nodes to 0° to see alignment become possible. This is an educational model, not an actual eclipse forecast.</div>
   </div>
  </div>
 </section>

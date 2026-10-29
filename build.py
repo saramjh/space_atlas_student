@@ -21,14 +21,27 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 TEMPLATES = ROOT / "templates"
 PAGES = ROOT / "pages"
+CLASSROOM_PREVIEW = os.environ.get("CLASSROOM_PREVIEW", "").lower() in {"1", "true", "yes"}
 PUBLIC = ROOT / "public"
+if CLASSROOM_PREVIEW:
+    # Private teacher preview must never overwrite the deployable public tree.
+    custom = os.environ.get("SITE_OUTPUT_DIR", "").strip()
+    if not custom or not Path(custom).is_absolute():
+        raise ValueError("CLASSROOM_PREVIEW requires an explicit absolute SITE_OUTPUT_DIR")
+    candidate = Path(custom).resolve()
+    if candidate == ROOT or candidate == ROOT / "public" or ROOT in candidate.parents:
+        raise ValueError("CLASSROOM_PREVIEW output must be outside the repository")
+    if candidate == Path("/") or candidate == Path.home():
+        raise ValueError("Refusing unsafe classroom preview output")
+    PUBLIC = candidate
 
 # GitHub Pages project sites (https://<user>.github.io/<repo>/) are served
 # from a subpath, not the domain root — a plain "/assets/..." link resolves
 # against the *domain* root and 404s. SITE_BASE is prepended to every
 # internal absolute link (nav hrefs, stylesheet/favicon/script src).
 SITE_BASE = os.environ.get("SITE_BASE", "").rstrip("/")
-ADSENSE_ENABLED = os.environ.get("ADSENSE_ENABLED", "").lower() in {"1", "true", "yes"}
+ADSENSE_ENABLED = (not CLASSROOM_PREVIEW
+    and os.environ.get("ADSENSE_ENABLED", "").lower() in {"1", "true", "yes"})
 SITE_URL = "https://saramjh.github.io/space_atlas_student/"
 ADSENSE_PRIMARY_SLOT = "2983244729"
 ADSENSE_SECONDARY_SLOT = "1670163057"
@@ -230,6 +243,22 @@ def build_structured_data(meta):
     )
 
 
+def analytics_head():
+    """Production GA4 retained. An isolated supervised preview suppresses it."""
+    if CLASSROOM_PREVIEW:
+        return ""
+    return (
+        '<!-- Google tag (gtag.js) -->\n'
+        '<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTCVV5XRD3"></script>\n'
+        '<script>\n'
+        '  window.dataLayer = window.dataLayer || [];\n'
+        '  function gtag(){dataLayer.push(arguments);}\n'
+        "  gtag('js', new Date());\n"
+        "  gtag('config', 'G-DTCVV5XRD3', { content_group: 'Space Atlas' });\n"
+        '</script>'
+    )
+
+
 def adsense_head():
     if not ADSENSE_ENABLED:
         return ""
@@ -341,6 +370,17 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_ve
         "{{TOPIC_COUNT}}": str(topic_count),
         "{{CSS_VERSION}}": css_version,
         "{{STRUCTURED_DATA}}": build_structured_data(meta),
+        "{{ANALYTICS_HEAD}}": analytics_head(),
+        "{{THREE_MODULE_IMPORT}}": (
+            SITE_BASE + "/assets/vendor/three/build/three.module.js"
+            if CLASSROOM_PREVIEW
+            else "https://unpkg.com/three@0.179.1/build/three.module.js"
+        ),
+        "{{THREE_ADDONS_IMPORT}}": (
+            SITE_BASE + "/assets/vendor/three/examples/jsm/"
+            if CLASSROOM_PREVIEW
+            else "https://unpkg.com/three@0.179.1/examples/jsm/"
+        ),
         "{{ADSENSE_HEAD}}": "" if meta.get("adFree") else adsense_head(),
         "{{AD_PRIMARY}}": render_ad_slot(ad_slot, ADSENSE_PRIMARY_SLOT, "primary"),
         "{{AD_SECONDARY}}": (
@@ -367,6 +407,21 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_ve
         else ""
     )
     html = html.replace("{{SCRIPT}}", script_tag)
+    if CLASSROOM_PREVIEW:
+        # Do not index or accidentally present a classroom build as production.
+        html = html.replace(
+            '<meta name="robots" content="max-image-preview:large" />',
+            '<meta name="robots" content="noindex,nofollow,noarchive" />',
+        )
+        html = html.replace(
+            '<body>',
+            '<body data-classroom-preview="true">\n'
+            '<div class="classroom-preview-notice" role="note">'
+            '<strong>Teacher-supervised classroom preview.</strong> '
+            'Google Analytics and AdSense scripts are disabled in this copy. '
+            'External resources and applicable student privacy rules still need educator review.'
+            '</div>',
+        )
     return html
 
 
@@ -423,9 +478,17 @@ def write_search_index(pages):
 
 
 def main():
+    if CLASSROOM_PREVIEW and PUBLIC.exists():
+        marker = PUBLIC / ".space-atlas-classroom-preview"
+        if any(PUBLIC.iterdir()) and not marker.is_file():
+            raise ValueError("Refusing to delete non-preview classroom output")
     if PUBLIC.exists():
         shutil.rmtree(PUBLIC)
     PUBLIC.mkdir(parents=True)
+    if CLASSROOM_PREVIEW:
+        (PUBLIC / ".space-atlas-classroom-preview").write_text(
+            "Space Atlas local teacher preview; safe to regenerate.\n", encoding="utf-8"
+        )
 
     layout = read(TEMPLATES / "layout.html")
     nav = read(TEMPLATES / "nav.html")
@@ -445,6 +508,15 @@ def main():
 
     if (ROOT / "assets").is_dir():
         shutil.copytree(ROOT / "assets", PUBLIC / "assets")
+    if CLASSROOM_PREVIEW:
+        vendor = ROOT / "data/vendor/three"
+        for relative in (
+            "build/three.module.js", "build/three.core.js",
+            "examples/jsm/controls/OrbitControls.js", "LICENSE"
+        ):
+            if not (vendor / relative).is_file():
+                raise FileNotFoundError(f"Classroom preview missing three.js vendor {relative}")
+        shutil.copytree(vendor, PUBLIC / "assets/vendor/three")
     if (ROOT / "robots.txt").is_file():
         shutil.copy(ROOT / "robots.txt", PUBLIC / "robots.txt")
 

@@ -23,16 +23,7 @@
 <!-- Structured data is generated from each page's metadata. -->
 {{STRUCTURED_DATA}}
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTCVV5XRD3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-DTCVV5XRD3', { content_group: 'Space Atlas' });
-</script>
-
-{{ADSENSE_HEAD}}
+{{ANALYTICS_HEAD}}\n\n{{ADSENSE_HEAD}}
 
 <!-- Primary learner reading face is local and non-blocking; headings/data load from CSS on demand. -->
 <link rel="preload" as="font" type="font/woff2" href="{{BASE}}/assets/fonts/atkinson-hyperlegible-next-latin.woff2" crossorigin />
@@ -40,8 +31,8 @@
 <script type="importmap">
 {
   "imports": {
-    "three": "https://unpkg.com/three@0.179.1/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.179.1/examples/jsm/"
+    "three": "{{THREE_MODULE_IMPORT}}",
+    "three/addons/": "{{THREE_ADDONS_IMPORT}}"
   }
 }
 </script>

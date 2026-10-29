@@ -47,6 +47,7 @@ jobs:
           python3 ci/verify_seasons_no_tilt_classroom.py
           python3 ci/verify_footer.py
           python3 ci/verify_user_flows.py
+          python3 ci/verify_classroom_preview.py
           python3 ci/verify_ui_controls.py
           python3 ci/verify_mobile_header.py
           python3 ci/verify_navigation_dropdowns.py
@@ -65,6 +66,7 @@ jobs:
           node ci/verify_moon_diagram_visibility.mjs
           node ci/verify_black_hole_lab.mjs
           node ci/verify_eclipse_node_lab.mjs
+          node ci/verify_eclipse_default_teaching.mjs
           node ci/verify_season_sunlight.mjs
           node ci/verify_tidal_face_lab.mjs
           node ci/verify_gravity_vector_lab.mjs

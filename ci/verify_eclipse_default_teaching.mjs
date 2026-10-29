@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const read=p=>readFileSync(p,'utf8');
+const page=read('pages/moon/eclipses/content.html');
+const built=read('public/moon/eclipses/index.html');
+assert.match(page,/id="tiltToggle" checked disabled/,'Initial real lunar orbit should have tilt enabled so node changes show an effect');
+assert.match(built,/id="tiltToggle" checked disabled/,'Built page must start with the causal model');
+assert.match(page,/node direction changes are meaningful only with tilt enabled/i);
+assert.match(page,/New Moon.*misses.*plane/i);
+assert.match(read('assets/js/eclipses.js'),/tiltToggle\.checked/);
+const {eclipseModel}=await import('../assets/js/eclipse-geometry.js');
+const missed=eclipseModel({phaseDeg:0,nodeDeg:90,tilted:true});
+const aligned=eclipseModel({phaseDeg:0,nodeDeg:0,tilted:true});
+assert.ok(Math.abs(missed.normalizedHeight)>.2);
+assert.ok(Math.abs(aligned.normalizedHeight)<1e-6);
+console.log('ECLIPSE_DEFAULT_TEACHING_GATE_PASS physical 2-state prediction and discoverable control');

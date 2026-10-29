@@ -1271,3 +1271,8 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 
 .bh-figure-toolbar .bh-activate:disabled,.galaxy-view-switch:disabled{cursor:not-allowed;opacity:.65}
 .viz-noscript-note{font-size:14px;line-height:1.6;margin:3px 0;color:inherit}
+
+
+/* Local teacher-only preview, never included in normal production markup. */
+.classroom-preview-notice{background:#e7eee9;color:#21372f;padding:12px 20px;font:500 14px/1.5 var(--font-reading);border-bottom:2px solid #2f6b51}
+.classroom-preview-notice strong{font-weight:700}
