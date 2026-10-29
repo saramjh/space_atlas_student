@@ -12,6 +12,56 @@ const stage = document.querySelector('#mwStage');
 const dots = document.querySelector('#mwDots');
 const prevBtn = document.querySelector('#mwPrev');
 const nextBtn = document.querySelector('#mwNext');
+const mw3DActivate=document.querySelector('#mw3DActivate');
+const mw3DFrame=document.querySelector('#mwSpatialFrame');
+const mw3DCanvas=document.querySelector('#mwSpatialCanvas');
+const mw3DActions=document.querySelector('#mw3DActions');
+const mw3DReadout=document.querySelector('#mw3DReadout');
+let mw3DEngine=null, mw3DLoading=false;
+function update3DFocus(){
+ if(!mw3DEngine||mw3DFrame.hidden)return;
+ if(index<=1){
+  mw3DEngine.focusSun();
+  mw3DReadout.textContent=`Stage ${index+1}/4: camera approaches the Sun's approximate position within the Orion Spur (illustrative viewpoint, not an actual 3D star map).`;
+ }else{
+  mw3DEngine.overview();
+  mw3DReadout.textContent=`Stage ${index+1}/4: galactic overview. The cyan Sun reference is about 26,000 light-years from the center; the orange marker follows the separate hypothetical-distance slider.`;
+ }
+}
+function show3D(visible){
+ mw3DFrame.hidden=!visible;mw3DActions.hidden=!visible;
+ mw3DActivate.setAttribute('aria-pressed',String(visible));
+ mw3DActivate.textContent=visible?'Return to radial 2D reference':'Enter the 3D galaxy';
+ if(!visible){mw3DEngine?.suspend();mw3DReadout.textContent='The precise distance reference below works without 3D.';}
+ else{mw3DEngine?.resize();mw3DEngine?.setHypotheticalDistance(document.querySelector('#mwDistanceSlider').value);update3DFocus();}
+}
+mw3DActivate.addEventListener('click',async()=>{
+ if(mw3DLoading)return;
+ if(mw3DEngine){show3D(mw3DFrame.hidden);return;}
+ mw3DLoading=true;mw3DActivate.disabled=true;
+ mw3DActivate.textContent='Loading local 3D galaxy…';
+ mw3DReadout.textContent='Initializing WebGL. The radial ruler below remains usable.';
+ try{
+  const {createGalaxy3D}=await import('./galaxy-3d.js');
+  mw3DFrame.hidden=false;
+  mw3DEngine=await createGalaxy3D(mw3DCanvas,mw3DFrame,()=>{}, {galacticAddress:true});
+  show3D(true);
+ }catch(error){
+  mw3DFrame.hidden=true;mw3DActions.hidden=true;
+  mw3DActivate.textContent='Retry spatial model';
+  mw3DReadout.textContent='3D is unavailable on this device. The 2D radial ruler and NASA explanations remain accessible.';
+  console.warn('Milky Way 3D failed; retaining accessible source diagram',error);
+ }finally{mw3DLoading=false;mw3DActivate.disabled=false;}
+});
+for(const [selector,handler] of [
+ ['#mw3DOverview',()=>mw3DEngine?.overview()],
+ ['#mw3DFocusSun',()=>mw3DEngine?.focusSun()],
+ ['#mw3DZoomIn',()=>mw3DEngine?.zoomBy(.78)],
+ ['#mw3DZoomOut',()=>mw3DEngine?.zoomBy(1.28)],
+ ['#mw3DRotateLeft',()=>mw3DEngine?.rotateBy(-.27)],
+ ['#mw3DRotateRight',()=>mw3DEngine?.rotateBy(.27)],
+]) document.querySelector(selector).addEventListener('click',handler);
+mw3DActivate.disabled=false;
 
 STEPS.forEach(() => dots.appendChild(document.createElement('span')));
 
@@ -26,6 +76,7 @@ function render() {
   [...dots.children].forEach((d, i) => d.classList.toggle('active', i === index));
   prevBtn.disabled = index === 0;
   nextBtn.disabled = index === STEPS.length - 1;
+  update3DFocus();
 }
 prevBtn.onclick = () => { if (index > 0) { index--; render(); } };
 nextBtn.onclick = () => { if (index < STEPS.length - 1) { index++; render(); } };
@@ -43,6 +94,7 @@ function setExploreDistance(distanceLy) {
   const bounded = Math.max(0, Math.min(MW_RADIUS_LY, Number(distanceLy) || 0));
   mwSlider.value = String(bounded);
   mwMarker.setAttribute('cx', String(MW_CENTER_X + bounded / MW_RADIUS_LY * MW_RADIUS_SVG));
+  mw3DEngine?.setHypotheticalDistance(bounded);
   mwReadout.textContent = `Hypothetical distance: ${bounded.toLocaleString('en-US')} light-years · ${Math.round(bounded / MW_RADIUS_LY * 100)}% of a nominal galactic disk radius. The Sun remains at ≈ 26,000 light-years.`;
 }
 mwSlider?.addEventListener('input', () => setExploreDistance(mwSlider.value));

@@ -17,7 +17,7 @@ assert.match(controller,/stopDrift\(\)/);
 assert.match(engine,/pointerdown/);assert.match(engine,/pointermove/);
 assert.match(engine,/pointercancel/);assert.match(engine,/setPointerCapture/);
 assert.match(engine,/passive:false/);
-assert.match(engine,/targetDistance = clamp\(targetDistance \* factor, 8\.8, 27\)/);
+assert.match(engine,/targetDistance = clamp\(targetDistance \* factor, addressMode\?5:8\.8, 27\)/);
 assert.match(engine,/Math\.exp\(-14 \* dt\)/);
 assert.match(engine,/prefers-reduced-motion/);
 assert.match(engine,/devicePixelRatio/);

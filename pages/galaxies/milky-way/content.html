@@ -17,6 +17,24 @@
       <div class="zoom-dots" id="mwDots"></div>
       <button id="mwNext">Zoom out →</button>
     </div>
+    <div class="mw-spatial-experience" id="mwSpatialExperience">
+      <div class="mw-spatial-heading"><div><h3>Explore the Milky Way from the outside.</h3><p>A spatial artist's reconstruction of a barred spiral galaxy. Locate the Sun's radial position, then move your viewpoint into its neighborhood.</p></div>
+        <button type="button" id="mw3DActivate" aria-controls="mwSpatialCanvas" aria-pressed="false" disabled>Enter the 3D galaxy</button></div>
+      <div class="mw-spatial-frame" id="mwSpatialFrame" hidden>
+        <canvas id="mwSpatialCanvas" aria-label="Artist's 3D spiral galaxy. Drag to orbit, scroll or pinch to zoom; use the native camera buttons for keyboard access."></canvas>
+        <div class="mw-spatial-overlay" aria-hidden="true"><span>GALACTIC ADDRESS · ARTIST'S MODEL</span><span class="mw-spatial-pin">● SUN / ORION SPUR ~26,000 LY · ○ HYPOTHETICAL LOCATION</span></div>
+      </div>
+      <div class="mw-spatial-actions" id="mw3DActions" hidden role="group" aria-label="3D Milky Way camera controls">
+        <button type="button" id="mw3DOverview">Galaxy overview</button>
+        <button type="button" id="mw3DFocusSun">Focus on the Sun</button>
+        <button type="button" id="mw3DZoomIn">Zoom in +</button>
+        <button type="button" id="mw3DZoomOut">Zoom out −</button>
+        <button type="button" id="mw3DRotateLeft" aria-label="Rotate camera left">Rotate left</button>
+        <button type="button" id="mw3DRotateRight" aria-label="Rotate camera right">Rotate right</button>
+      </div>
+      <p class="mw-spatial-readout" id="mw3DReadout" role="status">The precise distance reference below works without 3D.</p>
+      <p class="mw-spatial-caveat">This is <strong>not a telescope photograph or a measured 3D star map</strong>. Spiral arms, dust, stars, viewing direction and camera distances are illustrative; <strong>the Sun's approximate 26,000-light-year distance from the galactic center</strong> is grounded in NASA references. The nominal 50,000-light-year disk radius has no hard physical boundary. The orange position marker is hypothetical and does not move the real Sun.</p>
+    </div>
     <div class="mw-address-lab" id="mwAddressLab">
       <div class="mw-address-heading">
         <h3>How far from the galactic center are we?</h3>

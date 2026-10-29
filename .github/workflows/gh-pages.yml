@@ -78,6 +78,7 @@ jobs:
           node ci/verify_transit_cinematic.mjs
           node ci/verify_visual_wave3.mjs
           node ci/verify_galaxy_immersive.mjs
+          node ci/verify_milky_way_spatial.mjs
           node ci/verify_cosmic_cinema.mjs
           node ci/verify_learner_flow_ux.mjs
           node ci/verify_mobile_ad_slots.mjs
