@@ -17,8 +17,10 @@ Then start a private local HTTP server:
     python3 -m http.server 8998 --bind 127.0.0.1 \
       --directory /tmp/spaceatlas-classroom/site
 
-Use localhost:8998/space_atlas_student/moon/phases/ and the other routes
-below. The build removes Google Analytics/AdSense scripts, has local
+Start with localhost:8998/space_atlas_student/teacher-guide.html for a
+printable adult-only guide. Every classroom preview page also links to this
+guide in its top banner. Open localhost:8998/space_atlas_student/moon/phases/
+and the other lesson routes listed below. The build removes Google Analytics/AdSense scripts, has local
 Three.js modules, retains static educational media, and is noindex.
 Production files are unchanged. A teacher must review school privacy
 and safeguarding requirements before a real supervised session. This is

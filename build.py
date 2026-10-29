@@ -419,7 +419,8 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_ve
             '<div class="classroom-preview-notice" role="note">'
             '<strong>Teacher-supervised classroom preview.</strong> '
             'Google Analytics and AdSense scripts are disabled in this copy. '
-            'External resources and applicable student privacy rules still need educator review.'
+            'External resources and applicable student privacy rules still need educator review. '
+            f'<a href="{SITE_BASE}/teacher-guide.html">Teacher guide and activity sheet</a>'
             '</div>',
         )
     return html
@@ -517,6 +518,8 @@ def main():
             if not (vendor / relative).is_file():
                 raise FileNotFoundError(f"Classroom preview missing three.js vendor {relative}")
         shutil.copytree(vendor, PUBLIC / "assets/vendor/three")
+        guide = read(TEMPLATES / "classroom-facilitator.html").replace("{{BASE}}", SITE_BASE)
+        (PUBLIC / "teacher-guide.html").write_text(guide, encoding="utf-8")
     if (ROOT / "robots.txt").is_file():
         shutil.copy(ROOT / "robots.txt", PUBLIC / "robots.txt")
 

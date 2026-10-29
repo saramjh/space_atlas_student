@@ -134,3 +134,18 @@ scheduled tasks were created as part of this implementation.
   provider-side behavior/account-side configuration remains external.
 - CLASSROOM_TECHNICAL_READINESS: implemented and scripted4/4 pass.
 - AUTHORIZED_REAL_PUPIL_STUDY: NOT CONDUCTED, pending human authorization.
+
+## Additional classroom readiness verification
+
+A strictly local teacher-guide.html (not part of the public 29-page GitHub
+Pages site) offers printable educator-only instructions, actual links to
+four experiments, expected scientific findings, a privacy/consent warning
+and a deliberately blank anonymous outcome tally. The preview banner
+links the guide on every local classroom page. At320px Chromium the
+guide's 373px tally table scrolls within its own 290px region,
+while document scrollWidth remains320px. All30 local routes including
+teacher guide were tested in same-origin Chromium; no automatic
+cross-origin resource requests or GA4/AdSense scripts were detected
+in the tested startup navigation path. This is not a network firewall
+or a substitute for institutional privacy approval, and no child
+participants have been recruited or evaluated.

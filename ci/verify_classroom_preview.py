@@ -28,8 +28,17 @@ with tempfile.TemporaryDirectory(prefix='space-atlas-classroom-test-') as parent
   assert 'adsbygoogle.js' not in s,path
   assert '<ins class="adsbygoogle' not in s,path
   assert 'classroom-preview' in s,path
+  assert 'href="/space_atlas_student/teacher-guide.html"' in s,path
   assert '<meta name="robots" content="noindex,nofollow,noarchive"' in s,path
  assert (dest/'moon/eclipses/index.html').is_file()
+
+ teacher=dest/'teacher-guide.html'
+ assert teacher.is_file(), 'Printable teacher guide must be bundled in isolated preview'
+ guide=teacher.read_text()
+ for token in ('Moon Phases','Moon Eclipses','Transit method','Galaxy viewing angle','consent','not conducted','noindex'):
+  assert token.lower() in guide.lower(),f'teacher guide missing {token}'
+ assert not any(tag in guide.lower() for tag in ('adsbygoogle','googletagmanager','<script','<form','https://'))
+ assert 'class="tally-scroll"' in guide and 'overflow-x:auto' in guide
  assert 'id="eclipseNode"' in (dest/'moon/eclipses/index.html').read_text()
  assert before==digest(public_home),'Classroom build touched production public tree'
  print('CLASSROOM_PREVIEW_PASS',len(pages),'pages no GA4/AdSense tags, noindex, public unchanged')
