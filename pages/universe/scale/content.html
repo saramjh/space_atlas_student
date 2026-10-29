@@ -12,11 +12,22 @@
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Eight zoom-outs.</h2></div></div>
   <div class="scale-compare" data-growth-model>
     <div class="zoom-stage" id="zoomStage" aria-live="polite" aria-atomic="true">
-      <div class="zoom-step-no">Step 1 of 8</div>
-      <div class="zoom-title">You</div>
-      <div class="zoom-size">~1.7 m tall</div>
-      <p class="zoom-desc">Everything else on this ladder is measured relative to something you already understand: your own height.</p>
+      <div class="zoom-cinema-frame" id="zoomCinemaFrame" hidden>
+        <canvas id="zoomCinemaCanvas" tabindex="0" aria-label="Illustrative cosmic scale scene. Use Left and Right arrows, mouse wheel, or pinch to move among eight steps. Not drawn to physical scale."></canvas>
+        <div class="zoom-cinema-legend" aria-hidden="true"><span>THE COSMIC JOURNEY · ILLUSTRATION</span><span>WHEEL / PINCH TO ZOOM</span></div>
+      </div>
+      <div class="zoom-stage-copy" id="zoomStageCopy">
+        <div class="zoom-step-no">Step 1 of 8</div>
+        <div class="zoom-title">You</div>
+        <div class="zoom-size">~1.7 m tall</div>
+        <p class="zoom-desc">Everything else on this ladder is measured relative to something you already understand: your own height.</p>
+      </div>
     </div>
+    <div class="zoom-cinema-init">
+      <button type="button" id="zoomCinemaActivate" aria-pressed="false" aria-controls="zoomCinemaFrame" disabled>Enter the illustrated cosmic journey</button>
+      <span id="zoomCinemaStatus" role="status">The precise logarithmic ruler below remains available without this illustration.</span>
+    </div>
+    <p class="cosmic-visual-note">The cinematic scene is an <strong>artist's conceptual illustration</strong>, not a continuous physically scaled journey. Each step compares a different measure (height, diameter, orbital span or separation); the ruler and reference table give the numerical scale.</p>
     <div class="cosmic-visual" aria-labelledby="cosmicRulerTitle">
       <div class="cosmic-visual-head"><strong id="cosmicRulerTitle">A ruler across 27 powers of ten</strong><span>Size / separation in metres · logarithmic scale</span></div>
       <div class="cosmic-ruler-viewport" tabindex="0" aria-label="Scrollable logarithmic scale from about one metre to 10 to the power 27 metres; numbered markers select a step">

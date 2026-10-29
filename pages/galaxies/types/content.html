@@ -70,7 +70,8 @@
         </g>
         <text x="13" y="19" font-size="10" font-family="ui-monospace,monospace" fill="#d5e3f2">Geometric illustration · not a telescope image</text>
       </svg>
-      <canvas id="galaxy3DCanvas" class="galaxy-3d-canvas" hidden aria-hidden="true"></canvas>
+      <canvas id="galaxy3DCanvas" class="galaxy-3d-canvas" hidden aria-label="Illustrative three-dimensional spiral galaxy. Drag to orbit; scroll or pinch to zoom. Use the labeled buttons for keyboard control." role="img"></canvas>
+      <div class="galaxy-3d-overlay" id="galaxy3DOverlay" hidden aria-hidden="true"><span>ILLUSTRATIVE GALAXY · INTERACTIVE VIEW</span><span>DRAG TO ORBIT · SCROLL / PINCH TO ZOOM</span></div>
       </div>
       <button type="button" id="galaxy3DActivate" class="galaxy-view-switch" aria-pressed="false" aria-controls="galaxy3DCanvas" disabled>Explore this galaxy in 3D</button>
       <p class="viz-load-status" id="galaxy3DStatus" role="status" hidden></p>
@@ -87,10 +88,16 @@
           <button type="button" data-galaxy-angle="80" aria-pressed="false">Edge-on</button>
         </div>
         <div class="galaxy-3d-actions">
+          <div class="galaxy-zoom-actions" role="group" aria-label="3D galaxy camera zoom and reset" id="galaxyZoomActions" hidden>
+            <button type="button" id="galaxyZoomIn" aria-label="Zoom closer to the galaxy">Zoom in +</button>
+            <button type="button" id="galaxyZoomOut" aria-label="Zoom farther from the galaxy">Zoom out −</button>
+            <button type="button" id="galaxyCameraReset">Reset camera</button>
+            <button type="button" id="galaxyOrbitMotion" aria-pressed="false">Animate stellar drift</button>
+          </div>
 
           <button type="button" id="galaxy3DPlay" aria-pressed="false">Sweep viewing angle (8 s)</button><span class="motion-preference-note">Motion is off because your device requests reduced motion. Use the viewing-angle slider or presets.</span>
         </div>
-        <p class="galaxy-3d-note">3D uses generated stars in spiral arms with an illustrative central bulge — <strong>not a telescope photo or a reconstruction of real star positions</strong>. The disk does not physically change type when your viewing angle changes.</p>
+        <p class="galaxy-3d-note">3D uses generated stars in spiral arms with an illustrative central bulge — <strong>not a telescope photo or a reconstruction of real star positions</strong>. The disk does not physically change type when your viewing angle changes. <strong>Optional stellar drift is dramatically time-compressed and illustrates differential motion, not measured orbital speeds or physical ages.</strong></p>
         <p class="galaxy-view-note">This is a <strong>geometric projection of one illustrative disk</strong>, not a physical 3D observation. Real spiral galaxies also contain central bulges, gas and dust, so their appearance depends on more than inclination.</p>
       </div>
     </div>

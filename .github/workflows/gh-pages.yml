@@ -73,6 +73,8 @@ jobs:
           node ci/verify_gravity_vector_lab.mjs
           node ci/verify_transit_motion.mjs
           node ci/verify_visual_wave3.mjs
+          node ci/verify_galaxy_immersive.mjs
+          node ci/verify_cosmic_cinema.mjs
           node ci/verify_learner_flow_ux.mjs
           node ci/verify_mobile_ad_slots.mjs
           node ci/verify_ad_resize_recovery.mjs

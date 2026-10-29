@@ -1225,7 +1225,12 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .galaxy-view-visual>svg,.galaxy-view-visual>canvas{display:block;width:100%;height:100%}
 .galaxy-view-visual>canvas{position:absolute;inset:0}
 .galaxy-view-visual>svg[hidden],.galaxy-view-visual>canvas[hidden]{display:none}
+ .galaxy-3d-canvas:not([hidden]){cursor:grab;touch-action:none;overscroll-behavior:contain}
+.galaxy-3d-canvas:not([hidden]):active{cursor:grabbing}
+.galaxy-3d-overlay{position:absolute;left:12px;right:12px;bottom:12px;pointer-events:none;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#f2e4c6;text-shadow:0 1px 8px #050912;font:600 10px/1.5 var(--font-data);letter-spacing:.075em}
+.galaxy-3d-overlay[hidden],.galaxy-zoom-actions[hidden]{display:none}
 .galaxy-3d-actions{display:flex;flex-wrap:wrap;gap:8px}
+.galaxy-zoom-actions{display:flex;flex-wrap:wrap;gap:8px;width:100%}
 .galaxy-3d-actions button{background:#172b3b;color:#fff;border:1px solid #72848d;padding:10px 12px;min-height:44px;font:600 14px/1.4 var(--font-reading);cursor:pointer}
 .galaxy-3d-actions button[aria-pressed=true]{background:#a15b34}
 .galaxy-3d-actions button:disabled{opacity:.5;cursor:not-allowed}
@@ -1279,3 +1284,36 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 /* Local teacher-only preview, never included in normal production markup. */
 .classroom-preview-notice{background:#e7eee9;color:#21372f;padding:12px 20px;font:500 14px/1.5 var(--font-reading);border-bottom:2px solid #2f6b51}
 .classroom-preview-notice strong{font-weight:700}
+
+/* The camera stage is the primary interaction on the galaxy-type lesson.
+   Keep the text and physical caveats adjacent, but don't confine space to a thumbnail. */
+.galaxy-view-layout{grid-template-columns:minmax(0,1fr);align-items:stretch;gap:16px}
+.galaxy-view-visual{aspect-ratio:16/9;min-height:290px;max-height:min(620px,70dvh);overflow:hidden;border:1px solid #24374b}
+.galaxy-view-tools{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;align-content:start}
+.galaxy-3d-actions{align-items:center}
+.galaxy-zoom-actions button{min-width:104px}
+@media(max-width:600px){
+ .galaxy-view-visual{aspect-ratio:6/5;min-height:265px;max-height:56dvh}
+ .galaxy-3d-overlay{font-size:9px;left:9px;right:9px;bottom:9px}
+ .galaxy-3d-actions button{width:auto;flex:1 1 120px}
+ .galaxy-zoom-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .galaxy-zoom-actions button{min-width:0;width:100%}
+}
+
+/* Opt-in cosmic scale scene; the physically accurate logarithmic ruler stays below. */
+.scale-compare .zoom-stage{padding:0;display:flex;flex-direction:column;gap:0}
+.zoom-cinema-frame{position:relative;isolation:isolate;overflow:hidden;background:#070f21;aspect-ratio:16/7;min-height:280px;max-height:min(620px,66dvh);border:1px solid #243c53}
+.zoom-cinema-frame[hidden]{display:none}
+.zoom-cinema-frame canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab;overscroll-behavior:contain}
+.zoom-cinema-frame canvas:active{cursor:grabbing}
+.zoom-cinema-frame canvas:focus-visible{outline:3px solid #f9bd73;outline-offset:-4px}
+.zoom-cinema-legend{pointer-events:none;position:absolute;inset:auto 16px 12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:#f1deba;text-shadow:0 1px 7px #050b14;font:700 10px/1.5 var(--font-data);letter-spacing:.08em}
+.scale-compare .zoom-stage-copy{padding:24px 20px 8px}
+.scale-compare .zoom-stage-copy .zoom-title{font-size:clamp(30px,4vw,44px)}
+.zoom-cinema-init{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:12px auto 18px;justify-content:center}
+.zoom-cinema-init button{min-height:44px;border:1px solid #29445d;background:#102b43;color:#fff;padding:11px 16px;font:600 13px var(--font-reading);cursor:pointer}
+.zoom-cinema-init button[aria-pressed=true]{background:#a25633}
+.zoom-cinema-init button:disabled{opacity:.55}
+.zoom-cinema-init button:focus-visible{outline:3px solid #a25633;outline-offset:3px}
+.zoom-cinema-init span{max-width:540px;font-size:13px;line-height:1.5;color:var(--muted)}
+@media(max-width:600px){.zoom-cinema-frame{aspect-ratio:5/6;min-height:275px;max-height:55dvh}.zoom-cinema-legend{inset:auto 9px 8px;font-size:8px}.scale-compare .zoom-stage-copy{padding:20px 12px 5px}}

@@ -12,6 +12,33 @@ const galaxy3DCanvas=document.querySelector('#galaxy3DCanvas');
 const galaxy3DShell=document.querySelector('#galaxy3DShell');
 const galaxy3DPlay=document.querySelector('#galaxy3DPlay');
 const galaxy2D=document.querySelector('.galaxy-view-image');
+const galaxyZoomActions=document.querySelector('#galaxyZoomActions');
+const galaxyOverlay=document.querySelector('#galaxy3DOverlay');
+const galaxyOrbitMotion=document.querySelector('#galaxyOrbitMotion');
+let driftPlaying=false;
+function stopDrift(){
+ driftPlaying=false;
+ engine?.setMotion(false);
+ galaxyOrbitMotion.setAttribute('aria-pressed','false');
+ galaxyOrbitMotion.textContent='Animate stellar drift';
+ galaxyOrbitMotion.disabled=reduceMotion.matches;
+}
+function toggle3DControls(enabled){
+ galaxyZoomActions.hidden=!enabled;
+ galaxyOverlay.hidden=!enabled;
+ if(!enabled){engine?.suspend();stopDrift();}
+}
+for(const [id,factor] of [['galaxyZoomIn',.77],['galaxyZoomOut',1.3]]){
+ document.querySelector('#'+id).addEventListener('click',()=>engine?.zoomBy(factor));
+}
+document.querySelector('#galaxyCameraReset').addEventListener('click',()=>{if(engine){stopSweep();engine.reset();}});
+galaxyOrbitMotion.addEventListener('click',()=>{
+ if(!engine || reduceMotion.matches || galaxy3DCanvas.hidden)return;
+ driftPlaying=!driftPlaying;
+ engine.setMotion(driftPlaying);
+ galaxyOrbitMotion.setAttribute('aria-pressed',String(driftPlaying));
+ galaxyOrbitMotion.textContent=driftPlaying?'Pause stellar drift':'Animate stellar drift';
+});
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 let engine=null,loading=false,playing=false,frameId=null,lastFrame=null,travel=0;
 function stopSweep(){
@@ -47,6 +74,7 @@ galaxy3DActivate.addEventListener('click',async()=>{
   stopSweep();
   const enabled=galaxy3DCanvas.hidden;
   galaxy3DCanvas.hidden=!enabled;galaxy2D.hidden=enabled;
+  toggle3DControls(enabled);
   galaxy3DActivate.setAttribute('aria-pressed',String(enabled));
   galaxy3DActivate.textContent=enabled?'Return to labeled 2D':'Explore this galaxy in 3D';
   if(enabled){engine.resize();engine.update(Number(incline.value));}
@@ -57,14 +85,16 @@ galaxy3DActivate.addEventListener('click',async()=>{
  galaxy3DActivate.disabled=true;galaxy3DActivate.textContent='Loading spatial model…';
  try{
   const {createGalaxy3D}=await import('./galaxy-3d.js');
-  engine=await createGalaxy3D(galaxy3DCanvas,galaxy3DShell);
+  engine=await createGalaxy3D(galaxy3DCanvas,galaxy3DShell,(angle)=>{stopSweep();setInclination(angle);});
   galaxy3DCanvas.hidden=false;galaxy2D.hidden=true;
+  toggle3DControls(true);
   galaxy3DActivate.setAttribute('aria-pressed','true');
   galaxy3DActivate.textContent='Return to labeled 2D';
   galaxy3DStatus.hidden=true;
   engine.resize();engine.update(Number(incline.value));
  }catch(error){
   galaxy3DCanvas.hidden=true;galaxy2D.hidden=false;
+  toggle3DControls(false);
   galaxy3DActivate.textContent='Retry 3D view';
   galaxy3DActivate.setAttribute('aria-pressed','false');
   galaxy3DStatus.textContent='The 3D model could not load. The labeled 2D comparison is still available; retry if WebGL becomes available.';
@@ -72,9 +102,10 @@ galaxy3DActivate.addEventListener('click',async()=>{
   console.warn('Galaxy 3D unavailable, keeping accessible SVG.',error);
  }finally{loading=false;galaxy3DActivate.disabled=false;galaxy3DShell.setAttribute('aria-busy','false');}
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSweep();});
-reduceMotion.addEventListener?.('change',()=>stopSweep());
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stopSweep();stopDrift();}});
+reduceMotion.addEventListener?.('change',()=>{stopSweep();stopDrift();});
 galaxy3DPlay.disabled=reduceMotion.matches;
+galaxyOrbitMotion.disabled=reduceMotion.matches;
 
 const presets = [...document.querySelectorAll('[data-galaxy-angle]')];
 function setInclination(angle) {

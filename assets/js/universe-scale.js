@@ -14,7 +14,42 @@ const STEPS = [
 ];
 
 let index = 0;
-const stage = document.querySelector('#zoomStage');
+const stage = document.querySelector('#zoomStageCopy');
+const cinemaFrame = document.querySelector('#zoomCinemaFrame');
+const cinemaCanvas = document.querySelector('#zoomCinemaCanvas');
+const cinemaButton = document.querySelector('#zoomCinemaActivate');
+const cinemaStatus = document.querySelector('#zoomCinemaStatus');
+let cinema = null, cinemaLoading = false;
+cinemaButton.disabled = false;
+cinemaButton.addEventListener('click', async () => {
+  if (cinemaLoading) return;
+  if (cinema) {
+    const visible = cinemaFrame.hidden;
+    cinemaFrame.hidden = !visible;
+    if (!visible) cinema.suspend();
+    cinemaButton.setAttribute('aria-pressed', String(visible));
+    cinemaButton.textContent = visible ? 'Return to the scale diagram' : 'Enter the illustrated cosmic journey';
+    if (visible) { cinema.resize(); cinema.setStep(index); cinemaCanvas.focus({preventScroll:true}); }
+    return;
+  }
+  cinemaLoading = true;
+  cinemaButton.disabled = true;
+  cinemaStatus.textContent = 'Loading local scene…';
+  try {
+    const {createCosmicCinema} = await import('./cosmic-cinema.js');
+    cinemaFrame.hidden = false;
+    cinema = createCosmicCinema(cinemaCanvas, selectStep);
+    cinema.setStep(index);
+    cinemaButton.setAttribute('aria-pressed', 'true');
+    cinemaButton.textContent = 'Return to the scale diagram';
+    cinemaStatus.textContent = 'Scene is illustrative, not to physical scale; the ruler below contains the true numerical comparisons.';
+    cinemaCanvas.focus({preventScroll:true});
+  } catch (error) {
+    cinemaFrame.hidden = true;
+    cinemaStatus.textContent = 'The visual journey could not load. The scale ruler and reference table still work.';
+    console.warn('Cosmic cinema unavailable; preserving reference model.',error);
+  } finally {cinemaButton.disabled = false; cinemaLoading = false;}
+});
 const dots = document.querySelector('#zoomDots');
 const prevBtn = document.querySelector('#zoomPrev');
 const nextBtn = document.querySelector('#zoomNext');
@@ -37,6 +72,7 @@ function selectStep(i) {
   if (!Number.isInteger(i) || i < 0 || i >= STEPS.length) return;
   index = i;
   render();
+  if (cinema && !cinemaFrame.hidden) cinema.setStep(i);
   const button = stopButtons[i];
   if (button) {
     // Scroll only the diagram's horizontal strip, not the whole document.
