@@ -3,6 +3,29 @@
   "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
   "releases": [
     {
+      "id": "2026-10-29-mobile-ad-svg-geometry-quality",
+      "date": "2026-10-29",
+      "category": "Mobile reading and visual reliability",
+      "title": "Mobile ad placement and SVG dimension visibility improvements",
+      "summary": "Corrected publisher-controlled AdSense slot sizes to fit 320–1280px screens without removing the ads or their identifiers. Extended vector-path browser checks across 16 lessons and made a previously hidden minimum gravity-radius guide visible in its teaching diagram.",
+      "students": "The gravity radius model now shows a readable gold dimension guide even for the smallest modeled body. Educational diagrams and existing interaction models remain available at their original URLs.",
+      "teachers": "The filled-ad layout was simulated under local and live browser conditions; a real Google creative was unfilled in the available test session. The independent Google Auto Ads overlay and any historical provider-origin horizontal overflow need separate account-side review. Grade 4–8 student studies are not claimed.",
+      "developers": "Maintained the exact existing AdSense unit IDs and Google loader. Used Google-approved CSS size breakpoints; all nine publisher slot viewport checks kept the unit inside screen bounds. Audited 16 SVG-bearing routes for nontext stroke visibility and intentional paint-order crossings; gravity radius guide went from 5/9 sampled points covered to 0/9. Added two mandatory regression gates to deployment and health workflows and recorded scope-limited evidence.",
+      "links": [
+        {
+          "label": "Explore the gravity radius comparison",
+          "path": "/solar-system/gravity-comparison/"
+        },
+        {
+          "label": "Inspect the tidal-force model",
+          "path": "/moon/tides/"
+        }
+      ],
+      "commits": [
+        "02b560e"
+      ]
+    },
+    {
       "id": "2026-10-28-visual-learning-wave3-five-lessons",
       "date": "2026-10-28",
       "category": "3D astronomy and causal visual learning",

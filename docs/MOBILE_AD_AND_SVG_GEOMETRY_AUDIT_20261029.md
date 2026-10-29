@@ -29,3 +29,8 @@ The path audit is broader than text-only checking but cannot certify all artisti
 A separate protocol in docs/LEARNER_USABILITY_STUDY_PROTOCOL_20261029.md defines supervised, permission-compliant grade 4–8 predict–interact–explain tasks. No genuine pupil testing, pupil outcome data or unsupervised under-13 compliance claim was performed.
 
 Release CI must run the two new Node regressions along with the existing science, SEO, mobile and learning-flow gates. Do not change unrelated Git files or simulate ad revenue.
+
+
+## Verified production deployment
+
+Source release commit: 02b560eb6f5c9b4bb3403cad05a9806bea10c42d. GitHub Pages run 40811625204 completed SUCCESS for that exact source SHA. Actual public HTTPS HTTP200 for /moon/tides/, /solar-system/gravity-comparison/ and /assets/css/style.css with new exact sizes and radius geometry. In live 320px Chromium a temporarily simulated publisher unit measured 280px wide centered at x20 to x300 with document scrollWidth 320. Separate automatic Google ad elements remained present and were not hidden; their actual filled inventory was not verified. In live 390px Chromium the Gravity radius line had y116, contrasting gold stroke and explicit offset explanation. All 13 Python +30 Node scientific/UX/SEO/ad/vector regressions and JavaScript syntax were green before committing.
