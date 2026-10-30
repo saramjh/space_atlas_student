@@ -38,7 +38,7 @@ const ctx={canvas,matchMedia:q=>({matches:false}),window:{devicePixelRatio:2},
  performance:{now:()=>now},
  document:{hidden:false,addEventListener(){},removeEventListener(){}},
  requestAnimationFrame:()=>++requested,cancelAnimationFrame(){},Math};
-const factory=runInNewContext(moduleText.replace('export function createCosmicCinema','function createCosmicCinema')+';createCosmicCinema',ctx);
+const factory=runInNewContext(moduleText.replace("import {cinematicEase} from './cinematic-motion.js';", 'const cinematicEase=t=>t*t*t*(t*(t*6-15)+10);').replace('export function createCosmicCinema','function createCosmicCinema')+';createCosmicCinema',ctx);
 const scene=factory(canvas,(n)=>{position=n;});
 assert.equal(canvas.width,630,'DPR caps at 1.75 on desktop');
 scene.setStep(2);

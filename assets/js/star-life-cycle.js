@@ -74,7 +74,7 @@ function startSequence() {
     stageIndex+=1;
     render();
     if(stageIndex>=PATHS[selectedMass].length-1)stopSequence();
-  },1100);
+  },1550);
 }
 playButton.addEventListener('click',startSequence);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSequence();});

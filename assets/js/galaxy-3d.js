@@ -1,3 +1,4 @@
+import {cinematicEase} from './cinematic-motion.js';
 // User-initiated illustrative galaxy: not measured star positions, an N-body
 // solution, or a telescope image. No perpetual RAF in the idle state.
 // Normalization for the rounded nominal 50,000 ly disk radius. Not an observed
@@ -126,7 +127,7 @@ export async function createGalaxy3D(canvas, container, onInclination = () => {}
   let focusX = 0, focusY = 0, targetFocusX=0, targetFocusY=0;
   let angle = 25, azimuth = 0, distance = 16;
   let targetAngle = angle, targetAzimuth = azimuth, targetDistance = distance;
-  let raf = null, last = 0, motion = false, disposed = false;
+  let raf = null, last = 0, motion = false, disposed = false, homecoming = null;
   const pointers = new Map();
   let lastPinch = 0, dragSpeedX = 0, dragSpeedY = 0;
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
@@ -142,6 +143,17 @@ export async function createGalaxy3D(canvas, container, onInclination = () => {}
     raf = null;
     const dt = last ? Math.min(.05, (now - last) / 1000) : 0;
     last = now;
+    if(homecoming){
+      if(homecoming.started===null)homecoming.started=now;
+      const t=Math.min(1,(now-homecoming.started)/7800);
+      const e=cinematicEase(t);
+      targetFocusX=SUN_SCENE_RADIUS*e;targetFocusY=0;
+      targetDistance=17-(17-9.5)*e;
+      targetAngle=24+13*e;
+      const chapter=Math.min(3,Math.floor(t*4));
+      if(chapter!==homecoming.chapter){homecoming.chapter=chapter;homecoming.onStep(3-chapter);}
+      if(t>=1){const finished=homecoming;homecoming=null;finished.onDone();}
+    }
     const k = reduced.matches ? 1 : 1 - Math.exp(-14 * dt);
     angle += (targetAngle - angle) * k;
     azimuth += (targetAzimuth - azimuth) * k;
@@ -151,15 +163,26 @@ export async function createGalaxy3D(canvas, container, onInclination = () => {}
     if (motion && !reduced.matches && !document.hidden) uniform.uTime.value += dt;
     draw();
     const moving = Math.abs(angle - targetAngle) > .015 || Math.abs(azimuth - targetAzimuth) > .001 || Math.abs(distance - targetDistance) > .015 || Math.abs(focusX-targetFocusX)>.008 || Math.abs(focusY-targetFocusY)>.008;
-    if (moving || motion) schedule();
+    if (moving || motion || homecoming) schedule();
+  }
+  function cancelHomecoming(){if(homecoming){const interrupted=homecoming;homecoming=null;interrupted.onCancel();}}
+  function startHomecoming(onStep=()=>{},onDone=()=>{},onCancel=()=>{}){
+    if(!addressMode||reduced.matches||document.hidden)return false;
+    cancelHomecoming();motion=false;
+    // Establishing wide shot before the conceptual trip inward, not a physical route.
+    focusX=focusY=targetFocusX=targetFocusY=0;angle=targetAngle=24;
+    distance=targetDistance=17;azimuth=targetAzimuth=0;
+    homecoming={started:null,chapter:-1,onStep,onDone,onCancel};
+    draw();schedule();return true;
   }
   function setAngle(degrees) {
     targetAngle = clamp(Number(degrees) || 0, 0, 80);
     schedule();
   }
-  function zoom(factor) { targetDistance = clamp(targetDistance * factor, addressMode?5:8.8, 27); schedule(); }
+  function zoom(factor) { cancelHomecoming(); targetDistance = clamp(targetDistance * factor, addressMode?5:8.8, 27); schedule(); }
   function pointerDown(e) {
     if (canvas.hidden) return;
+    cancelHomecoming();
     canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, {x: e.clientX, y: e.clientY});
     if (pointers.size > 1) lastPinch = 0;
@@ -202,9 +225,9 @@ export async function createGalaxy3D(canvas, container, onInclination = () => {}
   canvas.addEventListener('pointerup', pointerUp);
   canvas.addEventListener('pointercancel', pointerUp);
   canvas.addEventListener('wheel', onWheel, {passive:false});
-  const visibility = () => {if(document.hidden) { motion = false; last = 0; if(raf !== null) cancelAnimationFrame(raf); raf=null; }};
+  const visibility = () => {if(document.hidden) { cancelHomecoming(); motion = false; last = 0; if(raf !== null) cancelAnimationFrame(raf); raf=null; }};
   document.addEventListener('visibilitychange', visibility);
-  const motionChange = () => {if(reduced.matches) motion=false; schedule();};
+  const motionChange = () => {if(reduced.matches){motion=false;cancelHomecoming();} schedule();};
   reduced.addEventListener?.('change', motionChange);
   function resize() {
     if (disposed) return;
@@ -227,9 +250,10 @@ export async function createGalaxy3D(canvas, container, onInclination = () => {}
   observer.observe(container);
   return {
     update:setAngle, resize, zoomBy:zoom,
-    rotateBy(rad){targetAzimuth+=rad;schedule();},
-    focusSun(){if(!addressMode)return;targetFocusX=SUN_SCENE_RADIUS;targetFocusY=0;targetDistance=9.5;targetAngle=37;schedule();},
-    overview(){targetFocusX=targetFocusY=0;targetDistance=17;targetAngle=24;schedule();},
+    rotateBy(rad){cancelHomecoming();targetAzimuth+=rad;schedule();},
+    startHomecoming,cancelHomecoming,
+    focusSun(){if(!addressMode)return;cancelHomecoming();targetFocusX=SUN_SCENE_RADIUS;targetFocusY=0;targetDistance=9.5;targetAngle=37;schedule();},
+    overview(){cancelHomecoming();targetFocusX=targetFocusY=0;targetDistance=17;targetAngle=24;schedule();},
     setHypotheticalDistance(distanceLy){
       if(radialBeacon){
         const ly=clamp(Number(distanceLy)||0,0,50000);
@@ -239,7 +263,7 @@ export async function createGalaxy3D(canvas, container, onInclination = () => {}
     },
     reset(){ targetAngle=25; targetAzimuth=0; targetDistance=16; onInclination(25); schedule(); },
     setMotion(v){motion=Boolean(v)&&!reduced.matches&&!document.hidden; if(motion)schedule();},
-    suspend(){motion=false; if(raf!==null)cancelAnimationFrame(raf);raf=null;last=0;},
+    suspend(){cancelHomecoming();motion=false; if(raf!==null)cancelAnimationFrame(raf);raf=null;last=0;},
     dispose(){disposed=true;observer.disconnect();visibility();document.removeEventListener('visibilitychange', visibility);
       reduced.removeEventListener?.('change', motionChange);
       canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointermove',pointerMove);

@@ -1,3 +1,4 @@
+import {cinematicEase} from './cinematic-motion.js';
 import { initQuiz } from './quiz-widget.js';
 
 
@@ -15,7 +16,7 @@ const galaxy2D=document.querySelector('.galaxy-view-image');
 const galaxyZoomActions=document.querySelector('#galaxyZoomActions');
 const galaxyOverlay=document.querySelector('#galaxy3DOverlay');
 const galaxyOrbitMotion=document.querySelector('#galaxyOrbitMotion');
-let driftPlaying=false;
+let driftPlaying=false,sweepZoomed=false;
 function stopDrift(){
  driftPlaying=false;
  engine?.setMotion(false);
@@ -42,11 +43,12 @@ galaxyOrbitMotion.addEventListener('click',()=>{
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 let engine=null,loading=false,playing=false,frameId=null,lastFrame=null,travel=0;
 function stopSweep(){
+ if(sweepZoomed){engine?.zoomBy(1/.83);sweepZoomed=false;}
  playing=false;
  if(frameId!==null)cancelAnimationFrame(frameId);
  frameId=null;lastFrame=null;
  galaxy3DPlay.setAttribute('aria-pressed','false');
- galaxy3DPlay.textContent='Sweep viewing angle (8 s)';
+ galaxy3DPlay.textContent='Fly from face-on to edge-on (8 s)';
  galaxy3DPlay.disabled=reduceMotion.matches;
 }
 function sweepFrame(now){
@@ -54,7 +56,7 @@ function sweepFrame(now){
  if(lastFrame!==null){
   const delta=Math.min(.1,Math.max(0,(now-lastFrame)/1000))*20;
   travel+=delta;
-  const angle=travel<=80?travel:160-travel;
+  const angle=travel<=80?80*cinematicEase(travel/80):80*(1-cinematicEase((travel-80)/80));
   setInclination(Math.min(80,Math.max(0,Math.round(angle))));
   if(travel>=160){stopSweep();return;}
  }
@@ -63,7 +65,7 @@ function sweepFrame(now){
 galaxy3DPlay.addEventListener('click',()=>{
  if(playing){stopSweep();return;}
  if(reduceMotion.matches)return;
- travel=0;setInclination(0);playing=true;
+ travel=0;setInclination(0);if(engine){engine.zoomBy(.83);sweepZoomed=true;}playing=true;
  galaxy3DPlay.setAttribute('aria-pressed','true');
  galaxy3DPlay.textContent='Pause angle sweep';
  frameId=requestAnimationFrame(sweepFrame);

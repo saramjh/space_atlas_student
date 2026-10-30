@@ -20,6 +20,7 @@ function evaluate(path,doc){
  runInNewContext(script.slice(0,at),{
    document:doc,console,
    window:{matchMedia:()=>({matches:false,addEventListener:()=>{}})},
+   matchMedia:()=>({matches:false,addEventListener:()=>{}}),
    requestAnimationFrame:()=>1,cancelAnimationFrame:()=>{}
  });
 }

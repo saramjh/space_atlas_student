@@ -138,10 +138,23 @@ export function createStellarEvolutionScene(canvas) {
     if(disposed)return;
     context.setTransform(dpr,0,0,dpr,0,0);context.globalAlpha=1;background();
     const t=duration?clamp((now-started)/duration,0,1):1;
-    const e=t*t*(3-2*t);
+    const e=t*t*t*(t*(t*6-15)+10); // visual easing; not a stellar timescale
     if(t<1){
-      scene(previousStage,previousMass,1-.4*e,1-e);
-      scene(stage,mass,.72+.28*e,e);
+      // Distinct visual verbs for stages: collapse/ignite/expand/disperse/remnant.
+      // The scale factor is a camera metaphor, never the physical star radius.
+      const phase=stage===1?'collapse':stage===2?'ignite':stage===3?'expand':stage===4?'eject':'remnant';
+      const incoming=phase==='collapse'?.42+.58*e:phase==='expand'?.55+.45*e:
+        phase==='eject'?.63+.37*e:phase==='remnant'?1.48-.48*e:.77+.23*e;
+      const departing=phase==='collapse'?1+.55*e:phase==='eject'?1+.62*e:1-.22*e;
+      scene(previousStage,previousMass,departing,1-e);
+      scene(stage,mass,incoming,e);
+      if(stage===4&&mass==='massive'){
+        // A brief artist's shockwave, not a simulated supernova speed/energy.
+        const radius=Math.min(width,height)*(.07+.46*e);
+        context.save();context.strokeStyle=`rgba(255,222,166,${.55*(1-e)})`;
+        context.lineWidth=Math.max(1,6*(1-e));
+        context.beginPath();context.arc(width*.5,height*.51,radius,0,PI2);context.stroke();context.restore();
+      }
     }else scene(stage,mass,1,1);
   }
   function frame(now){raf=null;draw(now);if(now-started<duration)request();}
@@ -151,7 +164,7 @@ export function createStellarEvolutionScene(canvas) {
     const b=branch==='massive'?'massive':'sun';
     if(i===stage&&mass===b){draw();return;}
     previousStage=stage;previousMass=mass;stage=i;mass=b;
-    duration=media.matches?0:630;started=performance.now();
+    duration=media.matches?0:1240;started=performance.now();
     if(duration===0)draw();else request();
   }
   function resize(){

@@ -1,3 +1,4 @@
+import {cinematicEase} from './cinematic-motion.js';
 // An opt-in cinematic scale illustration for the eight exact measurements in
 // the adjacent logarithmic ruler. Drawn appearances are NEVER to scale.
 export function createCosmicCinema(canvas, onStep) {
@@ -6,7 +7,7 @@ export function createCosmicCinema(canvas, onStep) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const coarse = matchMedia('(pointer: coarse)').matches;
   const ptrs = new Map();
-  let width=1, height=1, dpr=1, step=0, previous=0, started=0, duration=780;
+  let width=1, height=1, dpr=1, step=0, previous=0, started=0, duration=930;
   let frameId=null, disposed=false, lastWheel=0, parallaxX=0, parallaxY=0;
   let targetX=0, targetY=0, dragDX=0, dragDY=0, lastPinch=0;
   const TAU=Math.PI*2;
@@ -173,7 +174,7 @@ export function createCosmicCinema(canvas, onStep) {
   function paint(now=performance.now()) {
     if(disposed || canvas.hidden || !width || !height)return;
     const t=duration===0?1:clamp((now-started)/duration,0,1);
-    const eased=t*t*(3-2*t);
+    const eased=cinematicEase(t);
     ctx.setTransform(dpr,0,0,dpr,0,0);
     backdrop(step);
     if(t<1){
@@ -192,7 +193,7 @@ export function createCosmicCinema(canvas, onStep) {
     if(!Number.isInteger(next)||next<0||next>7)return;
     if(next===step){paint();return;}
     previous=step;step=next;
-    duration=reduced.matches?0:780;started=performance.now();request();
+    duration=reduced.matches?0:930;started=performance.now();request();
   }
   function resize(){
     const box=canvas.getBoundingClientRect();

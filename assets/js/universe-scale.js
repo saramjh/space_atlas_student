@@ -19,6 +19,33 @@ const cinemaFrame = document.querySelector('#zoomCinemaFrame');
 const cinemaCanvas = document.querySelector('#zoomCinemaCanvas');
 const cinemaButton = document.querySelector('#zoomCinemaActivate');
 const cinemaStatus = document.querySelector('#zoomCinemaStatus');
+const cinemaTour=document.querySelector('#zoomCinemaTour');
+const reduceTourMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let touring=false,tourFrame=null,tourStart=null,lastTourStep=0;
+const TOUR_STEP_MS=1450;
+function stopTour(){
+ touring=false;if(tourFrame!==null)cancelAnimationFrame(tourFrame);
+ tourFrame=null;tourStart=null;
+ cinemaTour.setAttribute('aria-pressed','false');cinemaTour.textContent='Travel across all eight scales';
+ cinemaStatus.setAttribute('aria-live','polite');
+}
+function tourTick(now){
+ tourFrame=null;if(!touring||document.hidden||cinemaFrame.hidden)return stopTour();
+ if(tourStart===null)tourStart=now;
+ const next=Math.min(7,Math.floor((now-tourStart)/TOUR_STEP_MS));
+ if(next!==lastTourStep){lastTourStep=next;selectStep(next,true);}
+ if(now-tourStart>=8*TOUR_STEP_MS)return stopTour();
+ tourFrame=requestAnimationFrame(tourTick);
+}
+cinemaTour.addEventListener('click',()=>{
+ if(touring)return stopTour();
+ if(!cinema||reduceTourMotion.matches||document.hidden)return;
+ stopTour();touring=true;lastTourStep=0;selectStep(0,true);
+ cinemaTour.setAttribute('aria-pressed','true');cinemaTour.textContent='Pause scale journey';
+ cinemaStatus.setAttribute('aria-live','off');tourFrame=requestAnimationFrame(tourTick);
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopTour();});
+reduceTourMotion.addEventListener?.('change',()=>{if(reduceTourMotion.matches)stopTour();cinemaTour.disabled=reduceTourMotion.matches||!cinema||cinemaFrame.hidden;});
 let cinema = null, cinemaLoading = false;
 cinemaButton.disabled = false;
 cinemaButton.addEventListener('click', async () => {
@@ -26,7 +53,7 @@ cinemaButton.addEventListener('click', async () => {
   if (cinema) {
     const visible = cinemaFrame.hidden;
     cinemaFrame.hidden = !visible;
-    if (!visible) cinema.suspend();
+    if (!visible){stopTour();cinema.suspend();cinemaTour.hidden=true;cinemaTour.disabled=true;} else{cinemaTour.hidden=false;cinemaTour.disabled=reduceTourMotion.matches;}
     cinemaButton.setAttribute('aria-pressed', String(visible));
     cinemaButton.textContent = visible ? 'Return to the scale diagram' : 'Enter the illustrated cosmic journey';
     if (visible) { cinema.resize(); cinema.setStep(index); cinemaCanvas.focus({preventScroll:true}); }
@@ -38,14 +65,15 @@ cinemaButton.addEventListener('click', async () => {
   try {
     const {createCosmicCinema} = await import('./cosmic-cinema.js');
     cinemaFrame.hidden = false;
-    cinema = createCosmicCinema(cinemaCanvas, selectStep);
+    cinema = createCosmicCinema(cinemaCanvas, i=>selectStep(i));
+    cinemaTour.hidden=false;cinemaTour.disabled=reduceTourMotion.matches;
     cinema.setStep(index);
     cinemaButton.setAttribute('aria-pressed', 'true');
     cinemaButton.textContent = 'Return to the scale diagram';
     cinemaStatus.textContent = 'Scene is illustrative, not to physical scale; the ruler below contains the true numerical comparisons.';
     cinemaCanvas.focus({preventScroll:true});
   } catch (error) {
-    cinemaFrame.hidden = true;
+    cinemaFrame.hidden = true;stopTour();cinemaTour.hidden=true;cinemaTour.disabled=true;
     cinemaStatus.textContent = 'The visual journey could not load. The scale ruler and reference table still work.';
     console.warn('Cosmic cinema unavailable; preserving reference model.',error);
   } finally {cinemaButton.disabled = false; cinemaLoading = false;}
@@ -68,8 +96,9 @@ function jumpRepresentation(step) {
   const tail = remaining > 1.005 ? `<span class="cosmic-tenfold cosmic-tenfold-tail">×${remaining.toFixed(2)}</span>` : '';
   return `<strong>Previous → current: approximately ${Math.round(ratio).toLocaleString('en-US')}× larger in the compared length measures</strong><div class="cosmic-decades" aria-hidden="true">${blocks}${tail}</div><p>Every ×10 block means one order of magnitude. This is a comparison of the listed approximate sizes or separations, not objects nested to scale.</p>`;
 }
-function selectStep(i) {
+function selectStep(i,fromTour=false) {
   if (!Number.isInteger(i) || i < 0 || i >= STEPS.length) return;
+  if(!fromTour)stopTour();
   index = i;
   render();
   if (cinema && !cinemaFrame.hidden) cinema.setStep(i);

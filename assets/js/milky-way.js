@@ -17,9 +17,33 @@ const mw3DFrame=document.querySelector('#mwSpatialFrame');
 const mw3DCanvas=document.querySelector('#mwSpatialCanvas');
 const mw3DActions=document.querySelector('#mw3DActions');
 const mw3DReadout=document.querySelector('#mw3DReadout');
+const mw3DHomecoming=document.querySelector('#mw3DHomecoming');
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let homecoming=false;
+function endHomecoming(){
+ homecoming=false;mw3DEngine?.cancelHomecoming();
+ mw3DHomecoming.setAttribute('aria-pressed','false');
+ mw3DHomecoming.textContent='Travel home to the Sun (8 s)';
+ mw3DReadout.setAttribute('aria-live','polite');
+}
+mw3DHomecoming.addEventListener('click',()=>{
+ if(homecoming){endHomecoming();return;}
+ if(!mw3DEngine||reducedMotion.matches||document.hidden||mw3DFrame.hidden)return;
+ endHomecoming();homecoming=true;
+ mw3DHomecoming.setAttribute('aria-pressed','true');mw3DHomecoming.textContent='Pause the homecoming';
+ mw3DReadout.setAttribute('aria-live','off');
+ const okay=mw3DEngine.startHomecoming(
+  step=>{index=step;render();mw3DReadout.textContent=`Homecoming stage ${4-step}/4: ${STEPS[step].title}. Illustrative camera route; not a real travel time.`;},
+  ()=>{endHomecoming();index=0;render();mw3DReadout.textContent='Arrived near the Sun reference: about 26,000 light-years from the galactic center, inside the Orion Spur (illustrative scene).';},
+  ()=>endHomecoming()
+ );
+ if(!okay)endHomecoming();
+});
+reducedMotion.addEventListener?.('change',()=>{if(reducedMotion.matches)endHomecoming();mw3DHomecoming.disabled=reducedMotion.matches||!mw3DEngine||mw3DFrame.hidden;});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)endHomecoming();});
 let mw3DEngine=null, mw3DLoading=false;
 function update3DFocus(){
- if(!mw3DEngine||mw3DFrame.hidden)return;
+ if(homecoming||!mw3DEngine||mw3DFrame.hidden)return;
  if(index<=1){
   mw3DEngine.focusSun();
   mw3DReadout.textContent=`Stage ${index+1}/4: camera approaches the Sun's approximate position within the Orion Spur (illustrative viewpoint, not an actual 3D star map).`;
@@ -29,6 +53,8 @@ function update3DFocus(){
  }
 }
 function show3D(visible){
+ if(!visible)endHomecoming();
+ mw3DHomecoming.disabled=!visible||reducedMotion.matches;
  mw3DFrame.hidden=!visible;mw3DActions.hidden=!visible;
  mw3DActivate.setAttribute('aria-pressed',String(visible));
  mw3DActivate.textContent=visible?'Return to radial 2D reference':'Enter the 3D galaxy';
@@ -60,7 +86,7 @@ for(const [selector,handler] of [
  ['#mw3DZoomOut',()=>mw3DEngine?.zoomBy(1.28)],
  ['#mw3DRotateLeft',()=>mw3DEngine?.rotateBy(-.27)],
  ['#mw3DRotateRight',()=>mw3DEngine?.rotateBy(.27)],
-]) document.querySelector(selector).addEventListener('click',handler);
+]) document.querySelector(selector).addEventListener('click',()=>{endHomecoming();handler();});
 mw3DActivate.disabled=false;
 
 STEPS.forEach(() => dots.appendChild(document.createElement('span')));
@@ -78,8 +104,8 @@ function render() {
   nextBtn.disabled = index === STEPS.length - 1;
   update3DFocus();
 }
-prevBtn.onclick = () => { if (index > 0) { index--; render(); } };
-nextBtn.onclick = () => { if (index < STEPS.length - 1) { index++; render(); } };
+prevBtn.onclick = () => {endHomecoming(); if (index > 0) { index--; render(); } };
+nextBtn.onclick = () => {endHomecoming(); if (index < STEPS.length - 1) { index++; render(); } };
 render();
 
 const mwSlider = document.querySelector('#mwDistanceSlider');
