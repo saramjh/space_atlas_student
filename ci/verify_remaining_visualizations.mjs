@@ -35,7 +35,7 @@ function store(){
 {
  const get=store();
  get('#tempCompareA').value='Mercury';get('#tempCompareB').value='Venus';
- evaluate('assets/js/temperature-comparison.js',{querySelector:get},true);
+ evaluate('assets/js/temperature-comparison.js',{querySelector:get,querySelectorAll:()=>[]},true);
  assert.match(get('#tempCompareReadout').textContent,/297°C warmer/);
  assert.match(get('#tempChart').innerHTML,/Neptune/);
  const mercuryBar=get('#tempChart').innerHTML.match(/Mercury[\s\S]*?left:([\d.]+)%;width:([\d.]+)%/);

@@ -14,6 +14,13 @@
     <div class="eclipse-view" id="eclipseShell" aria-label="Sun-Earth-Moon alignment model">
       <canvas id="eclipseCanvas"></canvas>
     </div>
+    <div class="eclipse-camera" role="group" aria-label="Change observation angle of the illustrative Sun Earth Moon orbits">
+      <span>Compare three observation angles</span>
+      <button type="button" data-eclipse-camera="oblique" aria-pressed="true" disabled>Spatial view</button>
+      <button type="button" data-eclipse-camera="overhead" aria-pressed="false" disabled>Over the orbit</button>
+      <button type="button" data-eclipse-camera="edge" aria-pressed="false" disabled>Along the ecliptic</button>
+    </div>
+    <p class="eclipse-camera-note" id="eclipseCameraNote" role="status">Oblique view: the raised Moon orbit shows why matching a new or full phase is not enough. The separate labeled side-view diagram below gives the exact conceptual explanation; no shadow-size prediction is made.</p>
     <div class="eclipse-controls">
       <button type="button" id="btnSolarPos" disabled>Jump to new moon (solar eclipse position)</button>
       <button type="button" id="btnLunarPos" disabled>Jump to full moon (lunar eclipse position)</button>
@@ -70,6 +77,7 @@
       </svg>
       <figcaption>Side-on educational diagram · body sizes, distances and the 15° drawn inclination are not to scale. <strong id="eclipseOffset">The Moon's model offset from the ecliptic plane is 0.00 orbital radii.</strong></figcaption>
     </figure>
+    <p class="scale-caption">Observation-angle controls are based on <a href="https://science.nasa.gov/eclipses/geometry/" target="_blank" rel="noopener noreferrer">NASA eclipse geometry</a>. They move the <em>model camera only</em>, not the Moon, real inclination (~5.1°) or nodes; no predicted eclipse shadow or observer-sky photograph is represented.</p>
     <div class="eclipse-readout" id="eclipseReadout" role="status" aria-live="polite"><strong>New Moon misses the reference plane.</strong> With orbital tilt on and the node line 90° away, the Moon passes above or below the reference plane. Move the nodes to 0° to see alignment become possible. This is an educational model, not an actual eclipse forecast.</div>
   </div>
  </div>

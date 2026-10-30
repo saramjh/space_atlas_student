@@ -1644,3 +1644,71 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 #spectrumTour[aria-pressed=true]{background:#a6502e}
 #spectrumTour:disabled{opacity:.55;cursor:default}
 @media(max-width:600px){.resource-matcher-controls{grid-template-columns:minmax(0,1fr)}.transit-play-controls button#transitTrack{width:100%}.spectrum-signal-head{flex-wrap:wrap}.spectrum-signal-head>span{flex:1 1 100%}.spectrum-signal-head button{flex:1 1 120px}}
+
+/* AU walking journey — precise measured ruler and quiet editorial controls. */
+.au-expedition{margin-top:28px;border-top:1px solid #a5a69d;padding-top:22px;display:grid;gap:13px}
+.au-expedition-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:end}
+.au-expedition-head h3{font:600 clamp(21px,3vw,29px)/1.15 var(--font-display);margin:2px 0 9px}
+.au-expedition-head p{font-size:14px;line-height:1.55;margin:0;max-width:62ch}
+.au-expedition-eyebrow{font:600 11px/1.5 var(--font-mono);text-transform:uppercase;letter-spacing:.09em;color:#5a615b}
+.au-expedition-distance{text-align:right;min-width:172px;font:12px/1.5 var(--font-mono)}
+.au-expedition-distance strong{font:600 28px/1.1 var(--font-display);display:block;color:#21475b}
+.au-expedition-distance span{display:block;color:#555e65;max-width:185px}
+#auExpeditionCanvas{display:block;width:100%;height:auto;aspect-ratio:960/300;background:#0c1b2b;border:1px solid #3b4d59;border-radius:3px}
+.au-expedition>label{display:flex;justify-content:space-between;gap:8px;font:600 12px/1.4 var(--font-mono)}
+#auExpeditionProgress{width:100%;accent-color:#9e5131;min-height:35px}
+.au-expedition-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.au-expedition-buttons button,.au-expedition-buttons select{min-height:44px;padding:8px 12px;font:600 12px/1.3 var(--font-mono);border:1px solid #74848a;background:#f5f2e9;color:#183b4d;cursor:pointer;border-radius:2px}
+.au-expedition-buttons #auExpeditionPlay{background:#1a4055;color:#fff;border-color:#1a4055}
+.au-expedition-buttons button:focus-visible,.au-expedition-buttons select:focus-visible{outline:3px solid #9b522f;outline-offset:3px}
+.au-expedition-note{font:13px/1.5 var(--font-reading);min-height:40px;margin:0;color:#394c5b}
+@media(max-width:620px){.au-expedition-head{grid-template-columns:minmax(0,1fr);gap:7px}.au-expedition-distance{text-align:left}.au-expedition-distance span{max-width:none}.au-expedition-buttons{display:grid;grid-template-columns:1fr 1fr}.au-expedition-buttons select{grid-column:1/-1;width:100%}.au-expedition>label{font-size:11px}}
+
+/* Temperature source-comparison: one linear axis; no invented thermal simulation. */
+.thermal-evidence{border-top:1px solid #a5aaa4;margin:25px 0 34px;padding:24px 0;display:grid;gap:15px}
+.thermal-evidence-header{max-width:75ch}.thermal-evidence-header h3{font:600 clamp(22px,3.1vw,30px)/1.15 var(--font-display);margin:5px 0 9px}.thermal-evidence-header p{font:14px/1.55 var(--font-reading);margin:0}
+.thermal-kicker{font:600 11px/1.3 var(--font-mono);letter-spacing:.11em;text-transform:uppercase;color:#5f6764}
+.thermal-evidence-plot{border:1px solid #a0abae;background:#122b39;padding:18px 20px 25px;display:grid;gap:16px;color:#e9f0f0}
+.thermal-axis{display:flex;justify-content:space-between;font:11px var(--font-mono);color:#bfd0d6}
+.thermal-evidence-row{display:grid;grid-template-columns:90px minmax(0,1fr) 120px;gap:12px;align-items:center;font:600 12px var(--font-mono)}
+.thermal-evidence-row>small{font:11px var(--font-mono);text-align:right;color:#c7d7da}
+.thermal-evidence-line{height:52px;position:relative;border-bottom:1px solid #6a8490;background:linear-gradient(90deg,transparent 28.57%,rgba(210,232,233,.12) 28.57%,rgba(210,232,233,.12) 28.7%,transparent 28.7%)}
+.thermal-range{position:absolute;top:19px;height:4px;background:#e2b078}
+.thermal-point{position:absolute;top:12px;transform:translateX(-50%);width:17px;height:17px;border-radius:50%;border:3px solid #203441;background:#d9d6c8;box-shadow:0 0 0 1px #e7f3f1}
+.thermal-point.venus{background:#eeb169;border-color:#4f2b20}
+.thermal-end{position:absolute;top:36px;font:10px var(--font-mono);transform:translateX(-50%);font-style:normal;color:#efc899}
+.thermal-evidence-controls{display:flex;gap:8px;flex-wrap:wrap}
+.thermal-evidence-controls button{background:#f4f0e7;border:1px solid #8f9897;min-height:44px;padding:9px 14px;color:#153a4b;font:600 12px var(--font-mono);cursor:pointer}
+.thermal-evidence-controls button[aria-pressed=true]{background:#153a4b;color:#f8f4eb;border-color:#153a4b}
+.thermal-evidence-controls button:focus-visible{outline:3px solid #ac5d33;outline-offset:3px}
+.thermal-evidence-result{font:15px/1.6 var(--font-reading);min-height:64px;padding-left:14px;border-left:3px solid #a65b35}
+@media(max-width:650px){.thermal-evidence-plot{padding:16px 8px 24px}.thermal-evidence-row{grid-template-columns:60px minmax(0,1fr);gap:8px}.thermal-evidence-row>small{grid-column:2;justify-self:end}.thermal-evidence-controls{display:grid;grid-template-columns:1fr}.thermal-evidence-result{font-size:14px}}
+
+/* Scientific eclipse model: quiet three-view camera selector. */
+.eclipse-camera{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:13px 14px 4px}
+.eclipse-camera>span{font:600 11px/1.35 var(--font-mono);letter-spacing:.05em;text-transform:uppercase;color:#586b76;margin-right:8px}
+.eclipse-camera button{min-height:44px;padding:9px 13px;border:1px solid #79949c;background:#eef1ed;color:#1b3a4b;font:600 12px/1.3 var(--font-mono);cursor:pointer}
+.eclipse-camera button[aria-pressed=true]{background:#173b51;color:#fff;border-color:#173b51}
+.eclipse-camera button:focus-visible{outline:3px solid #a55f32;outline-offset:3px}
+.eclipse-camera-note{font:13px/1.45 var(--font-reading);padding:5px 16px 12px;color:#3c5260;margin:0}
+@media(max-width:600px){.eclipse-camera{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.eclipse-camera>span{grid-column:1/-1}.eclipse-camera button:last-child{grid-column:1/-1}}
+
+/* NASA image forensics. Native source crops only; no artificial alignment. */
+.provenance-detail-lab{margin:28px 0;padding-top:24px;border-top:1px solid #96a5a7;display:grid;gap:15px}
+.provenance-detail-head h4{font:600 clamp(22px,3vw,29px)/1.18 var(--font-display);margin:5px 0 10px}
+.provenance-detail-head p{font:14px/1.55 var(--font-reading);max-width:76ch;margin:0}
+.provenance-detail-controls{display:flex;gap:8px;flex-wrap:wrap}
+.provenance-detail-controls button{font:600 12px/1.3 var(--font-mono);min-height:44px;padding:9px 13px;background:#f1efea;color:#17384a;border:1px solid #8c9799;cursor:pointer}
+.provenance-detail-controls button[aria-pressed=true]{background:#193f56;color:#fff}
+.provenance-detail-controls button:focus-visible{outline:3px solid #9b512f;outline-offset:3px}
+.provenance-detail-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;background:#132432;padding:12px}
+.provenance-detail-pair figure{margin:0;min-width:0}.provenance-detail-frame{width:100%;aspect-ratio:800/773;background-color:#132432;background-repeat:no-repeat;background-size:calc(200% * var(--detail-zoom)) calc(100% * var(--detail-zoom));background-position:var(--detail-left-x) var(--detail-y);transition:background-size .65s ease,background-position .65s ease}
+.provenance-detail-webb{background-position:var(--detail-right-x) var(--detail-y)}
+.provenance-detail-pair figcaption{font:12px/1.5 var(--font-reading);padding:9px 0 2px;color:#dbe5e9}
+.provenance-detail-pair figcaption strong{color:#fff}
+.provenance-detail-note{font:13px/1.55 var(--font-reading);color:#44555f;margin:0}
+@media(max-width:620px){.provenance-detail-pair{grid-template-columns:minmax(0,1fr);gap:18px}.provenance-detail-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.provenance-detail-controls button{padding:8px 4px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){.provenance-detail-frame{transition:none}}
+
+/* Mobile model walking frame needs vertical room for true-distance labels. */
+#auExpeditionCanvas{height:clamp(190px,22vw,300px);aspect-ratio:auto}

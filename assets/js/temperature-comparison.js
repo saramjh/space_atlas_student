@@ -41,6 +41,21 @@ first?.addEventListener('change', renderTemperatures);
 second?.addEventListener('change', renderTemperatures);
 if (chart && first && second) renderTemperatures();
 
+const thermalCases={
+ night:'Mercury can fall to −180°C at night. With almost no substantial atmosphere, its surface loses heat instead of retaining a global greenhouse blanket. This is a local extreme, not its mean.',
+ day:'Mercury can reach +430°C on sunlit terrain. Remarkably, that local daytime high is still 34°C cooler than Venus’s +464°C global mean; the two numbers describe different statistics.',
+ compare:'Venus: +464°C mean / Mercury: +167°C mean. Venus averages 297°C hotter even though Mercury is closer to the Sun. Atmospheric heat retention, not solar distance alone, is decisive.'
+};
+const thermalControls=[...document.querySelectorAll('[data-thermal-case]')];
+const thermalResult=document.querySelector('#thermalEvidenceResult');
+thermalControls.forEach(button=>button.addEventListener('click',()=>{
+ const choice=button.dataset.thermalCase;
+ if(!Object.hasOwn(thermalCases,choice))return;
+ thermalControls.forEach(x=>x.setAttribute('aria-pressed',String(x===button)));
+ thermalResult.textContent=thermalCases[choice];
+ document.querySelector('#thermalEvidence').dataset.case=choice;
+}));
+
 initQuiz([
   {
     q: 'Which planet has the hottest average surface temperature?',

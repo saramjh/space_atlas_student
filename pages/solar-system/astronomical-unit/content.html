@@ -34,6 +34,16 @@
       <div class="au-dot" style="left:100%"></div><div class="au-dot-label" style="left:100%"><b>Neptune</b><span id="d7">22.5 m</span></div>
     </div>
     <p class="scale-caption">Dot positions use a log scale so every planet stays visible; the distances printed above each dot are the real linear numbers at your chosen scale.</p>
+    <section class="au-expedition" aria-labelledby="auExpeditionTitle">
+      <div class="au-expedition-head"><div><p class="au-expedition-eyebrow">01 / A journey you can walk</p><h3 id="auExpeditionTitle">Travel the distance, not the planet sizes.</h3><p>The scale is linear. If one AU is your step, Neptune's orbit is about 22.5 metres down this imaginary path. The travel animation speeds up the walk; it does not represent spacecraft speed.</p></div><div class="au-expedition-distance" id="auExpeditionDistance" aria-live="off"><strong>0.00 AU</strong><span>0.00 m from the Sun at your chosen scale</span></div></div>
+      <canvas id="auExpeditionCanvas" width="960" height="300" aria-label="Model walking path from Sun to Neptune. The slider and numbered planet stops provide an accessible alternative."></canvas>
+      <label for="auExpeditionProgress">Position on the real linear distance ruler <output id="auExpeditionPosition" for="auExpeditionProgress">0.00 AU</output></label>
+      <input id="auExpeditionProgress" type="range" min="0" max="3005" value="0" step="1" aria-label="Distance from Sun in hundredths of an astronomical unit"/>
+      <div class="au-expedition-buttons"><button type="button" id="auExpeditionPlay" aria-pressed="false">Begin the 12-second journey</button><button type="button" id="auExpeditionReset">Return to the Sun</button><select id="auExpeditionStop" aria-label="Jump to planet orbit"><option value="0">Sun · 0 AU</option><option value="0.39">Mercury · 0.39 AU</option><option value="0.72">Venus · 0.72 AU</option><option value="1">Earth · 1 AU</option><option value="1.52">Mars · 1.52 AU</option><option value="5.20">Jupiter · 5.20 AU</option><option value="9.58">Saturn · 9.58 AU</option><option value="19.2">Uranus · 19.2 AU</option><option value="30.05">Neptune · 30.05 AU</option></select></div>
+      <p class="au-expedition-note" id="auExpeditionNote" role="status">At the Sun. Pick a planet or drag the ruler to jump directly to its average orbital distance. Orbit positions and planet body sizes are not to scale.</p>
+      <p class="scale-caption">Scene design reference: <a href="https://www.jpl.nasa.gov/edu/resources/video/solar-system-size-and-distance/" target="_blank" rel="noopener noreferrer">NASA/JPL Solar System Size and Distance</a>. All orbital values are average AU distances, not live positions. This camera journey is an illustration, not a mission trajectory.</p>
+    </section>
+
   </div>
  </div>
 </section>

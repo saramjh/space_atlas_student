@@ -23,6 +23,17 @@
       </div>
       <p class="scale-caption">Each horizontal bar uses the same <strong>linear Celsius axis (−250°C to +500°C)</strong>. 0°C is the vertical reference line. The values are NASA illustrative planetary means, not live weather.</p>
     </div>
+    <section class="thermal-evidence" id="thermalEvidence" aria-labelledby="thermalEvidenceTitle">
+      <div class="thermal-evidence-header"><span class="thermal-kicker">Evidence comparison / NASA</span><h3 id="thermalEvidenceTitle">The hotter world is farther from the Sun.</h3><p>Test the distance-only explanation against NASA's published temperatures. Mercury's extreme local day and night values are <strong>not</strong> global means; Venus's 464°C is a global mean.</p></div>
+      <div class="thermal-evidence-plot" aria-label="Linear temperature scale from minus 200 to 500 degrees Celsius. Mercury's nightside minimum is minus 180, dayside maximum 430, and global mean 167. Venus's mean is 464." role="img">
+        <div class="thermal-axis"><span>−200°C</span><span>0°C</span><span>+200°C</span><span>+500°C</span></div>
+        <div class="thermal-evidence-row"><span>Mercury</span><div class="thermal-evidence-line"><i class="thermal-range" style="left:2.857%;width:87.142%"></i><b class="thermal-point" style="left:52.429%" title="Mercury mean +167°C"></b><em class="thermal-end" style="left:2.857%">−180</em><em class="thermal-end" style="left:90%">+430</em></div><small>Extrema and mean</small></div>
+        <div class="thermal-evidence-row"><span>Venus</span><div class="thermal-evidence-line"><b class="thermal-point venus" style="left:94.857%" title="Venus mean +464°C"></b></div><small>Mean +464°C</small></div>
+      </div>
+      <div class="thermal-evidence-controls" role="group" aria-label="Explore measured temperature contrasts"><button type="button" data-thermal-case="night" aria-pressed="false">Mercury · night</button><button type="button" data-thermal-case="day" aria-pressed="false">Mercury · day</button><button type="button" data-thermal-case="compare" aria-pressed="true">Compare the averages</button></div>
+      <div class="thermal-evidence-result" id="thermalEvidenceResult" role="status"><strong>Venus: +464°C mean / Mercury: +167°C mean.</strong> Venus averages 297°C hotter even though Mercury receives more direct sunlight. A dense CO₂ atmosphere is the essential difference.</div>
+      <p class="scale-caption">Temperature range is drawn on the <strong>same linear Celsius axis</strong>. Mercury's −180°C night minimum and +430°C day maximum are local extrema; its +167°C and Venus's +464°C are NASA illustrative global means. No invented hour-by-hour temperatures. Sources: <a href="https://science.nasa.gov/mercury/facts/" target="_blank" rel="noopener noreferrer">NASA Mercury Facts</a> · <a href="https://science.nasa.gov/resource/solar-system-temperatures/" target="_blank" rel="noopener noreferrer">NASA Solar System Temperatures</a>.</p>
+    </section>
     <div class="temp-static-facts">
       <h3>What kind of temperature is each figure?</h3>
       <p>The NASA comparison is <strong>not a set of eight comparable solid-surface measurements</strong>. Mercury, Venus, Earth and Mars use averages over rocky surfaces; Jupiter, Saturn, Uranus and Neptune have no solid landing surface, so their values refer to approximately Earth's sea-level pressure (1 bar) in the atmosphere. Mercury's mean hides extreme day–night variation.</p>

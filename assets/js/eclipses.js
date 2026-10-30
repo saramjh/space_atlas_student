@@ -1,3 +1,4 @@
+import {cinematicEase} from './cinematic-motion.js';
 // Eclipses page (/moon/eclipses/). Same Sun-Earth-Moon geometry as
 // moon-phases.js, viewed from a slight elevation (not straight down) so a
 // toggleable orbital tilt is visible, showing why most new/full moons
@@ -94,6 +95,33 @@ let lastTime=null;
 let traveled=0;
 let continuousDeg=Number(slider.value);
 const CYCLE_DEGREES_PER_SECOND=30;
+// Cinematic camera transitions do not affect the science geometry.
+const eclipseCameraNote=document.querySelector('#eclipseCameraNote');
+const cameraChoices=[...document.querySelectorAll('[data-eclipse-camera]')];
+const cameraViews={oblique:new THREE.Vector3(0,12,27),overhead:new THREE.Vector3(0,26,.15),edge:new THREE.Vector3(0,3,25)};
+const cameraNotes={
+ oblique:'Oblique view: see the tilted Moon orbit rise above and below the Earth–Sun reference plane.',
+ overhead:'Over the orbit: the Moon circles Earth, but this angle can hide its height above or below the ecliptic. Check the side-view diagram.',
+ edge:'Along the ecliptic: look almost across the orbital plane to expose a Moon that passes above or below alignment. Illustrative camera only.'
+};
+let cameraFrame=null,cameraStart=null,cameraFrom=null,cameraTo=null;
+function stopCamera(){if(cameraFrame!==null)cancelAnimationFrame(cameraFrame);cameraFrame=null;cameraStart=null;}
+function cameraTick(now){
+ cameraFrame=null;if(document.hidden)return stopCamera();
+ if(cameraStart===null)cameraStart=now;
+ const t=Math.min(1,(now-cameraStart)/980);
+ camera.position.copy(cameraFrom).lerp(cameraTo,cinematicEase(t));camera.lookAt(0,0,0);
+ renderer.render(scene,camera);
+ if(t<1)cameraFrame=requestAnimationFrame(cameraTick);else stopCamera();
+}
+function changeCamera(view){if(!Object.hasOwn(cameraViews,view))return;
+ stopCamera();cameraChoices.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.eclipseCamera===view)));
+ eclipseCameraNote.textContent=cameraNotes[view];
+ if(reducedMotion.matches){camera.position.copy(cameraViews[view]);camera.lookAt(0,0,0);renderer.render(scene,camera);return;}
+ cameraFrom=camera.position.clone();cameraTo=cameraViews[view].clone();cameraFrame=requestAnimationFrame(cameraTick);
+}
+cameraChoices.forEach(b=>b.addEventListener('click',()=>changeCamera(b.dataset.eclipseCamera)));
+
 
 function nearConjunction(deg) {
   const d=((deg%360)+360)%360;
@@ -197,12 +225,12 @@ playButton.addEventListener('click',()=>{
   continuousDeg=Number(slider.value);
   setPlaying(!playing);
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(false);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){setPlaying(false);stopCamera();}});
 reducedMotion.addEventListener?.('change',()=>setPlaying(false));
 new ResizeObserver(()=>requestAnimationFrame(()=>renderer.render(scene,camera)))
   .observe(document.querySelector('#eclipseShell'));
 applyAngle(Number(slider.value));
-document.querySelectorAll('#btnSolarPos, #btnLunarPos, #tiltToggle, #eclipseAngle, #eclipseNode, [data-eclipse-node]')
+document.querySelectorAll('#btnSolarPos, #btnLunarPos, #tiltToggle, #eclipseAngle, #eclipseNode, [data-eclipse-node], [data-eclipse-camera]')
   .forEach(el=>{el.disabled=false;});
 playButton.disabled=reducedMotion.matches;
 document.querySelector('#eclipseLab').setAttribute('aria-busy','false');

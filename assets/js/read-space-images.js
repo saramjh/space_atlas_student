@@ -42,6 +42,31 @@ if (provenanceLab) {
   showMode('compare');
 }
 
+const detailLab=document.querySelector('#provenanceDetailLab');
+if(detailLab){
+ const pair=detailLab.querySelector('.provenance-detail-pair');
+ const note=detailLab.querySelector('#provenanceRegionNote');
+ const choices=[...detailLab.querySelectorAll('[data-provenance-region]')];
+ // Each field is the unmodified left/right half of the *same NASA composite*.
+ // The independent crops are intentionally never presented as coregistered.
+ const regions={
+  whole:{z:1,y:50,xL:0,xR:100,description:'Whole fields: the NASA source composite with its two independent viewpoints, not pixel-registered.'},
+  top:{z:1.7,y:25,description:'Upper pillars: inspect the dust-bound structures in Hubble and the corresponding broader scene in Webb. Do not identify matching pixels across instruments.'},
+  lower:{z:1.7,y:75,description:'Lower dust: compare visible-light obscuration with near-infrared sensitivity. Different filters, crop, instrument resolution and processing remain important.'}
+ };
+ function bgX(z,sourceFraction){return 100*(.5-2*z*sourceFraction)/(1-2*z);}
+ function bgY(z,sourceFraction){return z===1?50:100*(.5-z*sourceFraction)/(1-z);}
+ choices.forEach(button=>button.addEventListener('click',()=>{
+  const region=regions[button.dataset.provenanceRegion];if(!region)return;
+  choices.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+  pair.style.setProperty('--detail-zoom',region.z);
+  pair.style.setProperty('--detail-left-x',(region.xL??bgX(region.z,.25))+'%');
+  pair.style.setProperty('--detail-right-x',(region.xR??bgX(region.z,.75))+'%');
+  pair.style.setProperty('--detail-y',bgY(region.z,region.y/100)+'%');
+  note.textContent=region.description;
+ }));
+}
+
 initQuiz([
   {
     q: 'A colorful nebula photo from a space telescope — is the color what your eye would see?',

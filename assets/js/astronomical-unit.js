@@ -1,3 +1,4 @@
+import {createAUExpedition} from './au-expedition.js';
 import { PLANETS } from './planet-data.js';
 
 const AU_VALUES = PLANETS.map((p) => parseFloat(p.au)); // [0.39, 0.72, 1.00, 1.52, 5.20, 9.58, 19.2, 30.05]
@@ -36,3 +37,5 @@ customInput.addEventListener('input', () => {
 });
 
 render(Number(customInput.value));
+
+createAUExpedition({canvas:document.querySelector('#auExpeditionCanvas'),slider:document.querySelector('#auExpeditionProgress'),play:document.querySelector('#auExpeditionPlay'),reset:document.querySelector('#auExpeditionReset'),select:document.querySelector('#auExpeditionStop'),label:document.querySelector('#auExpeditionPosition'),amount:document.querySelector('#auExpeditionDistance'),note:document.querySelector('#auExpeditionNote'),scaleInput:customInput});

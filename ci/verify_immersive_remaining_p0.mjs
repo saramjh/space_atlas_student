@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {distanceAtModelScale,AU_END} from '../assets/js/au-expedition.js';
+import {PLANETS} from '../assets/js/planet-data.js';
+import {cinematicEase} from '../assets/js/cinematic-motion.js';
+const read=p=>readFileSync(p,'utf8');
+const paths=['solar-system/astronomical-unit','solar-system/temperature-comparison','moon/eclipses','learn/read-space-images'];
+for(const page of paths){const html=read(`public/${page}/index.html`);assert.match(html,/rel="canonical"/);assert.match(html,/type="application\/ld\+json"/);}
+const au=read(`public/${paths[0]}/index.html`),auJS=read('assets/js/au-expedition.js');
+assert.match(au,/id="auExpeditionCanvas"/);assert.match(au,/id="auExpeditionProgress"[^>]*max="3005"/);assert.match(au,/id="auExpeditionPlay"[^>]*aria-pressed="false"/);
+assert.match(au,/NASA\/JPL Solar System Size and Distance/);assert.match(au,/linear/);
+assert.ok(Math.abs(distanceAtModelScale(AU_END,75)-22.5375)<1e-12);
+for(const p of PLANETS) assert.ok(distanceAtModelScale(Number.parseFloat(p.au),100)>0);
+assert.ok(distanceAtModelScale(30.05,75)>distanceAtModelScale(1,75));
+assert.throws(()=>distanceAtModelScale(-1,75),RangeError);
+assert.match(auJS,/cinematicEase\(t\)/);assert.match(auJS,/if\(!playing\|\|document.hidden\|\|motion.matches\)return stop\(\)/);
+assert.match(auJS,/if\(motion.matches\)stop\(\)/);assert.match(auJS,/canvas\.getContext\('2d'\)/);
+assert.equal(cinematicEase(0),0);assert.equal(cinematicEase(.5),.5);assert.equal(cinematicEase(1),1);
+const temperature=read(`public/${paths[1]}/index.html`),tempJS=read('assets/js/temperature-comparison.js');
+assert.match(temperature,/id="thermalEvidence"/);assert.match(temperature,/Mercury.+−180°C night minimum and \+430°C day maximum/);
+assert.match(temperature,/NASA Mercury Facts/);assert.match(temperature,/data-thermal-case="night"/);
+assert.match(tempJS,/night:.+−180°C/);assert.match(tempJS,/day:.+\+430°C/);
+assert.match(tempJS,/297°C hotter/);assert.equal(464-167,297);assert.equal(464-430,34);
+const eclipse=read(`public/${paths[2]}/index.html`),eclipseJS=read('assets/js/eclipses.js');
+for(const view of ['oblique','overhead','edge'])assert.match(eclipse,new RegExp(`data-eclipse-camera="${view}"`));
+assert.match(eclipse,/NASA eclipse geometry/);assert.match(eclipseJS,/const cameraViews=/);
+assert.match(eclipseJS,/cinematicEase\(t\)/);assert.match(eclipseJS,/if\(reducedMotion.matches\)\{/);
+assert.match(eclipseJS,/camera\.lookAt\(0,0,0\)/);assert.match(eclipseJS,/if\(document.hidden\)\{setPlaying\(false\);stopCamera\(\);\}/);
+const imageHTML=read(`public/${paths[3]}/index.html`),imgJS=read('assets/js/read-space-images.js');
+assert.match(imageHTML,/id="provenanceDetailLab"/);assert.match(imageHTML,/NASA's original comparison/);
+for(const state of ['whole','top','lower'])assert.match(imageHTML,new RegExp(`data-provenance-region="${state}"`));
+assert.match(imageHTML,/not pixel-registered/);
+assert.match(imgJS,/const regions=\{/);assert.match(imgJS,/bgX\(z,sourceFraction\)/);
+assert.match(imgJS,/The independent crops are intentionally never presented as coregistered/);
+console.log('IMMERSIVE_AU_TRUE_SCALE_NASA_TEMPERATURE_ECLIPSE_3VIEWS_IMAGE_SOURCE_CROPS_PASS');
