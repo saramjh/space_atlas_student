@@ -1622,3 +1622,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 
 /* Filmic lookback camera: four accessible transport controls without clipping. */
 @media(max-width:700px){.ly-cinema-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.ly-cinema-quick button{font-size:11px;padding:8px 3px;white-space:normal}}
+
+/* Narrow phones: 4:3 black-hole stage must not grow past its grid column
+   when min-height would override the aspect-ratio's computed width. */
+@media(max-width:360px){.bh-diagram{min-height:0}}

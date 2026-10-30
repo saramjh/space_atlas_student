@@ -35,6 +35,7 @@ export async function createTideCinema(canvas,shell,onUpdate=()=>{}){
  const marker=new THREE.Mesh(markerGeo,markerMat);marker.renderOrder=15;scene.add(marker);
  let angle=0,targetAngle=0,observer=0,playing=false,elapsed=0;
  let orbit=0,targetOrbit=0,zoom=1,targetZoom=1;
+ let followObserver=false,followBlend=0,focusX=0,focusY=0;
  let raf=null,last=0,disposed=false,statusTick=0;
  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
  const pointers=new Map();let lastPinch=0;
@@ -58,9 +59,9 @@ export async function createTideCinema(canvas,shell,onUpdate=()=>{}){
  function draw(){
   if(disposed||canvas.hidden||shell.hidden)return;
   const w=Math.max(1,shell.clientWidth),h=Math.max(1,shell.clientHeight),aspect=w/h;
-  const dist=(aspect<1?9.6:7.1)*zoom;
-  camera.position.set(Math.sin(orbit)*dist*.32,Math.sin(.07)*dist,Math.cos(orbit)*dist);
-  camera.lookAt(0,0,0);
+  const dist=(aspect<1?9.6:7.1)*zoom*(1-.32*followBlend);
+  camera.position.set(Math.sin(orbit)*dist*.32+focusX*.65,Math.sin(.07)*dist+focusY*.65,Math.cos(orbit)*dist);
+  camera.lookAt(focusX,focusY,0);
   renderer.render(scene,camera);
  }
  function schedule(){if(raf===null&&!disposed&&!document.hidden)raf=requestAnimationFrame(frame);}
@@ -69,16 +70,21 @@ export async function createTideCinema(canvas,shell,onUpdate=()=>{}){
   const ease=reduced.matches?1:1-Math.exp(-12*dt);
   angle+=(targetAngle-angle)*ease;
   orbit+=(targetOrbit-orbit)*ease;zoom+=(targetZoom-zoom)*ease;
+  followBlend+=((followObserver?1:0)-followBlend)*ease;
   if(playing){
    elapsed+=dt;observer=Math.min(360,elapsed/12*360);
    if(elapsed>=12){playing=false;observer=360;}
   }
-  updateGeometry();draw();
+  updateGeometry();
+  const nextFocusX=followBlend*marker.position.x*.78;
+  const nextFocusY=followBlend*marker.position.y*.78;
+  focusX+=(nextFocusX-focusX)*ease;focusY+=(nextFocusY-focusY)*ease;
+  draw();
   statusTick+=dt;if(statusTick>.35||!playing){statusTick=0;report();}
-  if(playing||Math.abs(angle-targetAngle)>.03||Math.abs(orbit-targetOrbit)>.001||Math.abs(zoom-targetZoom)>.001)schedule();
+  if(playing||Math.abs(angle-targetAngle)>.03||Math.abs(orbit-targetOrbit)>.001||Math.abs(zoom-targetZoom)>.001||Math.abs(followBlend-(followObserver?1:0))>.005||Math.abs(focusX-nextFocusX)>.003||Math.abs(focusY-nextFocusY)>.003)schedule();
  }
  function setAngle(v){targetAngle=clamp(Number(v)||0,0,90);if(reduced.matches){angle=targetAngle;updateGeometry();report();draw();}else schedule();}
- function setObserver(v){observer=clamp(Number(v)||0,0,360);elapsed=observer/30;updateGeometry();report();draw();}
+ function setObserver(v){observer=clamp(Number(v)||0,0,360);elapsed=observer/30;updateGeometry();report();draw();if(followObserver){if(reduced.matches){focusX=marker.position.x*.78;focusY=marker.position.y*.78;draw();}else schedule();}}
  function start(){if(reduced.matches||document.hidden)return false;if(observer>=359){observer=0;elapsed=0;}else elapsed=observer/30;playing=true;last=0;schedule();return true;}
  function stop(){playing=false;report();}
  function resize(){const w=Math.max(1,shell.clientWidth),h=Math.max(1,shell.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?54:48;camera.updateProjectionMatrix();draw();}
@@ -102,6 +108,7 @@ export async function createTideCinema(canvas,shell,onUpdate=()=>{}){
  },undefined,error=>console.warn('Tide Earth reference texture unavailable; keeping sphere fallback',error));
  updateGeometry();resize();report();
  return {setAngle,setObserver,start,stop,isPlaying:()=>playing,resize,
+  setFollowObserver:v=>{followObserver=Boolean(v);if(reduced.matches){followBlend=followObserver?1:0;focusX=followBlend*marker.position.x*.78;focusY=followBlend*marker.position.y*.78;draw();}else schedule();},
   zoomBy:v=>{targetZoom=clamp(targetZoom*v,.63,1.62);schedule();},
   rotateBy:v=>{targetOrbit+=v;schedule();},
   reset(){stop();setAngle(0);setObserver(0);targetZoom=1;targetOrbit=0;schedule();},

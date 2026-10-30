@@ -35,6 +35,7 @@ const tide3DAngleValue=document.querySelector('#tideCinemaAngleValue');
 const tide3DObserver=document.querySelector('#tideCinemaObserver');
 const tide3DObserverValue=document.querySelector('#tideCinemaObserverValue');
 const tide3DPlay=document.querySelector('#tideCinemaPlay');
+const tide3DFollow=document.querySelector('#tideCinemaFollow');
 let tide3DEngine=null,tide3DLoading=false;
 function report3D(message){
  tide3DStatus.textContent=message;
@@ -94,6 +95,12 @@ if(tide3DActivate){
  document.querySelector('#tideCinemaZoomIn').addEventListener('click',()=>tide3DEngine?.zoomBy(.78));
  document.querySelector('#tideCinemaZoomOut').addEventListener('click',()=>tide3DEngine?.zoomBy(1.28));
  document.querySelector('#tideCinemaRotate').addEventListener('click',()=>tide3DEngine?.rotateBy(.28));
+ tide3DFollow.addEventListener('click',()=>{
+  const active=tide3DFollow.getAttribute('aria-pressed')!=='true';
+  tide3DFollow.setAttribute('aria-pressed',String(active));
+  tide3DFollow.textContent=active?'Return to whole-Earth view':'Ride with the observer';
+  tide3DEngine?.setFollowObserver(active);
+ });
  document.addEventListener?.('visibilitychange',()=>{if(document.hidden)stop3DRotation();});
  if(typeof window!=='undefined')window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener?.('change',event=>{
   tide3DPlay.disabled=event.matches;if(event.matches)stop3DRotation();

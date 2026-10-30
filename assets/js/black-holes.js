@@ -1,3 +1,4 @@
+import {cinematicEase} from './cinematic-motion.js';
 import {currentRenderTier} from './render-device-tier.js';
 import { initQuiz } from './quiz-widget.js';
 
@@ -45,6 +46,7 @@ const guideButton=document.querySelector('#bhGuide');
 const resetButton=document.querySelector('#bhReset');
 const zoomIn=document.querySelector('#bhZoomIn');
 const zoomOut=document.querySelector('#bhZoomOut');
+const glideButton=document.querySelector('#bhGlide');
 const flowSpeed=document.querySelector('#bhFlowSpeed');
 const flowSpeedValue=document.querySelector('#bhFlowSpeedValue');
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -233,6 +235,7 @@ async function loadThreeLab() {
   scene.add(horizonGuide);
 
   let viewDistance=19.5;
+  let glideFrame=null,glideStart=null,glideFrom=19.5,glideTo=19.5;
   function resize() {
     const width=Math.max(1,shell.clientWidth),height=Math.max(1,shell.clientHeight);
     renderer.setSize(width,height,false);
@@ -258,17 +261,29 @@ async function loadThreeLab() {
     horizonGuide.visible=guide;
     draw();
   }
+  function cancelGlide(){if(glideFrame!==null)cancelAnimationFrame(glideFrame);glideFrame=null;glideStart=null;}
+  function glideTick(now){
+   glideFrame=null;if(document.hidden||canvas.hidden){glideStart=null;return;}
+   if(glideStart===null)glideStart=now;
+   const t=Math.min(1,(now-glideStart)/4200);
+   viewDistance=glideFrom+(glideTo-glideFrom)*cinematicEase(t);
+   update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');
+   if(t<1)glideFrame=requestAnimationFrame(glideTick);else glideStart=null;
+  }
   const observer=new ResizeObserver(resize);
   observer.observe(shell);
   const engine={draw,update,spin(dt){diskMaterial.uniforms.uTime.value+=dt;draw();},resize,
-    zoomBy(factor){viewDistance=Math.max(11,Math.min(29,viewDistance*factor));update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');},
-    resetZoom(){viewDistance=19.5;update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');}};
+    zoomBy(factor){cancelGlide();glideButton.setAttribute('aria-pressed','false');glideButton.textContent='Glide toward the disk';viewDistance=Math.max(11,Math.min(29,viewDistance*factor));update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');},
+    flyTo(closer){cancelGlide();glideFrom=viewDistance;glideTo=closer?11.4:19.5;if(reducedMotion.matches){viewDistance=glideTo;update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');return;}glideFrame=requestAnimationFrame(glideTick);},
+    cancelFlight:cancelGlide,
+    resetZoom(){cancelGlide();viewDistance=19.5;update(selectedModel(),azimuth,guideButton.getAttribute('aria-pressed')==='true');}};
   return engine;
 }
 activate?.addEventListener('click',async()=>{
   if(loading)return;
   if(engine) {
-    stopMotion();
+    stopMotion();engine.cancelFlight();
+    glideButton.setAttribute('aria-pressed','false');glideButton.textContent='Glide toward the disk';
     const enabled=canvas.hidden;
     canvas.hidden=!enabled;
     fallback.hidden=enabled;
@@ -296,6 +311,7 @@ activate?.addEventListener('click',async()=>{
     engine.resize();
     updateReadout();
     animateButton.disabled=reducedMotion.matches;
+    glideButton.disabled=reducedMotion.matches;
     canvas.setAttribute('aria-hidden','true'); // ranges/buttons own keyboard access
   }catch(error){
     // Static labeled diagram remains usable for devices without WebGL.
@@ -328,6 +344,13 @@ flowSpeed?.addEventListener('input',()=>{
 });
 zoomIn?.addEventListener('click',()=>engine?.zoomBy(.78));
 zoomOut?.addEventListener('click',()=>engine?.zoomBy(1.28));
+glideButton?.addEventListener('click',()=>{
+ if(!engine||reducedMotion.matches)return;
+ const closer=glideButton.getAttribute('aria-pressed')!=='true';
+ glideButton.setAttribute('aria-pressed',String(closer));
+ glideButton.textContent=closer?'Glide back to wide view':'Glide toward the disk';
+ engine.flyTo(closer);
+});
 canvas?.addEventListener('wheel',event=>{
  if(canvas.hidden||!engine)return;
  event.preventDefault();
@@ -335,11 +358,12 @@ canvas?.addEventListener('wheel',event=>{
 },{passive:false});
 resetButton?.addEventListener('click',()=>{
   stopMotion();azimuth=0;elevationInput.value='45';massInput.value='1';engine?.resetZoom();
+  glideButton.setAttribute('aria-pressed','false');glideButton.textContent='Glide toward the disk';
   guideButton.setAttribute('aria-pressed','false');
   updateReadout();
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMotion();});
-reducedMotion.addEventListener?.('change',()=>{stopMotion();animateButton.disabled=reducedMotion.matches;});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stopMotion();engine?.cancelFlight();}});
+reducedMotion.addEventListener?.('change',()=>{stopMotion();engine?.cancelFlight();animateButton.disabled=reducedMotion.matches;glideButton.disabled=reducedMotion.matches;});
 let pointer=null;
 const touchPoints=new Map();
 let lastPinch=0;

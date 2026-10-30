@@ -102,6 +102,7 @@ jobs:
           node ci/verify_kepler.mjs
           node ci/verify_kepler_orbit_cinema.mjs
           node ci/verify_cinematic_camera_grammar.mjs
+          node ci/verify_cinematic_followups.mjs
           node ci/verify_quality_fixes.mjs
           for file in assets/js/*.js; do node --check "$file"; done
 

@@ -114,3 +114,10 @@ The owner singled out *Earth and the Moon, Drawn to True Scale* for the strongly
 - `/universe/light-year/`: optional **Follow photon / Wide view** camera perspective, with source receding, the Earth approaching and layered star parallax when light progress increases. In-scene transport stays synchronized to the original exact source-specific light-travel calculation. Depictions and perspective are artistic, not observed images or physically proportioned 3D travel.
 
 No change to three science models, ad settings, canonical URLs, per-page source citations, or user-triggered activation. The remaining visual modules should be evaluated for *their own learning outcome* before applying the same camera treatment. This is **a scoped upgrade, not final 14-page cinematic signoff**.
+
+## Additional contextual camera travel (2026-10-30)
+
+- **Tides**: opt-in Ride with the observer smoothly blends between whole-Earth camera and a moving viewpoint following the gold observer marker. The water shell shape and the NOAA-tied lunar/solar quadrupole are unchanged; observer movement is a conceptual visualization of passing two tidal-force lobes, not shoreline water height or a true ground observer's sky image. Manual observer movement works with reduced motion instantly; no continuous redraw at rest.
+- **Black holes**: opt-in cinematic Glide toward the disk / back to wide view: 4.2s smoothstep camera dolly from model distance 19.5 to 11.4, strictly outside the symbolic event horizon and displayed accretion disk, with a bounded cancelable animation; does not claim a viable spacecraft path or relativistic photon tracing. Its existing mass/horizon readout, inclination model and cited NASA sources remain unchanged. Reduced-motion disables the automatic camera glide while retaining manual zoom.
+
+Both camera modes are visual framing affordances; they do not change physical forces, angular velocities, distances, numerical measurements or time. They preserve 2D and non-JS fallbacks, source-labeled caveats, per-page accessible opt-in controls, and low-tier capped rendering. These are additional scoped improvements, not proof of 14-scene user acceptance.

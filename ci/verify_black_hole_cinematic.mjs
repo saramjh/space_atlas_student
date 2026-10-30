@@ -7,7 +7,7 @@ const page=source('pages/black-holes/content.html');
 const built=source('public/black-holes/index.html');
 const code=source('assets/js/black-holes.js');
 const css=source('assets/css/style.css');
-for(const id of ['bhZoomIn','bhZoomOut','bhFlowSpeed','bhFlowSpeedValue']) {
+for(const id of ['bhZoomIn','bhZoomOut','bhFlowSpeed','bhFlowSpeedValue','bhGlide']) {
  assert.match(page,new RegExp(`id="${id}"`));
  assert.match(built,new RegExp(`id="${id}"`));
 }
@@ -15,7 +15,7 @@ assert.match(code,/engine\?\.zoomBy\(\.78\)/);
 assert.match(code,/engine\?\.zoomBy\(1\.28\)/);
 assert.match(code,/engine\?\.resetZoom\(\)/);
 assert.match(code,/engine\.spin\(dt\*Number\(flowSpeed\.value\)\)/);
-assert.match(code,/zoomBy\(factor\)\{viewDistance=Math\.max\(11,Math\.min\(29/);
+assert.match(code,/zoomBy\(factor\)\{cancelGlide\(\);glideButton\.setAttribute\('aria-pressed','false'\);glideButton\.textContent='Glide toward the disk';viewDistance=Math\.max\(11,Math\.min\(29/);
 assert.match(code,/Math\.exp\(Math\.min\(75,Math\.max\(-75,event\.deltaY\)\)\*\.004\)/);
 assert.match(code,/passive:false/);
 assert.match(code,/touchPoints\.size===2/);

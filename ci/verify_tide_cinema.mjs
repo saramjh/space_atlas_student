@@ -7,7 +7,7 @@ const src=p=>readFileSync(p,'utf8');
 const page=src('pages/moon/tides/content.html');
 const built=src('public/moon/tides/index.html');
 const ui=src('assets/js/tides.js'),engine=src('assets/js/tide-cinema.js'),css=src('assets/css/style.css');
-for(const id of ['tideCinemaExperience','tideCinemaActivate','tideCinemaStage','tideCinemaCanvas','tideCinemaControls','tideCinemaAngle','tideCinemaObserver','tideCinemaPlay','tideCinemaReset','tideCinemaStatus']){
+for(const id of ['tideCinemaExperience','tideCinemaActivate','tideCinemaStage','tideCinemaCanvas','tideCinemaControls','tideCinemaAngle','tideCinemaObserver','tideCinemaPlay','tideCinemaReset','tideCinemaStatus','tideCinemaFollow']){
  assert.match(page,new RegExp(`id="${id}"`));assert.match(built,new RegExp(`id="${id}"`));
 }
 // Tidal quadrupole produces near/far symmetric high directions; rigid Earth radius=1.
