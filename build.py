@@ -439,8 +439,8 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_ve
             '<meta name="robots" content="noindex,nofollow,noarchive" />',
         )
         html = html.replace(
-            '<body class="google-anno-skip">',
-            '<body class="google-anno-skip" data-classroom-preview="true">\n'
+            '<body>',
+            '<body data-classroom-preview="true">\n'
             '<div class="classroom-preview-notice" role="note">'
             '<strong>Teacher-supervised classroom preview.</strong> '
             'Google Analytics and AdSense scripts are disabled in this copy. '
