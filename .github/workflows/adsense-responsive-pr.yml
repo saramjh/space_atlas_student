@@ -1,0 +1,34 @@
+name: Verify responsive AdSense changes
+
+on:
+  pull_request:
+    paths:
+      - 'templates/ad-slot.html'
+      - 'ci/verify_mobile_ad_slots.mjs'
+      - '.github/workflows/adsense-responsive-pr.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  adsense-responsive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout proposed changes
+        uses: actions/checkout@v4
+      - name: Use verified Node version
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.22.1'
+      - name: Build published configuration
+        env:
+          SITE_BASE: /space_atlas_student
+          ADSENSE_ENABLED: '1'
+        run: python3 build.py
+      - name: Check ad slot geometry contract and HTML
+        run: |
+          node ci/verify_mobile_ad_slots.mjs
+          node ci/verify_ad_resize_recovery.mjs
+          python3 ci/verify_build.py
+          python3 ci/verify_mobile_header.py
+          python3 ci/verify_navigation_consistency.py
