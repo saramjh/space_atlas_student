@@ -48,13 +48,13 @@
         <input type="range" id="gravityRadius" min="1" max="12" value="1" step="0.01" disabled />
       </div>
     <div class="gravity-immersive" id="gravityImmersive" aria-labelledby="gravityImmersiveTitle">
-      <div class="gravity-immersive-intro"><div><h4 id="gravityImmersiveTitle">Build your own gravity world.</h4><p>Keep the camera's reference sphere at Earth radius. Change mass and radius, then release the amber test probe. Does it fall faster or slower?</p></div><button type="button" id="gravity3DActivate" aria-controls="gravity3DCanvas" aria-pressed="false" disabled>Enter the 3D test bench</button></div>
+      <div class="gravity-immersive-intro"><div><h4 id="gravityImmersiveTitle">Build your own gravity world.</h4><p>Keep the camera's reference sphere at Earth radius. Change mass and radius, then release both the amber model probe and cyan Earth-baseline probe from the same 0.65-Earth-radius height above their reference radii. Which reaches its reference surface first?</p></div><button type="button" id="gravity3DActivate" aria-controls="gravity3DCanvas" aria-pressed="false" disabled>Enter the 3D test bench</button></div>
       <div class="gravity-immersive-stage" id="gravity3DStage" hidden>
         <canvas id="gravity3DCanvas" aria-label="Conceptual 3D planet with a same-size Earth-radius reference, radial probe and star background. Drag to rotate, wheel or pinch to zoom; keyboard camera buttons are available below."></canvas>
         <div class="gravity-immersive-overlay" aria-hidden="true"><span>RADIUS IN EARTH UNITS · CAMERA REFRAMES</span><span>TEAL · 1 EARTH RADIUS</span></div>
       </div>
       <div class="gravity-immersive-controls" id="gravity3DControls" hidden role="group" aria-label="3D gravity test bench camera and probe controls">
-        <button id="gravityProbePlay" type="button" aria-pressed="false">Release test probe</button>
+        <button id="gravityProbePlay" type="button" aria-pressed="false">Release both probes</button>
         <button id="gravityProbeReset" type="button">Reset probe</button>
         <button id="gravity3DZoomIn" type="button" aria-label="Move the camera closer">Zoom in +</button>
         <button id="gravity3DZoomOut" type="button" aria-label="Move the camera farther away">Zoom out −</button>
@@ -62,7 +62,7 @@
         <span class="motion-preference-note">Reduced-motion preference: the drop animation is unavailable; adjust mass and radius to compare static results.</span>
       </div>
       <p id="gravity3DStatus" class="gravity-immersive-status" role="status">Optional test bench. The mathematical model and 2D radius figure below remain readable.</p>
-      <p class="gravity-immersive-note">Surface colors, grain and the lighting halo are artist styling, not real clouds, material measurements or a planet photograph. The body is a <strong>hypothetical non-rotating sphere</strong> with adjustable mass and radius, not an identified planet or observed surface. The translucent teal sphere has a fixed radius of 1 Earth radius. A probe is released 0.65 Earth radii above the model surface and moves under an illustrative numerical integration of <strong>GM/r²</strong>; animation time is deliberately compressed and is <strong>not a measured fall duration</strong>. For Jupiter-like gas giants there is no solid surface to land on; the sphere is a reference radius only.</p>
+      <p class="gravity-immersive-note">Surface colors, grain and the lighting halo are artist styling, not real clouds, material measurements or a planet photograph. The body is a <strong>hypothetical non-rotating sphere</strong> with adjustable mass and radius, not an identified planet or observed surface. The translucent teal sphere has a fixed radius of 1 Earth radius. An amber model probe and cyan Earth-reference probe begin 0.65 Earth radii above each sphere’s reference radius and independently follow the same dimensionless <strong>GM/r²</strong> integration; animation time is deliberately compressed and is <strong>not a measured fall duration</strong>. For Jupiter-like gas giants there is no solid surface to land on; the sphere is a reference radius only.</p>
     </div>
     </div>
     <div class="gravity-mechanism-workspace">

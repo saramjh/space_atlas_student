@@ -48,12 +48,17 @@ export async function createGravityImmersive(canvas,shell,onStatus=()=>{}){
  const probeGeo=new THREE.SphereGeometry(1,16,12);
  const probeMat=new THREE.MeshBasicMaterial({color:0xffc57e});
  const probe=new THREE.Mesh(probeGeo,probeMat);scene.add(probe);
+ const earthProbeMat=new THREE.MeshBasicMaterial({color:0x9affef});
+ const earthProbe=new THREE.Mesh(probeGeo,earthProbeMat);scene.add(earthProbe);
  const shadowMat=new THREE.MeshBasicMaterial({color:0x92f3de,transparent:true,opacity:.12,depthWrite:false});
  const ghost=new THREE.Mesh(refGeo,shadowMat);scene.add(ghost);
  const edgeGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(1,0,0)]);
  const edgeMat=new THREE.LineBasicMaterial({color:0xffc57e,transparent:true,opacity:.64});
  const trail=new THREE.Line(edgeGeo,edgeMat);scene.add(trail);
- let mass=1,radius=1,fall=initialProbeState(radius),playing=false,elapsed=0;
+ const earthTrailGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(1,0,0)]);
+ const earthTrailMat=new THREE.LineBasicMaterial({color:0x9affef,transparent:true,opacity:.75});
+ const earthTrail=new THREE.Line(earthTrailGeo,earthTrailMat);scene.add(earthTrail);
+ let mass=1,radius=1,fall=initialProbeState(radius),earthFall=initialProbeState(1),playing=false,elapsed=0;
  let azimuth=.2,targetAzimuth=.2,elevation=.13,targetElevation=.13,dolly=1,targetDolly=1;
  let raf=null,last=0,disposed=false,lastStatus='';
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -69,8 +74,8 @@ export async function createGravityImmersive(canvas,shell,onStatus=()=>{}){
  scene.add(new THREE.Points(starsGeo,starsMat));
  function status(){
   const g=relativeSurfaceGravity(mass,radius),p=probeRadialAcceleration(mass,radius,Math.max(0,fall.radialDistance-radius));
-  const label=fall.landed?'Test probe reached the reference surface':playing?'Test probe falling':'Test probe ready';
-  const message=`${label}. Surface g = ${g.toFixed(g<.1?3:2)}× Earth; present test-point acceleration ≈ ${p.toFixed(p<.1?3:2)}× Earth. Model units only.`;
+  const label=fall.landed&&earthFall.landed?'Both comparison probes reached the reference surfaces':playing?'Paired probes falling':fall.landed?'Model probe reached its reference surface; Earth reference probe still in motion':'Paired test probes ready';
+  const message=`${label}. Model surface g = ${g.toFixed(g<.1?3:2)}× Earth; current model-probe acceleration ≈ ${p.toFixed(p<.1?3:2)}× Earth. Cyan Earth baseline probe: ${earthFall.landed?'reached reference surface':'moving or ready'} at gₑ=1×. Both start 0.65 Earth radii above their reference radii; illustrative compressed time, not real falling times.`;
   if(message!==lastStatus){lastStatus=message;onStatus(message);}return message;
  }
  function draw(){
@@ -90,6 +95,12 @@ export async function createGravityImmersive(canvas,shell,onStatus=()=>{}){
   ghost.position.set(0,0,0);ghost.scale.setScalar(1);
   probe.scale.setScalar(Math.max(.07,Math.min(.19,radius*.018)));
   probe.position.set(fall.radialDistance,0,.15);
+  earthProbe.scale.copy(probe.scale);
+  earthProbe.position.set(ref.position.x+earthFall.radialDistance,ref.position.y,ref.position.z+.15);
+  const rpos=earthTrailGeo.attributes.position;
+  rpos.setXYZ(0,ref.position.x+1.65,ref.position.y,ref.position.z+.14);
+  rpos.setXYZ(1,ref.position.x+earthFall.radialDistance,ref.position.y,ref.position.z+.14);
+  rpos.needsUpdate=true;
   const pos=edgeGeo.attributes.position;
   pos.setXYZ(0,radius+.65,0,.14);
   pos.setXYZ(1,fall.radialDistance,0,.14);
@@ -103,8 +114,8 @@ export async function createGravityImmersive(canvas,shell,onStatus=()=>{}){
     // Wall-clock playback is a deliberately compressed illustration. Fixed
     // substeps preserve Newtonian dimensionless trajectory shape.
     elapsed+=dt;let remaining=dt*1.45;
-    while(remaining>0&&!fall.landed){const step=Math.min(.008,remaining);fall=integrateProbeFall(fall,mass,radius,step);remaining-=step;}
-    if(fall.landed||elapsed>10){playing=false;status();}
+    while(remaining>0&&(!fall.landed||!earthFall.landed)){const step=Math.min(.008,remaining);if(!fall.landed)fall=integrateProbeFall(fall,mass,radius,step);if(!earthFall.landed)earthFall=integrateProbeFall(earthFall,1,1,step);remaining-=step;}
+    if(fall.landed&&earthFall.landed||elapsed>10){playing=false;status();}
     else if(Math.floor(elapsed*4)!==Math.floor((elapsed-dt)*4))status();
   }
   const k=reduced.matches?1:1-Math.exp(-12*dt);
@@ -116,15 +127,15 @@ export async function createGravityImmersive(canvas,shell,onStatus=()=>{}){
  }
  function setParameters(nextMass,nextRadius){
   mass=Number(nextMass);radius=Number(nextRadius);relativeSurfaceGravity(mass,radius);
-  playing=false;fall=initialProbeState(radius);elapsed=0;last=0;status();draw();
+  playing=false;fall=initialProbeState(radius);earthFall=initialProbeState(1);elapsed=0;last=0;status();draw();
  }
  function start(){
   if(reduced.matches||document.hidden)return false;
-  if(fall.landed){fall=initialProbeState(radius);elapsed=0;}
+  if(fall.landed&&earthFall.landed){fall=initialProbeState(radius);earthFall=initialProbeState(1);elapsed=0;}
   playing=true;elapsed=0;last=0;status();schedule();return true;
  }
  function stop(){playing=false;status();}
- function resetProbe(){stop();fall=initialProbeState(radius);elapsed=0;status();draw();}
+ function resetProbe(){stop();fall=initialProbeState(radius);earthFall=initialProbeState(1);elapsed=0;status();draw();}
  function resize(){const w=Math.max(1,shell.clientWidth),h=Math.max(1,shell.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?54:44;camera.updateProjectionMatrix();draw();}
  function down(e){if(canvas.hidden)return;canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});lastPinch=0;}
  function move(e){const prev=pointers.get(e.pointerId);if(!prev)return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
@@ -145,6 +156,6 @@ export async function createGravityImmersive(canvas,shell,onStatus=()=>{}){
   rotateBy(radians){targetAzimuth+=radians;schedule();},
   dispose(){disposed=true;visibility();ro.disconnect();document.removeEventListener('visibilitychange',visibility);reduced.removeEventListener?.('change',onPreference);
    canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('wheel',wheel);
-   for(const g of [bodyGeo,refGeo,probeGeo,edgeGeo,starsGeo,glowGeo])g.dispose();bodyMat.map?.dispose();for(const m of [bodyMat,refMat,probeMat,shadowMat,edgeMat,starsMat,glowMat])m.dispose();renderer.dispose();}
+   for(const g of [bodyGeo,refGeo,probeGeo,edgeGeo,earthTrailGeo,starsGeo,glowGeo])g.dispose();bodyMat.map?.dispose();for(const m of [bodyMat,refMat,probeMat,earthProbeMat,shadowMat,edgeMat,earthTrailMat,starsMat,glowMat])m.dispose();renderer.dispose();}
  };
 }

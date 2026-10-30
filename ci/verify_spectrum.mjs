@@ -28,7 +28,7 @@ class Element {
 const ids = new Map();
 for (const id of [
   'spectrumSlider', 'spectrumCursor', 'spectrumBand', 'spectrumDesc',
-  'spectrumWave', 'spectrumWaveToggle', 'spectrumWavelength',
+  'spectrumWave', 'spectrumWaveToggle', 'spectrumTour', 'spectrumTourStatus', 'spectrumWavelength',
   'spectrumFrequency', 'spectrumEnergy',
   'spectrumReferenceSet', 'spectrumComparison', 'spectrumReferenceTick',
   'spectrumCurrentTick', 'spectrumPhotonBeam', 'spectrumBeamBand', 'spectrumBeamMeaning',
@@ -117,6 +117,12 @@ range.fire('input');
 assert.equal(value('spectrumWavelength'), '0.1 pm');
 assert.equal(value('spectrumBand'), 'Gamma ray');
 
+const scan=ids.get('#spectrumTour');
+scan.fire('click');
+assert.equal(scan.getAttribute('aria-pressed'),'true');
+assert.equal(range.value,'0');
+range.value='100';range.fire('input');
+assert.equal(scan.getAttribute('aria-pressed'),'false','manual scrub stops scan');
 const motionButton = ids.get('#spectrumWaveToggle');
 motionButton.fire('click');
 assert.equal(motionButton.getAttribute('aria-pressed'), 'true');

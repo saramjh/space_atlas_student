@@ -67,7 +67,8 @@
       <input type="range" id="transitRadius" min="1" max="25" value="10" step="1" disabled aria-label="Planet radius as percent of stellar radius" aria-controls="transitReadout"/>
       <div class="transit-play-controls">
         <button id="transitPlay" type="button" aria-pressed="false" disabled>Play one illustrated orbit</button>
-        <button id="transitFocus" type="button" aria-pressed="false" aria-controls="transitScene" disabled>Zoom into the star</button><span class="motion-preference-note">Motion is off because your device requests reduced motion. The phase and planet-size sliders remain available.</span>
+        <button id="transitFocus" type="button" aria-pressed="false" aria-controls="transitScene" disabled>Zoom into the star</button>
+        <button id="transitTrack" type="button" aria-pressed="false" aria-controls="transitScene" disabled>Follow the planet camera</button><span class="motion-preference-note">Motion is off because your device requests reduced motion. The phase and planet-size sliders remain available.</span>
         <span>See the planet cross the star while the curve marker moves. One 12-second cycle, then stops. Motion is not an observed orbital period.</span>
       </div>
       <output id="transitReadout" for="transitAngle transitRadius" aria-live="polite">Phase 0° · Light blocked 0.000% · Star brightness 100.000%. At central transit this 10%-radius planet would block 1.000%.</output>
@@ -75,7 +76,7 @@
       <p>Try phase <strong>90°</strong> and compare 10% to 20% planet radii: blocked light increases from <strong>1%</strong> to <strong>4%</strong>. At 270°, the planet is behind the star and causes no dip.</p>
     </div>
   </div>
-  <p class="scale-caption">Hypothetical calculation, <strong>not telescope observations</strong>. The warm surface gradient and corona are <strong>illustrative styling only</strong>; the depth calculation treats a uniformly bright stellar disk, opaque planet, exactly edge-on circular orbit; no limb darkening, noise, blended stars or grazing paths. Central depth = (planet radius ÷ stellar radius)². Orbit spacing not to scale; phase is not time. In the magnified view, the planet can move beyond the camera frame while it is outside transit. Sources: <a href="https://science.nasa.gov/exoplanets/whats-a-transit/" target="_blank" rel="noopener noreferrer">NASA transit explanation</a> and <a href="https://science.nasa.gov/resource/light-curve-of-a-planet-transiting-its-star/" target="_blank" rel="noopener noreferrer">NASA light-curve interpretation</a>.</p>
+  <p class="scale-caption">Hypothetical calculation, <strong>not telescope observations</strong>. The warm surface gradient and corona are <strong>illustrative styling only</strong>; the optional planet-follow camera changes only schematic framing, not the observer's physical position or the brightness calculation. The depth calculation treats a uniformly bright stellar disk, opaque planet, exactly edge-on circular orbit; no limb darkening, noise, blended stars or grazing paths. Central depth = (planet radius ÷ stellar radius)². Orbit spacing not to scale; phase is not time. In the magnified view, the planet can move beyond the camera frame while it is outside transit. Sources: <a href="https://science.nasa.gov/exoplanets/whats-a-transit/" target="_blank" rel="noopener noreferrer">NASA transit explanation</a> and <a href="https://science.nasa.gov/resource/light-curve-of-a-planet-transiting-its-star/" target="_blank" rel="noopener noreferrer">NASA light-curve interpretation</a>.</p>
  </div>
 </section>
 

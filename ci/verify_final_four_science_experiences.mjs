@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {relativeSurfaceGravity,initialProbeState,integrateProbeFall} from '../assets/js/gravity-probe-math.js';
+import {transitBlockedFraction} from '../assets/js/transit-geometry.js';
+const src=p=>readFileSync(p,'utf8');
+const gravity=src('assets/js/gravity-immersive.js'),controller=src('assets/js/gravity-comparison.js');
+const transit=src('assets/js/transit-method.js'),spectrum=src('assets/js/electromagnetic-spectrum.js');
+const resources=src('assets/js/resource-picker.js');
+const routes=['solar-system/gravity-comparison','exoplanets/transit-method','astronomy/electromagnetic-spectrum','sources/space-resources-for-students'];
+for(const route of routes){const html=src(`public/${route}/index.html`);assert.match(html,/rel="canonical"/);assert.match(html,/type="application\/ld\+json"/);}
+assert.match(gravity,/earthProbe=new THREE\.Mesh\(probeGeo,earthProbeMat\)/);
+assert.match(gravity,/earthProbe\.position\.set\(ref\.position\.x\+earthFall\.radialDistance/);
+assert.match(gravity,/integrateProbeFall\(earthFall,1,1,step\)/);
+assert.match(gravity,/fall\.landed&&earthFall\.landed/);
+assert.match(gravity,/earthFall=initialProbeState\(1\)/);
+assert.match(controller,/Both comparison probes reached/);
+assert.match(src('public/solar-system/gravity-comparison/index.html'),/Release both probes/);
+assert.equal(relativeSurfaceGravity(4,1),4);assert.equal(relativeSurfaceGravity(1,2),.25);
+function landingTime(m,r){let s=initialProbeState(r),n=0;while(!s.landed&&n<10000){s=integrateProbeFall(s,m,r,.002);n++;}return n;}
+assert.ok(landingTime(4,1)<landingTime(1,1));assert.ok(landingTime(1,2)>landingTime(1,1));
+assert.match(src('public/exoplanets/transit-method/index.html'),/id="transitTrack"[^>]*disabled/);
+assert.match(transit,/trackingPlanet=!trackingPlanet/);
+assert.match(transit,/setViewBox\(\[left,closeBox\[1\],closeBox\[2\],closeBox\[3\]\]\)/);
+assert.match(transit,/updateTrackedCamera\(\)/);
+assert.equal(transitBlockedFraction(270,.10),0);
+assert.ok(Math.abs(transitBlockedFraction(90,.20)-.04)<1e-9);
+assert.match(src('public/astronomy/electromagnetic-spectrum/index.html'),/id="spectrumTour"[^>]*disabled/);
+assert.match(spectrum,/const TOUR_MS=15000/);
+assert.match(spectrum,/slider\.value=String\(Math\.round\(1400\*t\)\);render\(\)/);
+assert.match(spectrum,/if\s*\(document\.hidden\)\s*\{stopTour\(\);stopMotion\(\);\}/);
+assert.match(spectrum,/if\s*\(motionPreference\.matches\)\s*\{stopTour\(\);stopMotion\(\);\}/);
+for(const id of ['resourceChoice0','resourceChoice1','resourceChoice2','resourceChoice3','resourceChoice4'])assert.match(src('public/sources/space-resources-for-students/index.html'),new RegExp(`id="${id}"`));
+assert.match(resources,/target\.open=true/);assert.match(resources,/choice\.classList\.toggle\('resource-choice-target'/);
+assert.match(resources,/target\.querySelector\('summary'\)\?\.focus/);
+assert.match(resources,/prefers-reduced-motion/);
+const sourceMeta=JSON.parse(src('pages/sources/space-resources-for-students/meta.json'));
+assert.equal(sourceMeta.script,'/assets/js/resource-picker.js');
+assert.equal(sourceMeta.interactivityType,'mixed');
+console.log('FOUR_REMAINING_SCIENCE_VISUALS_CAUSALITY_AND_ACCESSIBILITY_PASS');

@@ -42,7 +42,7 @@ if (mechanism) {
   let immersiveEngine=null,immersiveLoading=false;
   function onProbeStatus(message){
     immersiveStatus.textContent=message;
-    if(message.startsWith('Test probe reached')){
+    if(message.startsWith('Both comparison probes reached')){
       probePlay.textContent='Release probe again';
       probePlay.setAttribute('aria-pressed','false');
       immersiveStatus.setAttribute('aria-live','polite');
@@ -89,7 +89,7 @@ if (mechanism) {
       }
     });
     get('#gravityProbeReset').addEventListener('click',()=>{
-      immersiveEngine?.resetProbe();probePlay.textContent='Release test probe';
+      immersiveEngine?.resetProbe();probePlay.textContent='Release both probes';
       probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');
     });
     get('#gravity3DZoomIn').addEventListener('click',()=>immersiveEngine?.zoomBy(.77));
@@ -118,7 +118,7 @@ if (mechanism) {
     get('#gravityDenominator').textContent = radiusSquared.toFixed(2);
     const formatted = quotient < 0.1 ? quotient.toFixed(3) : quotient.toFixed(2);
     get('#gravityModelResult').textContent = `${formatted}× Earth`;
-    if(immersiveEngine){immersiveEngine.setParameters(mass,radius);probePlay.textContent='Release test probe';probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');}
+    if(immersiveEngine){immersiveEngine.setParameters(mass,radius);probePlay.textContent='Release both probes';probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');}
     const radiusPx = 6 * radius;
     const x = 92 + radiusPx;
     get('#gravityBody').setAttribute('r', radiusPx.toFixed(2));

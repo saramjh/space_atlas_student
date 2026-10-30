@@ -49,7 +49,7 @@
         <output id="spectrumComparison" aria-live="polite">Set a wavelength, then choose another. The energy ratio is the inverse wavelength ratio: shorter light carries more energy per photon.</output>
       </div>
       <div class="spectrum-signal">
-        <div class="spectrum-signal-head"><span>Wave relationship · conceptual preview</span><button type="button" id="spectrumWaveToggle" aria-pressed="false">Play motion</button></div><p class="motion-preference-note">Motion is off because your device requests reduced motion. The wavelength ruler and numerical ratios still update.</p>
+        <div class="spectrum-signal-head"><span>Wave relationship · conceptual preview</span><button type="button" id="spectrumWaveToggle" aria-pressed="false">Play motion</button> <button type="button" id="spectrumTour" aria-pressed="false" disabled>Scan 14 powers of ten (15 s)</button></div><p class="motion-preference-note">Motion is off because your device requests reduced motion. The wavelength ruler and numerical ratios still update.</p>
         <div class="spectrum-beam" id="spectrumPhotonBeam" aria-hidden="true" style="--beam-hue:204;--beam-energy:.52;--beam-focus:.53">
           <div class="spectrum-beam-halo"></div>
           <div class="spectrum-beam-core"></div>
@@ -61,6 +61,7 @@
           <div class="spectrum-beam-readout"><span id="spectrumBeamBand">Visible light</span><span>Photon energy ↑ toward shorter wavelengths</span></div>
         </div>
         <p class="spectrum-beam-meaning" id="spectrumBeamMeaning">Visible light: approximate hue of the selected wavelength; the display color is not photometrically calibrated.</p>
+        <p id="spectrumTourStatus" class="spectrum-beam-meaning" role="status">Explore all 14 wavelength decades at a steady speed along the logarithmic ruler. This is an illustration, not light physically speeding up.</p>
         <p class="spectrum-beam-caveat">Illustrative ray effect: <strong>invisible radio, microwave, infrared, ultraviolet, X-rays and gamma rays are shown in assigned false colors</strong>. Brightness, particle count and speed here are not measured intensity, photon density or physical wave cycles.</p>
         <svg viewBox="0 0 640 110" role="img" aria-labelledby="spectrumWaveTitle spectrumWaveDesc" preserveAspectRatio="none">
           <title id="spectrumWaveTitle">Example electromagnetic wave</title>

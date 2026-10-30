@@ -21,6 +21,8 @@ const bandEl = document.querySelector('#spectrumBand');
 const descEl = document.querySelector('#spectrumDesc');
 const wave = document.querySelector('#spectrumWave');
 const waveToggle = document.querySelector('#spectrumWaveToggle');
+const tourButton=document.querySelector('#spectrumTour');
+const tourStatus=document.querySelector('#spectrumTourStatus');
 const beam = document.querySelector('#spectrumPhotonBeam');
 const beamBand = document.querySelector('#spectrumBeamBand');
 const beamMeaning = document.querySelector('#spectrumBeamMeaning');
@@ -43,6 +45,7 @@ function renderComparison(meters,position) {
     energyRatio.toPrecision(3)+'× the reference. These ratios come from c/λ and hc/λ, not the illustrative wave spacing.';
 }
 referenceButton.addEventListener('click',()=>{
+ stopTour();
  const position=Number(slider.value);
  referenceWavelength=10**(1-position/100);
  referenceTick.style.left=(position/14)+'%';
@@ -74,6 +77,33 @@ let phase = 0;
 let frame = 0;
 let lastFrame = 0;
 let playing = false;
+let touring=false,tourFrame=null,tourStarted=null,lastTourBand='';
+const TOUR_MS=15000;
+function stopTour(){
+ touring=false;if(tourFrame!==null)cancelAnimationFrame(tourFrame);
+ tourFrame=null;tourStarted=null;
+ tourButton.setAttribute('aria-pressed','false');tourButton.textContent='Scan 14 powers of ten (15 s)';
+ if(!playing)beam.classList.remove('beam-running');
+}
+function scanFrame(now){
+ tourFrame=null;
+ if(!touring||document.hidden||motionPreference.matches)return stopTour();
+ if(tourStarted===null)tourStarted=now;
+ const t=Math.min(1,(now-tourStarted)/TOUR_MS);
+ slider.value=String(Math.round(1400*t));render();
+ const band=bandEl.textContent;
+ if(band!==lastTourBand){lastTourBand=band;tourStatus.textContent=`Scanning ${band}. Every second covers nearly one order of magnitude on this logarithmic ruler; the visual tempo is not a physical property of light.`;}
+ if(t>=1){stopTour();tourStatus.textContent='Scan complete. Notice how brief the visible-light region was in this 14-decade journey.';return;}
+ tourFrame=requestAnimationFrame(scanFrame);
+}
+tourButton.addEventListener('click',()=>{
+ if(touring)return stopTour();
+ if(motionPreference.matches||document.hidden)return;
+ stopMotion();stopTour();touring=true;lastTourBand='';tourStarted=null;
+ slider.value='0';render();beam.classList.add('beam-running');
+ tourButton.setAttribute('aria-pressed','true');tourButton.textContent='Pause wavelength scan';
+ tourFrame=requestAnimationFrame(scanFrame);
+});
 
 // This waveform shows direction-of-change, not proportional wavelengths.
 // The accurate 14-order-of-magnitude relationship is in the log ruler and readouts.
@@ -143,13 +173,15 @@ function render() {
   drawWave();
 }
 
-slider.addEventListener('input', render);
+slider.addEventListener('input',()=>{stopTour();render();});
 buttons.forEach((button) => button.addEventListener('click', () => {
+  stopTour();
   const meters = Number(button.dataset.spectrumSample);
   slider.value = String(Math.round((1 - Math.log10(meters)) * 100));
   render();
 }));
 waveToggle.addEventListener('click', () => {
+  stopTour();
   if (playing) {
     stopMotion();
   } else if (!motionPreference.matches) {
@@ -161,10 +193,11 @@ waveToggle.addEventListener('click', () => {
     frame = requestAnimationFrame(tick);
   }
 });
-document.addEventListener('visibilitychange', () => { if (document.hidden) stopMotion(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden){stopTour();stopMotion();} });
 function syncMotionPreference() {
-  if (motionPreference.matches) stopMotion();
+  if (motionPreference.matches){stopTour();stopMotion();}
   waveToggle.disabled = motionPreference.matches;
+  tourButton.disabled=motionPreference.matches;
   waveToggle.title = motionPreference.matches ? 'Motion is disabled by your reduced-motion setting' : '';
 }
 motionPreference.addEventListener('change', syncMotionPreference);

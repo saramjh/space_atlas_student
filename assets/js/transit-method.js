@@ -11,6 +11,8 @@ const planetFront = document.querySelector('#transitPlanetFront');
 const planetBack = document.querySelector('#transitPlanetBack');
 const scene = document.querySelector('#transitScene');
 const focusButton = document.querySelector('#transitFocus');
+const trackButton=document.querySelector('#transitTrack');
+let trackingPlanet=false;
 let focused = false, focusFrame = null;
 let viewBox = [0, 0, 420, 160];
 const wideBox = [0, 0, 420, 160], closeBox = [129, 19, 162, 122];
@@ -19,6 +21,7 @@ function setViewBox(values) {
  scene.setAttribute('viewBox', viewBox.map(v=>v.toFixed(2)).join(' '));
 }
 function setFocus(next) {
+ if(trackingPlanet){trackingPlanet=false;trackButton.setAttribute('aria-pressed','false');trackButton.textContent='Follow the planet camera';}
  focused = Boolean(next);
  if (focusFrame !== null) cancelAnimationFrame(focusFrame);
  focusFrame = null;
@@ -36,6 +39,16 @@ function setFocus(next) {
  focusFrame=requestAnimationFrame(tick);
 }
 focusButton.addEventListener('click',()=>setFocus(!focused));
+trackButton.addEventListener('click',()=>{
+ trackingPlanet=!trackingPlanet;
+ if(trackingPlanet){
+  if(focusFrame!==null)cancelAnimationFrame(focusFrame);focusFrame=null;
+  focused=false;focusButton.setAttribute('aria-pressed','false');focusButton.textContent='Zoom into the star';
+  updateTrackedCamera();
+ }else setFocus(false);
+ trackButton.setAttribute('aria-pressed',String(trackingPlanet));
+ trackButton.textContent=trackingPlanet?'Return to fixed sky view':'Follow the planet camera';
+});
 const playButton=document.querySelector('#transitPlay');
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 let playing=false,frameId=null,lastTime=null,traveled=0,continuousDeg=0;
@@ -81,6 +94,14 @@ const starCx = 210, starR = 40;
 function graphPoint(deg, fraction) {
   return [startX + (deg / 360) * plotWidth, topY + (fraction / GRAPH_DEPTH_LIMIT) * plotHeight];
 }
+function updateTrackedCamera(){
+ if(!trackingPlanet)return;
+ const deg=Number(phase.value);
+ const planetX=starCx+Math.cos(deg*Math.PI/180)*ORBIT_RADIUS_IN_STELLAR_RADII*starR;
+ // This moves only a viewBox window, never the flux model or physical orbit.
+ const left=Math.max(0,Math.min(420-closeBox[2],planetX-closeBox[2]/2));
+ setViewBox([left,closeBox[1],closeBox[2],closeBox[3]]);
+}
 function render() {
   const deg = Number(phase.value);
   const ratio = Number(radius.value) / 100;
@@ -112,6 +133,7 @@ function render() {
   const position = blocked > 0 ? 'In front: starlight is blocked.' :
     !front && crossesProjectedDisk ? 'Behind the star: no transit.' :
     'Outside the visible stellar disk: no transit.';
+  updateTrackedCamera();
   const percent = (blocked*100).toFixed(3);
   readout.textContent = 'Phase ' + deg + '° · Light blocked ' + percent + '% · Star brightness ' + ((1-blocked)*100).toFixed(3) + '%. ' + position;
   scene.setAttribute('aria-label', 'Idealized sky projection: planet radius ' + radius.value + '% of star radius, phase ' + deg + ' degrees. ' + position + ' Positions and orbital spacing are not to scale.');
@@ -123,6 +145,7 @@ phase.disabled = false;
 radius.disabled = false;
 playButton.disabled=reducedMotion.matches;
 focusButton.disabled=false;
+trackButton.disabled=false;
 document.querySelector('#transitInitNote').hidden = true;
 
 initQuiz([
