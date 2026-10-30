@@ -13,17 +13,28 @@
   let frame = 0;
   let notice = null;
   let dismissedAtWidth = null;
+  let delayedChecks = [];
 
   function hasOversizedExistingAd() {
     const width = window.innerWidth;
     // This incident is a post-load desktop-to-mobile (or tablet) size change,
     // not a first-load mobile sizing error or a too-wide lesson table.
     if (width >= openingWidth - 24 || document.documentElement.scrollWidth <= width + 3) return false;
-    return slots.some((slot) => {
-      const box = slot.getBoundingClientRect();
-      const visible = getComputedStyle(slot).display !== 'none';
-      return visible && box.height > 0 && box.width > width + 8
+    const outsideViewport = (node) => {
+      const box = node.getBoundingClientRect();
+      const style = getComputedStyle(node);
+      return style.display !== 'none' && style.visibility !== 'hidden'
+        && box.height > 0 && box.width > width + 8
         && (box.right > width + 3 || box.left < -3);
+    };
+    if (slots.some(outsideViewport)) return true;
+
+    // Auto Ads can insert a Google-owned host *after* the viewport resize.
+    // Detect only: never move, crop, resize, remove or style provider markup.
+    return [...document.querySelectorAll('[id^="aswift_"][id$="_host"]')].some((host) => {
+      const googleOwned = host.closest('ins.adsbygoogle, .google-auto-placed')
+        || host.querySelector('[data-google-ad-efd="true"]');
+      return googleOwned && outsideViewport(host);
     });
   }
 
@@ -34,9 +45,9 @@
     region.setAttribute('aria-live', 'polite');
 
     const text = document.createElement('p');
-    text.textContent = 'Your browser window became narrower after an advertisement loaded. '
-      + 'The existing ad may not fit until this page is refreshed. '
-      + 'Refreshing will restart the current lesson controls.';
+    text.textContent = 'Your browser window became narrower after advertising elements loaded. '
+      + 'A Google-provided ad or related-search panel may still use the old desktop width. '
+      + 'Refreshing may fit the new width; it will restart the current lesson controls.';
 
     const actions = document.createElement('div');
     actions.className = 'ad-resize-recovery-actions';
@@ -74,6 +85,14 @@
 
   window.addEventListener('resize', () => {
     if (frame) cancelAnimationFrame(frame);
+    delayedChecks.forEach(clearTimeout);
+    delayedChecks = [];
     frame = requestAnimationFrame(measure);
+    // Google can attach its own host asynchronously after responsive layout.
+    // Small bounded retries catch that late insertion without observing all DOM
+    // mutations, polling indefinitely, or touching Google's ad requests.
+    if (window.innerWidth < openingWidth - 24) {
+      delayedChecks = [350, 1400, 3500].map((ms) => setTimeout(measure, ms));
+    }
   }, {passive: true});
 })();

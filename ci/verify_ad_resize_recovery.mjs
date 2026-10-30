@@ -18,6 +18,11 @@ assert.match(js,/addEventListener\('click', \(\) => window\.location\.reload\(\)
 assert.match(js,/openingWidth/);
 assert.match(js,/width >= openingWidth - 24/);
 assert.match(js,/box\.width > width \+ 8/);
+assert.match(js,/\[id\^=\"aswift_\"\]/);
+assert.match(js,/\[data-google-ad-efd/);
+assert.match(js,/host\.closest\('ins\.adsbygoogle, \.google-auto-placed'\)/);
+assert.match(js,/\[350, 1400, 3500\]\.map/);
+assert.match(js,/delayedChecks\.forEach\(clearTimeout\)/);
 assert.match(js,/Continue without reloading/);
 assert.match(js,/document\.querySelector\('main'\)\.prepend/,
   'display-state message must appear outside the ad');
