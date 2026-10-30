@@ -106,6 +106,7 @@ jobs:
           node ci/verify_remaining_cinematic_lessons.mjs
           node ci/verify_final_four_science_experiences.mjs
           node ci/verify_immersive_remaining_p0.mjs
+          node ci/verify_remaining_p1_immersion.mjs
           node ci/verify_quality_fixes.mjs
           for file in assets/js/*.js; do node --check "$file"; done
 

@@ -1,3 +1,4 @@
+import {createDiameterLens} from './planet-size-lens.js';
 import { PLANETS, SCALE_DATA } from './planet-data.js';
 import { initQuiz } from './quiz-widget.js';
 
@@ -107,3 +108,5 @@ initQuiz([
     wrong: "It's about diameter: Venus is 0.95× Earth's diameter, nearly identical. Its atmosphere and surface temperature are dramatically different from Earth's.",
   },
 ], {});
+
+createDiameterLens({canvas:document.querySelector('#diameterLensCanvas'),selectA:selA,selectB:selB,slider:document.querySelector('#diameterLensProgress'),output:document.querySelector('#diameterLensPosition'),play:document.querySelector('#diameterLensPlay'),reset:document.querySelector('#diameterLensReset'),readout:document.querySelector('#diameterLensReadout')});

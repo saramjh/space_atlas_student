@@ -1,3 +1,4 @@
+import {traceLaunch} from './orbit-trio-math.js';
 // Newton's cannonball sandbox — plain 2D canvas physics, no Three.js needed
 // for a single-plane gravity simulation.
 import { initQuiz } from './quiz-widget.js';
@@ -43,6 +44,21 @@ let ball = null;
 let trail = [];
 let raf = null;
 let modelSteps = 0;
+const trioButton=document.querySelector('#orbitCompareThree');
+const trioReadout=document.querySelector('#orbitTrioReadout');
+let trioVisible=false;
+const threeTraces=[{speed:1,color:'#e79f7c'},{speed:2.6,color:'#e6cb8d'},{speed:4.1,color:'#91d7db'}].map(o=>({...o,trace:traceLaunch(o.speed)}));
+function showTrio(visible){
+ trioVisible=Boolean(visible);
+ if(raf!==null)cancelAnimationFrame(raf);raf=null;ball=null;trail=[];
+ trioButton.setAttribute('aria-pressed',String(trioVisible));
+ trioButton.textContent=trioVisible?'Return to single launch':'Compare three launch speeds';
+ trioReadout.textContent=trioVisible?threeTraces.map(o=>`${o.speed.toFixed(1)}: ${o.trace.outcome==='bounded-preview'?'bounded computed trajectory':o.trace.outcome}`).join(' · ')+'. All paths share the same ideal central mass; these are numerical model outcomes, not observed trajectories.':'Select Compare three launch speeds to see three outcomes together. The original single-launch sandbox remains available.';
+ statusEl.textContent=trioVisible?'Three-path comparison · computed':'Ready';
+ render();
+}
+trioButton.addEventListener('click',()=>showTrio(!trioVisible));
+
 const MAX_MODEL_STEPS = 900; // bounded educational demonstration, not indefinitely integrated orbit
 
 function center() {
@@ -65,6 +81,7 @@ function drawStatic() {
 }
 
 function launch(speed) {
+  if(trioVisible)showTrio(false);
   const c = center();
   ball = { x: c.x + LAUNCH_RADIUS, y: c.y, vx: 0, vy: -speed };
   trail = [];
@@ -128,6 +145,17 @@ function drawArrow(x,y,dx,dy,color,label) {
 }
 function render() {
   drawStatic();
+  if(trioVisible){
+   const c=center();
+   for(const o of threeTraces){
+    ctx.strokeStyle=o.color;ctx.lineWidth=2.5;
+    ctx.beginPath();
+    o.trace.points.forEach(([x,y],i)=>i?ctx.lineTo(c.x+x,c.y+y):ctx.moveTo(c.x+x,c.y+y));
+    ctx.stroke();
+   }
+   return;
+  }
+
   ctx.strokeStyle = 'rgba(240,168,64,.6)';
   ctx.lineWidth = 1.5;
   ctx.beginPath();
@@ -148,6 +176,7 @@ function render() {
 
 document.querySelector('#orbitLaunch').onclick = () => launch(Number(speedSlider.value));
 document.querySelector('#orbitReset').onclick = () => {
+  if(trioVisible){showTrio(false);return;}
   if (raf) cancelAnimationFrame(raf);
   ball = null;
   trail = [];

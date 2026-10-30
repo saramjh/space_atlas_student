@@ -1712,3 +1712,43 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 
 /* Mobile model walking frame needs vertical room for true-distance labels. */
 #auExpeditionCanvas{height:clamp(190px,22vw,300px);aspect-ratio:auto}
+
+/* Seasons on the ground: solar elevation is the real variable, not fake weather. */
+.season-ground-lab{margin:24px 0 14px;display:grid;gap:13px;border-top:1px solid #9faeac;padding:20px 0 7px}
+.season-ground-header h4{font:600 clamp(21px,3vw,28px)/1.16 var(--font-display);margin:4px 0 9px}.season-ground-header p{font:14px/1.5 var(--font-reading);margin:0;max-width:64ch}
+.season-ground-controls{display:flex;gap:8px;flex-wrap:wrap}
+.season-ground-controls button{border:1px solid #788a90;background:#eeeae1;padding:9px 17px;min-height:44px;font:600 12px var(--font-mono);color:#203e50;cursor:pointer}
+.season-ground-controls button[aria-pressed=true]{background:#143950;color:#f8f3e8}
+.season-ground-controls button:focus-visible{outline:3px solid #ad6637;outline-offset:3px}
+#seasonGroundSVG{max-width:100%;height:auto;display:block;border:1px solid #355063}
+.season-ground-readout{font:13px/1.55 var(--font-reading);min-height:40px;color:#2e4955;padding-left:12px;border-left:3px solid #b76c42}
+@media(max-width:620px){.season-ground-controls{display:grid;grid-template-columns:1fr 1fr}.season-ground-header h4{font-size:22px}}
+
+/* Lunar locking: limited manual orbit, no idle three.js loop. */
+.lock-motion-controls{display:flex;align-items:center;gap:14px;padding:10px 22px 13px;flex-wrap:wrap}
+.lock-motion-controls button{min-height:44px;padding:9px 15px;background:#143b54;border:1px solid #143b54;color:#fff;font:600 12px/1.3 var(--font-mono);cursor:pointer}
+.lock-motion-controls button:disabled{opacity:.45;cursor:default}
+.lock-motion-controls button:focus-visible{outline:3px solid #a85c32;outline-offset:3px}
+.lock-motion-controls span{font:12px/1.55 var(--font-reading);color:#556470;flex:1 1 260px}
+
+/* One exact diameter ratio with an optional camera pullback. */
+.diameter-lens{margin-top:30px;padding-top:23px;border-top:1px solid #a7adaa;display:grid;gap:12px}
+.diameter-lens-head{max-width:70ch}.diameter-lens-head h3{font:600 clamp(21px,3vw,29px)/1.2 var(--font-display);margin:4px 0 9px}.diameter-lens-head p{font:14px/1.55 var(--font-reading);margin:0}
+#diameterLensCanvas{display:block;width:100%;height:clamp(210px,26vw,320px);border:1px solid #35515b;background:#0e2532}
+.diameter-lens-label{display:flex;justify-content:space-between;gap:8px;font:600 12px/1.4 var(--font-mono)}
+#diameterLensProgress{width:100%;min-height:34px;accent-color:#a35435}
+.diameter-lens-actions{display:flex;gap:9px;flex-wrap:wrap}
+.diameter-lens-actions button{min-height:44px;padding:9px 13px;border:1px solid #758d95;background:#f2eee7;font:600 12px var(--font-mono);color:#19394a;cursor:pointer}
+.diameter-lens-actions #diameterLensPlay{background:#164054;color:#fff}
+.diameter-lens-actions button:disabled{opacity:.48}
+.diameter-lens-actions button:focus-visible{outline:3px solid #a65e33;outline-offset:3px}
+.diameter-lens-readout{font:13px/1.55 var(--font-reading);border-left:3px solid #a35435;padding-left:12px;color:#42535c;margin:0}
+@media(max-width:620px){.diameter-lens-actions{display:grid;grid-template-columns:1fr 1fr}}
+
+/* Newton thought experiment: three generated paths, never static clip art. */
+.orbit-trio-controls{display:flex;align-items:center;gap:14px;padding:12px 0;flex-wrap:wrap}
+.orbit-trio-controls button{background:#133c53;color:#fff;padding:11px 15px;min-height:44px;border:1px solid #234e62;font:600 12px/1.35 var(--font-mono);cursor:pointer}
+.orbit-trio-controls button[aria-pressed=true]{background:#a35435;border-color:#a35435}
+.orbit-trio-controls button:focus-visible{outline:3px solid #a35435;outline-offset:3px}
+.orbit-trio-controls p{margin:0;font:13px/1.5 var(--font-reading);color:#455c68;flex:1 1 240px}
+.orbit-trio-readout{font:13px/1.5 var(--font-reading);border-left:3px solid #ab7643;padding-left:12px;color:#2f4858;min-height:38px}

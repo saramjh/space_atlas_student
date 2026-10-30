@@ -40,6 +40,15 @@
       <div><strong>1321×</strong><span>Jupiter's volume vs Earth's</span></div>
       <div><strong>1321</strong><span>Earth-equivalent volumes in Jupiter (not literal sphere packing)</span></div>
     </div>
+    <section class="diameter-lens" id="diameterLens" aria-labelledby="diameterLensTitle">
+      <div class="diameter-lens-head"><p class="thermal-kicker">Camera study / same linear diameter scale</p><h3 id="diameterLensTitle">Start close. Pull back until both worlds fit.</h3><p>The apparent sizes change with a <em>shared camera zoom</em>. At every frame their true diameter ratio stays constant. The gap between bodies is illustrative, not orbital distance.</p></div>
+      <canvas id="diameterLensCanvas" width="900" height="320" aria-label="A shared-camera view of the selected planets. The slider moves from the smaller planet close up to a wide view containing both planets."></canvas>
+      <label class="diameter-lens-label" for="diameterLensProgress">Camera pullback <output id="diameterLensPosition" for="diameterLensProgress">Close view</output></label>
+      <input id="diameterLensProgress" type="range" min="0" max="100" value="0" step="1"/>
+      <div class="diameter-lens-actions"><button type="button" id="diameterLensPlay" aria-pressed="false">Pull back over 7 seconds</button><button type="button" id="diameterLensReset">Restart at smaller planet</button></div>
+      <p class="diameter-lens-readout" role="status" id="diameterLensReadout">Earth and Jupiter keep their measured 11.21× equatorial diameter ratio at every camera zoom. Initial close framing intentionally crops the larger world.</p>
+      <p class="scale-caption">Reference: <a href="https://www.jpl.nasa.gov/edu/resources/video/solar-system-size-and-distance/" target="_blank" rel="noopener noreferrer">NASA/JPL Size and Distance</a>. Planetary diameter ratios come from the existing source data; these colored shapes are diagrammatic, and planet separation is not drawn to true scale.</p>
+    </section>
   </div>
  </div>
 </section>

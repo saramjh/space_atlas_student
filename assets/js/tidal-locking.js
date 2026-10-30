@@ -77,6 +77,32 @@ const statusEl = document.querySelector('#lockStatus');
 const btnLocked = document.querySelector('#btnLocked');
 const btnUnlocked = document.querySelector('#btnUnlocked');
 let locked = true;
+const lockOrbitPlay=document.querySelector('#lockOrbitPlay');
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let playing=false,frame=null,started=null,startAngle=0;
+function stopOrbit(){
+ playing=false;if(frame!==null)cancelAnimationFrame(frame);
+ frame=null;started=null;
+ lockOrbitPlay.setAttribute('aria-pressed','false');lockOrbitPlay.textContent='Watch one lunar orbit (12 s)';
+}
+function advanceOrbit(now){
+ frame=null;if(!playing||document.hidden||reducedMotion.matches)return stopOrbit();
+ if(started===null)started=now;
+ const t=Math.min(1,(now-started)/12000);
+ slider.value=String(Math.round((startAngle+360*t)%360));applyAngle(Number(slider.value));
+ if(t>=1)stopOrbit();else frame=requestAnimationFrame(advanceOrbit);
+}
+lockOrbitPlay.addEventListener('click',()=>{
+ if(playing)return stopOrbit();
+ if(reducedMotion.matches||document.hidden)return;
+ stopOrbit();startAngle=Number(slider.value);playing=true;
+ lockOrbitPlay.setAttribute('aria-pressed','true');lockOrbitPlay.textContent='Pause lunar orbit';
+ frame=requestAnimationFrame(advanceOrbit);
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopOrbit();});
+reducedMotion.addEventListener?.('change',()=>{if(reducedMotion.matches)stopOrbit();lockOrbitPlay.disabled=reducedMotion.matches;});
+lockOrbitPlay.disabled=reducedMotion.matches;
+
 
 function applyAngle(deg) {
   const theta = (deg * Math.PI) / 180;
@@ -105,7 +131,7 @@ function applyAngle(deg) {
 }
 
 btnLocked.onclick = () => {
-  locked = true;
+  stopOrbit();locked = true;
   btnLocked.classList.add('active');
   btnUnlocked.classList.remove('active');
   btnLocked.setAttribute('aria-pressed', 'true');
@@ -114,7 +140,7 @@ btnLocked.onclick = () => {
   applyAngle(Number(slider.value));
 };
 btnUnlocked.onclick = () => {
-  locked = false;
+  stopOrbit();locked = false;
   btnUnlocked.classList.add('active');
   btnLocked.classList.remove('active');
   btnLocked.setAttribute('aria-pressed', 'false');
@@ -122,7 +148,7 @@ btnUnlocked.onclick = () => {
   statusEl.textContent = 'Not locked';
   applyAngle(Number(slider.value));
 };
-slider.addEventListener('input', () => applyAngle(Number(slider.value)));
+slider.addEventListener('input', () => {stopOrbit();applyAngle(Number(slider.value));});
 applyAngle(Number(slider.value));
 
 // No perpetual animation loop for a slider-driven 3D diagram.

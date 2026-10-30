@@ -24,6 +24,8 @@
       <label class="orbit-vectors-option"><input type="checkbox" id="orbitVectorsToggle" checked/> Show velocity and gravitational acceleration arrows</label>
     </div>
     <div class="orbit-prediction" id="orbitPrediction" role="status" aria-live="polite">At 2.6 model speed, a circular reference orbit is expected. Red arrows point toward the central mass; blue arrows show sideways motion.</div>
+    <div class="orbit-trio-controls"><button id="orbitCompareThree" type="button" aria-pressed="false">Compare three launch speeds</button><p>Overlay three bounded trajectories from the same starting point: <b>1.0</b> (slower), <b>2.6</b> (circular reference) and <b>4.1</b> (above escape threshold), all in model units.</p></div>
+    <div class="orbit-trio-readout" id="orbitTrioReadout" role="status">Select Compare three launch speeds to see three outcomes together. The original single-launch sandbox remains available.</div>
     <p class="orbit-vector-legend" id="orbitVectorLegend">Blue arrow: instantaneous velocity · Gold arrow: acceleration toward the central body. Arrow lengths are normalized for visibility, not to the same unit scale.</p>
     <p class="scale-caption" id="orbitSpeedNote">Launch speed uses arbitrary <strong>model units</strong>, not km/s. At 2.6, this idealized one-body orbit is approximately circular. Real orbital and escape speeds are listed below.</p>
   </div>

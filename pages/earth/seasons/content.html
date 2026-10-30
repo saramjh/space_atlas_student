@@ -47,6 +47,17 @@
             <output id="seasonSouthNoon">Noon Sun 26.5° · daylight 9.2 h</output>
           </div>
         </div>
+        <section class="season-ground-lab" id="seasonGroundLab" aria-labelledby="seasonGroundTitle">
+          <div class="season-ground-header"><div class="thermal-kicker">02 / Stand on the surface</div><h4 id="seasonGroundTitle">What would a one-metre pole show at noon?</h4><p>Keep the same Earth position and tilt above. Stand on level ground at 40° N or 40° S and compare the shadow cast by a vertical 1-metre pole.</p></div>
+          <div class="season-ground-controls" role="group" aria-label="Select observer hemisphere"><button type="button" data-season-hemisphere="north" aria-pressed="true">40° North</button><button type="button" data-season-hemisphere="south" aria-pressed="false">40° South</button></div>
+          <svg id="seasonGroundSVG" viewBox="0 0 640 224" role="img" aria-labelledby="seasonGroundSvgTitle seasonGroundSvgDesc" focusable="false"><title id="seasonGroundSvgTitle">Solar noon shadow of a one-metre vertical pole</title><desc id="seasonGroundSvgDesc">A horizontal ground line, a 1-metre pole and a sunlight line from its top to the shadow endpoint. Change the season or hemisphere to update the geometry and measured shadow length.</desc>
+          <rect width="640" height="224" fill="#112635"/><path d="M24 178 H616" stroke="#8eabb8" stroke-width="2"/><path d="M380 100 V178" stroke="#f1f0df" stroke-width="6" stroke-linecap="round"/>
+          <line id="seasonGroundRay" x1="350" y1="27" x2="398" y2="178" stroke="#e9b978" stroke-width="2"/><line id="seasonGroundShadow" x1="380" y1="178" x2="398" y2="178" stroke="#dd8c4e" stroke-width="6"/><circle id="seasonGroundSun" cx="350" cy="27" r="10" fill="#f6c680"/>
+          <text x="382" y="93" fill="#e2eef2" font-size="15" font-family="ui-monospace,monospace">1 metre</text><text id="seasonGroundShadowLabel" x="405" y="200" fill="#efbd8c" font-size="15" font-family="ui-monospace,monospace">0.30 m</text><text id="seasonGroundNoonLabel" x="22" y="29" fill="#d9e8ee" font-size="15" font-family="ui-monospace,monospace">Sun at noon: 73.5°</text>
+          </svg>
+          <output id="seasonGroundReadout" class="season-ground-readout" aria-live="polite">40° N in the June model: noon Sun 73.5°, 1-m pole casts about a 0.30-m shadow.</output>
+          <p class="scale-caption">Geometric illustration from the existing spherical-Earth 40° latitude model; the Sun icon, pole drawing and terrain are not to scale. Shadow length = pole height ÷ tan(noon solar elevation). Not a local weather, terrain, seasonal temperature or daily sun-path forecast. <a href="https://science.nasa.gov/earth/facts/" target="_blank" rel="noopener noreferrer">NASA Earth Facts</a>.</p>
+        </section>
         <p class="season-sunlight-readout" id="seasonSunlightReadout" aria-live="polite">June solstice, 23.5° tilt · the subsolar point is near 23.5° N. This is a geometric model, not temperature or weather.</p>
         <p class="season-evidence-note">Simplified spherical Earth at 40° latitude, level horizon, no atmospheric refraction, daylight computed from solar declination. Daylight lengths and angles are approximate, not site-specific forecasts. <a href="https://science.nasa.gov/earth/facts/" target="_blank" rel="noopener noreferrer">NASA Earth facts</a>.</p>
       </section>

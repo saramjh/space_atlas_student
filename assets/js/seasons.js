@@ -1,3 +1,4 @@
+import {noonShadowMeters} from './season-shadow-math.js';
 // Seasons page (/earth/seasons/). Earth orbits the Sun with a rotation
 // axis whose direction is FIXED in space (not relative to the Sun) — the
 // core fact that explains seasons without invoking distance.
@@ -63,6 +64,35 @@ const readout = document.querySelector('#seasonVal');
 const tiltReal = document.querySelector('#tiltReal');
 const tiltZero = document.querySelector('#tiltZero');
 const experimentReadout = document.querySelector('#seasonExperiment');
+let groundHemisphere='north';
+let currentSunlight=null;
+const groundButtons=[...document.querySelectorAll('[data-season-hemisphere]')];
+const mobileGroundView=matchMedia('(max-width:620px)');
+mobileGroundView.addEventListener?.('change',renderGroundShadow);
+function renderGroundShadow(){
+ if(!currentSunlight)return;
+ const elevation=groundHemisphere==='north'?currentSunlight.northNoonElevation:currentSunlight.southNoonElevation;
+ const length=noonShadowMeters(elevation);
+ const px=78;
+ const shadowPx=Math.min(225,length*px);
+ const groundX=380,groundY=178,tipY=100;
+ const el=id=>document.querySelector('#'+id);
+ // Visual rays and their projected end use the same right-triangle geometry.
+ el('seasonGroundSun').setAttribute('cx',(groundX-85*Math.cos(elevation*Math.PI/180)).toFixed(2));
+ el('seasonGroundSun').setAttribute('cy',(tipY-85*Math.sin(elevation*Math.PI/180)).toFixed(2));
+ el('seasonGroundRay').setAttribute('x1',groundX);
+ el('seasonGroundRay').setAttribute('y1',tipY);
+ el('seasonGroundRay').setAttribute('x2',(groundX+shadowPx).toFixed(2));
+ el('seasonGroundRay').setAttribute('y2',groundY);
+ el('seasonGroundShadow').setAttribute('x2',(groundX+shadowPx).toFixed(2));
+ el('seasonGroundNoonLabel').textContent=`Sun at noon: ${elevation.toFixed(1)}°`;
+ el('seasonGroundShadowLabel').textContent=`${length.toFixed(2)} m`;
+ el('seasonGroundShadowLabel').setAttribute('x',(Math.min(mobileGroundView.matches?505:570,groundX+shadowPx+5)).toFixed(1));
+ el('seasonGroundReadout').textContent=`40° ${groundHemisphere==='north'?'N':'S'}: noon Sun ${elevation.toFixed(1)}°, 1-m pole casts an ideal ${length.toFixed(2)}-m shadow. ${currentSunlight.northHours.toFixed(1)} h N / ${currentSunlight.southHours.toFixed(1)} h S daylight in the model.`;
+ el('seasonGroundLab').dataset.hemisphere=groundHemisphere;
+}
+groundButtons.forEach(button=>button.addEventListener('click',()=>{groundHemisphere=button.dataset.seasonHemisphere;groundButtons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));renderGroundShadow();}));
+
 
 function updateAxisTilt(tiltDeg) {
   currentTiltDeg = tiltDeg;
@@ -96,6 +126,7 @@ function applyAngle(deg) {
   earth.position.set(Math.cos(theta) * ORBIT_RADIUS, 0, Math.sin(theta) * ORBIT_RADIUS);
   readout.textContent = currentTiltDeg === 0 ? 'No strong seasons' : seasonForAngle(deg);
   const model=seasonSunlight(deg,currentTiltDeg);
+  currentSunlight=model;renderGroundShadow();
   const northBar=document.querySelector('#seasonNorthDay');
   const southBar=document.querySelector('#seasonSouthDay');
   if(northBar&&southBar){
