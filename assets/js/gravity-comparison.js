@@ -127,7 +127,7 @@ if (mechanism) {
     get('#gravityTestPoint').setAttribute('cx', x.toFixed(2));
     get('#gravityArrowLine').setAttribute('x1', (x + 50).toFixed(2));
     get('#gravityArrowLine').setAttribute('x2', (x + 25).toFixed(2));
-    get('#gravityRadiusDiagramLabel').textContent = `R = ${radius.toFixed(2)}× Earth radius`;
+    get('#gravityRadiusDiagramLabel').textContent = `Radius: ${radius.toFixed(2)}× Earth`;
     get('#gravityCauseDiagram').setAttribute('aria-label',
       `Schematic: gold radius line connects center and surface at ${radius.toFixed(2)} Earth radii; model gravity ${formatted} times Earth's; inward-pointing arrow indicates direction, not force magnitude`);
 

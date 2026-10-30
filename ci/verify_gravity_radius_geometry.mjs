@@ -46,7 +46,7 @@ function testGeometry(mass,radius){
  assert.equal(Number(get('gravityRadiusLine').getAttribute('x2')),Number(end.toFixed(2)));
  assert.equal(Number(get('gravityTestPoint').getAttribute('cx')),Number(end.toFixed(2)));
  assert.equal(Number(get('gravityRadiusDiagramLabel').getAttribute('x')),Number((end+10).toFixed(2)));
- assert.match(get('gravityRadiusDiagramLabel').textContent,/R = .*× Earth radius/);
+ assert.match(get('gravityRadiusDiagramLabel').textContent,/Radius: .*× Earth/);
  assert.match(get('gravityCauseDiagram').getAttribute('aria-label'),/gold radius line connects center and surface/);
  assert.ok(Math.abs(mass/(radius*radius)-Number(get('gravityModelResult').textContent.split('×')[0]))<.006);
 }
