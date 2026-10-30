@@ -57,7 +57,8 @@
 
     <div class="mode-panel" id="distPanel">
       <p class="scale-caption"><strong>Average Sun–planet distances are plotted on a logarithmic axis here</strong> (not on a linear physical-distance scale). Every planet is drawn as the same small dot — at true relative size, the inner planets would be invisible pixels.</p>
-      <div class="scale-track" aria-label="Planets positioned by true distance from the Sun, on a logarithmic scale">
+      <div class="scale-track-window" tabindex="0" aria-label="Horizontally scrollable logarithmic ruler of the average Sun-to-planet distances. Both end labels are inset from the viewport.">
+        <div class="scale-track" aria-label="Average Sun-to-planet orbital distances positioned on a logarithmic scale">
         <div class="scale-dot" style="left:0%"></div><div class="scale-dot-label" style="left:0%">Mercury</div>
         <div class="scale-dot" style="left:14.1%"></div><div class="scale-dot-label" style="left:14.1%">Venus</div>
         <div class="scale-dot" style="left:21.7%"></div><div class="scale-dot-label" style="left:21.7%">Earth</div>
@@ -66,6 +67,7 @@
         <div class="scale-dot" style="left:73.7%"></div><div class="scale-dot-label" style="left:73.7%">Saturn</div>
         <div class="scale-dot" style="left:89.7%"></div><div class="scale-dot-label" style="left:89.7%">Uranus</div>
         <div class="scale-dot" style="left:100%"></div><div class="scale-dot-label" style="left:100%">Neptune</div>
+        </div>
       </div>
     </div>
   </div>

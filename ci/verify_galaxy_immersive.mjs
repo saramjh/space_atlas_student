@@ -29,7 +29,7 @@ assert.match(engine,/if \(canvas\.hidden \|\| disposed\) return/);
 assert.match(engine,/if \(raf === null && !disposed && !document\.hidden\)/);
 assert.match(engine,/dispose\(\)/);
 assert.match(css,/galaxy-3d-canvas:not\(\[hidden\]\)\{cursor:grab;touch-action:none/);
-assert.match(css,/\.galaxy-view-visual\{aspect-ratio:16\/9;min-height:290px/);
+assert.match(css,/\.galaxy-view-visual\{[^}]*width:100%;box-sizing:border-box;aspect-ratio:16\/9;min-height:290px/);
 assert.match(built,/not a telescope photo or a reconstruction of real star positions/);
 assert.match(built,/differential motion, not measured orbital speeds/);
 for(const marker of ['rel="canonical"','type="application/ld+json"','<h1>Are all galaxies shaped like the Milky Way?</h1>'])assert.ok(built.includes(marker));

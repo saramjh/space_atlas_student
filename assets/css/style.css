@@ -147,6 +147,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .planet-item:focus-visible .ball{outline:3px solid var(--accent);outline-offset:5px}
 .planet-item.active .ball{outline:2px solid var(--accent);outline-offset:3px}
 .ball{border-radius:50%;background:#777;flex:0 0 auto;box-shadow:inset -8px -9px 14px rgba(0,0,0,.25);transition:transform .2s ease}
+.planets-row-static{justify-content:safe center}
 .planets-row-static .planet-item{cursor:default}
 .planet-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
@@ -289,7 +290,10 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .scale-compare{border:1px solid var(--rule);background:#ece9e1;padding:30px 34px 34px}
 .mode-panel{display:none}
 .mode-panel.active{display:block}
+.scale-track-window{width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin;border-bottom:1px solid #aaa59a}
+.scale-track-window:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .scale-track{position:relative;height:90px;border-bottom:1px solid #aaa59a;margin-top:10px}
+.scale-track-window .scale-track{box-sizing:border-box;width:calc(100% - 110px);min-width:650px;margin:10px 55px 0;border-bottom:0}
 .scale-dot{position:absolute;bottom:0;width:10px;height:10px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
 .scale-dot-label{position:absolute;bottom:16px;transform:translateX(-50%);font:500 9px var(--font-data);color:#53585c;white-space:nowrap}
 .scale-caption{margin-top:14px;font-size:12px;color:var(--muted)}
@@ -1289,7 +1293,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 /* The camera stage is the primary interaction on the galaxy-type lesson.
    Keep the text and physical caveats adjacent, but don't confine space to a thumbnail. */
 .galaxy-view-layout{grid-template-columns:minmax(0,1fr);align-items:stretch;gap:16px}
-.galaxy-view-visual{aspect-ratio:16/9;min-height:290px;max-height:min(620px,70dvh);overflow:hidden;border:1px solid #24374b}
+.galaxy-view-visual{width:100%;box-sizing:border-box;aspect-ratio:16/9;min-height:290px;max-height:min(620px,70dvh);overflow:hidden;border:1px solid #24374b}
 .galaxy-view-tools{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;align-content:start}
 .galaxy-3d-actions{align-items:center}
 .galaxy-zoom-actions button{min-width:104px}
@@ -1303,7 +1307,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 
 /* Opt-in cosmic scale scene; the physically accurate logarithmic ruler stays below. */
 .scale-compare .zoom-stage{padding:0;display:flex;flex-direction:column;gap:0}
-.zoom-cinema-frame{position:relative;isolation:isolate;overflow:hidden;background:#070f21;aspect-ratio:16/7;min-height:280px;max-height:min(620px,66dvh);border:1px solid #243c53}
+.zoom-cinema-frame{position:relative;isolation:isolate;overflow:hidden;background:#070f21;width:100%;box-sizing:border-box;aspect-ratio:16/7;min-height:280px;max-height:min(620px,66dvh);border:1px solid #243c53}
 .zoom-cinema-frame[hidden]{display:none}
 .zoom-cinema-frame canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab;overscroll-behavior:contain}
 .zoom-cinema-frame canvas:active{cursor:grabbing}
@@ -1337,7 +1341,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 @media(prefers-reduced-motion:reduce){.transit-stellar-atmosphere{transition:none}}
 
 /* Stellar evolution: stage-driven appearance, no perpetual animation. */
-.stellar-cinema{position:relative;isolation:isolate;overflow:hidden;background:#080f20;aspect-ratio:18/7;min-height:290px;max-height:min(600px,62dvh);border:1px solid #33445c;margin:14px 0 12px}
+.stellar-cinema{position:relative;isolation:isolate;overflow:hidden;background:#080f20;width:100%;box-sizing:border-box;aspect-ratio:18/7;min-height:290px;max-height:min(600px,62dvh);border:1px solid #33445c;margin:14px 0 12px}
 .stellar-cinema canvas,.stellar-cinema svg{width:100%;height:100%;display:block}
 .stellar-cinema canvas[hidden],.stellar-cinema svg[hidden]{display:none}
 .stellar-cinema-caption{position:absolute;inset:auto 16px 12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;pointer-events:none;color:#f0e1bd;font:700 11px/1.5 var(--font-data);letter-spacing:.08em;text-shadow:0 1px 6px #000}
@@ -1375,7 +1379,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .mw-spatial-heading button,.mw-spatial-actions button{font:600 13px/1.4 var(--font-reading);padding:10px 13px;min-height:44px;cursor:pointer;border:1px solid #7d929e;background:#173347;color:#fff}
 .mw-spatial-heading button[aria-pressed=true]{background:#ad522f}
 .mw-spatial-heading button:disabled{opacity:.6;cursor:wait}
-.mw-spatial-frame{position:relative;aspect-ratio:17/8;min-height:310px;max-height:min(610px,65dvh);background:#080f1d;overflow:hidden}
+.mw-spatial-frame{position:relative;width:100%;box-sizing:border-box;aspect-ratio:17/8;min-height:310px;max-height:min(610px,65dvh);background:#080f1d;overflow:hidden}
 .mw-spatial-frame[hidden],.mw-spatial-actions[hidden]{display:none}
 .mw-spatial-frame canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none;overscroll-behavior:contain}
 .mw-spatial-frame canvas:active{cursor:grabbing}
@@ -1397,7 +1401,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .em-flight-heading button,.em-flight-actions button{border:1px solid #415e74;background:#193c52;color:#fff;font:600 13px/1.4 var(--font-reading);min-height:44px;padding:10px 14px;cursor:pointer}
 .em-flight-heading button[aria-pressed=true]{background:#ad5937}
 .em-flight-heading button:disabled{opacity:.55;cursor:wait}
-.em-flight-frame{position:relative;aspect-ratio:17/7;background:#060d1a;overflow:hidden;min-height:280px;max-height:min(580px,65dvh)}
+.em-flight-frame{position:relative;width:100%;box-sizing:border-box;aspect-ratio:17/7;background:#060d1a;overflow:hidden;min-height:280px;max-height:min(580px,65dvh)}
 .em-flight-frame>svg,.em-flight-frame>canvas{width:100%;height:100%;display:block}
 .em-flight-frame>canvas:not([hidden]){cursor:grab;touch-action:none;overscroll-behavior:contain}
 .em-flight-frame>canvas:not([hidden]):active{cursor:grabbing}
@@ -1444,7 +1448,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .gravity-immersive-intro button,.gravity-immersive-controls button{border:1px solid #486277;background:#17374b;color:#fff;font:600 13px/1.3 var(--font-reading);padding:10px 13px;min-height:44px;cursor:pointer}
 .gravity-immersive-intro button[aria-pressed=true]{background:#ae5938}
 .gravity-immersive-intro button:disabled,.gravity-immersive-controls button:disabled{opacity:.55;cursor:wait}
-.gravity-immersive-stage{position:relative;background:#080f1f;aspect-ratio:16/7;min-height:290px;max-height:min(600px,64dvh);overflow:hidden}
+.gravity-immersive-stage{position:relative;background:#080f1f;width:100%;box-sizing:border-box;aspect-ratio:16/7;min-height:290px;max-height:min(600px,64dvh);overflow:hidden}
 .gravity-immersive-stage[hidden],.gravity-immersive-controls[hidden]{display:none}
 .gravity-immersive-stage canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:none;overscroll-behavior:contain}
 .gravity-immersive-stage canvas:active{cursor:grabbing}
@@ -1501,7 +1505,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .tide-cinema-heading button,.tide-cinema-actions button{min-height:44px;border:1px solid #4b687b;background:#16354b;color:#fff;font:600 13px/1.4 var(--font-reading);cursor:pointer;padding:10px 14px}
 .tide-cinema-heading button[aria-pressed=true]{background:#ad5634}
 .tide-cinema-heading button:disabled,.tide-cinema-actions button:disabled{opacity:.55;cursor:not-allowed}
-.tide-cinema-stage{position:relative;aspect-ratio:17/8;min-height:310px;max-height:min(610px,64dvh);overflow:hidden;background:#070f21}
+.tide-cinema-stage{position:relative;width:100%;box-sizing:border-box;aspect-ratio:17/8;min-height:310px;max-height:min(610px,64dvh);overflow:hidden;background:#070f21}
 .tide-cinema-stage[hidden],.tide-cinema-controls[hidden]{display:none}
 .tide-cinema-stage canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none;overscroll-behavior:contain}
 .tide-cinema-stage canvas:active{cursor:grabbing}
@@ -1530,7 +1534,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .kepler-observatory-head button,.kepler-orbit-buttons button{background:#15354d;border:1px solid #46637a;color:#fff;font:600 12px/1.45 var(--font-reading);padding:11px 13px}
 .kepler-observatory-head button[aria-pressed=true],.kepler-orbit-buttons button[aria-pressed=true]{background:#ac5435}
 .kepler-observatory-head button:disabled,.kepler-orbit-buttons button:disabled{opacity:.5;cursor:wait}
-.kepler-orbit-stage{position:relative;background:#080e1c;aspect-ratio:17/9;min-height:300px;max-height:min(560px,65dvh);overflow:hidden}
+.kepler-orbit-stage{position:relative;background:#080e1c;width:100%;box-sizing:border-box;aspect-ratio:17/9;min-height:300px;max-height:min(560px,65dvh);overflow:hidden}
 .kepler-orbit-stage canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none;overscroll-behavior:contain}
 .kepler-orbit-stage canvas[hidden],.kepler-orbit-fallback[hidden],.kepler-orbit-controls[hidden]{display:none}
 .kepler-orbit-stage canvas:active{cursor:grabbing}
@@ -1566,7 +1570,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .true-scale-flight-head button,.true-scale-control-row>button,.true-scale-focus-preset button{background:#153951;border:1px solid #436179;color:#fff;font:600 12px/1.3 var(--font-reading);padding:10px 13px}
 .true-scale-flight-head button[aria-pressed=true],.true-scale-control-row>button[aria-pressed=true]{background:#a65033}
 .true-scale-flight-head button:disabled,.true-scale-control-row>button:disabled{opacity:.55;cursor:not-allowed}
-.true-scale-stage{position:relative;background:#070f20;aspect-ratio:16/8;min-height:290px;max-height:min(610px,65dvh);overflow:hidden}
+.true-scale-stage{position:relative;background:#070f20;width:100%;box-sizing:border-box;aspect-ratio:16/8;min-height:290px;max-height:min(610px,65dvh);overflow:hidden}
 .true-scale-stage canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:none;overscroll-behavior:contain}
 .true-scale-stage canvas:active{cursor:grabbing}
 .true-scale-stage canvas[hidden],.true-scale-fallback[hidden],.true-scale-controls[hidden]{display:none}
@@ -1604,7 +1608,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .ly-cinema-head button[aria-pressed=true],.ly-cinema-quick button[aria-pressed=true]{background:#b15935}
 .ly-cinema-head button:disabled,.ly-cinema-quick button:disabled{opacity:.5;cursor:not-allowed}
 .ly-cinema-head button:focus-visible,.ly-cinema-quick button:focus-visible{outline:3px solid #c65b31;outline-offset:3px}
-.ly-cinema-stage{position:relative;background:#070e1c;aspect-ratio:17/8;min-height:285px;max-height:min(570px,62dvh);overflow:hidden}
+.ly-cinema-stage{position:relative;background:#070e1c;width:100%;box-sizing:border-box;aspect-ratio:17/8;min-height:285px;max-height:min(570px,62dvh);overflow:hidden}
 .ly-cinema-stage canvas{display:block;width:100%;height:100%;touch-action:none;overscroll-behavior:contain;cursor:grab}
 .ly-cinema-stage canvas:active{cursor:grabbing}
 .ly-cinema-stage canvas[hidden],.ly-cinema-fallback[hidden],.ly-cinema-quick[hidden]{display:none}
