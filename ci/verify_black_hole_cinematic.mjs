@@ -20,7 +20,7 @@ assert.match(code,/Math\.exp\(Math\.min\(75,Math\.max\(-75,event\.deltaY\)\)\*\.
 assert.match(code,/passive:false/);
 assert.match(code,/touchPoints\.size===2/);
 assert.match(code,/lastPinch\/Math\.max\(4,distance\)/);
-assert.match(code,/matchMedia\('\(pointer: coarse\)'\)\.matches \? 1\.25 : 1\.75/);
+assert.match(code,/renderer\.setPixelRatio\(tier\.pixelRatio\)/);
 assert.match(code,/pow\(max\(r,2\.6\),1\.5\)/);
 assert.match(code,/float turbulence=/);
 assert.match(code,/float knots=/);

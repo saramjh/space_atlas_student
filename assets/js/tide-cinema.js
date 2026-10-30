@@ -1,3 +1,4 @@
+import {currentRenderTier} from './render-device-tier.js';
 // Earth is rigid; a separate transparent displaced water-equilibrium shell
 // represents the two sides of a lunar+solar tide-raising quadrupole. An Earth
 // surface marker moves through both while the ideal force pattern stays fixed.
@@ -5,10 +6,11 @@ import {tideOceanRadius,tideObserverContrast} from './tide-cinema-math.js';
 export async function createTideCinema(canvas,shell,onUpdate=()=>{}){
  const THREE=await import('three');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const coarse=matchMedia('(pointer: coarse)').matches;
+ const tier=currentRenderTier();
+ const coarse=tier.constrained;
  const scene=new THREE.Scene();scene.background=new THREE.Color(0x070f21);
- const renderer=new THREE.WebGLRenderer({canvas,antialias:!coarse,powerPreference:'low-power'});
- renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,coarse?1.25:1.75));
+ const renderer=new THREE.WebGLRenderer({canvas,antialias:tier.antialias,powerPreference:'low-power'});
+ renderer.setPixelRatio(tier.pixelRatio);
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
  scene.add(new THREE.AmbientLight(0x9dbfe3,1.25));

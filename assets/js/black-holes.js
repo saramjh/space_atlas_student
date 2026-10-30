@@ -1,3 +1,4 @@
+import {currentRenderTier} from './render-device-tier.js';
 import { initQuiz } from './quiz-widget.js';
 
 initQuiz([
@@ -118,9 +119,9 @@ async function loadThreeLab() {
   const scene=new THREE.Scene();
   scene.background=new THREE.Color('#080d16');
   const camera=new THREE.PerspectiveCamera(48,1,.1,120);
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,
-    matchMedia('(pointer: coarse)').matches ? 1.25 : 1.75));
+  const tier=currentRenderTier();
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:tier.antialias,powerPreference:'low-power'});
+  renderer.setPixelRatio(tier.pixelRatio);
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   renderer.toneMapping=THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure=1.25;
@@ -236,7 +237,7 @@ async function loadThreeLab() {
     const width=Math.max(1,shell.clientWidth),height=Math.max(1,shell.clientHeight);
     renderer.setSize(width,height,false);
     camera.aspect=width/height;
-    camera.fov=matchMedia('(pointer: coarse)').matches?56:48;
+    camera.fov=tier.constrained?56:48;
     camera.updateProjectionMatrix();
     draw();
   }

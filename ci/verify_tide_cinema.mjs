@@ -36,7 +36,7 @@ assert.match(engine,/waterGeo\.computeVertexNormals\(\)/);
 assert.match(engine,/moon\.position\.set\(4\.1\*Math\.cos/);
 assert.match(engine,/Earth is rigid/);
 assert.match(engine,/new URL\('\.\.\/images\/planet-earth-nasa\.webp',import\.meta\.url\)/);
-assert.match(engine,/Math\.min\(window\.devicePixelRatio\|\|1,coarse\?1\.25:1\.75\)/);
+assert.match(engine,/renderer\.setPixelRatio\(tier\.pixelRatio\)/);
 assert.match(engine,/pointercancel/);
 assert.match(engine,/reduced\.matches/);
 assert.match(css,/\.tide-cinema-stage canvas\{display:block;width:100%;height:100%;cursor:grab;touch-action:none/);

@@ -1,3 +1,4 @@
+import {currentRenderTier} from './render-device-tier.js';
 // Opt-in dimensionless gravitational test bench. No recorded observational
 // planet texture, live measurement, simulated gas giant landing or real-time
 // fall duration. A physically proportionate planet radius and Earth reference
@@ -5,10 +6,11 @@
 import {relativeSurfaceGravity,probeRadialAcceleration,initialProbeState,integrateProbeFall} from './gravity-probe-math.js';
 export async function createGravityImmersive(canvas,shell,onStatus=()=>{}){
  const THREE=await import('three');
- const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});
- const coarse=matchMedia('(pointer: coarse)').matches;
+ const tier=currentRenderTier();
+ const renderer=new THREE.WebGLRenderer({canvas,antialias:tier.antialias,powerPreference:'low-power'});
+ const coarse=tier.constrained;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,coarse?1.25:1.75));
+ renderer.setPixelRatio(tier.pixelRatio);
  renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;
  renderer.toneMappingExposure=1.3;

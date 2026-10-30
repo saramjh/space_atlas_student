@@ -31,7 +31,7 @@ assert.match(controller,/createGravityImmersive/);
 assert.match(controller,/probePlay\.disabled=window\.matchMedia/);
 assert.match(scene,/integrateProbeFall\(fall,mass,radius,step\)/);
 assert.match(scene,/EarthRadius|not real-time|deliberately compressed/);
-assert.match(scene,/Math\.min\(window\.devicePixelRatio\|\|1,coarse\?1\.25:1\.75\)/);
+assert.match(scene,/renderer\.setPixelRatio\(tier\.pixelRatio\)/);
 assert.match(scene,/camera\.fov=w<h\?54:44/);
 assert.match(scene,/wheel',wheel,\{passive:false\}/);
 assert.match(scene,/pointercancel/);
