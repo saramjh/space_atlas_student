@@ -119,16 +119,17 @@ if (mechanism) {
     const formatted = quotient < 0.1 ? quotient.toFixed(3) : quotient.toFixed(2);
     get('#gravityModelResult').textContent = `${formatted}× Earth`;
     if(immersiveEngine){immersiveEngine.setParameters(mass,radius);probePlay.textContent='Release both probes';probePlay.setAttribute('aria-pressed','false');immersiveStatus.setAttribute('aria-live','polite');}
-    const radiusPx = 6 * radius;
+    const radiusPx = 7.5 * radius; // exact center-to-surface line, Earth-relative SVG units
     const x = 92 + radiusPx;
     get('#gravityBody').setAttribute('r', radiusPx.toFixed(2));
     get('#gravityRadiusLine').setAttribute('x2', x.toFixed(2));
+    get('#gravityRadiusDiagramLabel').setAttribute('x', (x + 10).toFixed(2));
     get('#gravityTestPoint').setAttribute('cx', x.toFixed(2));
     get('#gravityArrowLine').setAttribute('x1', (x + 50).toFixed(2));
     get('#gravityArrowLine').setAttribute('x2', (x + 25).toFixed(2));
-    get('#gravityRadiusDiagramLabel').textContent = `R = ${radius.toFixed(2)}× Earth`;
+    get('#gravityRadiusDiagramLabel').textContent = `R = ${radius.toFixed(2)}× Earth radius`;
     get('#gravityCauseDiagram').setAttribute('aria-label',
-      `Schematic: radius ${radius.toFixed(2)} times Earth, model gravity ${formatted} times Earth's, inward-pointing arrow indicates direction, not force magnitude`);
+      `Schematic: gold radius line connects center and surface at ${radius.toFixed(2)} Earth radii; model gravity ${formatted} times Earth's; inward-pointing arrow indicates direction, not force magnitude`);
 
     const explanations = {
       earth: "Earth baseline: mass and radius are both 1, so 1 ÷ 1² = 1× Earth's gravity.",

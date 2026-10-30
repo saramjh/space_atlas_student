@@ -456,6 +456,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .gravity-mechanism-diagram{min-width:0}
 .gravity-mechanism-diagram svg{display:block;width:100%;max-width:420px;margin:auto;height:auto;background:#e8e5de;border:1px solid var(--rule);border-radius:3px}
 .gravity-svg-label{font:600 10px var(--font-data);fill:var(--ink)}
+.gravity-radius-label{font-size:11px;fill:#27343b;paint-order:stroke fill;stroke:#e8e5de;stroke-width:1.4px;stroke-linejoin:round}
 .gravity-symbol-note{font-size:11px;line-height:1.5;color:var(--muted);margin:7px 0 0}
 .gravity-cause-result{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding:14px 0;border-block:1px solid var(--rule)}
 .gravity-cause-fraction{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;font:600 11px var(--font-data);color:var(--muted)}
