@@ -145,18 +145,21 @@ for page in pages:
                 f"{rel}: expected {int(expected_secondary)} secondary AdSense unit(s), "
                 f"got {secondary_count}"
             )
-        if 'data-ad-format=' in text:
-            errors.append(f"{rel}: exact-size AdSense units must not use data-ad-format")
-        if 'data-full-width-responsive=' in text:
-            errors.append(
-                f"{rel}: exact-size AdSense units must not use data-full-width-responsive"
-            )
+        expected_ad_units = 1 + int(expected_secondary)
+        if text.count('data-ad-format="auto"') != expected_ad_units:
+            errors.append(f"{rel}: expected {expected_ad_units} auto-sized responsive AdSense units")
+        if text.count('data-ad-format=') != expected_ad_units:
+            errors.append(f"{rel}: unexpected AdSense format; use auto for every unit")
+        if text.count('data-full-width-responsive="true"') != expected_ad_units:
+            errors.append(f"{rel}: expected {expected_ad_units} responsive mobile display flags")
+        if text.count('data-full-width-responsive=') != expected_ad_units:
+            errors.append(f"{rel}: unexpected full-width-responsive value")
         if text.count('class="adsbygoogle space_atlas_ad_primary"') != 1:
-            errors.append(f"{rel}: expected one exact-size primary ad class")
+            errors.append(f"{rel}: expected one responsive primary ad class")
         expected_secondary_class = int(expected_secondary)
         if text.count('class="adsbygoogle space_atlas_ad_secondary"') != expected_secondary_class:
             errors.append(
-                f"{rel}: expected {expected_secondary_class} exact-size secondary ad class(es)"
+                f"{rel}: expected {expected_secondary_class} responsive secondary ad class(es)"
             )
 
     parser = AuditParser()

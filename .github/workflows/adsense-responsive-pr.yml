@@ -1,0 +1,91 @@
+name: Verify responsive AdSense changes
+
+on:
+  pull_request:
+    paths:
+      - 'templates/ad-slot.html'
+      - 'ci/verify_mobile_ad_slots.mjs'
+      - 'ci/verify_build.py'
+      - '.github/workflows/adsense-responsive-pr.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  adsense-responsive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout proposed changes
+        uses: actions/checkout@v4
+      - name: Use verified Node version
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.22.1'
+      - name: Build published configuration
+        env:
+          SITE_BASE: /space_atlas_student
+          ADSENSE_ENABLED: '1'
+        run: python3 build.py
+      - name: Run all published-site regression checks without deploying
+        run: |
+          python3 ci/verify_build.py
+          python3 ci/verify_seo_metadata.py
+          python3 ci/verify_updates.py
+          python3 ci/verify_lesson_acknowledgments.py
+          python3 ci/verify_seasons_no_tilt_classroom.py
+          python3 ci/verify_footer.py
+          python3 ci/verify_user_flows.py
+          python3 ci/verify_classroom_preview.py
+          python3 ci/verify_ui_controls.py
+          python3 ci/verify_mobile_header.py
+          python3 ci/verify_navigation_dropdowns.py
+          python3 ci/verify_navigation_consistency.py
+          python3 ci/verify_readability_roles.py
+          python3 ci/verify_learner_font_preset.py
+          node ci/verify_spectrum.mjs
+          node ci/verify_spectrum_beam.mjs
+          node ci/verify_p1_visuals.mjs
+          node ci/verify_stellar_cinema.mjs
+          node ci/verify_resource_picker.mjs
+          node ci/verify_image_provenance.mjs
+          node ci/verify_planet_3d.mjs
+          node ci/verify_true_scale.mjs
+          node ci/verify_true_scale_flight.mjs
+          node ci/verify_earth_moon_flight.mjs
+          node ci/verify_science_truth.mjs
+          node ci/verify_jeff_feedback.mjs
+          node ci/verify_moon_cer.mjs
+          node ci/verify_moon_prediction_comparison.mjs
+          node ci/verify_moon_learning_geometry.mjs
+          node ci/verify_moon_diagram_visibility.mjs
+          node ci/verify_black_hole_lab.mjs
+          node ci/verify_black_hole_cinematic.mjs
+          node ci/verify_eclipse_node_lab.mjs
+          node ci/verify_eclipse_default_teaching.mjs
+          node ci/verify_season_sunlight.mjs
+          node ci/verify_tidal_face_lab.mjs
+          node ci/verify_gravity_vector_lab.mjs
+          node ci/verify_transit_motion.mjs
+          node ci/verify_transit_cinematic.mjs
+          node ci/verify_visual_wave3.mjs
+          node ci/verify_galaxy_immersive.mjs
+          node ci/verify_milky_way_spatial.mjs
+          node ci/verify_cosmic_cinema.mjs
+          node ci/verify_learner_flow_ux.mjs
+          node ci/verify_mobile_ad_slots.mjs
+          node ci/verify_ad_resize_recovery.mjs
+          node ci/verify_svg_path_semantics.mjs
+          node ci/verify_ready_content.mjs
+          node ci/verify_gravity_mechanism.mjs
+          node ci/verify_gravity_immersive.mjs
+          node ci/verify_orbit_framing.mjs
+          node ci/verify_cosmic_visuals.mjs
+          node ci/verify_light_lookback_cinema.mjs
+          node ci/verify_text_visualizations.mjs
+          node ci/verify_remaining_visualizations.mjs
+          node ci/verify_tide_cinema.mjs
+          node ci/verify_pluto_visual.mjs
+          node ci/verify_kepler.mjs
+          node ci/verify_kepler_orbit_cinema.mjs
+          node ci/verify_quality_fixes.mjs
+          for file in assets/js/*.js; do node --check "$file"; done
