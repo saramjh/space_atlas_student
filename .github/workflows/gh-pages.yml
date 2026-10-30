@@ -87,6 +87,7 @@ jobs:
           node ci/verify_mobile_ad_slots.mjs
           node ci/verify_ad_resize_recovery.mjs
           node ci/verify_ad_resize_recovery_behavior.mjs
+          node ci/verify_adsense_ad_intents_exclusion.mjs
           node ci/verify_svg_path_semantics.mjs
           node ci/verify_ready_content.mjs
           node ci/verify_gravity_mechanism.mjs
