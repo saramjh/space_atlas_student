@@ -74,6 +74,11 @@
           <div class="distance-focus-track"><span class="distance-focus-sun">SUN</span><span class="distance-focus-marker scene-marker" id="distanceSceneMarker" style="left:28.00%"></span></div>
         </div>
       </div>
+      <div class="distance-guided-experiment" id="distanceGuidedExperiment">
+        <div><p class="thermal-kicker">An eight-stop reading lesson</p><h4>Follow each planet across both rulers.</h4><p>Notice how the physically close inner planets are spread far apart in the clickable 3D model. The same planet stays selected on both tracks; only the <em>drawing coordinate</em> changes.</p></div>
+        <div class="distance-guided-actions"><button type="button" id="distanceGuidedPlay" aria-pressed="false">Travel through 8 planets (12 s)</button><button type="button" id="distanceGuidedRestart">Return to Mercury</button></div>
+        <output id="distanceGuidedCounter" role="status">Ready · select a planet to compare exact fractions of these two rulers.</output>
+      </div>
       <p id="distanceFocusReadout" class="distance-focus-readout" role="status">Earth: 1.00 AU (3.33% of the 30.05 AU ruler), but 14 scene units (28.00% of the 50-unit illustrative ruler).</p>
       <p class="distance-focus-caveat">Scene units come from the current Space Atlas visualization code. They are <strong>not AU, kilometers, or a single physical compression factor</strong>. The positions are conceptual orbit radii, not current planet locations; all real orbits change distance over time. The ruler does not compare planet diameters.</p>
       <p class="distance-focus-source">Physical orbital-distance source: <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank" rel="noreferrer">NASA Planetary Fact Sheet</a>. Model-radius source: Space Atlas's own static <code>PLANETS</code> dataset.</p>

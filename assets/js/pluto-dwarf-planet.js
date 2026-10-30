@@ -45,6 +45,36 @@ if (ruleExplorer) {
   ruleExplorer.querySelector('#ruleInitNote').hidden = true;
 }
 
+const resonanceLab=document.querySelector('#plutoResonanceLab');
+if(resonanceLab){
+ const slider=resonanceLab.querySelector('#plutoResonanceTime');
+ const play=resonanceLab.querySelector('#plutoResonancePlay');
+ const reset=resonanceLab.querySelector('#plutoResonanceReset');
+ const out=resonanceLab.querySelector('#plutoResonanceReadout');
+ const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+ const dotN=resonanceLab.querySelector('#plutoNeptuneDot'),dotP=resonanceLab.querySelector('#plutoPlutoDot');
+ let playing=false,frame=null,start=null,startFraction=0;
+ function stop(){playing=false;if(frame!==null)cancelAnimationFrame(frame);frame=null;start=null;play.setAttribute('aria-pressed','false');play.textContent='Observe the 3:2 cycle (9 s)';out.setAttribute('aria-live','polite');}
+ function render(){
+  const t=Number(slider.value)/100;
+  const thetaN=2*Math.PI*3*t;
+  const thetaP=(150*Math.PI/180)+2*Math.PI*2*t;
+  dotN.setAttribute('cx',(320+98*Math.cos(thetaN)).toFixed(1));dotN.setAttribute('cy',(180+98*Math.sin(thetaN)).toFixed(1));
+  dotP.setAttribute('cx',(320+166*Math.cos(thetaP)).toFixed(1));dotP.setAttribute('cy',(180+125*Math.sin(thetaP)).toFixed(1));
+  resonanceLab.querySelector('#plutoNeptuneCaption').textContent=`Neptune: ${(3*t).toFixed(2)} laps`;
+  resonanceLab.querySelector('#plutoPlutoCaption').textContent=`Pluto: ${(2*t).toFixed(2)} laps`;
+  resonanceLab.querySelector('#plutoResonanceTimeOutput').textContent=`${Math.round(100*t)}%`;
+  out.textContent=`${Math.round(100*t)}% of mean-period teaching cycle: Neptune ${(3*t).toFixed(2)} / 3 laps; Pluto ${(2*t).toFixed(2)} / 2 laps. Two Pluto periods ≈ 496 yr; three Neptune periods ≈ 495 yr. Model drawing and starting phases are invented for clarity, not measured orbital positions.`;
+ }
+ function tick(now){frame=null;if(!playing||document.hidden||reducedMotion.matches)return stop();if(start===null)start=now;const t=Math.min(1,startFraction+(now-start)/9000);slider.value=String(Math.round(t*100));render();if(t>=1)stop();else frame=requestAnimationFrame(tick);}
+ slider.addEventListener('input',()=>{stop();render();});
+ reset.addEventListener('click',()=>{stop();slider.value='0';render();});
+ play.addEventListener('click',()=>{if(playing)return stop();if(reducedMotion.matches||document.hidden)return;stop();if(Number(slider.value)>=100)slider.value='0';startFraction=Number(slider.value)/100;playing=true;play.setAttribute('aria-pressed','true');play.textContent='Pause cycle';out.setAttribute('aria-live','off');frame=requestAnimationFrame(tick);});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+ reducedMotion.addEventListener?.('change',()=>{if(reducedMotion.matches)stop();play.disabled=reducedMotion.matches;});play.disabled=reducedMotion.matches;
+ render();
+}
+
 initQuiz([
   {
     q: 'What is the one criterion Pluto fails for the official IAU definition of "planet"?',

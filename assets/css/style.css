@@ -1752,3 +1752,55 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .orbit-trio-controls button:focus-visible{outline:3px solid #a35435;outline-offset:3px}
 .orbit-trio-controls p{margin:0;font:13px/1.5 var(--font-reading);color:#455c68;flex:1 1 240px}
 .orbit-trio-readout{font:13px/1.5 var(--font-reading);border-left:3px solid #ab7643;padding-left:12px;color:#2f4858;min-height:38px}
+
+/* Phase-based local solar time: a quiet clock, not a sky-position forecast. */
+.moon-sky-clock{border-top:1px solid #adb6b5;margin:19px 0;padding:22px 0 12px;display:grid;gap:13px}
+.moon-sky-header h3{font:600 clamp(20px,3vw,27px)/1.18 var(--font-display);margin:5px 0 9px}.moon-sky-header p{font:14px/1.55 var(--font-reading);margin:0;max-width:74ch}
+.moon-sky-clock-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#a3acb1;border:1px solid #a3acb1}
+.moon-sky-clock-values>div{padding:16px 13px;background:#f3f1ec;min-width:0}.moon-sky-clock-values span{display:block;font:600 11px var(--font-mono);text-transform:uppercase;color:#546674}.moon-sky-clock-values strong{display:block;font:600 clamp(18px,4vw,29px)/1.25 var(--font-display);color:#123c51;margin-top:6px}
+.moon-sky-day-ribbon{padding:8px 0}.moon-sky-band{height:40px;position:relative;background:#132639;border:1px solid #30495e}.moon-sky-daylight{position:absolute;left:25%;width:50%;height:100%;background:#b19b74}.moon-sky-mark{position:absolute;top:-6px;height:50px;width:4px;transform:translateX(-50%);background:#f5eee2;border:1px solid #10293c;z-index:2}.moon-sky-ticks{display:flex;justify-content:space-between;font:11px/1.5 var(--font-mono);color:#566773}
+.moon-sky-explanation{font:13px/1.55 var(--font-reading);color:#394c5a;min-height:44px;padding-left:13px;border-left:3px solid #bc7549}
+
+/* Source → measured constraint → inferred interior, not decorative cutaways. */
+.ptype-evidence-chain{padding:23px 0;margin:7px 0 29px;border-top:1px solid #a9b0ad;border-bottom:1px solid #a9b0ad;display:grid;gap:16px}
+.ptype-chain-intro h3{font:600 clamp(22px,3.1vw,30px)/1.15 var(--font-display);margin:6px 0 10px}.ptype-chain-intro p{font:14px/1.55 var(--font-reading);max-width:73ch;margin:0}
+.ptype-evidence-controls{display:flex;gap:8px;flex-wrap:wrap}.ptype-evidence-controls button{min-height:44px;padding:9px 13px;border:1px solid #8a9a9b;background:#f0eee7;color:#183b4a;font:600 12px/1.3 var(--font-mono);cursor:pointer}.ptype-evidence-controls button[aria-pressed=true]{background:#163b52;color:#fff;border-color:#163b52}.ptype-evidence-controls button:focus-visible{outline:3px solid #a75e38;outline-offset:3px}
+.ptype-chain-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #a5b0b4;border-bottom:1px solid #a5b0b4}.ptype-chain-flow>div{padding:18px 15px;border-right:1px solid #a5b0b4;min-width:0}.ptype-chain-flow>div:last-child{border-right:0}.ptype-chain-flow span{display:block;font:600 10px/1.3 var(--font-mono);letter-spacing:.05em;text-transform:uppercase;color:#536970;margin-bottom:16px}.ptype-chain-flow strong{font:600 16px/1.3 var(--font-display);display:block;color:#153d50}.ptype-chain-flow p{font:13px/1.55 var(--font-reading);color:#445760;margin:9px 0 0}
+.ptype-chain-caution{font:13px/1.5 var(--font-reading);margin:0;border-left:3px solid #ab6b43;padding-left:12px;color:#42545e}
+@media(max-width:640px){.ptype-chain-flow{grid-template-columns:1fr}.ptype-chain-flow>div{border-right:0;border-bottom:1px solid #a5b0b4;padding:14px 9px}.ptype-chain-flow>div:last-child{border-bottom:0}.ptype-chain-flow span{margin-bottom:7px}.ptype-evidence-controls{display:grid;grid-template-columns:1fr}}
+
+/* A period-ratio drawing with explicit physical limitations, not orbital cinema. */
+.pluto-resonance-lab{border-top:1px solid #abb0a9;border-bottom:1px solid #abb0a9;padding:24px 0 16px;margin:22px 0 32px;display:grid;gap:13px}
+.pluto-resonance-head h3{font:600 clamp(23px,3.2vw,31px)/1.16 var(--font-display);margin:5px 0 9px}.pluto-resonance-head p{font:14px/1.55 var(--font-reading);margin:0;max-width:76ch}
+#plutoResonanceSVG{display:block;width:100%;height:auto;background:#0d2333;border:1px solid #405968}
+.pluto-resonance-lab>label{display:flex;justify-content:space-between;gap:9px;font:600 12px/1.4 var(--font-mono)}
+#plutoResonanceTime{width:100%;min-height:33px;accent-color:#ac653f}
+.pluto-resonance-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pluto-resonance-actions button{min-height:44px;padding:9px 13px;border:1px solid #688390;font:600 12px/1.4 var(--font-mono);background:#f3eee4;color:#17374c;cursor:pointer}
+.pluto-resonance-actions #plutoResonancePlay{background:#183e57;color:white}
+.pluto-resonance-actions button:focus-visible{outline:3px solid #ab673f;outline-offset:3px}
+.pluto-resonance-readout{display:block;min-height:50px;padding-left:13px;border-left:3px solid #ad7652;font:13px/1.55 var(--font-reading);color:#425765}
+@media(max-width:620px){.pluto-resonance-actions{display:grid;grid-template-columns:1fr 1fr}.pluto-resonance-lab>label{font-size:11px}}
+
+/* Two ruler models: animate *the evidence*, not a decorative 3D scene. */
+.distance-guided-experiment{display:grid;gap:12px;border-top:1px solid #a8aeab;padding-top:18px;margin:20px 0 18px}
+.distance-guided-experiment h4{font:600 clamp(19px,2.8vw,26px)/1.2 var(--font-display);margin:4px 0 7px}.distance-guided-experiment p{font:13px/1.55 var(--font-reading);max-width:70ch;margin:0}
+.distance-guided-actions{display:flex;gap:8px;flex-wrap:wrap}
+.distance-guided-actions button{padding:9px 13px;min-height:44px;background:#f0eee7;border:1px solid #798c94;color:#183e51;font:600 12px/1.3 var(--font-mono);cursor:pointer}
+.distance-guided-actions button:first-child{background:#18435b;color:#fff}.distance-guided-actions button:focus-visible{outline:3px solid #ad673e;outline-offset:3px}
+.distance-guided-experiment output{font:13px/1.5 var(--font-reading);color:#425561;min-height:26px}
+.distance-focus-lab .distance-focus-marker{transition:left .75s cubic-bezier(.36,.05,.25,1)}
+@media(prefers-reduced-motion:reduce){.distance-focus-lab .distance-focus-marker{transition:none}}
+@media(max-width:640px){.distance-guided-actions{display:grid;grid-template-columns:1fr 1fr}}
+
+/* Homepage editorial inquiry index: native disclosures, no generic AI cards. */
+.home-inquiry-rows{border-top:1px solid #9ca7a9}.home-inquiry-row{border-bottom:1px solid #9ca7a9;padding:0;margin:0}
+.home-inquiry-row summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,155px) minmax(0,1fr) minmax(0,170px);align-items:baseline;gap:20px;padding:20px 5px;min-height:70px}.home-inquiry-row summary::-webkit-details-marker{display:none}
+.home-inquiry-row summary span{font:600 11px/1.5 var(--font-mono);letter-spacing:.04em;color:#536d75;text-transform:uppercase}
+.home-inquiry-row summary strong{font:600 clamp(17px,2.1vw,22px)/1.2 var(--font-display);color:#163a4f}
+.home-inquiry-row summary em{font:12px/1.5 var(--font-mono);color:#63747b;font-style:normal;text-align:right}
+.home-inquiry-row summary:focus-visible{outline:3px solid #ae7241;outline-offset:3px}
+.home-inquiry-row[open] summary strong{color:#9c4c2c}
+.home-inquiry-step{padding:0 13px 19px 175px;display:flex;gap:8px 17px;flex-wrap:wrap;align-items:baseline}.home-inquiry-step p{margin:0;flex:1 1 230px;font:13px/1.6 var(--font-reading);color:#3e515d}.home-inquiry-step a{display:inline-block;font:600 12px/1.45 var(--font-mono);text-decoration:underline;text-underline-offset:3px;color:#1e5b76}
+.home-inquiry-caveat{font:12px/1.6 var(--font-reading);color:#64717a;margin-top:15px}
+@media(max-width:720px){.home-inquiry-row summary{grid-template-columns:minmax(0,1fr);gap:5px;padding:17px 3px}.home-inquiry-row summary em{text-align:left}.home-inquiry-step{padding:0 3px 19px}.home-inquiry-step p{flex:1 1 100%}}

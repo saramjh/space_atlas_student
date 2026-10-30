@@ -35,7 +35,7 @@ function find(name){if(!els.has(name))els.set(name,new E());return els.get(name)
 const names=['Earth','Neptune','Pluto','Ceres','Eris'];
 const buttons=names.map(name=>{const el=new E();el.dataset.planetRule=name;return el;});
 const root={querySelector:find,querySelectorAll:()=>buttons};
-const document={querySelector:()=>root};
+const document={querySelector:(sel)=>sel==='#planetRuleExplorer'?root:null};
 const beforeQuiz=source.split('initQuiz([')[0].replace(/^import .*;\s*$/gm,'');
 runInNewContext(beforeQuiz,{document});
 assert.equal(find('#ruleNeighborHeading').textContent,'Pluto · shares its orbital region');

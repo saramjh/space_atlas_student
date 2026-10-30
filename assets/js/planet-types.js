@@ -40,6 +40,39 @@ if (explorer) {
   });
 }
 
+// Link raw observations to physical constraints and model-based interiors;
+// never label a synthesized/artist-rendered globe as an observed cross-section.
+const evidenceChain=document.querySelector('#ptypeEvidenceChain');
+if(evidenceChain){
+ const evidence={
+  earth:[
+   'Earthquake seismic wave arrivals','Seismic stations measure transmitted and reflected P and S waves.',
+   'Different media transmit waves differently','S waves do not cross Earth’s liquid outer core; travel times constrain layer boundaries.',
+   'Rocky mantle and iron-rich core','A liquid outer core and solid inner core are inferred from wave paths and other geophysical observations.',
+   'Strong seismic constraints; deep interiors are inferred rather than photographed.'
+  ],
+  jupiter:[
+   'Juno gravity and magnetic measurements','Juno measures subtle variations in spacecraft motion and Jupiter’s magnetic field.',
+   'Gravity and magnetic signatures constrain density','Measurements limit possible density distributions, rotation and conductive hydrogen behavior.',
+   'A diffuse heavy-element-rich inner region','Models favor a larger, less sharply bounded core. Exact proportions and phase transitions are uncertain.',
+   'The cloud bands are photographed, but Jupiter’s diffuse interior is inferred. No solid landing surface is implied.'
+  ],
+  neptune:[
+   'Mass, shape, orbit and spacecraft observations','Voyager 2 and distant observations constrain Neptune’s gravity, atmosphere and bulk density.',
+   'Global properties constrain compositions','Possible deep water/ammonia/methane-rich mixtures must match observed mass and planetary dynamics.',
+   'Modeled hot dense fluid layers','Deep composition, temperature distribution and central structure remain much less constrained than Earth’s.',
+   'No spacecraft has directly sampled Neptune’s deep interior; the colored exterior texture is not a measured depth profile.'
+  ]
+ };
+ const out=['ptypeObserved','ptypeObservedDesc','ptypeConstraint','ptypeConstraintDesc','ptypeInference','ptypeInferenceDesc','ptypeEvidenceCaution'].map(id=>evidenceChain.querySelector('#'+id));
+ const buttons=[...evidenceChain.querySelectorAll('[data-ptype-evidence]')];
+ buttons.forEach(button=>button.addEventListener('click',()=>{
+  const data=evidence[button.dataset.ptypeEvidence];if(!data)return;
+  buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+  out.forEach((el,i)=>{el.textContent=data[i];});
+ }));
+}
+
 // High-quality 3D globe is supplementary. Loading Three.js + three planet maps
 // is deferred until explicit user action; 2D evidence remains readable otherwise.
 const surfaceLab = document.querySelector('#planetSurfaceLab');

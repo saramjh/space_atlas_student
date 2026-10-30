@@ -25,7 +25,8 @@ function evaluate(path, document, skipQuiz=false){
       src=src.slice(0,pos)+src.slice(end+7);
     }
   }
-  runInNewContext(src, {document,PLANETS:data.PLANETS,tideResultant,console});
+  document.addEventListener??=()=>{};
+  runInNewContext(src, {document,PLANETS:data.PLANETS,tideResultant,console,matchMedia:()=>({matches:false,addEventListener:()=>{}}),cancelAnimationFrame:()=>{},requestAnimationFrame:()=>1});
 }
 function store(){
   const db=new Map();

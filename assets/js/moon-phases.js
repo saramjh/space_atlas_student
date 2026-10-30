@@ -1,3 +1,4 @@
+import {phaseSkyClock,formatLocalSolarHour} from './moon-visibility-math.js';
 // Moon Phases page (/moon/phases/). Two synchronized views driven by one
 // angle: a top-down Sun-Earth-Moon system model (Three.js) and a 2D canvas
 // showing the Moon's illuminated fraction as seen from Earth.
@@ -149,6 +150,13 @@ function applyAngle(deg) {
       '°. Sunlight always lights half of the Moon’s whole sphere; Earth sees ' +
       (model.illuminatedFraction * 100).toFixed(0) + '% of its disk illuminated.';
   }
+  const sky=phaseSkyClock(deg);
+  document.querySelector('#moonSkyRise').textContent=formatLocalSolarHour(sky.rise);
+  document.querySelector('#moonSkyTransit').textContent=formatLocalSolarHour(sky.transit);
+  document.querySelector('#moonSkySet').textContent=formatLocalSolarHour(sky.set);
+  document.querySelector('#moonSkyMark').style.left=`${(sky.transit/24*100).toFixed(2)}%`;
+  const phase=phaseLabelAtDegrees(deg);
+  document.querySelector('#moonSkyExplanation').textContent=`${phase}: rise near ${formatLocalSolarHour(sky.rise)}, highest near ${formatLocalSolarHour(sky.transit)}, set near ${formatLocalSolarHour(sky.set)} in idealized local solar time. A phase is not a local-date sky forecast.`;
   renderer.render(scene, camera);
 }
 
