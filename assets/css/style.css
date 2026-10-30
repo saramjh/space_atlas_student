@@ -1619,3 +1619,6 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .ly-cinema-disclaimer{font:400 11px/1.6 var(--font-reading);color:#53606a;margin:0!important;padding:9px 18px 20px}
 @media(max-width:700px){.ly-cinema-head{display:block;padding:15px 13px}.ly-cinema-head button{width:100%;margin-top:12px}.ly-cinema-stage{aspect-ratio:5/6;min-height:320px;max-height:53dvh}.ly-cinema-overlay{font-size:9px;right:8px}.ly-cinema-quick{width:calc(100% - 22px);bottom:9px;gap:5px}.ly-cinema-quick button{font-size:12px;padding:8px}.ly-cinema-status{padding:9px 12px 3px}.ly-cinema-disclaimer{padding:8px 12px 16px}}
 @media(prefers-reduced-motion:reduce){.ly-cinema *{animation:none!important;transition:none!important}}
+
+/* Filmic lookback camera: four accessible transport controls without clipping. */
+@media(max-width:700px){.ly-cinema-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.ly-cinema-quick button{font-size:11px;padding:8px 3px;white-space:normal}}

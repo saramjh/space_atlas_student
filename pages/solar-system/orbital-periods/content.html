@@ -77,10 +77,11 @@
           <button id="keplerOrbitReset" type="button">Reset epoch</button>
           <button id="keplerOrbitZoomIn" type="button">Zoom in +</button>
           <button id="keplerOrbitZoomOut" type="button">Zoom out −</button>
+          <button id="keplerOrbitFollow" type="button" aria-pressed="false">Follow selected world</button>
         </div>
       </div>
       <p id="keplerOrbitFrameStatus" class="kepler-orbit-frame-status" role="status">Choose a planet to explore its orbit. Animated time is compressed, not a physical 12-second year.</p>
-      <p class="kepler-orbit-caveat">This is a top-down <strong>schematic circular-orbit model</strong>. Orbital radii are compressed logarithmically to keep all eight worlds visible, and planet dots are not to scale. Relative motion follows <strong>T² ≈ a³</strong> in Earth years/AU; all planets begin at an arbitrary common epoch. 1, 10, or 100 simulated Earth years are played over 12 seconds, not actual astronomical speed. Actual orbit eccentricity and inclination are omitted. The logarithmic Kepler graph and NASA numbers below are the scientific reference.</p>
+      <p class="kepler-orbit-caveat">This is a top-down <strong>schematic circular-orbit model</strong>. Orbital radii are compressed logarithmically to keep all eight worlds visible, and planet dots are not to scale. Relative motion follows <strong>T² ≈ a³</strong> in Earth years/AU; all planets begin at an arbitrary common epoch. 1, 10, or 100 simulated Earth years are played over 12 seconds, not actual astronomical speed. Actual orbit eccentricity and inclination are omitted. In Follow mode, the camera tracks the selected planet while the Sun and other orbits drift relative to it; this is a moving reference frame, not a different orbit. The logarithmic Kepler graph and NASA numbers below are the scientific reference.</p>
     </div>
     <label for="keplerPlanetSelect">Select a planet (accessible reference)</label>
     <select id="keplerPlanetSelect" aria-controls="keplerReadout">

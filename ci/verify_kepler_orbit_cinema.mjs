@@ -21,7 +21,7 @@ assert.ok(displayOrbitFraction(5.2)<displayOrbitFraction(30.05));
 for(const bad of [0,-1,NaN,Infinity])assert.throws(()=>periodYearsFromAU(bad),RangeError);
 for(const bad of [NaN,Infinity,-.1])assert.throws(()=>orbitAngleAtYears(1,bad),RangeError);
 for(const bad of [0,.1,36,NaN])assert.throws(()=>displayOrbitFraction(bad),RangeError);
-for(const id of ['keplerOrbitExperience','keplerOrbitStage','keplerOrbitCanvas','keplerOrbitFallback','keplerOrbitActivate','keplerOrbitControls','keplerOrbitSpan','keplerOrbitTime','keplerOrbitPlay','keplerOrbitReset','keplerOrbitZoomIn','keplerOrbitZoomOut','keplerOrbitFrameStatus','keplerOrbitSelected']){
+for(const id of ['keplerOrbitExperience','keplerOrbitStage','keplerOrbitCanvas','keplerOrbitFallback','keplerOrbitActivate','keplerOrbitControls','keplerOrbitSpan','keplerOrbitTime','keplerOrbitPlay','keplerOrbitReset','keplerOrbitZoomIn','keplerOrbitZoomOut','keplerOrbitFrameStatus','keplerOrbitSelected','keplerOrbitFollow']){
  assert.match(page,new RegExp(`id="${id}"`));assert.match(built,new RegExp(`id="${id}"`));
 }
 assert.equal((page.match(/data-kepler-planet="[^"]+"/g)||[]).length,8);
@@ -30,7 +30,7 @@ assert.match(engine,/select\.dispatchEvent\(new Event\('change',\{bubbles:true\}
 assert.match(engine,/onTime\(years\)/);
 assert.match(engine,/engine\?\.selectPlanet\(name\);updateTime\(Number\(timeSlider\.value\)\/1000\*spanYears\)/);
 assert.match(engine,/orbitAngleAtYears\(o\.au,years\)/);
-assert.match(engine,/Math\.min\(window\.devicePixelRatio\|\|1,coarse\?1\.25:1\.75\)/);
+assert.match(engine,/Math\.min\(window\.devicePixelRatio\|\|1,coarse\|\|width<=700\?1\.25:1\.75\)/);
 assert.match(engine,/reduced\.matches/);
 assert.match(engine,/pointercancel/);
 assert.match(engine,/lastPinch/);

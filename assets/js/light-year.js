@@ -13,6 +13,7 @@ const cinemaStage=document.querySelector('#lyCinemaStage');
 const cinemaFallback=document.querySelector('#lyCinemaFallback');
 const cinemaQuick=document.querySelector('#lyCinemaQuick');
 const cinemaQuickPlay=document.querySelector('#lyCinemaQuickPlay');
+const cinemaFollow=document.querySelector('#lyCinemaFollow');
 const cinemaStatus=document.querySelector('#lyCinemaStatus');
 let cinemaEngine=null,cinemaLoading=false;
 let playing=false,frame=null,lastFrame=null,progress=0;
@@ -24,6 +25,7 @@ function setPlaying(value) {
   playButton.textContent=playing?'Pause light journey':'Play this light journey';
   playButton.disabled=reduceMotion.matches;
   if(cinemaStatus)cinemaStatus.setAttribute('aria-live',playing?'off':'polite');
+  cinemaEngine?.setPlayback(playing);
   if(cinemaQuickPlay){cinemaQuickPlay.setAttribute('aria-pressed',String(playing));cinemaQuickPlay.textContent=playing?'Pause':'Play';cinemaQuickPlay.disabled=reduceMotion.matches;}
   if(playing)frame=requestAnimationFrame(advanceJourney);
 }
@@ -160,7 +162,7 @@ if(cinemaActivate){
     photonSlider.dispatchEvent(new Event('input',{bubbles:true}));
    });
    cinemaFallback.hidden=true;cinemaQuick.hidden=false;
-   cinemaEngine.setSource(selectedSource);cinemaEngine.setProgress(Number(photonSlider.value)/100);
+   cinemaEngine.setSource(selectedSource);cinemaEngine.setProgress(Number(photonSlider.value)/100);cinemaEngine.setFollow(true);
    cinemaStatus.textContent=`${selectedSource} → Earth. ${document.querySelector('#lyPhotonElapsed').textContent} elapsed; ${document.querySelector('#lyPhotonRemaining').textContent} remaining.`;
    cinemaQuickPlay.disabled=reduceMotion.matches;
    cinemaActivate.setAttribute('aria-pressed','true');cinemaActivate.textContent='Return to labeled reference';
@@ -178,6 +180,12 @@ if(cinemaActivate){
   photonSlider.value='100';photonSlider.dispatchEvent(new Event('input',{bubbles:true}));
  });
  cinemaQuickPlay.addEventListener('click',()=>playButton.click());
+ cinemaFollow.addEventListener('click',()=>{
+  const next=cinemaFollow.getAttribute('aria-pressed')!=='true';
+  cinemaFollow.setAttribute('aria-pressed',String(next));
+  cinemaFollow.textContent=next?'Wide view':'Follow photon';
+  cinemaEngine?.setFollow(next);
+ });
 }
 picker.querySelectorAll('button').forEach((button) => { button.disabled = false; });
 document.querySelector('#lyInitNote').hidden = true;

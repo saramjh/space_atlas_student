@@ -1,3 +1,4 @@
+import {cinematicEase,cinematicVelocity} from './cinematic-motion.js';
 // User-initiated cinematic *scale lens*: every orbit uses linear AU radius,
 // while familiar selectable markers or physically tiny projected disk sizes
 // demonstrate why solar-system diagrams cannot show both on a screen.
@@ -43,6 +44,8 @@ if(experience){
  function startFlight(to){
   if(!engine||reduced.matches||document.hidden)return;
   stop();
+  // Replay from the opposite end when already at the destination.
+  if(Math.abs(targetProgress-to)<.001){syncZoom(1-to);engine.setProgress(1-to);}
   flightGoal=to;engine.start(to);
   const b=to>0?play:reverse;
   b.setAttribute('aria-pressed','true');readout.setAttribute('aria-live','off');
@@ -79,6 +82,7 @@ if(experience){
  function createEngine(canvas,shell,onProgress,onSelect){
   const ctx=canvas.getContext('2d',{alpha:false});if(!ctx)throw new Error('Canvas2D unavailable');
   let width=1,height=1,dpr=1,progress=targetProgress,to=targetProgress,playing=false,raf=null,last=0;
+  let flightStart=targetProgress,flightElapsed=0,flightDuration=9.5,flightSpeed=0;
   let sizesAreTrue=false,selected=select.value,disposed=false;
   let bearing=0,targetBearing=0;
   const coarse=matchMedia('(pointer:coarse)').matches;
@@ -92,9 +96,11 @@ if(experience){
    const radiusAU=radiusAUAtProgress(progress),cx=width*.50,cy=height*.51,pxRadius=Math.min(width,height)*.43;
    const ppau=pxRadius/radiusAU,foreshorten=height<width?.72:.9;
    for(let i=0,n=coarse?130:380;i<n;i++){
-    const sx=stableRandom(i*3+1)*width,sy=stableRandom(i*3+2)*height;
+    const depth=.18+.82*stableRandom(i*13+6);
+    const sx=((stableRandom(i*3+1)+progress*.26*depth)%1)*width,sy=stableRandom(i*3+2)*height;
     ctx.fillStyle=`rgba(203,228,250,${.18+.55*stableRandom(i*3+3)})`;
     ctx.beginPath();ctx.arc(sx,sy,.3+stableRandom(i*13)*.85,0,Math.PI*2);ctx.fill();
+    if(playing){ctx.strokeStyle='rgba(160,212,254,.28)';ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(sx-Math.sign(to-flightStart)*Math.min(38,flightSpeed*60*depth),sy);ctx.stroke();}
    }
    // Orbital paths are linear in AU. Inclination is only a viewing projection.
    for(const p of PLANET_ORBITS){const r=p.au*ppau;
@@ -122,9 +128,14 @@ if(experience){
    // The single HTML legend below is the accessible, non-overlapping key.
   }
   function frame(now){raf=null;const dt=last?Math.min(.05,Math.max(0,(now-last)/1000)):0;last=now;
-   if(playing){const diff=Math.max(.0001,Math.abs(to-progress));const advance=dt/11.5;
-    progress=to>progress?Math.min(to,progress+advance):Math.max(to,progress-advance);
-    onProgress(progress);if(Math.abs(progress-to)<.0001){playing=false;onProgress(progress);}}
+   if(playing){
+    flightElapsed=Math.min(flightDuration,flightElapsed+dt);
+    const t=flightElapsed/flightDuration;
+    progress=flightStart+(to-flightStart)*cinematicEase(t);
+    flightSpeed=Math.abs(to-flightStart)*cinematicVelocity(t)/flightDuration;
+    onProgress(progress);
+    if(t>=1){progress=to;playing=false;flightSpeed=0;onProgress(progress);}
+   }
    bearing+=(targetBearing-bearing)*(1-Math.exp(-10*(dt||.016)));draw();
    if(playing||Math.abs(bearing-targetBearing)>.002)schedule();
   }
@@ -148,7 +159,7 @@ if(experience){
   canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);canvas.addEventListener('wheel',wheel,{passive:false});
   const ro=new ResizeObserver(resize);ro.observe(shell);
   return {resize,setProgress,setTrueSizes(v){sizesAreTrue=Boolean(v);draw();},selectPlanet(name){selected=name;draw();},
-   start(direction){to=direction;playing=true;last=0;schedule();},stop(){playing=false;},isPlaying:()=>playing,
+   start(direction){flightStart=progress;to=direction;flightElapsed=0;flightDuration=9.5*Math.abs(to-flightStart);flightSpeed=0;playing=flightDuration>.001;last=0;onProgress(progress);if(playing)schedule();},stop(){playing=false;flightSpeed=0;},isPlaying:()=>playing,
    dispose(){disposed=true;playing=false;if(raf!==null)cancelAnimationFrame(raf);ro.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('wheel',wheel);}
   };
  }

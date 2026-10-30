@@ -4,7 +4,7 @@
 export function createLookbackCinema(canvas,container,onChange){
  const ctx=canvas.getContext('2d',{alpha:false});if(!ctx)throw new Error('Canvas2D unavailable');
  let source='The Sun',fraction=0,width=1,height=1,dpr=1,disposed=false;
- let viewX=0,targetViewX=0;
+ let follow=true,playing=false;
  const pointers=new Map();let pinchLast=0,raf=null;
  const coarse=matchMedia('(pointer: coarse)').matches;
  const rnd=i=>{const n=Math.sin(i*117.7+29)*43758.5453;return n-Math.floor(n);};
@@ -58,21 +58,25 @@ export function createLookbackCinema(canvas,container,onChange){
   if(disposed||canvas.hidden)return;
   ctx.setTransform(dpr,0,0,dpr,0,0);
   const bg=ctx.createLinearGradient(0,0,width,height);bg.addColorStop(0,'#050d1c');bg.addColorStop(.5,'#142744');bg.addColorStop(1,'#070d1b');ctx.fillStyle=bg;ctx.fillRect(0,0,width,height);
-  const base=Math.min(width,height);const srcX=width*.22+viewX,srcY=height*.51,earthX=width*.79+viewX,earthY=height*.54;
+  const base=Math.min(width,height);
+  const cameraTravel=follow?fraction:0;
+  const srcX=width*(.22-.27*cameraTravel),srcY=height*.51;
+  const earthX=width*(.79+.22*(1-cameraTravel)-.19*cameraTravel),earthY=height*.54;
   // Artistic streaks are a space-travel metaphor, not actual photons or velocity.
   for(let i=0,n=coarse?170:430;i<n;i++){
-   const layer=.35+.65*rnd(i*13),x=((rnd(i*7+1)+fraction*.34*layer)%1)*width;
+   const layer=.35+.65*rnd(i*13),x=((rnd(i*7+1)+cameraTravel*.68*layer)%1)*width;
    const y=rnd(i*7+3)*height,size=.3+.8*rnd(i*2+5);
    ctx.globalAlpha=.21+.52*rnd(i*2+1);ctx.strokeStyle='#c9e2ff';ctx.lineWidth=Math.max(.3,size);
-   ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-(fraction>.05&&fraction<.95?4*layer:0),y);ctx.stroke();
+   ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-(playing&&follow?Math.sin(Math.PI*fraction)*27*layer:0),y);ctx.stroke();
   }ctx.globalAlpha=1;
-  const src=sourceStyle(source);const shrink=Math.pow(1-fraction,.8),grow=Math.pow(fraction,.9);
+  const src=sourceStyle(source);const shrink=Math.pow(1-cameraTravel,.8),grow=Math.pow(cameraTravel,.9);
   const sr=base*(.07+.19*shrink),er=base*(.065+.18*grow);
   if(src.type==='galaxy')galaxy(srcX,srcY,sr*1.22,src.color);
   else if(src.type==='star')star(srcX,srcY,sr*1.2,src.color);
   else sphere(srcX,srcY,sr,src.color,src.type);
   sphere(earthX,earthY,er,'#3e89bd','planet',true);
-  const start=width*.30,end=width*.70,py=height*.69;
+  const start=follow?Math.max(25,srcX+sr*.42):width*.30;
+  const end=follow?Math.min(width-25,earthX-er*.42):width*.70,py=height*.69;
   const px=start+(end-start)*fraction;
   ctx.lineWidth=Math.max(1.5,base*.004);ctx.strokeStyle='rgba(125,177,221,.26)';ctx.beginPath();ctx.moveTo(start,py);ctx.lineTo(end,py);ctx.stroke();
   const beam=ctx.createLinearGradient(start,0,end,0);beam.addColorStop(0,'rgba(255,195,107,.05)');beam.addColorStop(1,'rgba(249,233,187,.94)');
@@ -80,10 +84,12 @@ export function createLookbackCinema(canvas,container,onChange){
   ctx.save();ctx.shadowBlur=24;ctx.shadowColor='#fff4af';ctx.fillStyle='#fffbe6';ctx.beginPath();ctx.arc(px,py,Math.max(3.5,base*.012),0,7);ctx.fill();ctx.restore();
   ctx.font='700 12px system-ui,sans-serif';ctx.textAlign='center';ctx.fillStyle='#e7effa';
   const shortName=source.replace(' (the North Star)','').replace('Center of the Milky Way','Milky Way center');
-  ctx.fillText(shortName,srcX,Math.max(22,srcY-sr*1.17));
-  ctx.fillText('Earth · observer',earthX,Math.max(22,earthY-er*1.15));
+  ctx.fillText(shortName,Math.max(58,Math.min(width-58,srcX)),Math.max(22,srcY-sr*1.17));
+  ctx.fillText('Earth · observer',Math.max(90,Math.min(width-90,earthX)),Math.max(22,earthY-er*1.15));
   // The single unobstructed HTML overlay owns the perspective disclaimer.
-  ctx.textAlign='right';ctx.fillText(`${Math.round(fraction*100)}% OF SELECTED JOURNEY`,width-12,height-18);
+  ctx.textAlign='right';ctx.fillText(`${Math.round(fraction*100)}% OF SELECTED JOURNEY`,width-12,height-73);
+  ctx.fillStyle='#f6d7a3';ctx.textAlign='left';ctx.font='700 10px ui-monospace,monospace';
+  ctx.fillText(follow?'FOLLOW THE LIGHT · CAMERA TRAVEL':'WIDE VIEW · STATIONARY CAMERA',12,height-91);
  }
  function resize(){width=Math.max(1,container.clientWidth);height=Math.max(1,container.clientHeight);dpr=Math.min(window.devicePixelRatio||1,coarse?1.25:1.75);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);draw();}
  function setProgress(v){fraction=Math.max(0,Math.min(1,Number(v)||0));draw();}
@@ -97,5 +103,5 @@ export function createLookbackCinema(canvas,container,onChange){
  function wheel(e){if(canvas.hidden)return;e.preventDefault();onChange(Math.max(0,Math.min(1,fraction+(e.deltaY>0?.02:-.02))));}
  canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);canvas.addEventListener('wheel',wheel,{passive:false});
  const ro=new ResizeObserver(resize);ro.observe(container);resize();
- return {resize,setProgress,setSource,dispose(){disposed=true;ro.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('wheel',wheel);earthImg.onload=earthImg.onerror=null;}};
+ return {resize,setProgress,setSource,setFollow(v){follow=Boolean(v);draw();},setPlayback(v){playing=Boolean(v);draw();},dispose(){disposed=true;ro.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('wheel',wheel);earthImg.onload=earthImg.onerror=null;}};
 }

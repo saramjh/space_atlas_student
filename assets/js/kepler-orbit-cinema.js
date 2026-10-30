@@ -19,6 +19,7 @@ const timeValue=document.querySelector('#keplerOrbitTimeValue');
 const spanSelect=document.querySelector('#keplerOrbitSpan');
 const zoomIn=document.querySelector('#keplerOrbitZoomIn');
 const zoomOut=document.querySelector('#keplerOrbitZoomOut');
+const followButton=document.querySelector('#keplerOrbitFollow');
 const frameStatus=document.querySelector('#keplerOrbitFrameStatus');
 const selectedTitle=document.querySelector('#keplerOrbitSelected');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -61,6 +62,12 @@ spanSelect.addEventListener('change',()=>{
 });
 zoomIn.addEventListener('click',()=>engine?.zoomBy(.83));
 zoomOut.addEventListener('click',()=>engine?.zoomBy(1.20));
+followButton.addEventListener('click',()=>{
+ const enabled=followButton.getAttribute('aria-pressed')!=='true';
+ followButton.setAttribute('aria-pressed',String(enabled));
+ followButton.textContent=enabled?'Return to Sun-centered view':'Follow selected world';
+ engine?.setFollow(enabled);
+});
 reset.addEventListener('click',()=>setTime(0));
 play.addEventListener('click',()=>{
  if(!engine||reduced.matches||document.hidden)return;
@@ -96,7 +103,8 @@ function createEngine(canvas,shell,onSelect,onTime){
  const coarse=matchMedia('(pointer: coarse)').matches;
  let w=1,h=1,dpr=1,selected=select.value||'Earth';
  let years=0,playing=false,raf=null,last=0,stopped=false,span=1;
- let zoom=1,targetZoom=1,orbitDrag=0,targetDrag=0;
+ let zoom=1,targetZoom=1,orbitDrag=0,targetDrag=0,following=false;
+ let cameraShiftX=0,cameraShiftY=0,targetShiftX=0,targetShiftY=0;
  const pointers=new Map();let lastPinch=0,downPoint=null;
  const starSeed=(i)=>{let n=Math.sin(i*129.57+53.11)*43758.5453;return n-Math.floor(n);};
  function draw(){
@@ -106,10 +114,10 @@ function createEngine(canvas,shell,onSelect,onTime){
   ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
   for(let i=0;i<(coarse?125:320);i++){
    ctx.fillStyle=`rgba(201,229,248,${.19+starSeed(i+11)*.5})`;
-   const x=starSeed(i*3+1)*w,y=starSeed(i*3+2)*h,r=.4+starSeed(i*11+3)*1.2;
+   const x=(starSeed(i*3+1)*w-cameraShiftX*.095+w*4)%w,y=(starSeed(i*3+2)*h-cameraShiftY*.095+h*4)%h,r=.4+starSeed(i*11+3)*1.2;
    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
   }
-  const cx=w*.5,cy=h*.5,rad=Math.min(w,h)*.448*zoom;
+  const cx=w*.5-cameraShiftX,cy=h*.5-cameraShiftY,rad=Math.min(w,h)*.448*zoom;
   const ellip=h<w?.77:.86;
   const orbitData=[];
   for(const p of PLANETS){
@@ -136,22 +144,32 @@ function createEngine(canvas,shell,onSelect,onTime){
   }
   ctx.font='600 11px ui-monospace,monospace';ctx.textAlign='left';ctx.fillStyle='#d1e4f3';ctx.fillText('SUN · PLANET ORBITS',12,21);
   ctx.textAlign='right';ctx.fillStyle='#b3c8d8';ctx.fillText(`${years.toFixed(span===1?2:1)} / ${span} EARTH YEARS`,w-12,21);
+  if(following){ctx.textAlign='left';ctx.fillStyle='#ffdaa1';ctx.fillText(`FOLLOW CAMERA · ${selected}`,12,39);}
  }
  function frame(now){raf=null;let dt=last?Math.min(.06,Math.max(0,(now-last)/1000)):0;last=now;
   if(playing){years=Math.min(span,years+dt*span/12);onTime(years);if(years>=span){playing=false;onTime(span);}}
-  const smoothing=1-Math.exp(-12*(dt||.016));
+  const smoothing=reduced.matches?1:1-Math.exp(-12*(dt||.016));
   zoom+=(targetZoom-zoom)*smoothing;orbitDrag+=(targetDrag-orbitDrag)*smoothing;
-  draw();if(playing||Math.abs(zoom-targetZoom)>.002||Math.abs(orbitDrag-targetDrag)>.002)schedule();
+  updateTracking();
+  cameraShiftX+=(targetShiftX-cameraShiftX)*smoothing;cameraShiftY+=(targetShiftY-cameraShiftY)*smoothing;
+  draw();if(playing||Math.abs(zoom-targetZoom)>.002||Math.abs(orbitDrag-targetDrag)>.002||Math.abs(cameraShiftX-targetShiftX)>.15||Math.abs(cameraShiftY-targetShiftY)>.15)schedule();
  }
  function schedule(){if(raf===null&&!stopped&&!document.hidden)raf=requestAnimationFrame(frame);}
- function setTime(v){years=Math.min(span,Math.max(0,Number(v)||0));draw();}
+ function updateTracking(){
+  const p=PLANETS.find(p=>p.name===selected)||PLANETS[2];
+  const radius=Math.min(w,h)*.448*zoom*displayOrbitFraction(Number.parseFloat(p.au));
+  const theta=orbitAngleAtYears(Number.parseFloat(p.au),years)+orbitDrag;
+  targetShiftX=following?Math.cos(theta)*radius*.85:0;
+  targetShiftY=following?Math.sin(theta)*radius*(h<w?.77:.86)*.85:0;
+ }
+ function setTime(v){years=Math.min(span,Math.max(0,Number(v)||0));updateTracking();if(reduced.matches){cameraShiftX=targetShiftX;cameraShiftY=targetShiftY;}draw();if(following&&!reduced.matches)schedule();}
  function resize(){const width=Math.max(1,shell.clientWidth),height=Math.max(1,shell.clientHeight);
-  w=width;h=height;dpr=Math.min(window.devicePixelRatio||1,coarse?1.25:1.75);
+  w=width;h=height;dpr=Math.min(window.devicePixelRatio||1,coarse||width<=700?1.25:1.75);
   canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);draw();
  }
  function pick(e){
   const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
-  const cx=w*.5,cy=h*.5,rad=Math.min(w,h)*.448*zoom,ellip=h<w?.77:.86;
+  const cx=w*.5-cameraShiftX,cy=h*.5-cameraShiftY,rad=Math.min(w,h)*.448*zoom,ellip=h<w?.77:.86;
   let best=null,bestDistance=18;
   for(const p of PLANETS){const a=Number.parseFloat(p.au),theta=orbitAngleAtYears(a,years)+orbitDrag;
    const rr=rad*displayOrbitFraction(a),px=cx+rr*Math.cos(theta),py=cy+rr*Math.sin(theta)*ellip;
@@ -188,8 +206,8 @@ function createEngine(canvas,shell,onSelect,onTime){
  canvas.addEventListener('pointercancel',up);
  canvas.addEventListener('wheel',wheel,{passive:false});
  const ro=new ResizeObserver(resize);ro.observe(shell);
- return {resize,setTime,setSpan(v){span=v;years=0;draw();},zoomBy(v){targetZoom=Math.min(1.28,Math.max(.76,targetZoom*v));schedule();},start(){if(reduced.matches||document.hidden)return false;playing=true;last=0;schedule();return true;},stop(){playing=false;},isPlaying:()=>playing,
-  selectPlanet(name){selected=name;draw();},
+ return {resize,setTime,setSpan(v){span=v;years=0;draw();},setFollow(v){following=Boolean(v);updateTracking();if(reduced.matches){cameraShiftX=targetShiftX;cameraShiftY=targetShiftY;draw();}else schedule();},zoomBy(v){targetZoom=Math.min(1.28,Math.max(.76,targetZoom*v));schedule();},start(){if(reduced.matches||document.hidden)return false;playing=true;last=0;schedule();return true;},stop(){playing=false;},isPlaying:()=>playing,
+  selectPlanet(name){selected=name;updateTracking();if(reduced.matches){cameraShiftX=targetShiftX;cameraShiftY=targetShiftY;draw();}else schedule();},
   dispose(){stopped=true;playing=false;if(raf!==null)cancelAnimationFrame(raf);ro.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('wheel',wheel);}
  };
 }

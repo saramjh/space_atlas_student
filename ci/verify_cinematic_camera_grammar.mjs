@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {cinematicEase,cinematicVelocity} from '../assets/js/cinematic-motion.js';
+import {periodYearsFromAU,completedOrbitalRevolutions} from '../assets/js/kepler-orbit-math.js';
+import {radiusAUAtProgress,physicalPlanetDiameterPx} from '../assets/js/not-to-scale-flight-math.js';
+import {photonProgress} from '../assets/js/scale-visual-math.js';
+const src=p=>readFileSync(p,'utf8');
+const au=src('assets/js/not-to-scale-flight.js');
+const kepler=src('assets/js/kepler-orbit-cinema.js');
+const photon=src('assets/js/light-lookback-cinema.js');
+const controller=src('assets/js/light-year.js');
+const kPage=src('public/solar-system/orbital-periods/index.html');
+const lPage=src('public/universe/light-year/index.html');
+const aPage=src('public/learn/not-to-scale/index.html');
+for(const x of [0,.001,.1,.25,.5,.75,.9,.999,1]){
+ assert.ok(Math.abs(cinematicEase(1-x)-(1-cinematicEase(x)))<1e-11,'filmic flight must be time symmetric');
+ assert.ok(cinematicEase(x)>=0&&cinematicEase(x)<=1);
+ assert.ok(cinematicVelocity(x)>=0);
+}
+assert.equal(cinematicEase(0),0);assert.equal(cinematicEase(1),1);
+assert.equal(cinematicEase(.5),.5);
+assert.ok(cinematicVelocity(.5)>cinematicVelocity(.1)*5,'peak camera speed should significantly exceed start speed');
+assert.equal(cinematicVelocity(0),0);assert.equal(cinematicVelocity(1),0);
+assert.ok(cinematicEase(.22)<.1,'cinematic take-off starts slowly');
+assert.ok(cinematicEase(.78)>.9,'cinematic arrival brakes visibly');
+for(const invalid of [NaN,Infinity,-Infinity])assert.throws(()=>cinematicEase(invalid),RangeError);
+for(let i=1;i<=100;i++)assert.ok(cinematicEase(i/100)>=cinematicEase((i-1)/100));
+assert.match(au,/import \{cinematicEase,cinematicVelocity\} from '\.\/cinematic-motion\.js'/);
+assert.match(au,/flightElapsed\/flightDuration/);
+assert.match(au,/progress=flightStart\+\(to-flightStart\)\*cinematicEase\(t\)/);
+assert.match(au,/Math\.sign\(to-flightStart\)/);
+assert.match(au,/flightDuration=9\.5\*Math\.abs\(to-flightStart\)/);
+assert.match(au,/Math\.abs\(targetProgress-to\)<\.001/);
+assert.match(kepler,/cameraShiftX/);
+assert.match(kepler,/setFollow\(v\)/);
+assert.match(kepler,/targetShiftX=following\?Math\.cos\(theta\)/);
+assert.match(kepler,/cameraShiftX\+=\(targetShiftX-cameraShiftX\)\*smoothing/);
+assert.match(kepler,/Math\.min\(w,h\)\*\.448\*zoom\*displayOrbitFraction/);
+assert.match(kPage,/id="keplerOrbitFollow"[^>]*aria-pressed="false"/);
+assert.match(kPage,/moving reference frame, not a different orbit/);
+assert.match(controller,/cinemaEngine\?\.setPlayback\(playing\)/);
+assert.match(controller,/cinemaEngine\?\.setFollow\(next\)/);
+assert.match(photon,/cameraTravel=follow\?fraction:0/);
+assert.match(photon,/srcX=width\*\(\.22-\.27\*cameraTravel\)/);
+assert.match(photon,/earthX=width\*\(\.79\+\.22\*\(1-cameraTravel\)-\.19\*cameraTravel\)/);
+assert.match(photon,/setFollow\(v\)\{follow=Boolean\(v\);draw\(\);\}/);
+assert.match(photon,/Math\.max\(90,Math\.min\(width-90,earthX\)\)/);
+assert.match(lPage,/id="lyCinemaFollow"[^>]*aria-pressed="true"/);
+assert.match(lPage,/Wide view/);
+assert.match(lPage,/cinematic metaphor/);
+assert.match(aPage,/trueScaleZoom/);
+assert.equal(periodYearsFromAU(1),1);
+assert.ok(completedOrbitalRevolutions(5.2,10)>.8);
+assert.ok(radiusAUAtProgress(.75)>radiusAUAtProgress(.5));
+assert.ok(physicalPlanetDiameterPx(12756,35,330)<.01);
+const p=photonProgress(433,50);
+assert.ok(Math.abs(p.elapsedSeconds-p.remainingSeconds)<1e-6,'visual camera travel must not affect photon science');
+for(const html of [kPage,lPage,aPage]){
+ assert.match(html,/rel="canonical"/);assert.match(html,/type="application\/ld\+json"/);
+}
+console.log('THREE_CINEMATIC_CAMERA_PATHS_PHYSICAL_MODEL_PRESERVATION_PASS');
