@@ -28,6 +28,18 @@ assert.match(lock,/slider\.addEventListener\('input', \(\) => \{stopOrbit\(\)/);
 assert.ok(lunarFacing(0,true).facingCosine>.99);
 const lens=read('assets/js/planet-size-lens.js'),sizePage=read('public/solar-system/planet-size-comparison/index.html');
 assert.match(sizePage,/id="diameterLensCanvas"/);assert.match(sizePage,/id="diameterLensPlay" aria-pressed="false"/);
+assert.match(sizePage,/class="diameter-lens-stage"/);
+assert.match(sizePage,/<div class="diameter-lens-actions"/);
+assert.ok(sizePage.indexOf('id="diameterLensPlay"')<sizePage.indexOf('id="diameterLensProgress"'),
+ 'Lens playback must sit within the camera stage rather than two control rows below it');
+
+// A mobile Play action must be seen alongside its animated result.
+const moonPage=read('pages/moon/phases/content.html');
+const lockLessonPage=read('pages/moon/tidal-locking/content.html');
+assert.ok(moonPage.indexOf('id="moonPlay"')<moonPage.indexOf('id="moonCanvas"'));
+assert.ok(lockLessonPage.indexOf('id="lockOrbitPlay"')<lockLessonPage.indexOf('id="lockCanvas"'));
+assert.equal((moonPage.match(/id="moonPlay"/g)||[]).length,1);
+assert.equal((lockLessonPage.match(/id="lockOrbitPlay"/g)||[]).length,1);
 assert.match(lens,/cinematicEase\(t\)/);assert.match(lens,/Math\.exp\(Math\.log\(initialScale\)/);
 assert.match(lens,/const scale=Math\.exp/);
 const diamRatio=equatorialDiameterKm('Jupiter')/equatorialDiameterKm('Earth');

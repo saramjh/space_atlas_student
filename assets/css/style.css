@@ -471,9 +471,29 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 @media(max-width:700px){.gravity-mechanism-head,.gravity-mechanism-workspace{grid-template-columns:1fr}.gravity-mechanism-head{gap:12px}.gravity-scenarios button{flex:1 1 calc(50% - 8px)}.gravity-equation{font-size:14px}}
 /* Gravity and orbits page — cannonball sandbox */
 .orbit-sandbox{border:1px solid var(--rule)}
-.orbit-canvas-wrap{position:relative;background:var(--space);min-height:420px;overflow:hidden}
-.orbit-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.orbit-status{position:absolute;z-index:2;left:16px;top:14px;font:600 11px var(--font-data);letter-spacing:.06em;text-transform:uppercase;color:#e9edf0;background:rgba(10,14,20,.7);padding:6px 10px;border-radius:3px}
+.orbit-canvas-wrap{position:relative;background:var(--space);overflow:hidden;scroll-margin-top:125px}
+.orbit-stage-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:#121f2b;border-bottom:1px solid #345064}
+.orbit-canvas-viewport{position:relative;height:420px;overflow:hidden}
+.orbit-canvas-viewport canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.orbit-status{position:absolute;z-index:2;left:16px;top:14px;font:600 11px/1.35 var(--font-data);letter-spacing:.06em;text-transform:uppercase;color:#e9edf0;background:rgba(10,14,20,.7);padding:6px 10px;border-radius:3px}
+.orbit-stage-toolbar .orbit-status{position:static;background:transparent;padding:0;min-width:0}
+.orbit-stage-toolbar button{background:#244e63;color:#fff;padding:10px 15px;min-height:44px;border:1px solid #93b7c4;font:600 12px/1.35 var(--font-mono);cursor:pointer;flex-shrink:0}
+.orbit-stage-toolbar button[aria-pressed=true]{background:#a35435;border-color:#e5b38c}
+.orbit-stage-toolbar button:focus-visible{outline:3px solid #f5d6ac;outline-offset:2px}
+.orbit-scene-legend{position:absolute;z-index:2;bottom:9px;left:12px;right:12px;display:flex;justify-content:center;align-items:center;gap:clamp(7px,3vw,24px);flex-wrap:wrap;pointer-events:none;color:#e9f0ef;font:600 10px/1.35 var(--font-data);text-shadow:0 1px 3px #051019}
+.orbit-scene-legend[hidden]{display:none}
+.orbit-scene-legend span{display:inline-flex;align-items:center;gap:5px;padding:4px 6px;background:rgba(8,18,29,.84)}
+.orbit-scene-legend i{display:block;width:15px;height:3px}
+.orbit-line-collision{background:#e79f7c}.orbit-line-bound{background:#e6cb8d}.orbit-line-escape{background:#91d7db}
+@media(max-width:620px){
+ .orbit-stage-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:5px;padding:8px 11px}
+ .orbit-stage-toolbar button{width:100%;min-height:44px;padding:9px 10px}
+ .orbit-status{font-size:9px}
+ .orbit-canvas-viewport{height:clamp(290px,52dvh,420px)}
+ .orbit-scene-legend{left:4px;right:4px;gap:3px;font-size:8px}
+ .orbit-scene-legend span{gap:3px;padding:3px 4px}
+ .orbit-scene-legend i{width:10px}
+}
 .orbit-controls{padding:18px 22px;border-top:1px solid var(--rule);background:#ece9e1;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .orbit-controls input[type="range"]{flex:1 1 220px;min-width:160px;accent-color:var(--accent)}
 .orbit-controls button{font:600 11px var(--font-data);padding:9px 16px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;border-radius:3px}
@@ -1798,29 +1818,29 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 #diameterLensCanvas{display:block;width:100%;height:clamp(210px,26vw,320px);border:1px solid #35515b;background:#0e2532}
 .diameter-lens-label{display:flex;justify-content:space-between;gap:8px;font:600 12px/1.4 var(--font-mono)}
 #diameterLensProgress{width:100%;min-height:34px;accent-color:#a35435}
-.diameter-lens-actions{display:flex;gap:9px;flex-wrap:wrap}
+.diameter-lens-stage{border:1px solid #35515b;background:#0e2532;scroll-margin-top:125px}
+.diameter-lens-stage #diameterLensCanvas{border:0}
+.diameter-lens-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap;padding:9px 12px;border-bottom:1px solid #416276;background:#17354a}
 .diameter-lens-actions button{min-height:44px;padding:9px 13px;border:1px solid #758d95;background:#f2eee7;font:600 12px var(--font-mono);color:#19394a;cursor:pointer}
 .diameter-lens-actions #diameterLensPlay{background:#164054;color:#fff}
 .diameter-lens-actions button:disabled{opacity:.48}
 .diameter-lens-actions button:focus-visible{outline:3px solid #a65e33;outline-offset:3px}
 .diameter-lens-readout{font:13px/1.55 var(--font-reading);border-left:3px solid #a35435;padding-left:12px;color:#42535c;margin:0}
-@media(max-width:620px){.diameter-lens-actions{display:grid;grid-template-columns:1fr 1fr}}
+@media(max-width:620px){
+ .diameter-lens-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:8px}
+ .diameter-lens-actions button{min-width:0;font-size:10px;line-height:1.35;padding:7px 6px}
+}
 
 /* Newton thought experiment: three generated paths, never static clip art. */
 /* Comparison is one secondary experiment, inset like the prediction and legend.
    The action, explanatory copy, and computed outcome share a single grid. */
 .orbit-comparison{margin:12px 20px 0;padding:14px;border:1px solid #c7c4ba;background:#f0efe9}
-.orbit-trio-controls{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:center;gap:16px;padding:0}
-.orbit-trio-controls button{background:#133c53;color:#fff;padding:11px 15px;min-height:44px;border:1px solid #234e62;font:600 12px/1.35 var(--font-mono);cursor:pointer;text-align:center}
-.orbit-trio-controls button[aria-pressed=true]{background:#a35435;border-color:#a35435}
-.orbit-trio-controls button:focus-visible{outline:3px solid #a35435;outline-offset:3px}
+.orbit-trio-controls{display:block;padding:0}
 .orbit-trio-controls p{margin:0;min-width:0;font:13px/1.55 var(--font-reading);color:#455c68}
 .orbit-trio-readout{margin-top:12px;padding:10px 13px;border-left:3px solid #ab7643;background:#e5e6e1;font:13px/1.55 var(--font-reading);color:#2f4858}
 #orbitSpeedNote{margin:8px 20px 17px}
 @media(max-width:620px){
  .orbit-comparison{margin:12px 12px 0;padding:12px}
- .orbit-trio-controls{grid-template-columns:minmax(0,1fr);gap:10px}
- .orbit-trio-controls button{width:100%;min-height:44px}
  .orbit-trio-controls p{font-size:12px}
  .orbit-trio-readout{padding:10px 11px;font-size:12px}
  .orbit-prediction{margin-right:12px;margin-left:12px}
@@ -2247,3 +2267,18 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 
 .gl-view[data-mode="flight"] .gl-image-note{display:none}
 .gl-view[data-mode="flight"] #gravityLabJump:active{background:#f5d9a8;color:#1a2931}
+
+
+/* Mobile action/result proximity: lunar phase and tidal lock playback above
+   their active visualizations, not after a tall canvas and sliders. */
+.lock-stage-actions,.phase-stage-actions{padding:10px 17px;background:#173448;border-bottom:1px solid #486275;display:flex;justify-content:flex-end}
+.lock-stage-actions button,.phase-stage-actions button{min-height:44px;padding:9px 15px;background:#153c54;border:1px solid #a1b8c3;color:#fff;font:600 12px/1.4 var(--font-reading);cursor:pointer}
+.lock-stage-actions button[aria-pressed="true"],.phase-stage-actions button[aria-pressed="true"]{background:#a35435;border-color:#e3b087}
+.lock-stage-actions button:focus-visible,.phase-stage-actions button:focus-visible{outline:3px solid #f3cd9c;outline-offset:2px}
+.lock-stage-actions button:disabled,.phase-stage-actions button:disabled{opacity:.55;cursor:not-allowed}
+.phase-transport-note{margin:12px 0 8px;font-size:13px;line-height:1.55;color:#53616b}
+@media(max-width:620px){
+ .lock-stage-actions,.phase-stage-actions{padding:8px 12px}
+ .lock-stage-actions button,.phase-stage-actions button{width:100%;padding:9px 11px}
+ .phase-transport-note{font-size:12px}
+}

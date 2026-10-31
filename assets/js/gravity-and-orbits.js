@@ -5,6 +5,7 @@ import { initQuiz } from './quiz-widget.js';
 import {launchOrbitPrediction} from './gravity-reference.js';
 
 const shell = document.querySelector('#orbitShell');
+const viewport=document.querySelector('#orbitViewport');
 const canvas = document.querySelector('#orbitCanvas');
 const ctx = canvas.getContext('2d');
 const statusEl = document.querySelector('#orbitStatus');
@@ -27,11 +28,17 @@ function updatePrediction() {
     ' model units/frame. Actual drawn paths are discrete approximations, not spacecraft navigation.';
 }
 
+// Changing canvas dimensions clears its bitmap. Redraw after every
+// actual viewport resize so a mobile rotation/reflow cannot blank the orbit.
+let sceneInitialized=false;
 function resize() {
-  canvas.width = shell.clientWidth;
-  canvas.height = shell.clientHeight;
+  const width=viewport.clientWidth,height=viewport.clientHeight;
+  if(!width||!height||(canvas.width===width&&canvas.height===height))return;
+  canvas.width=width;
+  canvas.height=height;
+  if(sceneInitialized)render();
 }
-new ResizeObserver(resize).observe(shell);
+new ResizeObserver(resize).observe(viewport);
 resize();
 
 const PLANET_RADIUS = 18;
@@ -46,18 +53,32 @@ let raf = null;
 let modelSteps = 0;
 const trioButton=document.querySelector('#orbitCompareThree');
 const trioReadout=document.querySelector('#orbitTrioReadout');
+const sceneLegend=document.querySelector('#orbitSceneLegend');
 let trioVisible=false;
 const threeTraces=[{speed:1,color:'#e79f7c'},{speed:2.6,color:'#e6cb8d'},{speed:4.1,color:'#91d7db'}].map(o=>({...o,trace:traceLaunch(o.speed)}));
 function showTrio(visible){
  trioVisible=Boolean(visible);
  if(raf!==null)cancelAnimationFrame(raf);raf=null;ball=null;trail=[];
  trioButton.setAttribute('aria-pressed',String(trioVisible));
+ sceneLegend.hidden=!trioVisible;
  trioButton.textContent=trioVisible?'Return to single launch':'Compare three launch speeds';
  trioReadout.textContent=trioVisible?threeTraces.map(o=>`${o.speed.toFixed(1)}: ${o.trace.outcome==='bounded-preview'?'bounded computed trajectory':o.trace.outcome}`).join(' · ')+'. All paths share the same ideal central mass; these are numerical model outcomes, not observed trajectories.':'Select Compare three launch speeds to see three outcomes together. The original single-launch sandbox remains available.';
  statusEl.textContent=trioVisible?'Three-path comparison · computed':'Ready';
  render();
 }
-trioButton.addEventListener('click',()=>showTrio(!trioVisible));
+// A launch-mode change must expose its result on the same small screen.
+ // Only reposition when the canvas is substantially obscured by the sticky
+ // header/viewport; never scroll on idle updates or during page load.
+function revealComparisonOnSmallScreens(){
+ if(!matchMedia('(max-width: 620px)').matches)return;
+ const rect=viewport.getBoundingClientRect();
+ const header=document.querySelector('header')?.getBoundingClientRect().height||0;
+ const visible=Math.max(0,Math.min(innerHeight,rect.bottom)-Math.max(header,rect.top));
+ if(visible<rect.height*.98){
+  shell.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+ }
+}
+trioButton.addEventListener('click',()=>{showTrio(!trioVisible);revealComparisonOnSmallScreens();});
 
 const MAX_MODEL_STEPS = 900; // bounded educational demonstration, not indefinitely integrated orbit
 
@@ -197,7 +218,9 @@ speedSlider.addEventListener('input', () => {
 showVectors.addEventListener('change',render);
 updatePrediction();
 
-drawStatic();
+sceneInitialized=true;
+resize();
+render();
 
 initQuiz([
   {

@@ -33,5 +33,18 @@ assert.match(css,/\.orbit-comparison\s*\{[^}]*padding:\s*14px/);
 assert.match(css,/@media\s*\(max-width:620px\)\{[\s\S]*?\.orbit-trio-controls\{/);
 assert.match(page,/id="orbitCompareThree"/);
 assert.match(page,/id="orbitTrioReadout"/);
+// No mobile "tap below the fold, invisible result above" regression:
+// the one comparison button must be in the same viewport component as the canvas.
+assert.match(page,/<div class="orbit-stage-toolbar"/);
+assert.match(page,/<div class="orbit-canvas-viewport" id="orbitViewport"/);
+assert.ok(page.indexOf('id="orbitCompareThree"')<page.indexOf('id="orbitCanvas"'));
+assert.ok(page.indexOf('id="orbitCompareThree"')<page.indexOf('class="orbit-controls"'));
+assert.match(page,/id="orbitSceneLegend"[^>]*hidden/);
+assert.match(js,/const viewport=document\.querySelector\('#orbitViewport'\)/);
+assert.match(js,/sceneLegend\.hidden=!trioVisible/);
+assert.match(js,/if\(visible<rect\.height\*\.98\)/);
+assert.match(js,/if\(sceneInitialized\)render\(\)/);
+assert.match(css,/@media\(max-width:620px\)[\s\S]*?\.orbit-canvas-viewport/);
+
 
 console.log('GRAVITY_VECTOR_LAB_TDD_PASS model energy/classification and visible vectors');

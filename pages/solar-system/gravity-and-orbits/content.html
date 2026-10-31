@@ -12,8 +12,18 @@
   <div class="section-head"><div class="section-id">Visual model</div><div><h2>Launch the cannonball.</h2></div></div>
   <div class="orbit-sandbox" id="orbitSandbox">
     <div class="orbit-canvas-wrap" id="orbitShell">
-      <canvas id="orbitCanvas"></canvas>
-      <div class="orbit-status" id="orbitStatus">Ready</div>
+      <div class="orbit-stage-toolbar">
+        <div class="orbit-status" id="orbitStatus">Ready</div>
+        <button id="orbitCompareThree" type="button" aria-pressed="false" aria-controls="orbitCanvas">Compare three launch speeds</button>
+      </div>
+      <div class="orbit-canvas-viewport" id="orbitViewport">
+        <canvas id="orbitCanvas" aria-label="Model trajectory around a central gravitational body. Activate comparison to display three computed trajectories."></canvas>
+        <div class="orbit-scene-legend" id="orbitSceneLegend" hidden aria-hidden="true">
+          <span><i class="orbit-line-collision"></i>1.0 · Impact</span>
+          <span><i class="orbit-line-bound"></i>2.6 · Orbit</span>
+          <span><i class="orbit-line-escape"></i>4.1 · Escape</span>
+        </div>
+      </div>
     </div>
     <div class="orbit-controls">
       <button id="orbitLaunch">Launch</button>
@@ -26,8 +36,7 @@
     <div class="orbit-prediction" id="orbitPrediction" role="status" aria-live="polite">At 2.6 model speed, a circular reference orbit is expected. Red arrows point toward the central mass; blue arrows show sideways motion.</div>
     <div class="orbit-comparison" aria-label="Compare three model launch speeds">
       <div class="orbit-trio-controls">
-        <button id="orbitCompareThree" type="button" aria-pressed="false" aria-controls="orbitTrioReadout">Compare three launch speeds</button>
-        <p>Overlay three bounded trajectories from the same starting point: <b>1.0</b> (slower), <b>2.6</b> (circular reference) and <b>4.1</b> (above escape threshold), all in model units.</p>
+        <p><strong>Three-path comparison:</strong> bounded model trajectories from one starting point at <b>1.0</b> (slower), <b>2.6</b> (circular reference) and <b>4.1</b> (above escape threshold), all in model units. Use the comparison button beside the visualization to switch views.</p>
       </div>
       <div class="orbit-trio-readout" id="orbitTrioReadout" role="status">Select Compare three launch speeds to see three outcomes together. The original single-launch sandbox remains available.</div>
     </div>
