@@ -53,6 +53,7 @@ cinemaButton.addEventListener('click', async () => {
   if (cinema) {
     const visible = cinemaFrame.hidden;
     cinemaFrame.hidden = !visible;
+    cinemaCredit.hidden = !visible;
     if (!visible){stopTour();cinema.suspend();cinemaTour.hidden=true;cinemaTour.disabled=true;} else{cinemaTour.hidden=false;cinemaTour.disabled=reduceTourMotion.matches;}
     cinemaButton.setAttribute('aria-pressed', String(visible));
     cinemaButton.textContent = visible ? 'Return to the scale diagram' : 'Enter the cinematic scale study';
@@ -65,6 +66,7 @@ cinemaButton.addEventListener('click', async () => {
   try {
     const {createCosmicCinema} = await import('./cosmic-cinema.js');
     cinemaFrame.hidden = false;
+    cinemaCredit.hidden = false;
     cinema = createCosmicCinema(cinemaCanvas, i=>selectStep(i));
     cinemaTour.hidden=false;cinemaTour.disabled=reduceTourMotion.matches;
     cinema.setStep(index);
@@ -73,7 +75,7 @@ cinemaButton.addEventListener('click', async () => {
     cinemaStatus.textContent = 'Scene is illustrative, not to physical scale; the ruler below contains the true numerical comparisons.';
     cinemaCanvas.focus({preventScroll:true});
   } catch (error) {
-    cinemaFrame.hidden = true;stopTour();cinemaTour.hidden=true;cinemaTour.disabled=true;
+    cinemaFrame.hidden = true;cinemaCredit.hidden=true;stopTour();cinemaTour.hidden=true;cinemaTour.disabled=true;
     cinemaStatus.textContent = 'The visual journey could not load. The scale ruler and reference table still work.';
     console.warn('Cosmic cinema unavailable; preserving reference model.',error);
   } finally {cinemaButton.disabled = false; cinemaLoading = false;}
@@ -90,6 +92,20 @@ const cinemaSceneNumber=document.querySelector('#zoomCinemaSceneNumber');
 const cinemaSceneType=document.querySelector('#zoomCinemaSceneType');
 const cinemaSceneMeasure=document.querySelector('#zoomCinemaSceneMeasure');
 const cinemaProgress=document.querySelector('#zoomCinemaProgress span');
+const cinemaCredit=document.querySelector('#zoomCinemaCredit');
+const cinemaCreditLabel=document.querySelector('#zoomCinemaCreditLabel');
+const cinemaCreditLink=document.querySelector('#zoomCinemaCreditLink');
+const REFERENCE_IMAGES=[
+ ['NASA · Apollo 17 (Gene Cernan, human-scale reference; 1.7 m is not a measurement of this astronaut)','https://science.nasa.gov/resource/gene-cernan-on-the-moon/'],
+ ['NASA · Apollo 17 Earth photograph (AS17-148-22727)','https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a17_h_148_22727.html'],
+ ['NASA · Apollo 17 Earth photo; distance graphics are illustrative','https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a17_h_148_22727.html'],
+ ['NASA/JPL-Caltech · Voyager 2 Neptune observation','https://science.nasa.gov/asset/webb/neptune-voyager-2/'],
+ ['ESA/Hubble & NASA · Proxima Centauri; CC BY 4.0, image cropped for layout','https://esahubble.org/images/potw1343a/'],
+ ["NASA/JPL-Caltech · Artist's concept of the Milky Way; NOT an outside photograph",'https://www.jpl.nasa.gov/news/living-on-the-edge-stars-found-far-from-galaxy-center/'],
+ ['ESA/Hubble & Digitized Sky Survey 2. Acknowledgment: Davide De Martin (ESA/Hubble). Image cropped for layout. CC BY 4.0','https://esahubble.org/images/heic1112f/'],
+ ['NASA, ESA, G. Illingworth, D. Magee, and P. Oesch (University of California, Santa Cruz), R. Bouwens (Leiden University), and the HUDF09 Team · Hubble XDF; processed multiband image','https://science.nasa.gov/asset/hubble/hubble-extreme-deep-field-xdf/']
+];
+
 const SCENE_META=[
  ['HUMAN REFERENCE','HEIGHT · APPROX. 1.7 m'],
  ['EARTH','DIAMETER · 12,742 km'],
@@ -139,6 +155,8 @@ function render() {
   cinemaSceneType.textContent=SCENE_META[index][0];
   cinemaSceneMeasure.textContent=SCENE_META[index][1];
   cinemaProgress.style.setProperty('--chapter',String(index));
+  cinemaCreditLabel.textContent=REFERENCE_IMAGES[index][0];
+  cinemaCreditLink.href=REFERENCE_IMAGES[index][1];
   stage.innerHTML = `
     <div class="zoom-step-no">Step ${index + 1} of ${STEPS.length}</div>
     <div class="zoom-title">${s.title}</div>
