@@ -22,11 +22,11 @@ const cinemaStatus = document.querySelector('#zoomCinemaStatus');
 const cinemaTour=document.querySelector('#zoomCinemaTour');
 const reduceTourMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let touring=false,tourFrame=null,tourStart=null,lastTourStep=0;
-const TOUR_STEP_MS=1450;
+const TOUR_STEP_MS=2100;
 function stopTour(){
  touring=false;if(tourFrame!==null)cancelAnimationFrame(tourFrame);
  tourFrame=null;tourStart=null;
- cinemaTour.setAttribute('aria-pressed','false');cinemaTour.textContent='Travel across all eight scales';
+ cinemaTour.setAttribute('aria-pressed','false');cinemaTour.textContent='Play the eight-scale journey';
  cinemaStatus.setAttribute('aria-live','polite');
 }
 function tourTick(now){
@@ -55,7 +55,7 @@ cinemaButton.addEventListener('click', async () => {
     cinemaFrame.hidden = !visible;
     if (!visible){stopTour();cinema.suspend();cinemaTour.hidden=true;cinemaTour.disabled=true;} else{cinemaTour.hidden=false;cinemaTour.disabled=reduceTourMotion.matches;}
     cinemaButton.setAttribute('aria-pressed', String(visible));
-    cinemaButton.textContent = visible ? 'Return to the scale diagram' : 'Enter the illustrated cosmic journey';
+    cinemaButton.textContent = visible ? 'Return to the scale diagram' : 'Enter the cinematic scale study';
     if (visible) { cinema.resize(); cinema.setStep(index); cinemaCanvas.focus({preventScroll:true}); }
     return;
   }
@@ -86,6 +86,21 @@ const chosenLine = document.querySelector('#cosmicRulerSelection');
 const jumpPanel = document.querySelector('#cosmicJump');
 const stopButtons = [...document.querySelectorAll('[data-cosmic-step]')];
 const plotViewport = document.querySelector('.cosmic-ruler-viewport');
+const cinemaSceneNumber=document.querySelector('#zoomCinemaSceneNumber');
+const cinemaSceneType=document.querySelector('#zoomCinemaSceneType');
+const cinemaSceneMeasure=document.querySelector('#zoomCinemaSceneMeasure');
+const cinemaProgress=document.querySelector('#zoomCinemaProgress span');
+const SCENE_META=[
+ ['HUMAN REFERENCE','HEIGHT · APPROX. 1.7 m'],
+ ['EARTH','DIAMETER · 12,742 km'],
+ ['EARTH–MOON','SEPARATION · 384,400 km'],
+ ['SOLAR SYSTEM','ORBITAL SPAN · ABOUT 60 AU'],
+ ['NEAREST STAR','SEPARATION · 4.25 light-years'],
+ ['MILKY WAY','DISK DIAMETER · ABOUT 100,000 ly'],
+ ['LOCAL GROUP','GROUP EXTENT · ABOUT 10 million ly'],
+ ['OBSERVABLE UNIVERSE','OBSERVABLE DIAMETER · ABOUT 93 billion ly']
+];
+
 
 function jumpRepresentation(step) {
   if (step === 0) return '<strong>Starting scale: one human height</strong><p>1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.</p>';
@@ -120,6 +135,10 @@ if (dots.children.length !== STEPS.length) {
 
 function render() {
   const s = STEPS[index];
+  cinemaSceneNumber.textContent=String(index+1).padStart(2,'0')+' / 08';
+  cinemaSceneType.textContent=SCENE_META[index][0];
+  cinemaSceneMeasure.textContent=SCENE_META[index][1];
+  cinemaProgress.style.setProperty('--chapter',String(index));
   stage.innerHTML = `
     <div class="zoom-step-no">Step ${index + 1} of ${STEPS.length}</div>
     <div class="zoom-title">${s.title}</div>

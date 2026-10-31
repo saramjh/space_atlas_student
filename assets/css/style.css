@@ -1313,6 +1313,29 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .zoom-cinema-frame canvas:active{cursor:grabbing}
 .zoom-cinema-frame canvas:focus-visible{outline:3px solid #f9bd73;outline-offset:-4px}
 .zoom-cinema-legend{pointer-events:none;position:absolute;inset:auto 16px 12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:#f1deba;text-shadow:0 1px 7px #050b14;font:700 10px/1.5 var(--font-data);letter-spacing:.08em}
+
+.cosmic-cinema-sources{margin:8px 18px 14px;color:#445866;font:400 12px/1.6 var(--font-reading)}
+.cosmic-cinema-sources summary{cursor:pointer;font-weight:700;color:#2d526b}
+.cosmic-cinema-sources p{margin:7px 0 0;max-width:90ch}
+.cosmic-cinema-sources a{color:#1b5a76;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:600px){.cosmic-cinema-sources{margin:7px 12px 12px}}
+/* Cosmic documentary: restrained telemetry, layered canvas, and a progress trace. */
+.zoom-cinema-frame{background:#030814;min-height:340px;aspect-ratio:16/8;max-height:min(640px,70dvh);box-shadow:inset 0 0 0 1px rgba(158,185,204,.18)}
+.zoom-cinema-telemetry{position:absolute;top:19px;left:20px;pointer-events:none;max-width:min(57%,420px);color:#f4f0e4;text-shadow:0 2px 12px #02050c;font-family:var(--font-reading)}
+.zoom-cinema-meta{display:flex;flex-wrap:wrap;align-items:center;gap:9px;font:700 10px/1.5 var(--font-data);letter-spacing:.12em;color:#bfcbcf}
+.zoom-cinema-meta span:first-child{color:#f3c38d;font-size:12px}
+.zoom-cinema-measure{margin-top:7px;font:600 clamp(12px,1.25vw,17px)/1.35 var(--font-display)}
+.zoom-cinema-progress{height:2px;background:rgba(233,229,216,.28);margin-top:11px;width:min(260px,100%)}
+.zoom-cinema-progress span{display:block;width:calc((var(--chapter) + 1)*12.5%);max-width:100%;height:100%;background:#e1b585;transition:width 1.15s cubic-bezier(.2,.75,.2,1)}
+.zoom-cinema-legend{color:#d6e0e4;font-size:9px;letter-spacing:.1em}
+@media(max-width:600px){
+ .zoom-cinema-frame{min-height:320px;aspect-ratio:4/5;max-height:56dvh}
+ .zoom-cinema-telemetry{top:13px;left:12px;max-width:84%}
+ .zoom-cinema-legend{font-size:7px;inset:auto 10px 8px}
+ .zoom-cinema-progress{max-width:180px}
+}
+@media(prefers-reduced-motion:reduce){.zoom-cinema-progress span{transition:none}}
+
 .scale-compare .zoom-stage-copy{padding:24px 20px 8px}
 .scale-compare .zoom-stage-copy .zoom-title{font-size:clamp(30px,4vw,44px)}
 .zoom-cinema-init{display:grid;justify-items:center;gap:10px;margin:18px auto 22px;text-align:center}

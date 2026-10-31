@@ -14,7 +14,12 @@
     <div class="zoom-stage" id="zoomStage" aria-live="polite" aria-atomic="true">
       <div class="zoom-cinema-frame" id="zoomCinemaFrame" hidden>
         <canvas id="zoomCinemaCanvas" tabindex="0" aria-label="Illustrative cosmic scale scene. Use Left and Right arrows, mouse wheel, or pinch to move among eight steps. Not drawn to physical scale."></canvas>
-        <div class="zoom-cinema-legend" aria-hidden="true"><span>THE COSMIC JOURNEY · ILLUSTRATION</span><span>WHEEL / PINCH TO ZOOM</span></div>
+        <div class="zoom-cinema-legend" aria-hidden="true"><span>DOCUMENTARY SCALE STUDY · ILLUSTRATIVE</span><span>WHEEL / PINCH / ARROW KEYS</span></div>
+        <div class="zoom-cinema-telemetry" aria-hidden="true">
+          <div class="zoom-cinema-meta"><span id="zoomCinemaSceneNumber">01 / 08</span><span id="zoomCinemaSceneType">HUMAN REFERENCE</span></div>
+          <div id="zoomCinemaSceneMeasure" class="zoom-cinema-measure">HEIGHT · APPROX. 1.7 m</div>
+          <div id="zoomCinemaProgress" class="zoom-cinema-progress"><span style="--chapter:0"></span></div>
+        </div>
       </div>
       <div class="zoom-stage-copy" id="zoomStageCopy">
         <div class="zoom-step-no">Step 1 of 8</div>
@@ -25,12 +30,15 @@
     </div>
     <div class="zoom-cinema-init">
       <div class="zoom-cinema-actions" role="group" aria-label="Illustrated cosmic journey controls">
-        <button type="button" id="zoomCinemaActivate" aria-pressed="false" aria-controls="zoomCinemaFrame" disabled>Enter the illustrated cosmic journey</button>
-        <button type="button" id="zoomCinemaTour" aria-pressed="false" disabled hidden>Travel across all eight scales</button>
+        <button type="button" id="zoomCinemaActivate" aria-pressed="false" aria-controls="zoomCinemaFrame" disabled>Enter the cinematic scale study</button>
+        <button type="button" id="zoomCinemaTour" aria-pressed="false" disabled hidden>Play the eight-scale journey</button>
       </div>
       <p id="zoomCinemaStatus" role="status">The precise logarithmic ruler below remains available without this illustration.</p>
     </div>
-    <p class="cosmic-visual-note">The cinematic scene is an <strong>artist's conceptual illustration</strong>, not a continuous physically scaled journey. Each step compares a different measure (height, diameter, orbital span or separation); the ruler and reference table give the numerical scale.</p>
+    <p class="cosmic-visual-note">The cinematic scene is an <strong>artist's conceptual illustration</strong>, not a continuous physically scaled journey. Each step compares a different measure (height, diameter, orbital span or separation); the ruler and reference table give the numerical scale. The Earth image uses NASA's Blue Marble composite; the Moon map derives from LRO imagery. Galaxy appearances and the observable horizon are illustrated, not external photographs or physical walls.</p>
+    <details class="cosmic-cinema-sources"><summary>Image evidence and scale conventions</summary>
+      <p><a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noopener noreferrer">NASA GSFC Blue Marble</a> is a processed Earth composite, not live weather. The lunar map comes from <a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener noreferrer">NASA SVS CGI Moon Kit</a>, assembled with Lunar Reconnaissance Orbiter data. The Earth–Moon gap scene uses a common physical ratio for Earth diameter, Moon diameter, and mean center separation; the other cinematic scenes depict different quantities symbolically. Stars and planetary markers in the other illustrations are not body-size accurate. The Milky Way, Local Group, and observable horizon are conceptual reconstructions.</p>
+    </details>
     <div class="cosmic-visual" aria-labelledby="cosmicRulerTitle">
       <div class="cosmic-visual-head"><strong id="cosmicRulerTitle">A ruler across 27 powers of ten</strong><span>Size / separation in metres · logarithmic scale</span></div>
       <div class="cosmic-ruler-viewport" tabindex="0" aria-label="Scrollable logarithmic scale from about one metre to 10 to the power 27 metres; numbered markers select a step">

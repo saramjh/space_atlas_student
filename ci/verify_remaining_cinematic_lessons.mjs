@@ -11,7 +11,7 @@ const types=src('assets/js/galaxy-types.js'),milky=src('assets/js/milky-way.js')
 const html=[ 'universe/scale','stars/life-cycle','galaxies/types','galaxies/milky-way'].map(p=>src(`public/${p}/index.html`));
 for(const page of html){assert.match(page,/rel="canonical"/);assert.match(page,/type="application\/ld\+json"/);}
 assert.match(html[0],/id="zoomCinemaTour"[^>]*aria-pressed="false"[^>]*disabled hidden/);
-assert.match(cosmic,/const TOUR_STEP_MS=1450/);
+assert.match(cosmic,/const TOUR_STEP_MS=2100/);
 assert.match(cosmic,/tourFrame=requestAnimationFrame\(tourTick\)/);
 assert.match(cosmic,/if\(!fromTour\)stopTour\(\)/);
 assert.match(cosmic,/if\(document.hidden\)stopTour\(\)/);

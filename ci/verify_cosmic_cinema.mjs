@@ -18,6 +18,19 @@ assert.match(controller,/if \(cinema && !cinemaFrame\.hidden\) cinema\.setStep\(
 assert.match(controller,/cosmicJump\(step\)/);
 assert.match(moduleText,/prefers-reduced-motion/);
 assert.match(moduleText,/devicePixelRatio/);
+assert.match(page,/id="zoomCinemaSceneNumber"/);
+assert.match(page,/id="zoomCinemaSceneMeasure"/);
+assert.match(page,/id="zoomCinemaProgress"/);
+assert.match(page,/svs.gsfc.nasa.gov\/2915/);
+assert.match(page,/svs.gsfc.nasa.gov\/4720/);
+assert.match(moduleText,/galaxyPoints=Array.from/);
+assert.match(moduleText,/galaxyDust=Array.from/);
+assert.match(moduleText,/BODY DIAMETERS SHARE THE DISTANCE SCALE/);
+assert.match(moduleText,/NOT AN EDGE OF ALL SPACE/);
+assert.match(moduleText,/duration=reduced.matches\?0:1400/);
+assert.match(controller,/TOUR_STEP_MS=2100/);
+assert.match(controller,/cinemaProgress.style.setProperty/);
+
 assert.match(moduleText,/pointercancel/);
 assert.match(moduleText,/document\.hidden/);
 assert.match(moduleText,/const coarse = matchMedia/);
