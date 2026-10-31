@@ -24,4 +24,14 @@ assert.match(js,/launchOrbitPrediction/);
 assert.match(js,/drawArrow/);
 assert.match(js,/orbitVectorsToggle/);
 assert.match(built,/rel="canonical"/);
+// The comparison action and result must form an aligned secondary experiment
+// within the same 20px inset as the adjacent prediction/legend.
+const css=readFileSync('assets/css/style.css','utf8');
+assert.match(page,/<section[^>]*class="orbit-comparison"|<div[^>]*class="orbit-comparison"/);
+assert.match(css,/\.orbit-comparison\s*\{[^}]*margin:\s*\d+px\s+20px/);
+assert.match(css,/\.orbit-comparison\s*\{[^}]*padding:\s*14px/);
+assert.match(css,/@media\s*\(max-width:620px\)\{[\s\S]*?\.orbit-trio-controls\{/);
+assert.match(page,/id="orbitCompareThree"/);
+assert.match(page,/id="orbitTrioReadout"/);
+
 console.log('GRAVITY_VECTOR_LAB_TDD_PASS model energy/classification and visible vectors');
