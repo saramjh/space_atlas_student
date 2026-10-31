@@ -380,7 +380,17 @@ def render_page_navigation(nav, path):
 def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_version):
     html = layout
     html = html.replace("{{NAV}}", render_page_navigation(nav, meta.get("path", "/")))
-    html = html.replace("{{FOOTER}}", footer)
+    # The public site and isolated teacher preview have different actual data uses.
+    # This text is visible in every footer, not a substitute for the privacy policy.
+    data_use_notice = (
+        "This local teacher preview disables Google Analytics 4 and Google AdSense. "
+        "School authorization and student privacy review are still required."
+        if CLASSROOM_PREVIEW else
+        "This public site uses Google Analytics 4 and may show Google AdSense ads on learning pages. "
+        "Direct unsupervised use by children under 13 is not currently recommended while "
+        "age-related data handling is under review."
+    )
+    html = html.replace("{{FOOTER}}", footer.replace("{{DATA_USE_FOOTER_NOTE}}", data_use_notice))
     html = html.replace("{{CONTENT}}", content + render_lesson_acknowledgments(meta.get("path", ""), load_lesson_acknowledgments()))
     tokens = {
         # Titles and meta values enter HTML text/quoted-attribute contexts.

@@ -29,6 +29,8 @@ with tempfile.TemporaryDirectory(prefix='space-atlas-classroom-test-') as parent
   assert 'adsbygoogle.js' not in s,path
   assert '<ins class="adsbygoogle' not in s,path
   assert 'classroom-preview' in s,path
+  assert 'This local teacher preview disables Google Analytics 4 and Google AdSense' in s,path
+  assert 'This public site uses Google Analytics 4' not in s,path
   assert 'href="/space_atlas_student/teacher-guide.html"' in s,path
   assert '<meta name="robots" content="noindex,nofollow,noarchive"' in s,path
  assert (dest/'moon/eclipses/index.html').is_file()
