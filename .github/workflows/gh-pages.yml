@@ -77,6 +77,7 @@ jobs:
           node ci/verify_season_sunlight.mjs
           node ci/verify_tidal_face_lab.mjs
           node ci/verify_gravity_vector_lab.mjs
+          node ci/verify_mobile_action_visibility.mjs
           node ci/verify_transit_motion.mjs
           node ci/verify_transit_cinematic.mjs
           node ci/verify_visual_wave3.mjs

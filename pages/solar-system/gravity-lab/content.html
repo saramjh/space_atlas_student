@@ -12,20 +12,6 @@
         <div><div class="gl-eyebrow">EXPERIMENT 01 / CONTROLLED VARIABLES</div><h2>One jumper. Different gravity.</h2></div>
         <div class="gl-rule"><span>70 kg reference mass</span><span>3.0 m/s takeoff</span><span>Gravity changes</span></div>
       </div>
-      <div class="gl-mode-switch" role="group" aria-label="Choose a gravity activity">
-        <button type="button" id="gravityLabModeScience" aria-pressed="true">
-          <span>01 / CONTROLLED EXPERIMENT</span><strong>Gravity Lab</strong>
-        </button>
-        <button type="button" id="gravityLabModeFlight" aria-pressed="false">
-          <span>02 / GAME CHALLENGE</span><strong>Flight Trials</strong>
-        </button>
-      </div>
-      <p class="gl-mode-explainer" id="gravityLabModeExplainer">Science mode: the same 3.0 m/s jump without any extra forces. Compare gravity using the measured arc.</p>
-      <div class="gl-trial-brief" id="gravityLabFlightInfo" hidden>
-        <div><span class="gl-eyebrow">FLIGHT TRIALS / OPTIONAL GAME</span><h3>Cross the aerial platforms.</h3>
-          <p><strong>Tap Jump for a short jump. Hold Jump to activate the airborne booster.</strong> Energy lasts up to 1 second and recharges on the ground in about 2.5 seconds. Each cleared stage unlocks a longer course, from 3 to 10 checkpoints.</p></div>
-        <div><strong>ASSISTED THRUST · NOT A NATURAL JUMP</strong><p>The fictional thruster auto-adjusts its force to <strong>mass × (local gravity + 5.5 m/s²)</strong>. Your unpowered fall still depends on the world; the game does <em>not</em> measure how high an unaided person can jump.</p></div>
-      </div>
       <div class="gl-world-control gl-world-compact" id="gravityLabSelector">
         <div class="gl-world-compact-head">
           <div><span class="gl-eyebrow">CHOOSE A WORLD · SELECT AN IMAGE</span><strong id="gravityLabWorldName">Earth</strong><span id="gravityLabWorldKind">SOLID WORLD · ARTIFICIAL TEST DECK</span></div>
@@ -38,6 +24,15 @@
         </div>
         <p class="gl-world-rail-note">Swipe or use arrows. Images are not scaled to true diameters. Selected image credit: <a id="gravityLabSelectorCredit" href="https://spaceplace.nasa.gov/gallery-solar-system/en/" rel="noopener noreferrer" target="_blank">NASA Space Place</a>.</p>
       </div>
+      <div class="gl-mode-switch" role="group" aria-label="Choose a gravity activity">
+        <button type="button" id="gravityLabModeScience" aria-pressed="true">
+          <span>01 / CONTROLLED EXPERIMENT</span><strong>Gravity Lab</strong>
+        </button>
+        <button type="button" id="gravityLabModeFlight" aria-pressed="false">
+          <span>02 / GAME CHALLENGE</span><strong>Flight Trials</strong>
+        </button>
+      </div>
+      <p class="gl-mode-explainer" id="gravityLabModeExplainer">Science mode: the same 3.0 m/s jump without any extra forces. Compare gravity using the measured arc.</p>
       <div class="gl-view" id="gravityLabView">
         <canvas id="gravityLabCanvas" tabindex="0" aria-label="First-person artificial gravity test chamber. WASD or arrows to walk, Space to jump, drag to look."></canvas>
         <div class="gl-visual-fallback" id="gravityLabPoster" style="background-image:url('{{BASE}}/assets/images/gravity-mars-jezero.webp')">
@@ -66,6 +61,11 @@
           <div id="gravityLabJoystick" class="gl-joystick" aria-label="Touch movement pad: drag to walk"><span class="gl-joystick-thumb" id="gravityLabStick"></span></div>
           <div id="gravityLabLook" class="gl-look" aria-label="Touch look area: drag to turn"></div>
         </div>
+      </div>
+      <div class="gl-trial-brief" id="gravityLabFlightInfo" hidden>
+        <div><span class="gl-eyebrow">FLIGHT TRIALS / OPTIONAL GAME</span><h3>Cross the aerial platforms.</h3>
+          <p><strong>Tap Jump for a short jump. Hold Jump to activate the airborne booster.</strong> Energy lasts up to 1 second and recharges on the ground in about 2.5 seconds. Each cleared stage unlocks a longer course, from 3 to 10 checkpoints.</p></div>
+        <div><strong>ASSISTED THRUST · NOT A NATURAL JUMP</strong><p>The fictional thruster auto-adjusts its force to <strong>mass × (local gravity + 5.5 m/s²)</strong>. Your unpowered fall still depends on the world; the game does <em>not</em> measure how high an unaided person can jump.</p></div>
       </div>
       <p class="gl-trial-result" id="gravityLabTrialResult" hidden role="status" aria-live="polite">Reach the finish platform to complete a Flight Trial.</p>
       <p id="gravityLabMeasureHint" class="gl-instrument-note" hidden>UNBOOSTED REFERENCE ONLY — the following jump predictions exclude the fictional thruster. Flight Trials progress is reported above.</p>

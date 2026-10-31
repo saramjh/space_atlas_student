@@ -431,7 +431,21 @@ def render_page(layout, nav, footer, meta, content, ad_slot, topic_count, css_ve
         if meta.get("script")
         else ""
     )
-    html = html.replace("{{SCRIPT}}", script_tag)
+    feedback_tag = (
+        f'<script type="module" src="{SITE_BASE}/assets/js/mobile-feedback-dock.js"></script>'
+        if meta.get("path") in {
+            "/black-holes/", "/earth/seasons/", "/exoplanets/transit-method/", "/galaxies/milky-way/",
+            "/galaxies/types/", "/learn/not-to-scale/", "/moon/earth-moon-scale/",
+            "/moon/eclipses/", "/moon/phases/", "/moon/tidal-locking/",
+            "/moon/tides/", "/solar-system/astronomical-unit/",
+            "/solar-system/gravity-and-orbits/", "/solar-system/gravity-comparison/",
+            "/solar-system/orbital-periods/", "/solar-system/pluto-dwarf-planet/",
+            "/solar-system/temperature-comparison/", "/stars/life-cycle/",
+            "/universe/light-year/", "/universe/scale/",
+        }
+        else ""
+    )
+    html = html.replace("{{SCRIPT}}", script_tag + feedback_tag)
     if CLASSROOM_PREVIEW:
         # Do not index or accidentally present a classroom build as production.
         html = html.replace(
