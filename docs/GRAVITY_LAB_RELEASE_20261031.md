@@ -56,3 +56,39 @@ hidden, cancel RAF, clear held directional inputs, and reset the frame-time
 origin; do not reset airborne trajectory or the player position. When visible
 again, resume rendering and physics from the stored flight time without
 counting away-time. Keep Reset and existing touch joystick/Jump chord.
+
+
+## 2026-10-31 NASA-reference visual world selector
+
+The old dropdown remains as a secondary accessible quick-list. A new
+horizontal scroll-snap image rail lets students select all nine gravity worlds
+with visible source-backed photographs and scientifically qualified mosaics,
+a large active-world preview, the Earth comparison factor, a common 0–23.1
+m/s² bar with a 9.8 m/s² Earth marker, and derived predicted jump height/time.
+Display image sizes are NOT physically proportional to planet diameters.
+
+Planet image sources:
+- Mercury, Venus, Earth, Jupiter, Uranus and Neptune: NASA Space Place
+  combined instrument and model reference grid
+  https://spaceplace.nasa.gov/gallery-solar-system/en/
+- Moon: NASA Goddard / Arizona State University LRO near-side image
+  https://science.nasa.gov/resource/lunar-near-side-2/
+- Mars: NASA/JPL/USGS Viking Orbiter PIA00407 processed global color view
+  https://science.nasa.gov/photojournal/global-color-views-of-mars/
+- Saturn: NASA/JPL-Caltech/SSI Cassini
+  https://science.nasa.gov/photojournal/a-farewell-to-saturn/
+
+The images are locally optimized 320px WebP thumbnails, not runtime CDN links.
+The live selection includes a source link, nine pressed-state buttons with
+keyboard navigation (arrows, Home, End), touch-native horizontal swipe,
+previous/next controls, and the original native dropdown. All routes update
+the original gravityLabWorld control and therefore the existing gravity
+physics and 3D scene through the same change event. Short selection movement
+respects prefers-reduced-motion. No permanent animation loop is added.
+
+QA: Moon selection 1.6 m/s², 0.16x Earth, 2.81m / 3.75s prediction;
+Jupiter explicitly NO WALKABLE SURFACE, 0.19m / 0.26s. Keyboard Moon→Mars
+and native dropdown→Jupiter synchronized. Real Chromium CDP mobile two-pointer
+joystick + Jump on the Moon: mid-flight 0.48m, completed 2.81m / 3.75s.
+390px page has zero horizontal overflow. Physical iOS/Android performance
+not measured.

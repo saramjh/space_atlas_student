@@ -1,9 +1,107 @@
-import {PERSON_MASS_KG,EYE_HEIGHT_M,TAKEOFF_MPS,worldById,predictJump,weightNewtons,grounded,startJump,advanceJump} from './gravity-lab-physics.js';
+import {PERSON_MASS_KG,EYE_HEIGHT_M,TAKEOFF_MPS,WORLDS,worldById,predictJump,weightNewtons,grounded,startJump,advanceJump} from './gravity-lab-physics.js';
 const $=id=>document.getElementById(id);
 const container=$('gravityLabView'),canvas=$('gravityLabCanvas'),poster=$('gravityLabPoster'),hud=$('gravityLabHud');
 const choice=$('gravityLabWorld'),status=$('gravityLabStatus'),note=$('gravityLabWorldNote'),joystick=$('gravityLabJoystick'),stick=$('gravityLabStick'),look=$('gravityLabLook');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),coarse=matchMedia('(pointer: coarse)');
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),fmt=n=>n.toFixed(2);
+const rail=$('gravityLabWorldRail'),feature=$('gravityLabWorldFeature');
+const worldVisual=$('gravityLabWorldImage'),worldButtons=new Map();
+const prevWorld=$('gravityLabWorldPrev'),nextWorld=$('gravityLabWorldNext');
+const referenceGravity=worldById('earth').g;
+const gravityBarMaximum=Math.max(...WORLDS.map(w=>w.g));
+const thumbnailFor=id=>new URL('../images/gravity-choice-'+id+'.webp',import.meta.url).href;
+const thumbnailCredit={
+ earth:['NASA Space Place','https://spaceplace.nasa.gov/gallery-solar-system/en/'],
+ moon:['NASA/GSFC/ASU · LRO','https://science.nasa.gov/resource/lunar-near-side-2/'],
+ mars:['NASA/JPL/USGS · Viking','https://science.nasa.gov/photojournal/global-color-views-of-mars/'],
+ mercury:['NASA/Johns Hopkins APL/CIW · MESSENGER','https://spaceplace.nasa.gov/gallery-solar-system/en/'],
+ venus:['NASA/JPL · Magellan','https://spaceplace.nasa.gov/gallery-solar-system/en/'],
+ jupiter:['NASA/ESA · Hubble','https://spaceplace.nasa.gov/gallery-solar-system/en/'],
+ saturn:['NASA/JPL-Caltech/SSI · Cassini','https://science.nasa.gov/photojournal/a-farewell-to-saturn/'],
+ uranus:['W. M. Keck Observatory · NASA Space Place','https://spaceplace.nasa.gov/gallery-solar-system/en/'],
+ neptune:['NASA/JPL · Voyager 2','https://spaceplace.nasa.gov/gallery-solar-system/en/']
+};
+
+const isFirstSelection={value:true};
+function buildWorldPicker(){
+ const fragment=document.createDocumentFragment();
+ for(const w of WORLDS){
+  const button=document.createElement('button');
+  button.type='button';button.className='gl-world-tile';
+  button.dataset.world=w.id;button.setAttribute('aria-pressed','false');
+  button.setAttribute('aria-label',w.name+', '+(w.g/referenceGravity).toFixed(2)+' times Earth gravity; expected jump '+predictJump(w.g).height.toFixed(2)+' metres');
+  button.setAttribute('aria-controls','gravityLabView');
+  const picture=document.createElement('img');
+  picture.src=thumbnailFor(w.id);picture.width=110;picture.height=110;
+  picture.alt='';picture.loading=w.id==='earth'||w.id==='moon'?'eager':'lazy';picture.decoding='async';
+  picture.setAttribute('aria-hidden','true');
+  const name=document.createElement('strong');name.textContent=w.name;
+  const ratio=document.createElement('span');ratio.textContent=(w.g/referenceGravity).toFixed(2)+'× Earth';
+  const measure=document.createElement('span');measure.className='gl-world-tile-bar';
+  measure.style.setProperty('--gravity-fill',(w.g/gravityBarMaximum*100).toFixed(2)+'%');
+  measure.setAttribute('aria-hidden','true');
+  button.append(picture,name,ratio,measure);
+  button.addEventListener('click',()=>selectWorld(w.id));
+  fragment.append(button);worldButtons.set(w.id,button);
+ }
+ rail.append(fragment);
+}
+function scrollToSelection(id,animate=false){
+ const button=worldButtons.get(id);if(!button)return;
+ const offset=button.offsetLeft-(rail.clientWidth-button.offsetWidth)/2;
+ rail.scrollTo({left:Math.max(0,offset),behavior:animate&&!reduced.matches?'smooth':'instant'});
+}
+function selectWorld(id,focus=false){
+ if(!worldButtons.has(id))return;
+ if(choice.value!==id){
+  choice.value=id;
+  choice.dispatchEvent(new Event('change',{bubbles:true}));
+ }else scrollToSelection(id,true);
+ if(focus)worldButtons.get(id).focus({preventScroll:true});
+}
+function syncWorldPicker(){
+ const w=model,index=WORLDS.findIndex(x=>x.id===w.id);
+ for(const [id,button] of worldButtons){
+  const current=id===w.id;
+  button.setAttribute('aria-pressed',String(current));
+  button.tabIndex=current?0:-1;
+ }
+ $('gravityLabWorldIndex').textContent=String(index+1).padStart(2,'0')+' / 09 · SELECTED GRAVITY';
+ $('gravityLabWorldName').textContent=w.name;
+ $('gravityLabWorldKind').textContent=w.kind==='solid'?'SOLID BODY · ARTIFICIAL TEST DECK':'NO WALKABLE SURFACE · VIRTUAL PLATFORM';
+ $('gravityLabRatio').textContent=(w.g/referenceGravity).toFixed(2)+'×';
+ $('gravityLabWorldPrediction').textContent=fmt(predictJump(w.g).height)+' m · '+fmt(predictJump(w.g).hang)+' s';
+ $('gravityLabForceBar').style.width=(w.g/gravityBarMaximum*100).toFixed(2)+'%';
+ worldVisual.src=thumbnailFor(w.id);
+ worldVisual.alt='NASA source-based reference view of '+w.name+'; images not shown to scale';
+ const [credit,creditUrl]=thumbnailCredit[w.id];
+ $('gravityLabSelectorCredit').textContent=credit;
+ $('gravityLabSelectorCredit').href=creditUrl;
+
+ prevWorld.disabled=index===0;nextWorld.disabled=index===WORLDS.length-1;
+ // The cards stay in a horizontal rail, rather than initiating a vertical
+ // document scroll that could obscure the stage under a sticky mobile header.
+ requestAnimationFrame(()=>scrollToSelection(w.id,!isFirstSelection.value));
+ if(!reduced.matches&&!isFirstSelection.value){
+  feature.animate([{opacity:.78,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],
+    {duration:250,easing:'ease-out'});
+ }
+ isFirstSelection.value=false;
+}
+rail.addEventListener('keydown',event=>{
+ const current=WORLDS.findIndex(w=>w.id===(event.target.closest('button[data-world]')?.dataset.world||choice.value));
+ let next=current;
+ if(event.key==='ArrowRight')next=Math.min(WORLDS.length-1,current+1);
+ else if(event.key==='ArrowLeft')next=Math.max(0,current-1);
+ else if(event.key==='Home')next=0;
+ else if(event.key==='End')next=WORLDS.length-1;
+ else return;
+ event.preventDefault();selectWorld(WORLDS[next].id,true);
+});
+prevWorld.addEventListener('click',()=>selectWorld(WORLDS[Math.max(0,WORLDS.findIndex(w=>w.id===model.id)-1)].id));
+nextWorld.addEventListener('click',()=>selectWorld(WORLDS[Math.min(WORLDS.length-1,WORLDS.findIndex(w=>w.id===model.id)+1)].id));
+buildWorldPicker();
+
 let model=worldById(choice.value),engine=null,active=false,loading=false,air=grounded(),jumpCount=0;
 const VISUAL_PROVENANCE={
  earth:['NASA Apollo 17 Earth photograph','https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a17_h_148_22727.html'],
@@ -23,6 +121,7 @@ function readout(){
  $('gravityLabHeight').textContent=fmt(p.height)+' m';
  $('gravityLabHang').textContent=fmt(p.hang)+' s';
  $('gravityLabWorldHud').textContent=model.name.toUpperCase()+' GRAVITY';
+ syncWorldPicker();
  note.textContent=model.note+' The deck, course dimensions and motion graphics are an artificial classroom model.';
  if(!active)poster.style.backgroundImage='url('+new URL(model.id==='moon'?'../images/gravity-moon-apollo.webp':'../images/gravity-mars-jezero.webp',import.meta.url).href+')';
  const source=VISUAL_PROVENANCE[model.id];

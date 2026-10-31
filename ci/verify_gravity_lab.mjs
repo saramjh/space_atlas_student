@@ -58,6 +58,34 @@ assert.match(ctrl,/if\(!active\|\|document\.hidden\|\|air\.airborne\)return/);
 assert.match(html,/id="gravityLabImageSource"/);
 assert.match(html,/no walkable solid surface/i);
 assert.match(html,/v₀² \/ \(2g\)/);
+// The image-led picker must remain a real, accessible control, not a
+// decorative poster or a second source of truth for gravity calculations.
+for(const id of ['gravityLabWorldRail','gravityLabWorldFeature','gravityLabWorldImage',
+  'gravityLabWorldName','gravityLabWorldKind','gravityLabRatio','gravityLabWorldIndex',
+  'gravityLabWorldPrediction','gravityLabWorldPrev','gravityLabWorldNext','gravityLabForceBar']){
+ assert.ok(html.includes('id="'+id+'"'),'Missing visual world selector '+id);
+}
+assert.match(ctrl,/function buildWorldPicker\(\)/);
+assert.match(ctrl,/function syncWorldPicker\(\)/);
+assert.match(ctrl,/choice\.dispatchEvent\(new Event\('change'/);
+assert.match(ctrl,/rail\.addEventListener\('keydown'/);
+assert.match(ctrl,/aria-pressed/);
+assert.match(ctrl,/scrollTo\(/);
+assert.match(ctrl,/predictJump\(w\.g\)/);
+assert.match(ctrl,/prefers-reduced-motion/);
+assert.match(html,/IMAGE NOT TO SCALE/);
+assert.match(html,/id="gravityLabSelectorCredit"/);
+assert.match(ctrl,/thumbnailCredit\[w\.id\]/);
+
+assert.match(html,/SWIPE OR USE THE ARROWS/);
+for (const id of ['earth','moon','mars','mercury','venus','jupiter','saturn','uranus','neptune']){
+ const img='assets/images/gravity-choice-'+id+'.webp';
+ assert.ok(existsSync(img),'NASA-source-backed picker thumbnail '+id);
+ const bytes=readFileSync(img);
+ assert.ok(bytes.length>800&&bytes.length<100000,'Compact offline thumbnail '+id);
+ assert.equal(bytes.subarray(8,12).toString(),'WEBP');
+}
+
 const images=['gravity-mars-jezero','gravity-moon-apollo','gravity-reference-mercury',
 'gravity-reference-venus','gravity-reference-jupiter','gravity-reference-saturn','gravity-reference-uranus'];
 for(const name of images){

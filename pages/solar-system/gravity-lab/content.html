@@ -12,20 +12,42 @@
         <div><div class="gl-eyebrow">EXPERIMENT 01 / CONTROLLED VARIABLES</div><h2>One jumper. Different gravity.</h2></div>
         <div class="gl-rule"><span>70 kg reference mass</span><span>3.0 m/s takeoff</span><span>Gravity changes</span></div>
       </div>
-      <div class="gl-world-control">
-        <label for="gravityLabWorld">Select gravity environment</label>
-        <select id="gravityLabWorld">
-          <option value="earth">Earth — 1.00×</option>
-          <option value="moon">Moon — 0.16×</option>
-          <option value="mars">Mars — 0.38×</option>
-          <option value="mercury">Mercury — 0.38×</option>
-          <option value="venus">Venus — 0.91×</option>
-          <option value="jupiter">Jupiter — 2.36×</option>
-          <option value="saturn">Saturn — 0.92×</option>
-          <option value="uranus">Uranus — 0.89×</option>
-          <option value="neptune">Neptune — 1.12×</option>
-        </select>
-        <div class="gl-world-readout"><strong id="gravityLabG">9.8 m/s²</strong><span id="gravityLabWeight">686 N on a 70 kg mass</span></div>
+      <div class="gl-world-control" id="gravityLabSelector">
+        <div class="gl-world-heading">
+          <div><div class="gl-eyebrow">GRAVITY FIELD / 01—09</div><h3>Choose your world</h3><p>One test chamber. Nine different pulls.</p></div>
+          <div class="gl-world-native"><label for="gravityLabWorld">Select by name</label>
+            <select id="gravityLabWorld">
+              <option value="earth">Earth — 1.00×</option>
+              <option value="moon">Moon — 0.16×</option>
+              <option value="mars">Mars — 0.38×</option>
+              <option value="mercury">Mercury — 0.38×</option>
+              <option value="venus">Venus — 0.91×</option>
+              <option value="jupiter">Jupiter — 2.36×</option>
+              <option value="saturn">Saturn — 0.92×</option>
+              <option value="uranus">Uranus — 0.89×</option>
+              <option value="neptune">Neptune — 1.12×</option>
+            </select>
+          </div>
+        </div>
+        <div class="gl-world-feature" id="gravityLabWorldFeature" aria-live="polite" aria-atomic="true">
+          <div class="gl-world-portrait"><img id="gravityLabWorldImage" src="{{BASE}}/assets/images/gravity-choice-earth.webp" width="200" height="200" alt="NASA reference image of Earth"><span>IMAGE NOT TO SCALE</span><a id="gravityLabSelectorCredit" href="https://spaceplace.nasa.gov/gallery-solar-system/en/" target="_blank" rel="noopener noreferrer">NASA Space Place</a></div>
+          <div class="gl-world-identity"><span class="gl-world-index" id="gravityLabWorldIndex">01 / 09 · SELECTED GRAVITY</span><strong id="gravityLabWorldName">Earth</strong><span class="gl-world-kind" id="gravityLabWorldKind">SOLID WORLD · REFERENCE CASE</span>
+            <div class="gl-world-force"><strong id="gravityLabRatio">1.00×</strong><span>Earth gravity</span></div>
+            <div class="gl-world-force-track" aria-hidden="true"><span id="gravityLabForceBar" style="width:42.4%"></span><i title="Earth reference gravity"></i></div>
+          </div>
+          <div class="gl-world-data">
+            <span>GRAVITY / WEIGHT FORCE</span>
+            <div class="gl-world-readout"><strong id="gravityLabG">9.8 m/s²</strong><span id="gravityLabWeight">686 N on a 70 kg mass</span></div>
+            <div class="gl-world-prediction"><span>ONE IDENTICAL JUMP</span><strong id="gravityLabWorldPrediction">0.46 m · 0.61 s</strong></div>
+          </div>
+        </div>
+        <div class="gl-world-rail-header"><span>EXPLORE NINE GRAVITY SETTINGS</span><span>SWIPE OR USE THE ARROWS</span></div>
+        <div class="gl-world-rail-layout">
+          <button type="button" id="gravityLabWorldPrev" class="gl-world-rail-arrow" aria-label="Previous world" disabled>‹</button>
+          <div id="gravityLabWorldRail" class="gl-world-rail" role="group" aria-label="Choose a world by its NASA reference image"></div>
+          <button type="button" id="gravityLabWorldNext" class="gl-world-rail-arrow" aria-label="Next world">›</button>
+        </div>
+        <p class="gl-world-rail-note">Photographic reference thumbnails, not relative planet diameters. <span>│</span> The amber tick marks Earth's 9.8 m/s² on a shared 0–23.1 m/s² scale.</p>
       </div>
       <div class="gl-view" id="gravityLabView">
         <canvas id="gravityLabCanvas" tabindex="0" aria-label="First-person artificial gravity test chamber. WASD or arrows to walk, Space to jump, drag to look."></canvas>
