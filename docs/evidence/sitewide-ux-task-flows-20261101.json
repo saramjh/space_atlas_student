@@ -1,0 +1,454 @@
+{
+  "verified_date": "2026-11-01",
+  "scope": "28 interactive routes, 320x568 action/result smoke; six manual follow-ups clearly marked",
+  "cases": [
+    {
+      "route": "/",
+      "action": "btnMotion",
+      "target": "#btnMotion",
+      "mode": "click",
+      "before": "Pause motion · false",
+      "after": "Resume motion · true",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": "true"
+      },
+      "verification": "separate_fresh_browser_check",
+      "evidenceKind": "button_toggle_then_scene_motion"
+    },
+    {
+      "route": "/astronomy/electromagnetic-spectrum/",
+      "action": "spectrumWaveToggle",
+      "target": "#spectrumWaveToggle",
+      "mode": "click",
+      "before": "aria-pressed false",
+      "after": "aria-pressed true",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": "true"
+      },
+      "verification": "separate_fresh_browser_check",
+      "evidenceKind": "wave_display_toggle"
+    },
+    {
+      "route": "/black-holes/",
+      "action": "bhAnimate",
+      "target": "#bhAnimate",
+      "mode": "click",
+      "before": "aria-pressed false",
+      "after": "aria-pressed true",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": "true"
+      },
+      "verification": "separate_fresh_browser_check",
+      "evidenceKind": "animation_toggle"
+    },
+    {
+      "route": "/earth/seasons/",
+      "action": "seasonAngle",
+      "target": "#seasonExperiment",
+      "mode": "change",
+      "before": "Noon Sun 73.5° · daylight 14.9 h",
+      "after": "Noon Sun 57.1° · daylight 12.8 h",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "252",
+        "pressed": null
+      },
+      "verification": "separate_fresh_browser_check",
+      "evidenceKind": "science_readout_changed"
+    },
+    {
+      "route": "/exoplanets/transit-method/",
+      "action": "transitAngle",
+      "target": "#transitReadout",
+      "mode": "change",
+      "before": "Phase 0° · Light blocked 0.000% · Star brightness 100.000%. Outside the visible stellar disk: no transit.",
+      "after": "Phase 252° · Light blocked 0.000% · Star brightness 100.000%. Behind the star: no transit.",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "252",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/galaxies/milky-way/",
+      "action": "mw3DFocusSun",
+      "target": "#mw3DReadout",
+      "mode": "click",
+      "before": "Stage 1/4 camera approach",
+      "after": "Focus on Sun: within the Orion Spur, ~26,000 light-years from galactic center",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": null
+      },
+      "verification": "separate_fresh_browser_check",
+      "evidenceKind": "camera_feedback_after_repair"
+    },
+    {
+      "route": "/galaxies/types/",
+      "action": "galaxyInclination",
+      "target": "#galaxyAngleOutput",
+      "mode": "change",
+      "before": "0° · projected thin-disk axis ratio ≈ 1.00. Face-on: curved arms are clearly visible. The galaxy itself did not change type.",
+      "after": "60° · projected thin-disk axis ratio ≈ 0.50. Inclined: arms look flattened by the viewing angle. The galaxy itself did not change type.",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "60",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/learn/not-to-scale/",
+      "action": "trueScaleZoom",
+      "target": "#trueScaleReadout",
+      "mode": "change",
+      "before": "Camera radius 4.97 AU. Orbital positions use physically proportional AU distances; background and colors are artistic.",
+      "after": "Camera radius 10.1 AU. Orbital positions use physically proportional AU distances; background and colors are artistic.",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "700",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/moon/earth-moon-scale/",
+      "action": "emFlightSlider",
+      "target": "#emFlightPercent",
+      "mode": "change",
+      "before": "0%",
+      "after": "70%",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "700",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/moon/eclipses/",
+      "action": "eclipseNode",
+      "target": "#eclipseReadout",
+      "mode": "change",
+      "before": "New Moon but the Moon is below the ecliptic plane by 0.26 model orbital radii. This representative geometry misses the exact Sun–Earth plane; it is not a real e",
+      "after": "New Moon but the Moon is below the ecliptic plane by 0.23 model orbital radii. This representative geometry misses the exact Sun–Earth plane; it is not a real e",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "63",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/moon/phases/",
+      "action": "moonAngle",
+      "target": "#phaseMetrics",
+      "mode": "change",
+      "before": "Day 14.8 of 29.5 · 100% illuminated as seen from Earth",
+      "after": "Day 20.7 of 29.5 · 65% illuminated as seen from Earth",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "252",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/moon/tidal-locking/",
+      "action": "lockAngle",
+      "target": "#lockAngle",
+      "mode": "change",
+      "before": "0",
+      "after": "252",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "252",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/moon/tides/",
+      "action": "tideCinemaAngle",
+      "target": "#tideModelReadout",
+      "mode": "change",
+      "before": "0° — Spring pattern: aligned contributions reinforce. Illustrative combined forcing contrast: 100% of this model’s aligned case, not real water height.",
+      "after": "65° — Intermediate alignment: the strength and orientation of the idealized pattern change. Illustrative combined forcing contrast: 52% of this model’s aligned ",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "65",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/2026-ed138-dwarf-planet-candidate/",
+      "action": "ed138Albedo",
+      "target": "#ed138Diameter",
+      "mode": "change",
+      "before": "≈ 967 km",
+      "after": "≈ 702 km",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "19",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/astronomical-unit/",
+      "action": "auExpeditionProgress",
+      "target": "#auExpeditionPosition",
+      "mode": "change",
+      "before": "0.00 AU",
+      "after": "21.04 AU",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "2104",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/distance-scale/",
+      "action": "distanceFocusPlanet",
+      "target": "#distanceFocusReadout",
+      "mode": "change",
+      "before": "Earth: 1.00 AU (3.33% of the 30.05 AU physical ruler), but 14 scene units (28.00% of the 50-unit illustrative ruler). The drawn scene fraction is 8.41× the line",
+      "after": "Mercury: 0.39 AU (1.30% of the 30.05 AU physical ruler), but 7.5 scene units (15.00% of the 50-unit illustrative ruler). The drawn scene fraction is 11.56× the ",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "Mercury",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/gravity-and-orbits/",
+      "action": "orbitCompareThree",
+      "target": "#orbitTrioReadout",
+      "mode": "click",
+      "before": "Select Compare three launch speeds to see three outcomes together. The original single-launch sandbox remains available.",
+      "after": "1.0: collision · 2.6: bounded computed trajectory · 4.1: escape. All paths share the same ideal central mass; these are numerical model outcomes, not observed t",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": "true"
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/gravity-comparison/",
+      "action": "gravityMass",
+      "target": "#gravityModelResult",
+      "mode": "change",
+      "before": "1.00× Earth",
+      "after": "223.00× Earth",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "223",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/gravity-lab/",
+      "action": "gravityLabModeFlight",
+      "target": "#gravityLabModeFlight",
+      "mode": "click",
+      "before": "Science mode selected",
+      "after": "Flight Trials selected · instructional brief updated",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": "true"
+      },
+      "verification": "separate_fresh_browser_check",
+      "evidenceKind": "mode_and_learning_task_transition"
+    },
+    {
+      "route": "/solar-system/orbital-periods/",
+      "action": "keplerOrbitTime",
+      "target": "#keplerOrbitTimeValue",
+      "mode": "change",
+      "before": "0.00 Earth yr",
+      "after": "0.70 Earth yr",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "700",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/planet-size-comparison/",
+      "action": "diameterLensProgress",
+      "target": "#diameterLensPosition",
+      "mode": "change",
+      "before": "Close view",
+      "after": "70% outward",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "70",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/planet-types/",
+      "action": "ptype3DStart",
+      "target": "#ptype3DStatus",
+      "mode": "click",
+      "before": "Earth · NASA Blue Marble montage",
+      "after": "Earth · NASA Blue Marble",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/pluto-dwarf-planet/",
+      "action": "plutoResonanceTime",
+      "target": "#plutoResonanceReadout",
+      "mode": "change",
+      "before": "0% of mean-period teaching cycle: Neptune 0.00 / 3 laps; Pluto 0.00 / 2 laps. Two Pluto periods ≈ 496 yr; three Neptune periods ≈ 495 yr. Model drawing and star",
+      "after": "70% of mean-period teaching cycle: Neptune 2.10 / 3 laps; Pluto 1.40 / 2 laps. Two Pluto periods ≈ 496 yr; three Neptune periods ≈ 495 yr. Model drawing and sta",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "70",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/solar-system/temperature-comparison/",
+      "action": "tempCompareB",
+      "target": "#tempCompareReadout",
+      "mode": "change",
+      "before": "Venus (+464°C) is 297°C warmer than Mercury (+167°C). References: Mercury — rocky surface mean; Venus — rocky surface mean. These are not equivalent surface con",
+      "after": "Mercury: +167°C. This is a NASA rocky surface mean; select another planet to compare.",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "Mercury",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/sources/space-resources-for-students/",
+      "action": "resourceGoal",
+      "target": "#resourceMatchResult",
+      "mode": "resource",
+      "before": "Choose a learning goal, or browse the five official resources below. Every link remains available without JavaScript.",
+      "after": "Recommended official source: JPL Education. Its description and link are expanded below; open the link when ready.",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "build",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/stars/life-cycle/",
+      "action": "lifeNext",
+      "target": "#stellarCinemaProcess",
+      "mode": "click",
+      "before": "01 / 06 · CLOUD COLLAPSE",
+      "after": "02 / 06 · PROTOSTAR HEATS",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/universe/light-year/",
+      "action": "lyPhotonSlider",
+      "target": "#lyPhotonElapsed",
+      "mode": "change",
+      "before": "8.3 minutes",
+      "after": "5.8 minutes",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "70",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    },
+    {
+      "route": "/universe/scale/",
+      "action": "zoomNext",
+      "target": "#cosmicJump",
+      "mode": "click",
+      "before": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.",
+      "after": "Previous → current: approximately 7,495,294× larger in the compared length measures×10×10×10×10×10×10×7.50Every ×10 block means one order of magnitude. This is ",
+      "changed": true,
+      "actionResult": {
+        "ok": true,
+        "value": "",
+        "pressed": null
+      },
+      "verification": "automated_320x568_browser_action",
+      "evidenceKind": "dom_readout_transition"
+    }
+  ]
+}

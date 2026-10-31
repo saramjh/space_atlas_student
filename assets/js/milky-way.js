@@ -79,14 +79,27 @@ mw3DActivate.addEventListener('click',async()=>{
   console.warn('Milky Way 3D failed; retaining accessible source diagram',error);
  }finally{mw3DLoading=false;mw3DActivate.disabled=false;}
 });
-for(const [selector,handler] of [
- ['#mw3DOverview',()=>mw3DEngine?.overview()],
- ['#mw3DFocusSun',()=>mw3DEngine?.focusSun()],
- ['#mw3DZoomIn',()=>mw3DEngine?.zoomBy(.78)],
- ['#mw3DZoomOut',()=>mw3DEngine?.zoomBy(1.28)],
- ['#mw3DRotateLeft',()=>mw3DEngine?.rotateBy(-.27)],
- ['#mw3DRotateRight',()=>mw3DEngine?.rotateBy(.27)],
-]) document.querySelector(selector).addEventListener('click',()=>{endHomecoming();handler();});
+// Pair every viewpoint action with a science-grounded verbal result.
+for(const [selector,handler,feedback] of [
+ ['#mw3DOverview',()=>mw3DEngine?.overview(),
+  'Galaxy overview: cyan marks the Sun near 26,000 light-years from the center. Spiral-arm geometry is illustrative.'],
+ ['#mw3DFocusSun',()=>mw3DEngine?.focusSun(),
+  'Focus on Sun: the cyan location is within the Orion Spur, roughly 26,000 light-years from the galactic center.'],
+ ['#mw3DZoomIn',()=>mw3DEngine?.zoomBy(.78),
+  'Camera moved closer. Apparent sizes changed; astronomical distances did not.'],
+ ['#mw3DZoomOut',()=>mw3DEngine?.zoomBy(1.28),
+  'Camera moved farther out. Apparent sizes changed; astronomical distances did not.'],
+ ['#mw3DRotateLeft',()=>mw3DEngine?.rotateBy(-.27),
+  'Camera rotated left around this illustrative galaxy; the Sun reference remains fixed.'],
+ ['#mw3DRotateRight',()=>mw3DEngine?.rotateBy(.27),
+  'Camera rotated right around this illustrative galaxy; the Sun reference remains fixed.'],
+]){
+ document.querySelector(selector).addEventListener('click',()=>{
+  endHomecoming();
+  if(!mw3DEngine||mw3DFrame.hidden)return;
+  handler();mw3DReadout.textContent=feedback;
+ });
+}
 mw3DActivate.disabled=false;
 
 STEPS.forEach(() => dots.appendChild(document.createElement('span')));

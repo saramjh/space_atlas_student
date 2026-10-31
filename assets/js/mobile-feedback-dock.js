@@ -26,10 +26,19 @@ const plans={
  '/universe/light-year/':{scene:'#lyCinemaStage',primary:['lyPlay','lyPhotonSlider'],secondary:['lyCinemaFollow']},
  '/universe/scale/':{scene:'#zoomCinemaFrame',primary:['zoomCinemaTour','zoomNext'],secondary:['zoomPrev']},
 };
+// Desktop routes whose original below-the-scene Play controls made the
+// effect invisible in a 1280×800 viewport. Preserve original desktop
+// arrangement on the remaining lessons.
+const desktopAdjacent=new Set([
+ '/black-holes/','/exoplanets/transit-method/','/galaxies/types/',
+ '/moon/eclipses/','/solar-system/orbital-periods/','/stars/life-cycle/',
+ '/universe/light-year/','/universe/scale/'
+]);
 const match=Object.entries(plans).find(([path])=>location.pathname.endsWith(path));
 if(match){
- const [,plan]=match,priority=new Set(plan.primary);
+ const [route,plan]=match,priority=new Set(plan.primary);
  const breakpoint=matchMedia('(max-width:620px)'),scene=document.querySelector(plan.scene);
+ const shouldDock=()=>breakpoint.matches||desktopAdjacent.has(route);
  const dock=document.createElement('section');dock.className='atlas-feedback-dock';
  dock.setAttribute('aria-label','Controls for the interactive experiment');
  const main=document.createElement('div');main.className='atlas-feedback-main';
@@ -38,14 +47,14 @@ if(match){
  const summary=document.createElement('summary');summary.textContent='Additional controls';
  const extra=document.createElement('div');extra.className='atlas-feedback-extra';
  details.append(summary,extra);dock.append(main,details);
- const moved=[],mounted=new Set(),labelOverrides=new Map();
+ const moved=[],mounted=new Set(),labelOverrides=new Map(),generatedLabels=[];
  let pending=null;
  function hidden(e){
   return !e||!!e.closest('[hidden]')||getComputedStyle(e).display==='none'||
     getComputedStyle(e).visibility==='hidden';
  }
  function mount(){
-  if(!breakpoint.matches||!scene)return;
+  if(!shouldDock()||!scene)return;
   if(!dock.isConnected)scene.parentElement?.insertBefore(dock,scene);
   for(const id of [...plan.primary,...plan.secondary]){
    const e=document.getElementById(id);
@@ -68,10 +77,25 @@ if(match){
       /[0-9](?:\.[0-9]+)?(?:× Earth|%|°|×)/.test(e.getAttribute('aria-label')||'')){
       labelOverrides.set(e,e.getAttribute('aria-label'));e.removeAttribute('aria-label');
     }
-    if(!label&&!e.hasAttribute('aria-label')){
+    if(!label){
+      const shortNames={
+       seasonAngle:'Orbit position',eclipseAngle:'Moon position',
+       moonAngle:'Moon phase position',lockAngle:'Moon orbit position'
+      };
       const fallback=document.createElement('label');fallback.htmlFor=id;
-      fallback.textContent=id.replace(/([a-z])([A-Z])/g,'$1 $2');item.prepend(fallback);
+      const text=shortNames[id]||e.getAttribute('aria-label')||
+       id.replace(/([a-z])([A-Z])/g,'$1 $2');
+      fallback.append(document.createTextNode(text+' '));
+      if(e.matches('input[type=range]')){
+       const value=document.createElement('output');
+       const isAngle=/angle|phase|orbit position|degrees/i.test(text)&&Number(e.max)===360;
+       const render=()=>{value.textContent=e.value+(isAngle?'°':'');};
+       e.addEventListener('input',render);render();fallback.append(value);
+       generatedLabels.push({field:e,render});
+      }
+      item.prepend(fallback);
     }
+    if((label?.textContent||'').trim().length>48)item.classList.add('is-wide-label');
    }
    mounted.add(id);(priority.has(id)?main:extra).append(item);
   }
@@ -84,12 +108,13 @@ if(match){
    if(placeholder.parentNode)placeholder.parentNode.replaceChild(node,placeholder);
   }
   for(const [e,label] of labelOverrides)e.setAttribute('aria-label',label);
-  labelOverrides.clear();moved.length=0;mounted.clear();
+  for(const {field,render} of generatedLabels)field.removeEventListener('input',render);
+  generatedLabels.length=0;labelOverrides.clear();moved.length=0;mounted.clear();
   details.open=false;dock.remove();main.replaceChildren();extra.replaceChildren();
  }
  function schedule(){
   if(pending!==null)cancelAnimationFrame(pending);
-  pending=requestAnimationFrame(()=>{pending=null;breakpoint.matches?mount():restore();});
+  pending=requestAnimationFrame(()=>{pending=null;shouldDock()?mount():restore();});
  }
  function revealActivatedScene(){
   if(!breakpoint.matches||!scene||hidden(scene))return;
@@ -102,6 +127,23 @@ if(match){
    });
   }
  }
+ // A click on a primary action is an intentional request to witness its
+ // visual consequence. Move only when less than half of its stage is visible.
+ // Never steal scroll during slider drags, on load or in desktop reading.
+ dock.addEventListener('click',event=>{
+  if(!breakpoint.matches||!event.target.closest('.atlas-feedback-main button'))return;
+  requestAnimationFrame(()=>{
+   if(!scene||hidden(scene))return;
+   const r=scene.getBoundingClientRect();
+   const top=document.querySelector('header')?.getBoundingClientRect().bottom||0;
+   const visible=Math.max(0,Math.min(innerHeight,r.bottom)-Math.max(top,r.top));
+   if(r.height&&visible<Math.min(170,r.height*.5)){
+    dock.scrollIntoView({
+     block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'
+    });
+   }
+  });
+ });
  if(scene){
   schedule();breakpoint.addEventListener('change',schedule);
   document.addEventListener('click',ev=>{

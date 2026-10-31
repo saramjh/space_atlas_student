@@ -1,0 +1,110 @@
+{
+  "date": "2026-11-01",
+  "method": "Real Chromium 1280x800, wait for 3D activation and center primary action",
+  "cases": [
+    {
+      "route": "/black-holes/",
+      "screen": "1280x800",
+      "control": "bhAnimate",
+      "visible": 366,
+      "h": 568,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    },
+    {
+      "route": "/exoplanets/transit-method/",
+      "screen": "1280x800",
+      "control": "transitPlay",
+      "visible": 366,
+      "h": 380,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    },
+    {
+      "route": "/galaxies/types/",
+      "screen": "1280x800",
+      "control": "galaxy3DPlay",
+      "visible": 358,
+      "h": 560,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    },
+    {
+      "route": "/moon/eclipses/",
+      "screen": "1280x800",
+      "control": "eclipsePlay",
+      "visible": 365,
+      "h": 420,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    },
+    {
+      "route": "/solar-system/orbital-periods/",
+      "screen": "1280x800",
+      "control": "keplerOrbitPlay",
+      "visible": 352,
+      "h": 497,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    },
+    {
+      "route": "/stars/life-cycle/",
+      "screen": "1280x800",
+      "control": "lifePlay",
+      "visible": 352,
+      "h": 449,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    },
+    {
+      "route": "/universe/light-year/",
+      "screen": "1280x800",
+      "control": "lyPlay",
+      "visible": 351,
+      "h": 496,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    },
+    {
+      "route": "/universe/scale/",
+      "screen": "1280x800",
+      "control": "zoomCinemaTour",
+      "visible": 366,
+      "h": 560,
+      "buttonVisible": true,
+      "dock": true,
+      "overflow": false,
+      "disabled": false,
+      "sceneHidden": false,
+      "sceneDisplay": "block"
+    }
+  ]
+}

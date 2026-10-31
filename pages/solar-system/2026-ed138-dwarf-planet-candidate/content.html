@@ -32,6 +32,11 @@
   <div class="section-head"><div class="section-id">02 · Scientific experiment</div><div><h2>How can the same light mean two very different sizes?</h2><p>Predict: if the object reflects less sunlight, must it be larger or smaller to appear equally bright?</p></div></div>
   <div class="ed138-lab" id="ed138AlbedoLab">
    <div class="ed138-lab-header"><div><p class="ed138-overline">Albedo / size inference</p><h3>Keep observed brightness fixed. Change only reflectivity.</h3><p>The research reports <strong>absolute magnitude H<sub>V</sub> = 3.19</strong>. The slider shows what diameter would produce that brightness under different assumed geometric albedos.</p></div><div class="ed138-primary-number"><strong id="ed138Diameter" aria-live="off">≈ 967 km</strong><span>estimated diameter · 10% reflectivity</span></div></div>
+   <div class="ed138-lab-controls">
+     <label for="ed138Albedo">Assumed geometric albedo <output id="ed138AlbedoValue" for="ed138Albedo">10%</output></label>
+     <input id="ed138Albedo" type="range" min="4" max="25" value="10" step="1" aria-describedby="ed138AlbedoHelp"/>
+     <div class="ed138-presets" role="group" aria-label="Reflectivity comparisons"><button type="button" data-ed138-albedo="4" aria-pressed="false">Dark · 4%</button><button type="button" data-ed138-albedo="10" aria-pressed="true">Middle · 10%</button><button type="button" data-ed138-albedo="25" aria-pressed="false">Bright · 25%</button></div>
+   </div>
    <svg id="ed138SizeChart" viewBox="0 0 820 215" role="img" aria-labelledby="ed138ChartTitle ed138ChartDesc" focusable="false">
     <title id="ed138ChartTitle">2026 ED138 estimated size versus Pluto, measured on one linear kilometre ruler</title><desc id="ed138ChartDesc">Pluto is 2,377 km in diameter. ED138 may be 612 to 1,530 km across depending on surface reflectivity; the selected estimate defaults to 968 km. On this diagram a shared linear scale represents diameter, not a photograph or true color.</desc>
     <rect width="820" height="215" fill="#102533"/>
@@ -51,12 +56,18 @@
     <text x="764" y="112" text-anchor="end" fill="#cde4e8" font-family="ui-monospace,monospace" font-size="13">2,377 km</text>
     <text x="22" y="207" fill="#a8bbc4" font-family="ui-monospace,monospace" font-size="10">ED138 BROWN BAND = 612–1,530 km ASSUMPTION RANGE</text>
    </svg>
-   <div class="ed138-lab-controls">
-     <label for="ed138Albedo">Assumed geometric albedo <output id="ed138AlbedoValue" for="ed138Albedo">10%</output></label>
-     <input id="ed138Albedo" type="range" min="4" max="25" value="10" step="1" aria-describedby="ed138AlbedoHelp"/>
-     <div class="ed138-presets" role="group" aria-label="Reflectivity comparisons"><button type="button" data-ed138-albedo="4" aria-pressed="false">Dark · 4%</button><button type="button" data-ed138-albedo="10" aria-pressed="true">Middle · 10%</button><button type="button" data-ed138-albedo="25" aria-pressed="false">Bright · 25%</button></div>
-     <p id="ed138AlbedoHelp" class="ed138-readout" role="status">At 10% reflectivity, an object with H<sub>V</sub> = 3.19 would be about 967 km wide. A darker surface requires a larger body to reflect the same amount of light.</p>
+   <div class="ed138-mobile-chart" aria-label="Shared linear diameter comparison; estimated ED138 versus Pluto">
+    <div class="ed138-mobile-row">
+     <div class="ed138-mobile-name"><span>2026 ED138 · estimated</span><output id="ed138MobileDiameter">≈ 967 km</output></div>
+     <div class="ed138-mobile-track"><span id="ed138MobileBar" style="width:40.7%"></span></div>
+    </div>
+    <div class="ed138-mobile-row">
+     <div class="ed138-mobile-name"><span>Pluto · NASA reference</span><strong>2,377 km</strong></div>
+     <div class="ed138-mobile-track"><span class="ed138-pluto-full"></span></div>
+    </div>
+    <p>One linear diameter scale · ED138 size depends on assumed reflectivity, not a direct measurement.</p>
    </div>
+     <p id="ed138AlbedoHelp" class="ed138-readout" role="status">At 10% reflectivity, an object with H<sub>V</sub> = 3.19 would be about 967 km wide. A darker surface requires a larger body to reflect the same amount of light.</p>
    <p class="scale-caption">Formula: diameter (km) ≈ 1,329 × 10<sup>−H/5</sup> ÷ √(geometric albedo), with H<sub>V</sub> = 3.19. The highlighted range assumes 4–25% reflectivity, not a measured probability distribution. The comparison uses Pluto's approximate 2,377 km diameter. This diagram encodes <strong>diameter only</strong>; color, shape, surface and orbit are not inferred. Sources: <a href="https://arxiv.org/abs/2610.38693" target="_blank" rel="noopener noreferrer">discovery paper</a>, <a href="https://science.nasa.gov/dwarf-planets/pluto/facts/" target="_blank" rel="noopener noreferrer">NASA Pluto facts</a>.</p>
   </div>
  </div>

@@ -47,10 +47,12 @@
           <button type="button" id="diameterLensPlay" aria-pressed="false" aria-controls="diameterLensCanvas">Pull back over 7 seconds</button>
           <button type="button" id="diameterLensReset" aria-controls="diameterLensCanvas">Restart at smaller planet</button>
         </div>
+        <div class="diameter-lens-scrub">
+          <label class="diameter-lens-label" for="diameterLensProgress">Camera pullback <output id="diameterLensPosition" for="diameterLensProgress">Close view</output></label>
+          <input id="diameterLensProgress" type="range" min="0" max="100" value="0" step="1"/>
+        </div>
         <canvas id="diameterLensCanvas" width="900" height="320" aria-label="A shared-camera view of the selected planets. The slider moves from the smaller planet close up to a wide view containing both planets."></canvas>
       </div>
-      <label class="diameter-lens-label" for="diameterLensProgress">Camera pullback <output id="diameterLensPosition" for="diameterLensProgress">Close view</output></label>
-      <input id="diameterLensProgress" type="range" min="0" max="100" value="0" step="1"/>
       <p class="diameter-lens-readout" role="status" id="diameterLensReadout">Earth and Jupiter keep their measured 11.21× equatorial diameter ratio at every camera zoom. Initial close framing intentionally crops the larger world.</p>
       <p class="scale-caption">Reference: <a href="https://www.jpl.nasa.gov/edu/resources/video/solar-system-size-and-distance/" target="_blank" rel="noopener noreferrer">NASA/JPL Size and Distance</a>. Planetary diameter ratios come from the existing source data; these colored shapes are diagrammatic, and planet separation is not drawn to true scale.</p>
     </section>

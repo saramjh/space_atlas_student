@@ -20,6 +20,8 @@ function initialize() {
  const bar = lab.querySelector('#ed138SelectedBar');
  const chartText = lab.querySelector('#ed138ChartEstimate');
  const explanation = lab.querySelector('#ed138AlbedoHelp');
+ const mobileValue=lab.querySelector('#ed138MobileDiameter');
+ const mobileBar=lab.querySelector('#ed138MobileBar');
  const presets = [...lab.querySelectorAll('[data-ed138-albedo]')];
  function render() {
    const pct = Number(slider.value);
@@ -27,6 +29,8 @@ function initialize() {
    const px = 582 * (km / PLUTO_DIAMETER_KM);
    out.textContent = `${pct}%`;
    diameter.textContent = `≈ ${km.toLocaleString('en-US')} km`;
+   if(mobileValue)mobileValue.textContent=diameter.textContent;
+   if(mobileBar)mobileBar.style.width=(km/PLUTO_DIAMETER_KM*100).toFixed(2)+'%';
    diameter.nextElementSibling.textContent = `estimated diameter · ${pct}% reflectivity`;
    bar.setAttribute('width', px.toFixed(2));
    chartText.setAttribute('x', Math.min(750, 185 + px + 11).toFixed(2));

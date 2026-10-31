@@ -2338,3 +2338,123 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
  .atlas-feedback-dock select:focus-visible{outline:3px solid #ffd299;outline-offset:2px}
  .atlas-feedback-dock+*{scroll-margin-top:126px}
 }
+
+
+/* Desktop: only the eight observed action/scene separation cases use a
+   scene-adjacent task bar. Other lesson toolbars retain their own layouts. */
+@media(min-width:621px){
+ .atlas-feedback-dock:not([hidden]){display:flex;align-items:flex-start;gap:15px;
+   padding:12px 17px;background:#142c3c;color:#fff;
+   border:1px solid #537183;border-bottom:0}
+ .atlas-feedback-main{display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+   flex:1;min-width:0}
+ .atlas-feedback-item{min-width:0}
+ .atlas-feedback-item.is-action button{min-height:44px;padding:9px 15px;max-width:280px;
+   color:#f8f9f7;background:#235069;border:1px solid #8cadbb;
+   font:600 12px/1.35 var(--font-reading);cursor:pointer}
+ .atlas-feedback-item.is-action button[aria-pressed=true],
+ .atlas-feedback-item.is-action button.active{background:#ac5537;border-color:#ecc08b}
+ .atlas-feedback-item.is-field{display:flex;align-items:center;gap:12px;
+   padding:5px 9px;color:#f1f2ef;font:600 12px var(--font-reading);
+   background:#214154;border:1px solid #527080}
+ .atlas-feedback-item.is-field label{color:#f1f2ef;max-width:240px}
+ .atlas-feedback-item.is-field input[type=range]{width:clamp(120px,13vw,200px);accent-color:#f1c591}
+ .atlas-feedback-item.is-field select{min-height:40px;max-width:200px}
+ .atlas-feedback-details{min-width:140px;max-width:310px;border-left:1px solid #536c7b;padding-left:12px}
+ .atlas-feedback-details[hidden]{display:none}
+ .atlas-feedback-details>summary{cursor:pointer;min-height:44px;display:flex;
+   align-items:center;color:#fad5a0;font:600 12px var(--font-reading)}
+ .atlas-feedback-extra{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 0}
+ .atlas-feedback-extra .is-field{grid-column:span 2}
+ .atlas-feedback-dock button:focus-visible,.atlas-feedback-dock summary:focus-visible,
+ .atlas-feedback-dock input:focus-visible{outline:3px solid #ffd99e;outline-offset:2px}
+}
+
+
+/* Touch target quality: explicit minimums for interactive navigation outside
+   the dedicated experiment control panels. Preserve the position/scale of
+   decorative cosmic ruler stop markers; the nearby zoom navigation remains
+   the accessible alternative to the small numbered markers. */
+@media(max-width:620px){
+ .scene-controls>div:first-child button,.planet-quick-bar button,
+ .zoom-nav button,.emscale-toolbar button,.au-picker button,
+ .gravity-scenarios button,.ptype-controls button,
+ .planet-rule-picker button{min-height:44px;min-width:44px;
+   display:inline-flex;align-items:center;justify-content:center;
+   white-space:normal;line-height:1.3}
+ .scene-controls,.planet-quick-bar,.au-picker,.planet-rule-picker{
+   gap:6px}
+ .planet-quick-bar{overflow-x:auto;overscroll-behavior-inline:contain;
+   scroll-snap-type:x proximity;scrollbar-width:thin}
+ .planet-quick-bar button{scroll-snap-align:start;flex-shrink:0}
+ .zoom-nav button{padding:8px 12px}
+}
+
+/* Longer scientific control labels get enough room for accurate terminology. */
+@media(max-width:620px){
+ .atlas-feedback-main>.atlas-feedback-item.is-wide-label{grid-column:1/-1;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(112px,45%);
+  align-items:center;min-height:45px}
+ .atlas-feedback-main>.atlas-feedback-item.is-wide-label input[type=range]{height:32px}
+ .atlas-feedback-item.is-field output{color:#f4d39d;font-variant-numeric:tabular-nums;
+  white-space:nowrap;font-weight:700}
+}
+
+/* One action followed by one experiment variable is one sequential task,
+   not two half-width cards; give the value and slider an honest line. */
+@media(max-width:620px){
+ .atlas-feedback-main:has(>.is-action:first-child:nth-last-child(2))
+  >.is-field:last-child{grid-column:1/-1;display:grid;
+   grid-template-columns:minmax(0,1fr) minmax(112px,45%);
+   gap:8px;align-items:center;min-height:45px}
+ .atlas-feedback-main:has(>.is-action:first-child:nth-last-child(2))
+  >.is-field:last-child input[type=range]{height:32px}
+}
+
+/* Light-year's live progress label and percentage must never be crushed
+   into an unreadable half-column on narrow phones. */
+@media(max-width:620px){
+ .atlas-feedback-main:has(#lyPhotonSlider)>.atlas-feedback-item.is-field{
+  display:flex;flex-direction:column;align-items:stretch;gap:3px;min-height:56px}
+ .atlas-feedback-main:has(#lyPhotonSlider) .ly-journey-slider-label{
+  width:100%;max-width:none;display:flex;flex-direction:row;
+  justify-content:space-between;align-items:baseline;gap:6px;
+  overflow-wrap:normal;word-break:normal;line-height:1.25;margin:0;
+  font-size:11px}
+ .atlas-feedback-main:has(#lyPhotonSlider) .ly-journey-slider-label output{
+  font-size:13px;white-space:nowrap}
+ .atlas-feedback-main:has(#lyPhotonSlider) #lyPhotonSlider{width:100%;height:28px}
+}
+
+/* Educational task sequence: command + current value + live visual first.
+   Explanation follows, rather than hiding the visual consequence offscreen. */
+.diameter-lens-scrub{padding:9px 12px 8px;background:#17354a;border-bottom:1px solid #446173}
+.diameter-lens-scrub .diameter-lens-label{color:#f1f3ef;font-size:11px;margin:0 0 3px}
+.diameter-lens-scrub .diameter-lens-label output{color:#f4d5a0}
+.diameter-lens-scrub #diameterLensProgress{display:block;width:100%;min-height:32px;margin:0}
+.distance-guided-explanation{padding:8px 0 0}
+@media(max-width:620px){
+ .diameter-lens-scrub{padding:6px 9px}
+ .diameter-lens-scrub #diameterLensProgress{min-height:28px}
+ .ed138-lab-controls{margin:9px 0;gap:9px}
+}
+
+
+/* At 320px the detailed SVG labels become illegible. Preserve the desktop
+   scientific SVG; use readable, synced proportional comparison bars on phone. */
+.ed138-mobile-chart{display:none}
+@media(max-width:460px){
+ #ed138SizeChart{display:none}
+ .ed138-mobile-chart{display:grid;gap:14px;padding:14px 12px;
+  color:#eef1ed;background:#102533;border:1px solid #365261}
+ .ed138-mobile-row{display:grid;gap:6px}
+ .ed138-mobile-name{display:flex;justify-content:space-between;align-items:baseline;
+  gap:8px;font:600 12px/1.3 var(--font-reading)}
+ .ed138-mobile-name output,.ed138-mobile-name strong{white-space:nowrap;
+  font:700 13px/1.3 var(--font-data);color:#f0cb9e}
+ .ed138-mobile-row:nth-child(2) .ed138-mobile-name strong{color:#aed6e5}
+ .ed138-mobile-track{height:15px;background:#284551;border-radius:2px}
+ .ed138-mobile-track>span{height:100%;display:block;background:#e6b986;border-radius:2px}
+ .ed138-mobile-track .ed138-pluto-full{width:100%;background:#80b7c9}
+ .ed138-mobile-chart p{font:11px/1.5 var(--font-reading);color:#c0cfd1;margin:0}
+}
