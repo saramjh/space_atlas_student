@@ -20,7 +20,7 @@ for(const w of WORLDS){
 const doc='pages/solar-system/gravity-lab/content.html',js='assets/js/gravity-lab.js';
 assert.ok(existsSync(doc),'new standalone page exists');
 const html=readFileSync(doc,'utf8'),ctrl=readFileSync(js,'utf8');
-for(const id of ['gravityLabStart','gravityLabCanvas','gravityLabWorld','gravityLabJump','gravityLabPause','gravityLabJoystick','gravityLabLook','gravityLabHang','gravityLabHeight']){
+for(const id of ['gravityLabStart','gravityLabCanvas','gravityLabWorld','gravityLabJump','gravityLabReset','gravityLabJoystick','gravityLabLook','gravityLabHang','gravityLabHeight']){
  assert.ok(html.includes('id="'+id+'"'),'missing semantic control '+id);
 }
 assert.match(html,/nssdc.gsfc.nasa.gov\/planetary\/factsheet/);
@@ -45,7 +45,16 @@ assert.match(ctrl,/applyBackdrop\(tex\)/);
 assert.match(ctrl,/yaw-=dx/);
 assert.match(ctrl,/touch\.x=clamp/);
 assert.match(ctrl,/Math\.min\(devicePixelRatio\|\|1,lowPower\?1\.15:1\.65\)/);
-assert.match(ctrl,/if\(document\.hidden\)setPause\(true\)/);
+// The simulation is automatically suspended on tab hide and continues from
+// the frozen ballistic state after visibility returns. Manual Pause UI is gone.
+assert.doesNotMatch(html,/id="gravityLabPause"|>Pause<|>Resume</);
+assert.doesNotMatch(ctrl,/gravityLabPause|setPause|\bpaused\b/);
+assert.match(ctrl,/if\(document\.hidden\)suspend\(\);else if\(active\)wake\(\)/);
+assert.match(ctrl,/function suspend\(\)/);
+assert.match(ctrl,/last=0;keys\.clear\(\)/);
+assert.doesNotMatch(ctrl,/function suspend\(\)[\s\S]{0,260}air=grounded\(\)/);
+assert.match(ctrl,/if\(!active\|\|document\.hidden\|\|air\.airborne\)return/);
+
 assert.match(html,/id="gravityLabImageSource"/);
 assert.match(html,/no walkable solid surface/i);
 assert.match(html,/v₀² \/ \(2g\)/);

@@ -34,7 +34,7 @@ All assets are local. Real-planet photos are not photo evidence for our imaginar
 
 ## Input and performance
 
-Opt-in WebGL, shared existing Three.js import map, no new runtime dependencies. Desktop WASD/arrows, Space, mouse drag; touch joystick and look area with Jump button; pause/reset. Prevent autopilot. Cap pixel ratio 1.15 on low-power/touch, 1.65 desktop. No perpetual animation frames while idle. Pause when tab is hidden; prefers-reduced-motion removes optional camera effects and never removes the science animation itself. A server-rendered static table and source references remain functional without JS/WebGL.
+Opt-in WebGL, shared existing Three.js import map, no new runtime dependencies. Desktop WASD/arrows, Space, mouse drag; touch joystick and look area with Jump/Reset buttons; automatic tab suspend/resume. Prevent autopilot. Cap pixel ratio 1.15 on low-power/touch, 1.65 desktop. No perpetual animation frames while idle. Pause when tab is hidden; prefers-reduced-motion removes optional camera effects and never removes the science animation itself. A server-rendered static table and source references remain functional without JS/WebGL.
 
 ## Non-goals / next
 
@@ -48,3 +48,11 @@ Issue reported by learner: holding the mobile joystick prevented simultaneously 
 Fix: Jump activates immediately on touch/pen `pointerdown`; its existing mouse and keyboard click handling is preserved. Recent touch input suppresses a potential synthetic click after finger release, preventing a duplicate jump when local gravity is high. The Jump button applies `touch-action:none`, and the joystick maintains independent pointer capture.
 
 Verification (real Chromium CDP touch sequence, not a mocked pointer event): hold left joystick touch, move stick forward, press Jump with a second simultaneous touch. On finger down, status changed immediately to `Jumping in Earth gravity`; with both touches held, joystick movement changed direction while measured jump altitude advanced; releasing the second finger then the first led to exactly one completed Earth jump `0.46 m / 0.61 s`. Jupiter 0.26 s jump remained exactly once despite holding the jump finger beyond landing and releasing, and subsequent mouse click still initiated another jump. 390px viewport no horizontal overflow. Production full 147/147 tests passed. Physical iOS Safari/Android handset testing not performed.
+
+## 2026-10-31 simplified controls: no manual Pause/Resume
+
+Removed redundant manual Pause/Resume control. When the document becomes
+hidden, cancel RAF, clear held directional inputs, and reset the frame-time
+origin; do not reset airborne trajectory or the player position. When visible
+again, resume rendering and physics from the stored flight time without
+counting away-time. Keep Reset and existing touch joystick/Jump chord.

@@ -4,7 +4,7 @@ const container=$('gravityLabView'),canvas=$('gravityLabCanvas'),poster=$('gravi
 const choice=$('gravityLabWorld'),status=$('gravityLabStatus'),note=$('gravityLabWorldNote'),joystick=$('gravityLabJoystick'),stick=$('gravityLabStick'),look=$('gravityLabLook');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),coarse=matchMedia('(pointer: coarse)');
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),fmt=n=>n.toFixed(2);
-let model=worldById(choice.value),engine=null,active=false,loading=false,paused=false,air=grounded(),jumpCount=0;
+let model=worldById(choice.value),engine=null,active=false,loading=false,air=grounded(),jumpCount=0;
 const VISUAL_PROVENANCE={
  earth:['NASA Apollo 17 Earth photograph','https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a17_h_148_22727.html'],
  moon:['NASA Apollo 17 lunar photograph','https://science.nasa.gov/asset/hubble/apollo-17-astronauts-snapshot-of-taurus-littrow-valley/'],
@@ -39,18 +39,12 @@ function landing(){
  status.textContent=model.name+' jump '+jumpCount+': '+fmt(air.peak)+' m high, '+fmt(air.elapsed)+' s in the air.';
 }
 function doJump(){
- if(!active||paused||air.airborne)return;
+ if(!active||document.hidden||air.airborne)return;
  air=startJump();status.textContent='Jumping in '+model.name+' gravity…';engine?.wake();
 }
 function reset(){
  air=grounded();jumpCount=0;engine?.resetPosition();showLive();
  $('gravityLabLast').textContent='Ready to test';status.textContent='Position and jump reset.';
-}
-function setPause(v){
- paused=!!v;$('gravityLabPause').textContent=paused?'Resume':'Pause';
- $('gravityLabPause').setAttribute('aria-pressed',String(paused));
- if(paused)engine?.pause();else engine?.wake();
- status.textContent=paused?'Simulation paused.':'Simulation resumed.';
 }
 choice.addEventListener('change',()=>{model=worldById(choice.value);readout();});
 // Touchscreen browsers can suppress a second finger's synthesized click while
@@ -70,7 +64,6 @@ jumpAction.addEventListener('click',e=>{
  if(e.detail>0&&(e.pointerType==='touch'||e.pointerType==='pen'||performance.now()-lastTouchJumpAt<700))return;
  doJump();
 });
-$('gravityLabPause').addEventListener('click',()=>setPause(!paused));
 $('gravityLabReset').addEventListener('click',reset);
 $('gravityLabStart').addEventListener('click',async()=>{
  if(loading||active)return;loading=true;$('gravityLabStart').disabled=true;
@@ -165,7 +158,7 @@ async function buildChamber(){
  }
  function lookDelta(dx,dy){yaw-=dx*(lowPower?.006:.004);pitch=clamp(pitch-dy*(lowPower?.006:.004),-1.05,1.05);wake();}
  function frame(now){
-  raf=null;if(dead||paused||document.hidden||!active)return;
+  raf=null;if(dead||document.hidden||!active)return;
   const dt=last?clamp((now-last)/1000,0,.05):0;last=now;
   if(air.airborne){
    let left=dt;
@@ -185,10 +178,16 @@ async function buildChamber(){
   render();
   if(air.airborne||len>.01||pointer!==null||stickPointer!==null)wake();
  }
- function wake(){if(!dead&&!paused&&!document.hidden&&raf===null){if(last===0)last=performance.now();raf=requestAnimationFrame(frame);}}
- function pause(){if(raf!==null)cancelAnimationFrame(raf);raf=null;last=0;keys.clear();touch.x=0;touch.z=0;setStick(0,0);}
+ function wake(){if(!dead&&!document.hidden&&raf===null){if(last===0)last=performance.now();raf=requestAnimationFrame(frame);}}
+ // Stop input and RAF, while preserving airborne trajectory and position.
+ // Reset the frame-time origin so a hidden tab cannot cause a jump in time.
+ function suspend(){
+  if(raf!==null)cancelAnimationFrame(raf);
+  raf=null;last=0;keys.clear();touch.x=0;touch.z=0;setStick(0,0);
+  pointer=null;stickPointer=null;lookPointer=null;
+ }
  function keydown(e){
-  if(!active||paused||['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement?.tagName))return;
+  if(!active||document.hidden||['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement?.tagName))return;
   if(e.code==='Space'){e.preventDefault();if(!e.repeat)doJump();return;}
   if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)){
    e.preventDefault();keys.add(e.code);wake();
@@ -213,11 +212,11 @@ async function buildChamber(){
  look.addEventListener('pointermove',e=>{if(!lookPointer||e.pointerId!==lookPointer.id)return;lookDelta(e.clientX-lookPointer.x,e.clientY-lookPointer.y);lookPointer.x=e.clientX;lookPointer.y=e.clientY;});
  const lookEnd=e=>{if(lookPointer?.id===e.pointerId)lookPointer=null;};
  look.addEventListener('pointerup',lookEnd);look.addEventListener('pointercancel',lookEnd);
- const visibility=()=>{if(document.hidden)setPause(true);};
+ const visibility=()=>{if(document.hidden)suspend();else if(active)wake();};
  document.addEventListener('visibilitychange',visibility);
  resize();resetPosition();
- return {setWorld,resetPosition,wake,pause,dispose(){
-  dead=true;pause();observer.disconnect();document.removeEventListener('keydown',keydown);document.removeEventListener('keyup',keyup);
+ return {setWorld,resetPosition,wake,suspend,dispose(){
+  dead=true;suspend();observer.disconnect();document.removeEventListener('keydown',keydown);document.removeEventListener('keyup',keyup);
   document.removeEventListener('visibilitychange',visibility);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());
   textures.forEach(t=>t.dispose());renderer.dispose();
  }};
