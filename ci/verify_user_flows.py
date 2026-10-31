@@ -94,14 +94,14 @@ def main():
         parsed = PageParser()
         parsed.feed(p.read_text(encoding="utf-8"))
         documents[route] = parsed
-    assert len(documents) == 30, f"expected 28 learning pages, updates and privacy, got {len(documents)}"
+    assert len(documents) == 31, f"expected 29 learning pages, updates and privacy, got {len(documents)}"
     assert len(set(documents)) == len(documents)
     home = documents["/"]
     for anchor in ("atlas-directory", *CATEGORIES.values()):
         assert anchor in home.ids, f"missing real homepage category anchor {anchor}"
 
     topic_pages = set(documents) - {"/", "/updates/", "/privacy/"}
-    assert len(topic_pages) == 27
+    assert len(topic_pages) == 28
     inbound = Counter()
     main_edges = set()
     broken = []
@@ -186,7 +186,7 @@ def main():
         f"Navigation/user-flow PASS: {len(documents)} indexable pages, "
         f"{len(topic_pages)} topic pages, {len(main_edges)} distinct contextual edges, "
         "0 broken routes/fragments, 0 orphan lessons, 0 duplicate 'Go deeper' destinations, "
-        "26 functional category crumbs, homepage directory and matching sitemap."
+        "28 functional category crumbs, homepage directory and matching sitemap."
     )
 
 if __name__ == "__main__":

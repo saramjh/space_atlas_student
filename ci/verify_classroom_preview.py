@@ -13,7 +13,7 @@ with tempfile.TemporaryDirectory(prefix='space-atlas-classroom-test-') as parent
  res=subprocess.run(['python3','build.py'],cwd=ROOT,env=env,capture_output=True,text=True)
  assert res.returncode==0,(res.stdout+res.stderr)[-1800:]
  pages=list(dest.rglob('index.html'))
- assert len(pages)==30,len(pages)
+ assert len(pages)==31,len(pages)
  assert (dest/'assets/js/eclipse-geometry.js').is_file()
  assert (dest/'assets/vendor/three/build/three.module.js').is_file()
  assert (dest/'assets/vendor/three/build/three.core.js').is_file()

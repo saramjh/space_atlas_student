@@ -47,7 +47,7 @@ for(const page of ['pages/solar-system/pluto-dwarf-planet/content.html','pages/s
 for(const back of ['solar-system/pluto-dwarf-planet','solar-system/astronomical-unit','sources/space-resources-for-students','solar-system/distance-scale'])assert.ok(html.includes('/space_atlas_student/'+back+'/'),'bidirectional learning link '+back);
 const sitemap=read('public/sitemap.xml');
 assert.match(sitemap,/2026-ed138-dwarf-planet-candidate/);
-assert.equal((sitemap.match(/<url>/g)||[]).length,30);
+assert.equal((sitemap.match(/<url>/g)||[]).length,31);
 const index=JSON.parse(read('public/assets/search-index.json'));
 assert.ok(JSON.stringify(index).includes('2026 ED138'));
 console.log('ED138_SCIENCE_ALBEDO_LICENSE_SOURCE_SEO_AEO_GEO_INTERNAL_LINKS_PASS');

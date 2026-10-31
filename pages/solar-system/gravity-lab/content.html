@@ -1,0 +1,85 @@
+<nav class="breadcrumb-wrap wrap" aria-label="Breadcrumb"><a href="{{BASE}}/">Home</a> <span class="breadcrumb-sep">/</span> <a class="breadcrumb-category" href="{{BASE}}/#topics-solar-system">Solar System</a> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current" aria-current="page">Gravity Lab</span></nav>
+<section class="page-intro gl-intro">
+  <div class="wrap"><div class="kicker">Solar system · Interactive physics</div>
+    <h1>Gravity Lab: the same jump on nine worlds.</h1>
+    <p class="lead">How high would you jump on the Moon? Keep the <strong>same 3.0 m/s launch speed</strong>, change only gravity, and watch how long it takes to land. Walk around a first-person training platform and compare what your jump reveals.</p>
+  </div>
+</section>
+<section class="gl-experiment-section">
+  <div class="wrap">
+    <div class="gl-shell" id="gravityLab">
+      <div class="gl-topline">
+        <div><div class="gl-eyebrow">EXPERIMENT 01 / CONTROLLED VARIABLES</div><h2>One jumper. Different gravity.</h2></div>
+        <div class="gl-rule"><span>70 kg reference mass</span><span>3.0 m/s takeoff</span><span>Gravity changes</span></div>
+      </div>
+      <div class="gl-world-control">
+        <label for="gravityLabWorld">Select gravity environment</label>
+        <select id="gravityLabWorld">
+          <option value="earth">Earth — 1.00×</option>
+          <option value="moon">Moon — 0.16×</option>
+          <option value="mars">Mars — 0.38×</option>
+          <option value="mercury">Mercury — 0.38×</option>
+          <option value="venus">Venus — 0.91×</option>
+          <option value="jupiter">Jupiter — 2.36×</option>
+          <option value="saturn">Saturn — 0.92×</option>
+          <option value="uranus">Uranus — 0.89×</option>
+          <option value="neptune">Neptune — 1.12×</option>
+        </select>
+        <div class="gl-world-readout"><strong id="gravityLabG">9.8 m/s²</strong><span id="gravityLabWeight">686 N on a 70 kg mass</span></div>
+      </div>
+      <div class="gl-view" id="gravityLabView">
+        <canvas id="gravityLabCanvas" tabindex="0" aria-label="First-person artificial gravity test chamber. WASD or arrows to walk, Space to jump, drag to look."></canvas>
+        <div class="gl-visual-fallback" id="gravityLabPoster" style="background-image:url('{{BASE}}/assets/images/gravity-mars-jezero.webp')">
+          <div class="gl-visual-shade"></div><div class="gl-poster-copy"><span class="gl-eyebrow">FIELD TEST / 01</span><strong>Stand on the same deck.<br>Change the downward pull.</strong><p>First-person walking and jumping in an artificial gravity chamber.</p><button type="button" id="gravityLabStart">Enter gravity lab</button></div>
+          <p>Image reference: NASA/JPL-Caltech Perseverance. The platform is an artificial learning environment.</p>
+        </div>
+        <div class="gl-hud" id="gravityLabHud" hidden>
+          <div class="gl-hud-corner"><span id="gravityLabWorldHud">EARTH GRAVITY</span><strong id="gravityLabLiveHeight">0.00 m</strong><span>HEIGHT ABOVE DECK</span></div>
+          <div class="gl-reticle" aria-hidden="true"></div>
+          <div class="gl-image-note">SIMULATED LAB · LANDSCAPE IS REFERENCE IMAGERY</div>
+          <div class="gl-game-actions">
+            <button type="button" id="gravityLabJump">Jump <span>Space</span></button>
+            <button type="button" id="gravityLabPause" aria-pressed="false">Pause</button>
+            <button type="button" id="gravityLabReset">Reset</button>
+          </div>
+          <div id="gravityLabJoystick" class="gl-joystick" aria-label="Touch movement pad: drag to walk"><span class="gl-joystick-thumb" id="gravityLabStick"></span></div>
+          <div id="gravityLabLook" class="gl-look" aria-label="Touch look area: drag to turn"></div>
+        </div>
+      </div>
+      <div class="gl-instrument">
+        <div><span>EXPECTED PEAK</span><strong id="gravityLabHeight">0.46 m</strong></div>
+        <div><span>EXPECTED AIR TIME</span><strong id="gravityLabHang">0.61 s</strong></div>
+        <div><span>LAST COMPLETED JUMP</span><strong id="gravityLabLast">Ready to test</strong></div>
+      </div>
+      <div class="gl-controls-help"><p id="gravityLabStatus" role="status" aria-live="polite">Choose an environment, then enter the lab. Controls work with a keyboard or touch.</p><p><strong>Desktop:</strong> WASD / arrow keys move · drag to look · Space to jump · Esc or Pause to stop. <strong>Mobile:</strong> left pad moves · swipe the view to look · Jump button.</p></div>
+      <p class="gl-caveat"><span id="gravityLabWorldNote">Earth-like gravity is reproduced inside a fictional level test chamber. This is not a visit to any real planetary surface. Backgrounds use sourced space imagery.</span> Selected-world observation image: <a id="gravityLabImageSource" href="https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a17_h_148_22727.html" target="_blank" rel="noopener noreferrer">NASA Apollo 17 Earth photograph</a>. Imagery is cropped as a conceptual observation wall, not a navigable landscape.</p>
+      <noscript><p>This page includes a static physics comparison below. Interactive 3D walking requires JavaScript and a supported browser.</p></noscript>
+    </div>
+  </div>
+</section>
+<section class="section"><div class="wrap">
+  <div class="section-head"><div class="section-id">Science behind the jump</div><div><h2>Gravity changes the *entire* jump arc.</h2><p>With the same idealized launch speed, the upward velocity falls steadily under each world's constant downward acceleration.</p></div></div>
+  <div class="gl-science">
+    <div><h3>A reproducible comparison</h3><p>Our test person has a fixed <strong>70 kg mass</strong>. A training launcher gives the same <strong>3.0 m/s takeoff speed</strong> everywhere, regardless of how muscles, spacesuits or fatigue might really behave. No air resistance, atmospheric drag or changing gravity with height is included.</p>
+      <p><strong>Maximum height:</strong> v₀² / (2g). <strong>Air time:</strong> 2v₀ / g. <strong>Weight force:</strong> mass × g, in newtons. Mass stays 70 kg; force changes.</p>
+      <p>For example, an Earth jump rises about 0.46 m, while the identical Moon launch rises about 2.81 m using the rounded NASA gravity figures below. This is a numerical model, not a documented human jump record.</p></div>
+    <div><h3>Same person; one changing variable</h3><table class="gl-table"><thead><tr><th>Place / test condition</th><th>Gravity</th><th>Jump height</th></tr></thead><tbody>
+      <tr><td>Earth</td><td>9.8 m/s²</td><td>0.46 m</td></tr>
+      <tr><td>Moon</td><td>1.6 m/s²</td><td>2.81 m</td></tr>
+      <tr><td>Mars</td><td>3.7 m/s²</td><td>1.22 m</td></tr>
+      <tr><td>Jupiter reference level*</td><td>23.1 m/s²</td><td>0.19 m</td></tr>
+    </tbody></table><p class="gl-small">*Jupiter has no walkable solid surface. Its gravity here is modeled in an artificial platform; not a prediction of surviving or walking in Jupiter’s atmosphere.</p></div>
+  </div>
+</div></section>
+
+{{AD_PRIMARY}}
+
+<section class="section"><div class="wrap"><div class="section-head"><div class="section-id">Look closer</div><div><h2>What is real, and what is a model?</h2></div></div>
+  <div class="gl-evidence">
+    <p><strong>Numerical source:</strong> NASA NSSDC <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank" rel="noopener noreferrer">Planetary Fact Sheet</a> — rounded gravity values in m/s². NASA's giant-planet figures refer to atmospheric levels; they are not solid floors.</p>
+    <p><strong>Visual references:</strong> Moon: <a href="https://science.nasa.gov/asset/hubble/apollo-17-astronauts-snapshot-of-taurus-littrow-valley/" target="_blank" rel="noopener noreferrer">NASA Apollo 17 Taurus–Littrow scene</a>. Mars: <a href="https://science.nasa.gov/resource/the-end-of-one-drive-by-perseverance-on-the-floor-of-jezero-crater/" target="_blank" rel="noopener noreferrer">NASA/JPL-Caltech Perseverance Jezero imagery</a>. Earth and giant-planet imagery come from existing credited Space Atlas NASA/JPL assets. Backgrounds are illustrative context, not exact surface or atmospheric simulations.</p>
+    <p><strong>Limitations:</strong> A fictional test deck holds the person safely on every world, including Venus and the four giants. Movement speed is an input convention and is held constant; the simulation primarily models vertical free fall. It does not simulate pressure, temperature, life support, real walking biomechanics, orbital motion or observed terrain dimensions.</p>
+    <p>Continue learning: <a href="{{BASE}}/solar-system/gravity-comparison/">compare planetary weight</a> or <a href="{{BASE}}/solar-system/gravity-and-orbits/">explore gravity and orbits</a>.</p>
+  </div>
+</div></section>
+<section class="section section-last"><div class="wrap"><h2>What would you predict?</h2><p>Before switching from Earth to the Moon, predict whether your jump height changes by less than twice, about three times, or more than five times. Then enter the lab, jump once on each, and explain the result using the gravity readings.</p></div></section>

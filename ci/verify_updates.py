@@ -72,9 +72,9 @@ if parse.jsonld:
                 "https://saramjh.github.io/space_atlas_student/updates/", "canonical mismatch")
         require(collections[0].get("dateModified") == records[0]["date"], "lastmod must be latest release date")
 require("ad-slot" not in html and "adsbygoogle.js" not in html, "release page must be ad-free")
-require(len(search) == 28 and all(x["path"] != "/updates/" for x in search),
+require(len(search) == 29 and all(x["path"] != "/updates/" for x in search),
         "release page incorrectly included in lesson search")
-require("28 topics" in index or 'Search <kbd>/</kbd>' in index, "learning search placeholder changed")
+require("29 topics" in index or 'Search <kbd>/</kbd>' in index, "learning search placeholder changed")
 require('class="home-update-note"' in index and '/updates/' in index, "home release entry missing")
 require("id=\"for-learners\"" in html and "id=\"for-educators\"" in html and
         "id=\"for-builders\"" in html, "reader pathways missing")
@@ -95,7 +95,7 @@ for href in parse.hrefs:
         require((PUBLIC / clean / "index.html").is_file() or (PUBLIC / clean).is_file(),
                 f"broken local link {href}")
 sitemap = (PUBLIC / "sitemap.xml").read_text(encoding="utf-8")
-require(sitemap.count("<url>") == 30, "30 public sitemap pages required")
+require(sitemap.count("<url>") == 31, "31 public sitemap pages required")
 require("<loc>https://saramjh.github.io/space_atlas_student/updates/</loc>" in sitemap,
         "sitemap missing release page")
 for entry in PUBLIC.rglob("index.html"):
@@ -109,4 +109,4 @@ if errors:
     for e in errors:
         print(" -", e)
     sys.exit(1)
-print(f"Release history gate PASS: {len(records)} verified milestones, 28 learning pages, 1 updates CollectionPage")
+print(f"Release history gate PASS: {len(records)} verified milestones, 29 learning pages, 1 updates CollectionPage")

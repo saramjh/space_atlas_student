@@ -98,7 +98,7 @@ for path in source_pages:
 sitemap = ET.parse(PUBLIC / "sitemap.xml")
 ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 locations = [element.text for element in sitemap.findall(".//s:loc", ns)]
-assert len(locations) == len(set(locations)) == len(canonical_urls) == 30, "Sitemap duplicates or missing pages"
+assert len(locations) == len(set(locations)) == len(canonical_urls) == 31, "Sitemap duplicates or missing pages"
 assert set(locations) == canonical_urls, "Sitemap URLs disagree with canonical pages"
 robots = (PUBLIC / "robots.txt").read_text(encoding="utf-8")
 assert f"Sitemap: {PREFIX}sitemap.xml" in robots, "Project robots copy must reference correct sitemap"

@@ -1,0 +1,15 @@
+{
+  "path": "/solar-system/gravity-lab/",
+  "title": "Gravity Lab: Jump on the Moon, Mars & Every Planet | Space Atlas",
+  "description": "Experience nine gravity settings in a first-person laboratory. Jump with the same launch speed on Earth, the Moon, Mars and every planet; measure jump height and hang time.",
+  "canonical": "https://saramjh.github.io/space_atlas_student/solar-system/gravity-lab/",
+  "ogTitle": "Gravity Lab \u2014 The Same Jump, Nine Worlds | Space Atlas",
+  "ogDescription": "Walk, jump and compare gravity on Earth, the Moon, Mars and eight planets in an interactive virtual test chamber.",
+  "ogImage": "https://saramjh.github.io/space_atlas_student/assets/images/gravity-mars-jezero.webp",
+  "jsonldName": "Gravity Lab: Same Jump, Different Gravity",
+  "jsonldDescription": "An educational first-person artificial gravity laboratory comparing jump height, hang time and force from NASA gravity data across Earth, Moon and eight planets.",
+  "script": "/assets/js/gravity-lab.js",
+  "learningResourceType": "Interactive simulation",
+  "interactivityType": "active",
+  "secondaryAd": false
+}
