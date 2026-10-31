@@ -1,7 +1,20 @@
 import assert from 'node:assert/strict';
-import {COURSE,BOOST_CAPACITY_SECONDS,RECHARGE_SECONDS,NET_BOOST_MPS2,
+import {COURSE,buildCourse,MAX_LEVEL,BOOST_CAPACITY_SECONDS,RECHARGE_SECONDS,NET_BOOST_MPS2,
  spawnFlight,launchFlight,advanceFlight,findLanding,landFlight} from '../assets/js/gravity-flight-physics.js';
 assert.equal(COURSE.length,4);
+assert.equal(MAX_LEVEL,8);
+for(let level=1;level<=MAX_LEVEL;level++){
+ const course=buildCourse(level);
+ assert.equal(course.length,level+3);
+ assert.equal(course.at(-1).id,'finish');
+ for(let i=1;i<course.length;i++){
+  assert.ok(course[i].z<course[i-1].z);
+  assert.ok(course[i].top>=course[i-1].top);
+  assert.ok(course[i-1].z-course[i].z<=6.01,'reachable gap');
+ }
+ assert.equal(spawnFlight(course.length-1,course).y,course.at(-1).top);
+}
+assert.throws(()=>buildCourse(9),RangeError);
 for(const g of [1.6,3.7,9.8,23.1]){
  let s=launchFlight(spawnFlight());
  const no=advanceFlight(s,.02,g,false),yes=advanceFlight(s,.02,g,true);
@@ -35,12 +48,13 @@ assert.throws(()=>advanceFlight(spawnFlight(),.1,9.8,false),RangeError);
 assert.ok(NET_BOOST_MPS2>0);
 const html=(await import('node:fs')).readFileSync('pages/solar-system/gravity-lab/content.html','utf8');
 const js=(await import('node:fs')).readFileSync('assets/js/gravity-lab.js','utf8');
-for(const id of ['gravityLabModeScience','gravityLabModeFlight','gravityLabBoost','gravityLabBoostFill','gravityLabFlightStatus','gravityLabFlightInfo']){
+for(const id of ['gravityLabModeScience','gravityLabModeFlight','gravityLabJump','gravityLabBoostFill','gravityLabFlightStatus','gravityLabFlightInfo','gravityLabReward','gravityLabNextLevel']){
  assert.ok(html.includes('id="'+id+'"'),'missing flight UI: '+id);
 }
 assert.match(js,/from '.\/gravity-flight-physics.js'/);
 assert.match(js,/Flight Trials/);
-assert.match(js,/boostAction.addEventListener\('pointerdown'/);
+assert.match(js,/jumpAction\.addEventListener\('pointerdown'/);
+assert.match(js,/refreshHeldJump\(now\)/);
 assert.match(js,/setMode\(/);
 assert.match(js,/findLanding\(/);
 assert.match(js,/COURSE/);
@@ -48,9 +62,14 @@ assert.match(js,/gravityLabModeScience/);
 assert.match(js,/labDecor\.visible=next==='science'/);
 assert.match(js,/courseDecor\.visible=next==='flight'/);
 assert.match(js,/trial\.totalBoostSeconds/);
-assert.match(js,/boostAction\.addEventListener\('pointerup'/);
-assert.match(js,/boostAction\.addEventListener\('pointercancel'/);
-assert.match(js,/boostAction\.addEventListener\('lostpointercapture'/);
+assert.match(js,/\['pointerup','pointercancel','lostpointercapture'\]/);
+assert.match(js,/releaseJump\(e\.pointerId\)/);
+assert.match(js,/checkpointFlash\(/);
+assert.match(js,/showReward\(/);
+assert.match(js,/nextLevel\.addEventListener\('click'/);
+assert.match(html,/id="gravityLabWorldRail"/);
+assert.doesNotMatch(html,/id="gravityLabWorld"/);
+assert.doesNotMatch(html,/id="gravityLabBoost"/);
 assert.match(js,/resetFlight\(\)/);
 assert.match(js,/if\(document\.hidden\)suspend\(\)/);
 assert.match(html,/ASSISTED THRUST · NOT A NATURAL JUMP/);

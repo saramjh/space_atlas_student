@@ -20,7 +20,7 @@ for(const w of WORLDS){
 const doc='pages/solar-system/gravity-lab/content.html',js='assets/js/gravity-lab.js';
 assert.ok(existsSync(doc),'new standalone page exists');
 const html=readFileSync(doc,'utf8'),ctrl=readFileSync(js,'utf8');
-for(const id of ['gravityLabStart','gravityLabCanvas','gravityLabWorld','gravityLabJump','gravityLabReset','gravityLabJoystick','gravityLabLook','gravityLabHang','gravityLabHeight']){
+for(const id of ['gravityLabStart','gravityLabCanvas','gravityLabJump','gravityLabReset','gravityLabJoystick','gravityLabLook','gravityLabHang','gravityLabHeight']){
  assert.ok(html.includes('id="'+id+'"'),'missing semantic control '+id);
 }
 assert.match(html,/nssdc.gsfc.nasa.gov\/planetary\/factsheet/);
@@ -35,7 +35,7 @@ assert.match(ctrl,/pointerdown/);
 assert.match(ctrl,/jumpAction\.addEventListener\('pointerdown',e=>/);
 assert.match(ctrl,/lastTouchJumpAt=performance\.now\(\)/);
 assert.match(ctrl,/jumpAction\.addEventListener\('click',e=>/);
-assert.match(ctrl,/e\.pointerType==='touch'/);
+assert.match(ctrl,/e\.pointerType!=='touch'/);
 assert.match(ctrl,/e\.detail>0.*lastTouchJumpAt<700/);
 assert.match(readFileSync('assets/css/style.css','utf8'),/\.gl-game-actions #gravityLabJump\{touch-action:none/);
 assert.match(ctrl,/keydown/);
@@ -61,24 +61,23 @@ assert.match(html,/no walkable solid surface/i);
 assert.match(html,/v₀² \/ \(2g\)/);
 // The image-led picker must remain a real, accessible control, not a
 // decorative poster or a second source of truth for gravity calculations.
-for(const id of ['gravityLabWorldRail','gravityLabWorldFeature','gravityLabWorldImage',
-  'gravityLabWorldName','gravityLabWorldKind','gravityLabRatio','gravityLabWorldIndex',
-  'gravityLabWorldPrediction','gravityLabWorldPrev','gravityLabWorldNext','gravityLabForceBar']){
+for(const id of ['gravityLabWorldRail','gravityLabWorldName','gravityLabWorldKind','gravityLabRatio',
+  'gravityLabWorldPrediction','gravityLabWorldPrev','gravityLabWorldNext']){
  assert.ok(html.includes('id="'+id+'"'),'Missing visual world selector '+id);
 }
 assert.match(ctrl,/function buildWorldPicker\(\)/);
 assert.match(ctrl,/function syncWorldPicker\(\)/);
-assert.match(ctrl,/choice\.dispatchEvent\(new Event\('change'/);
+assert.match(ctrl,/model=worldById\(id\);readout\(\)/);
 assert.match(ctrl,/rail\.addEventListener\('keydown'/);
 assert.match(ctrl,/aria-pressed/);
 assert.match(ctrl,/scrollTo\(/);
 assert.match(ctrl,/predictJump\(w\.g\)/);
 assert.match(ctrl,/prefers-reduced-motion/);
-assert.match(html,/IMAGE NOT TO SCALE/);
+assert.match(html,/Images are not scaled to true diameters/);
 assert.match(html,/id="gravityLabSelectorCredit"/);
 assert.match(ctrl,/thumbnailCredit\[w\.id\]/);
 
-assert.match(html,/SWIPE OR USE THE ARROWS/);
+assert.match(html,/Swipe or use arrows/);
 for (const id of ['earth','moon','mars','mercury','venus','jupiter','saturn','uranus','neptune']){
  const img='assets/images/gravity-choice-'+id+'.webp';
  assert.ok(existsSync(img),'NASA-source-backed picker thumbnail '+id);

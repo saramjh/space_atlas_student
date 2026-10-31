@@ -4,14 +4,28 @@ import {TAKEOFF_MPS} from './gravity-lab-physics.js';
 export const BOOST_CAPACITY_SECONDS=1;
 export const RECHARGE_SECONDS=2.5;
 export const NET_BOOST_MPS2=5.5;
-export const COURSE=Object.freeze([
- Object.freeze({id:'launch',label:'LAUNCH',x:0,z:4,width:6,depth:7,top:0}),
- Object.freeze({id:'approach',label:'GATE 01',x:0,z:-2,width:3.6,depth:3.6,top:0.72}),
- Object.freeze({id:'crossing',label:'GATE 02',x:1.4,z:-7,width:3.6,depth:3.6,top:1.18}),
- Object.freeze({id:'finish',label:'FINISH',x:0,z:-12,width:4.4,depth:4.1,top:1.5})
-]);
-export function spawnFlight(checkpoint=0){
- const p=COURSE[checkpoint];
+// A deterministic, bounded generator makes each completed stage longer without
+// random impossible gaps. Levels 1..8 have 3..10 checkpoints.
+export const MAX_LEVEL=8;
+export function buildCourse(level=1){
+ if(!Number.isInteger(level)||level<1||level>MAX_LEVEL)throw new RangeError('invalid stage');
+ const n=level+2;
+ const course=[Object.freeze({id:'launch',label:'LAUNCH',x:0,z:4,width:6,depth:7,top:0})];
+ for(let i=1;i<=n;i++){
+  const x=(i%3===0?-1.0:i%3===2?1.35:0);
+  course.push(Object.freeze({
+   id:i===n?'finish':'gate-'+i,
+   label:i===n?'FINISH':'GATE '+String(i).padStart(2,'0'),
+   x,z:-2-(i-1)*(4.9+Math.min(level-1,4)*.12),
+   width:i===n?4.4:3.6,depth:i===n?4.1:3.6,
+   top:Math.min(1.7,.72+(i-1)*.24)
+  }));
+ }
+ return Object.freeze(course);
+}
+export const COURSE=buildCourse(1);
+export function spawnFlight(checkpoint=0,course=COURSE){
+ const p=course[checkpoint];
  if(!p)throw new RangeError('invalid checkpoint');
  return {y:p.top,vy:0,grounded:true,energy:1,usedSeconds:0,
   airSeconds:0,peak:p.top,boosting:false,landed:false};
@@ -39,9 +53,9 @@ export function advanceFlight(state,dt,g,boostHeld){
   usedSeconds:state.usedSeconds+actualBoost,airSeconds:state.airSeconds+dt,
   peak:Math.max(state.peak,nextY),landed:false};
 }
-export function findLanding(before,after,x,z){
+export function findLanding(before,after,x,z,course=COURSE){
  if(after.vy>0||after.y>before.y)return null;
- return [...COURSE].reverse().find(p=>{
+ return [...course].reverse().find(p=>{
   const inside=Math.abs(x-p.x)<=p.width/2-0.13&&Math.abs(z-p.z)<=p.depth/2-0.13;
   return inside&&before.y+0.035>=p.top&&after.y<=p.top;
  })||null;

@@ -1,12 +1,12 @@
 import {PERSON_MASS_KG,EYE_HEIGHT_M,TAKEOFF_MPS,WORLDS,worldById,predictJump,weightNewtons,grounded,startJump,advanceJump} from './gravity-lab-physics.js';
-import {COURSE,spawnFlight,launchFlight,advanceFlight,findLanding,landFlight} from './gravity-flight-physics.js';
+import {COURSE,MAX_LEVEL,buildCourse,spawnFlight,launchFlight,advanceFlight,findLanding,landFlight} from './gravity-flight-physics.js';
 const $=id=>document.getElementById(id);
 const container=$('gravityLabView'),canvas=$('gravityLabCanvas'),poster=$('gravityLabPoster'),hud=$('gravityLabHud');
-const choice=$('gravityLabWorld'),status=$('gravityLabStatus'),note=$('gravityLabWorldNote'),joystick=$('gravityLabJoystick'),stick=$('gravityLabStick'),look=$('gravityLabLook');
+const status=$('gravityLabStatus'),note=$('gravityLabWorldNote'),joystick=$('gravityLabJoystick'),stick=$('gravityLabStick'),look=$('gravityLabLook');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),coarse=matchMedia('(pointer: coarse)');
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),fmt=n=>n.toFixed(2);
-const rail=$('gravityLabWorldRail'),feature=$('gravityLabWorldFeature');
-const worldVisual=$('gravityLabWorldImage'),worldButtons=new Map();
+const rail=$('gravityLabWorldRail');
+const worldButtons=new Map();
 const prevWorld=$('gravityLabWorldPrev'),nextWorld=$('gravityLabWorldNext');
 const referenceGravity=worldById('earth').g;
 const gravityBarMaximum=Math.max(...WORLDS.map(w=>w.g));
@@ -54,9 +54,8 @@ function scrollToSelection(id,animate=false){
 }
 function selectWorld(id,focus=false){
  if(!worldButtons.has(id))return;
- if(choice.value!==id){
-  choice.value=id;
-  choice.dispatchEvent(new Event('change',{bubbles:true}));
+ if(model.id!==id){
+  model=worldById(id);readout();
  }else scrollToSelection(id,true);
  if(focus)worldButtons.get(id).focus({preventScroll:true});
 }
@@ -67,14 +66,10 @@ function syncWorldPicker(){
   button.setAttribute('aria-pressed',String(current));
   button.tabIndex=current?0:-1;
  }
- $('gravityLabWorldIndex').textContent=String(index+1).padStart(2,'0')+' / 09 · SELECTED GRAVITY';
- $('gravityLabWorldName').textContent=w.name;
+$('gravityLabWorldName').textContent=w.name;
  $('gravityLabWorldKind').textContent=w.kind==='solid'?'SOLID BODY · ARTIFICIAL TEST DECK':'NO WALKABLE SURFACE · VIRTUAL PLATFORM';
  $('gravityLabRatio').textContent=(w.g/referenceGravity).toFixed(2)+'×';
  $('gravityLabWorldPrediction').textContent=fmt(predictJump(w.g).height)+' m · '+fmt(predictJump(w.g).hang)+' s';
- $('gravityLabForceBar').style.width=(w.g/gravityBarMaximum*100).toFixed(2)+'%';
- worldVisual.src=thumbnailFor(w.id);
- worldVisual.alt='NASA source-based reference view of '+w.name+'; images not shown to scale';
  const [credit,creditUrl]=thumbnailCredit[w.id];
  $('gravityLabSelectorCredit').textContent=credit;
  $('gravityLabSelectorCredit').href=creditUrl;
@@ -83,14 +78,10 @@ function syncWorldPicker(){
  // The cards stay in a horizontal rail, rather than initiating a vertical
  // document scroll that could obscure the stage under a sticky mobile header.
  requestAnimationFrame(()=>scrollToSelection(w.id,!isFirstSelection.value));
- if(!reduced.matches&&!isFirstSelection.value){
-  feature.animate([{opacity:.78,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],
-    {duration:250,easing:'ease-out'});
- }
  isFirstSelection.value=false;
 }
 rail.addEventListener('keydown',event=>{
- const current=WORLDS.findIndex(w=>w.id===(event.target.closest('button[data-world]')?.dataset.world||choice.value));
+ const current=WORLDS.findIndex(w=>w.id===(event.target.closest('button[data-world]')?.dataset.world||model.id));
  let next=current;
  if(event.key==='ArrowRight')next=Math.min(WORLDS.length-1,current+1);
  else if(event.key==='ArrowLeft')next=Math.max(0,current-1);
@@ -103,48 +94,65 @@ prevWorld.addEventListener('click',()=>selectWorld(WORLDS[Math.max(0,WORLDS.find
 nextWorld.addEventListener('click',()=>selectWorld(WORLDS[Math.min(WORLDS.length-1,WORLDS.findIndex(w=>w.id===model.id)+1)].id));
 buildWorldPicker();
 
-let model=worldById(choice.value),engine=null,active=false,loading=false,air=grounded(),jumpCount=0;
-let mode='science',flight=spawnFlight(),boostHeld=false,boostPointer=null;
+let model=worldById('earth'),engine=null,active=false,loading=false,air=grounded(),jumpCount=0;
+let mode='science',level=1,course=COURSE,flight=spawnFlight(),boostHeld=false;
 let trial={checkpoint:0,attempts:1,simulatedSeconds:0,totalBoostSeconds:0,completed:false};
-const boostAction=$('gravityLabBoost'),boostStatus=$('gravityLabFlightStatus'),trialResult=$('gravityLabTrialResult');
+let jumpPointer=null,jumpHoldSince=0,spaceHeld=false,spaceHoldSince=0,rewardTime=0;
+const boostStatus=$('gravityLabFlightStatus'),trialResult=$('gravityLabTrialResult'),reward=$('gravityLabReward'),nextLevel=$('gravityLabNextLevel');
 function updateFlightUI(){
  const value=Math.round(flight.energy*100);
  $('gravityLabBoostText').textContent=value+'%';
  $('gravityLabBoostFill').style.width=value+'%';
  $('gravityLabBoostMeter').setAttribute('aria-valuenow',String(value));
- boostAction.disabled=trial.completed||flight.energy<=0||flight.grounded;
- $('gravityLabFlightStage').textContent=trial.completed?'FINISHED':COURSE[Math.min(trial.checkpoint+1,3)].label;
- $('gravityLabFlightProgress').textContent=trial.checkpoint+' / 3 checkpoints';
+ $('gravityLabJump').disabled=mode==='flight'&&trial.completed;
+ $('gravityLabFlightStage').textContent=trial.completed?'FINISHED':course[Math.min(trial.checkpoint+1,course.length-1)].label;
+ $('gravityLabLevel').textContent=String(level).padStart(2,'0');
+ $('gravityLabFlightProgress').textContent=trial.checkpoint+' / '+(course.length-1)+' checkpoints';
 }
-function stopBoost(){boostHeld=false;boostPointer=null;}
+function stopBoost(){boostHeld=false;}
+function showReward(platform,finish=false){
+ reward.hidden=false;reward.classList.toggle('is-finish',finish);
+ reward.classList.remove('is-celebrating');void reward.offsetWidth;
+ if(!reduced.matches)reward.classList.add('is-celebrating');
+ $('gravityLabRewardOverline').textContent=finish?'STAGE COMPLETED':'CHECKPOINT SECURED';
+ $('gravityLabRewardTitle').textContent=finish?'LEVEL '+String(level).padStart(2,'0')+' CLEAR':platform.label;
+ $('gravityLabRewardDetail').textContent=finish?
+  (level===MAX_LEVEL?'ALL 8 LEVELS CLEARED':'NEXT STAGE · '+(level+3)+' CHECKPOINTS'):
+  'LANDING CONFIRMED · ENERGY RECHARGING';
+ nextLevel.hidden=!finish||level>=MAX_LEVEL;
+ nextLevel.textContent=level===MAX_LEVEL?'All levels cleared':'Next level → '+String(level+1).padStart(2,'0');
+ rewardTime=finish?Infinity:performance.now()+1150;
+}
+
 function setBoost(value){
  if(mode!=='flight'||!active||document.hidden||trial.completed){stopBoost();return;}
  boostHeld=!!value;
  if(boostHeld)engine?.wake();
 }
 function resetFlight(){
- stopBoost();flight=spawnFlight();trial={checkpoint:0,attempts:1,simulatedSeconds:0,totalBoostSeconds:0,completed:false};
+ stopBoost();flight=spawnFlight(0,course);trial={checkpoint:0,attempts:1,simulatedSeconds:0,totalBoostSeconds:0,completed:false};
+ reward.hidden=true;reward.classList.remove('is-celebrating','is-finish');nextLevel.hidden=true;rewardTime=0;
  trialResult.textContent='Reach the finish platform to complete a Flight Trial.';
  updateFlightUI();
 }
 function setMode(next){
  if(next!=='flight'&&next!=='science')return;
  mode=next;const isGame=mode==='flight';
+ container.dataset.mode=mode;
  $('gravityLabModeScience').setAttribute('aria-pressed',String(!isGame));
  $('gravityLabModeFlight').setAttribute('aria-pressed',String(isGame));
  $('gravityLabFlightInfo').hidden=!isGame;
  trialResult.hidden=!isGame;
  boostStatus.hidden=!isGame;
- boostAction.hidden=!isGame;
  $('gravityLabMeasureHint').hidden=!isGame;
  $('gravityLabHeightLabel').textContent=isGame?'HEIGHT ABOVE START':'HEIGHT ABOVE DECK';
  $('gravityLabModeExplainer').textContent=isGame?
-  'Game mode: use assisted thrust to cross three platform gaps. Booster height is NOT a natural jump measurement.':
+  'Game mode: tap Jump; keep holding Jump to fly. Reach the finish to unlock a longer stage (3–10 checkpoints). Assisted thrust is not a natural jump.':
   'Science mode: the same 3.0 m/s jump without any extra forces. Compare gravity using the measured arc.';
  $('gravityLabControls').innerHTML=isGame?
-  '<strong>Desktop:</strong> WASD / arrows move · drag to look · Space jump · hold Shift boost. <strong>Mobile:</strong> left pad move · swipe to look · Jump then hold Boost.':
+  '<strong>Desktop:</strong> WASD / arrows move · drag to look · Space jump; hold Space or Shift to boost. <strong>Mobile:</strong> left pad move · tap Jump; hold the same button to boost in flight.':
   '<strong>Desktop:</strong> WASD / arrows move · drag to look · Space to jump. <strong>Mobile:</strong> left pad moves · swipe to look · Jump button.';
- resetFlight();air=grounded();jumpCount=0;
+ level=1;course=buildCourse(level);resetFlight();releaseJump();spaceHeld=false;air=grounded();jumpCount=0;
  $('gravityLabLast').textContent=isGame?'Unboosted lab only':'Ready to test';
  engine?.setMode(mode);
  if(active)status.textContent=isGame?'Flight Trials ready: jump toward GATE 01; hold Boost in midair.':'Science experiment: unpowered jump, measured using gravity alone.';
@@ -176,7 +184,7 @@ function readout(){
  const source=VISUAL_PROVENANCE[model.id];
  $('gravityLabImageSource').textContent=source[0];
  $('gravityLabImageSource').href=source[1];
- air=grounded();jumpCount=0;resetFlight();showLive();$('gravityLabLast').textContent=mode==='flight'?'Unboosted lab only':'Ready to test';
+ level=1;course=buildCourse(level);air=grounded();jumpCount=0;resetFlight();releaseJump();spaceHeld=false;showLive();$('gravityLabLast').textContent=mode==='flight'?'Unboosted lab only':'Ready to test';
  engine?.setWorld(model);
  status.textContent='Gravity: '+model.name+'. Same 70 kg mass and 3.0 m/s launch. '+(active?'Jump to test.':'Enter the lab to begin.');
 }
@@ -199,43 +207,50 @@ function doJump(){
  engine?.wake();
 }
 function reset(){
- air=grounded();jumpCount=0;resetFlight();
+ level=1;course=buildCourse(level);air=grounded();jumpCount=0;resetFlight();releaseJump();spaceHeld=false;
  engine?.resetPosition();showLive();
  $('gravityLabLast').textContent=mode==='flight'?'Unboosted lab only':'Ready to test';
  status.textContent=mode==='flight'?'Flight Trials restarted at LAUNCH.':'Position and jump reset.';
 }
-choice.addEventListener('change',()=>{model=worldById(choice.value);readout();});
-// Touchscreen browsers can suppress a second finger's synthesized click while
-// a first finger holds a captured joystick. Jump must start on *touch down*,
-// independently of touch end and of the joystick pointer's lifetime.
-// Keep native click for mouse and keyboard; guard against a synthetic post-touch
-// click causing a second jump on high-gravity worlds with short flight times.
-// Boost is a hold action, never a toggle. Each touch has its own pointer ID,
- // independent of joystick capture or the Jump pointer.
- boostAction.addEventListener('pointerdown',e=>{
-  if(e.pointerType==='touch'||e.pointerType==='pen'||e.pointerType==='mouse'){
-   e.preventDefault();boostPointer=e.pointerId;
-   try{boostAction.setPointerCapture(e.pointerId);}catch{}
-   setBoost(true);
-  }
- });
- const endBoost=e=>{if(boostPointer===e.pointerId)stopBoost();};
- boostAction.addEventListener('pointerup',endBoost);
- boostAction.addEventListener('pointercancel',endBoost);
- boostAction.addEventListener('lostpointercapture',endBoost);
- boostAction.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='Enter'){e.preventDefault();setBoost(true);}});
- boostAction.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='Enter'){e.preventDefault();stopBoost();}});
- const jumpAction=$('gravityLabJump');
+// One-button touch: pointer-down jumps, a sustained hold (>140 ms) applies
+// boost while airborne, and release immediately cuts thrust. Independent
+// pointer capture allows the other thumb to continue moving the joystick.
+const jumpAction=$('gravityLabJump');
 let lastTouchJumpAt=-Infinity;
+function releaseJump(id=null){
+ if(id===null||jumpPointer===id){jumpPointer=null;stopBoost();}
+}
 jumpAction.addEventListener('pointerdown',e=>{
- if(e.pointerType!=='touch'&&e.pointerType!=='pen')return;
- e.preventDefault();
- lastTouchJumpAt=performance.now();
+ if(e.pointerType!=='touch'&&e.pointerType!=='pen'&&e.pointerType!=='mouse')return;
+ e.preventDefault();lastTouchJumpAt=performance.now();
+ jumpPointer=e.pointerId;jumpHoldSince=performance.now();
+ try{jumpAction.setPointerCapture(e.pointerId);}catch{}
+ doJump();engine?.wake();
+});
+for(const type of ['pointerup','pointercancel','lostpointercapture']){
+ jumpAction.addEventListener(type,e=>releaseJump(e.pointerId));
+}
+jumpAction.addEventListener('click',e=>{
+ if(e.detail>0&&performance.now()-lastTouchJumpAt<700)return;
  doJump();
 });
-jumpAction.addEventListener('click',e=>{
- if(e.detail>0&&(e.pointerType==='touch'||e.pointerType==='pen'||performance.now()-lastTouchJumpAt<700))return;
- doJump();
+function refreshHeldJump(now){
+ if(mode!=='flight'||!active||flight.grounded||trial.completed)return;
+ if((jumpPointer!==null&&now-jumpHoldSince>=140)||
+    (spaceHeld&&now-spaceHoldSince>=140))setBoost(true);
+}
+nextLevel.addEventListener('click',()=>{
+ if(!trial.completed)return;
+ if(level>=MAX_LEVEL){
+  nextLevel.hidden=true;
+  trialResult.textContent='All 8 levels cleared on '+model.name+'. Reset to replay or select another gravity setting.';
+  return;
+ }
+ level++;course=buildCourse(level);resetFlight();
+ engine?.setCourse(course);engine?.resetPosition();
+ status.textContent='Level '+level+' ready: '+(course.length-1)+' checkpoints. Hold Jump to fly.';
+ trialResult.textContent='Level '+level+' — reach '+(course.length-1)+' checkpoints to unlock the next stage.';
+ engine?.wake();
 });
 $('gravityLabReset').addEventListener('click',reset);
 $('gravityLabStart').addEventListener('click',async()=>{
@@ -245,7 +260,8 @@ $('gravityLabStart').addEventListener('click',async()=>{
   engine=await buildChamber();
   active=true;poster.hidden=true;hud.hidden=false;engine.setWorld(model);
   engine.setMode(mode);engine.wake();canvas.focus({preventScroll:true});
-  status.textContent='Walking inside the '+model.name+' gravity chamber. Jump to compare the fall.';
+  status.textContent=mode==='flight'?'Flight Trials ready: hold Jump while walking toward the first gate.':
+   'Walking inside the '+model.name+' gravity chamber. Jump to compare the fall.';
  }catch(error){
   console.warn('WebGL lab unavailable',error);
   status.textContent='3D is unavailable on this device. Static jump results and NASA sources remain below.';
@@ -297,29 +313,87 @@ async function buildChamber(){
  // planetary landscape. Very few draw calls and no external game assets.
  const padTop=mat(0x243d4e,.56,.4),padSide=mat(0x0f2639,.59,.47);
  const padMark=mat(0xffc47c,.19,.45),safeMark=mat(0x71c6d6,.35,.44);
- for(let index=0;index<COURSE.length;index++){
-  const spec=COURSE[index],group=new THREE.Group();
-  group.position.set(spec.x,spec.top,spec.z);
-  const deck=new THREE.Mesh(geo(new THREE.BoxGeometry(spec.width,.26,spec.depth)),padTop);
+ const padGroups=[],activeMarkers=[];
+ // Allocate every possible platform once (level progression moves/reuses meshes).
+ // Inspired by clean luminous checkpoint gates, not copied game art.
+ for(let index=0;index<=MAX_LEVEL+2;index++){
+  const group=new THREE.Group(),width=index===0?6:3.6,depth=index===0?7:3.6;
+  const deck=new THREE.Mesh(geo(new THREE.BoxGeometry(width,.26,depth)),padTop);
   deck.position.y=-.13;group.add(deck);
-  const slab=new THREE.Mesh(geo(new THREE.BoxGeometry(spec.width+.2,.11,spec.depth+.2)),padSide);
+  const slab=new THREE.Mesh(geo(new THREE.BoxGeometry(width+.2,.11,depth+.2)),padSide);
   slab.position.y=-.34;group.add(slab);
+  const borders=[];
   for(const sign of [-1,1]){
-   const xEdge=new THREE.Mesh(geo(new THREE.BoxGeometry(.065,.055,spec.depth)),index===3?padMark:safeMark);
-   xEdge.position.set(sign*(spec.width/2-.09),.04,0);group.add(xEdge);
-   const zEdge=new THREE.Mesh(geo(new THREE.BoxGeometry(spec.width,.055,.065)),index===3?padMark:safeMark);
-   zEdge.position.set(0,.04,sign*(spec.depth/2-.1));group.add(zEdge);
+   const xEdge=new THREE.Mesh(geo(new THREE.BoxGeometry(.065,.055,depth)),safeMark);
+   xEdge.position.set(sign*(width/2-.09),.04,0);group.add(xEdge);borders.push(xEdge);
+   const zEdge=new THREE.Mesh(geo(new THREE.BoxGeometry(width,.055,.065)),safeMark);
+   zEdge.position.set(0,.04,sign*(depth/2-.09));group.add(zEdge);borders.push(zEdge);
   }
-  const target=new THREE.Mesh(geo(new THREE.RingGeometry(.43,.53,40)),
-    new THREE.MeshBasicMaterial({color:index===3?0xf9bc65:0x80ced8,side:THREE.DoubleSide,transparent:true,opacity:.93}));
-  materials.push(target.material);target.rotation.x=-Math.PI/2;target.position.y=.069;group.add(target);
+  const discMaterial=new THREE.MeshBasicMaterial({color:0x83dbeb,side:THREE.DoubleSide,transparent:true,opacity:.92});
+  materials.push(discMaterial);
+  const target=new THREE.Mesh(geo(new THREE.RingGeometry(.45,.54,48)),discMaterial);
+  target.rotation.x=-Math.PI/2;target.position.y=.075;group.add(target);
+  const beacon=new THREE.Group();
   if(index>0){
-   const beacon=new THREE.Mesh(geo(new THREE.CylinderGeometry(.075,.075,1.6,8)),index===3?padMark:safeMark);
-   beacon.position.set(-spec.width/2+.25,.8,-spec.depth/2+.25);group.add(beacon);
-   const head=new THREE.Mesh(geo(new THREE.BoxGeometry(.32,.12,.32)),index===3?padMark:safeMark);
-   head.position.set(-spec.width/2+.25,1.63,-spec.depth/2+.25);group.add(head);
+   const stem=new THREE.Mesh(geo(new THREE.CylinderGeometry(.055,.055,1.2,12)),safeMark);
+   stem.position.y=.6;beacon.add(stem);
+   const halo=new THREE.Mesh(geo(new THREE.TorusGeometry(.42,.025,7,48)),
+    new THREE.MeshBasicMaterial({color:0x73d4e8,transparent:true,opacity:.85,blending:THREE.AdditiveBlending,depthWrite:false}));
+   materials.push(halo.material);halo.position.y=1.65;beacon.add(halo);
+   const second=new THREE.Mesh(geo(new THREE.TorusGeometry(.32,.013,5,40)),halo.material);
+   second.position.y=1.65;second.rotation.y=.6;beacon.add(second);
+   beacon.position.z=-depth/2+.42;group.add(beacon);
   }
-  courseDecor.add(group);
+  courseDecor.add(group);padGroups.push(group);activeMarkers.push({borders,discMaterial,beacon});
+ }
+ function setCourse(next){
+  for(let i=0;i<padGroups.length;i++){
+   const spec=next[i],group=padGroups[i],marker=activeMarkers[i];
+   group.visible=!!spec;
+   if(!spec)continue;
+   group.position.set(spec.x,spec.top,spec.z);
+   const finish=i===next.length-1;
+   const color=finish?0xffc174:0x74d2e1;
+   marker.discMaterial.color.setHex(color);
+   marker.borders.forEach(mesh=>mesh.material=finish?padMark:safeMark);
+   marker.beacon.children.forEach(mesh=>{if(mesh.material?.color)mesh.material.color.setHex(color);});
+  }
+ }
+ setCourse(course);
+ // Short-lived additive impact rings + 24 spark particles reuse allocated
+ // buffers. Flash only on user-earned achievements; no idle VFX loop.
+ const burstMat=new THREE.MeshBasicMaterial({color:0x82e8ff,side:THREE.DoubleSide,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+ materials.push(burstMat);
+ const burst=new THREE.Mesh(geo(new THREE.RingGeometry(.65,.80,64)),burstMat);
+ burst.rotation.x=-Math.PI/2;burst.visible=false;scene.add(burst);
+ const sparkCoordinates=new Float32Array(24*3);
+ const sparkGeo=geo(new THREE.BufferGeometry());
+ sparkGeo.setAttribute('position',new THREE.BufferAttribute(sparkCoordinates,3));
+ const sparkMat=new THREE.PointsMaterial({color:0x98e8fa,size:.17,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
+ materials.push(sparkMat);
+ const sparks=new THREE.Points(sparkGeo,sparkMat);sparks.frustumCulled=false;sparks.visible=false;scene.add(sparks);
+ let flash=null;
+ function checkpointFlash(spec,finish=false){
+  if(reduced.matches)return;
+  flash={x:spec.x,y:spec.top+.1,z:spec.z,start:performance.now(),finish};
+  burst.position.set(flash.x,flash.y,flash.z);
+  burst.scale.setScalar(1);burst.visible=true;sparks.visible=true;
+  const hue=finish?0xffc87d:0x80ddf5;burstMat.color.setHex(hue);sparkMat.color.setHex(hue);
+ }
+ function tickFlash(now){
+  if(!flash)return false;
+  const t=Math.min(1,(now-flash.start)/(flash.finish?1600:1000));
+  burst.scale.setScalar(1+t*(flash.finish?4:2.4));burstMat.opacity=.9*(1-t);
+  for(let i=0;i<24;i++){
+   const a=i*Math.PI*2/24,r=.5+t*(flash.finish?3.1:1.8);
+   sparkCoordinates[i*3]=flash.x+Math.cos(a)*r;
+   sparkCoordinates[i*3+1]=flash.y+.12+t*(.9+Math.sin(a*3)*.36);
+   sparkCoordinates[i*3+2]=flash.z+Math.sin(a)*r;
+  }
+  sparkGeo.attributes.position.needsUpdate=true;
+  sparkMat.opacity=(1-t)*.85;
+  if(t>=1){flash=null;burst.visible=false;sparks.visible=false;return false;}
+  return true;
  }
  // Panorama is a reference image displayed on a distant observation wall.
  const photoMat=new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide});
@@ -342,35 +416,38 @@ async function buildChamber(){
   renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.fov=r.width<r.height?76:66;camera.updateProjectionMatrix();render();}
  const observer=new ResizeObserver(resize);observer.observe(container);
  function resetPosition(){
-  const p=stageMode==='flight'?COURSE[0]:{x:0,z:4};
+  const p=stageMode==='flight'?course[0]:{x:0,z:4};
   position.set(p.x,0,p.z);yaw=0;pitch=0;air=grounded();showLive();render();
  }
  function setMode(next){
   stageMode=next;labDecor.visible=next==='science';courseDecor.visible=next==='flight';
+  setCourse(course);
   resetPosition();render();wake();
  }
  function checkpointReached(platform){
-  const index=COURSE.findIndex(p=>p.id===platform.id);
+  const index=course.findIndex(p=>p.id===platform.id);
   if(index>trial.checkpoint){
    trial.checkpoint=index;
-   if(index===COURSE.length-1){
+   if(index===course.length-1){
     trial.completed=true;stopBoost();
     trialResult.textContent='Course complete on '+model.name+'! '+trial.attempts+' attempt'+(trial.attempts===1?'':'s')+
      ' · '+trial.totalBoostSeconds.toFixed(2)+' s total boost · '+trial.simulatedSeconds.toFixed(1)+' s active movement.';
     status.textContent='Flight Trials complete. Reset to replay or change gravity to compare.';
-   }else status.textContent=platform.label+' reached. Stand still to recharge, then jump toward '+COURSE[index+1].label+'.';
+   }else status.textContent=platform.label+' reached. Stand still to recharge, then jump toward '+course[index+1].label+'.';
+   checkpointFlash(platform,trial.completed);
+   showReward(platform,trial.completed);
    updateFlightUI();
   }
  }
  function respawn(){
   trial.attempts+=1;stopBoost();
-  flight=spawnFlight(trial.checkpoint);const pad=COURSE[trial.checkpoint];
+  flight=spawnFlight(trial.checkpoint,course);const pad=course[trial.checkpoint];
   position.set(pad.x,0,pad.z);yaw=0;pitch=0;
   status.textContent='Missed the platform. Returned to '+pad.label+' (attempt '+trial.attempts+').';
   updateFlightUI();
  }
  function supported(){
-  return COURSE.some(p=>Math.abs(position.x-p.x)<=p.width/2-.12&&
+  return course.some(p=>Math.abs(position.x-p.x)<=p.width/2-.12&&
    Math.abs(position.z-p.z)<=p.depth/2-.12&&Math.abs(flight.y-p.top)<.06);
  }
  function setStick(x,z){stick.style.transform='translate('+x*37+'px,'+-z*37+'px)';}
@@ -395,6 +472,8 @@ async function buildChamber(){
  function lookDelta(dx,dy){yaw-=dx*(lowPower?.006:.004);pitch=clamp(pitch-dy*(lowPower?.006:.004),-1.05,1.05);wake();}
  function frame(now){
   raf=null;if(dead||document.hidden||!active)return;
+  if(!reward.hidden&&rewardTime!==Infinity&&rewardTime&&now>=rewardTime){reward.hidden=true;rewardTime=0;}
+  refreshHeldJump(now);
   const dt=last?clamp((now-last)/1000,0,.05):0;last=now;
   const x=(keys.has('KeyD')||keys.has('ArrowRight')?1:0)-(keys.has('KeyA')||keys.has('ArrowLeft')?1:0)+touch.x;
   const z=(keys.has('KeyW')||keys.has('ArrowUp')?1:0)-(keys.has('KeyS')||keys.has('ArrowDown')?1:0)+touch.z;
@@ -402,7 +481,7 @@ async function buildChamber(){
   if(len>.01){
    const nx=x/Math.max(len,1),nz=z/Math.max(len,1),distance=3.6*dt;
    position.x=clamp(position.x+(nx*Math.cos(yaw)-nz*Math.sin(yaw))*distance,-24,24);
-   position.z=clamp(position.z+(-nx*Math.sin(yaw)-nz*Math.cos(yaw))*distance,-23,23);
+   position.z=clamp(position.z+(-nx*Math.sin(yaw)-nz*Math.cos(yaw))*distance,-62,23);
   }
   if(stageMode==='flight'){
    if(!trial.completed){
@@ -415,7 +494,7 @@ async function buildChamber(){
      flight=advanceFlight(flight,step,model.g,boostHeld);
      trial.totalBoostSeconds+=flight.usedSeconds-before.usedSeconds;
      if(!before.grounded){
-      const pad=findLanding(before,flight,position.x,position.z);
+      const pad=findLanding(before,flight,position.x,position.z,course);
       if(pad){flight=landFlight(flight,pad);stopBoost();checkpointReached(pad);}
      }
      if(flight.y<-4){respawn();break;}
@@ -432,9 +511,10 @@ async function buildChamber(){
    }
    showLive();
   }
+  const effectActive=tickFlash(now);
   render();
-  if((stageMode==='flight'&&!trial.completed&&(boostHeld||!flight.grounded||flight.energy<1))||
-     (stageMode==='science'&&air.airborne)||len>.01||pointer!==null||stickPointer!==null)wake();
+  if(effectActive||(!reward.hidden&&rewardTime!==Infinity)||(stageMode==='flight'&&!trial.completed&&(boostHeld||!flight.grounded||flight.energy<1))||
+     (stageMode==='science'&&air.airborne)||jumpPointer!==null||spaceHeld||len>.01||pointer!==null||stickPointer!==null)wake();
  }
  function wake(){if(!dead&&!document.hidden&&raf===null){if(last===0)last=performance.now();raf=requestAnimationFrame(frame);}}
  // Stop input and RAF, while preserving airborne trajectory and position.
@@ -442,12 +522,12 @@ async function buildChamber(){
  function suspend(){
   if(raf!==null)cancelAnimationFrame(raf);
   raf=null;last=0;keys.clear();touch.x=0;touch.z=0;setStick(0,0);
-  stopBoost();
+  releaseJump();spaceHeld=false;
   pointer=null;stickPointer=null;lookPointer=null;
  }
  function keydown(e){
   if(!active||document.hidden||['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement?.tagName))return;
-  if(e.code==='Space'){e.preventDefault();if(!e.repeat)doJump();return;}
+  if(e.code==='Space'){e.preventDefault();if(!e.repeat){doJump();spaceHeld=true;spaceHoldSince=performance.now();wake();}return;}
   if(e.code==='ShiftLeft'||e.code==='ShiftRight'){
    e.preventDefault();keys.add(e.code);setBoost(true);wake();return;
   }
@@ -458,6 +538,7 @@ async function buildChamber(){
  const keyup=e=>{
   keys.delete(e.code);
   if(e.code==='ShiftLeft'||e.code==='ShiftRight')stopBoost();
+  if(e.code==='Space'){spaceHeld=false;stopBoost();}
  };
  document.addEventListener('keydown',keydown);document.addEventListener('keyup',keyup);
  canvas.addEventListener('pointerdown',e=>{if(coarse.matches)return;canvas.setPointerCapture(e.pointerId);pointer={id:e.pointerId,x:e.clientX,y:e.clientY};});
@@ -478,11 +559,11 @@ async function buildChamber(){
  const lookEnd=e=>{if(lookPointer?.id===e.pointerId)lookPointer=null;};
  look.addEventListener('pointerup',lookEnd);look.addEventListener('pointercancel',lookEnd);
  const visibility=()=>{if(document.hidden)suspend();else if(active)wake();};
- const blur=()=>{stopBoost();keys.clear();};
+ const blur=()=>{releaseJump();spaceHeld=false;keys.clear();};
  window.addEventListener('blur',blur);
  document.addEventListener('visibilitychange',visibility);
  resize();resetPosition();
- return {setWorld,setMode,resetPosition,wake,suspend,dispose(){
+ return {setWorld,setCourse,setMode,resetPosition,wake,suspend,dispose(){
   dead=true;suspend();observer.disconnect();document.removeEventListener('keydown',keydown);document.removeEventListener('keyup',keyup);
   document.removeEventListener('visibilitychange',visibility);window.removeEventListener('blur',blur);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());
   textures.forEach(t=>t.dispose());renderer.dispose();

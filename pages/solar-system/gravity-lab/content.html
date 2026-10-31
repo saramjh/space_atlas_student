@@ -23,45 +23,20 @@
       <p class="gl-mode-explainer" id="gravityLabModeExplainer">Science mode: the same 3.0 m/s jump without any extra forces. Compare gravity using the measured arc.</p>
       <div class="gl-trial-brief" id="gravityLabFlightInfo" hidden>
         <div><span class="gl-eyebrow">FLIGHT TRIALS / OPTIONAL GAME</span><h3>Cross the aerial platforms.</h3>
-          <p>Jump, then <strong>hold Boost</strong> to gain height. Your energy lasts up to 1 second and recharges while standing in about 2.5 seconds. Land on the amber checkpoints, then reach the finish. Falling returns you to the last checkpoint.</p></div>
+          <p><strong>Tap Jump for a short jump. Hold Jump to activate the airborne booster.</strong> Energy lasts up to 1 second and recharges on the ground in about 2.5 seconds. Each cleared stage unlocks a longer course, from 3 to 10 checkpoints.</p></div>
         <div><strong>ASSISTED THRUST · NOT A NATURAL JUMP</strong><p>The fictional thruster auto-adjusts its force to <strong>mass × (local gravity + 5.5 m/s²)</strong>. Your unpowered fall still depends on the world; the game does <em>not</em> measure how high an unaided person can jump.</p></div>
       </div>
-      <div class="gl-world-control" id="gravityLabSelector">
-        <div class="gl-world-heading">
-          <div><div class="gl-eyebrow">GRAVITY FIELD / 01—09</div><h3>Choose your world</h3><p>One test chamber. Nine different pulls.</p></div>
-          <div class="gl-world-native"><label for="gravityLabWorld">Select by name</label>
-            <select id="gravityLabWorld">
-              <option value="earth">Earth — 1.00×</option>
-              <option value="moon">Moon — 0.16×</option>
-              <option value="mars">Mars — 0.38×</option>
-              <option value="mercury">Mercury — 0.38×</option>
-              <option value="venus">Venus — 0.91×</option>
-              <option value="jupiter">Jupiter — 2.36×</option>
-              <option value="saturn">Saturn — 0.92×</option>
-              <option value="uranus">Uranus — 0.89×</option>
-              <option value="neptune">Neptune — 1.12×</option>
-            </select>
-          </div>
+      <div class="gl-world-control gl-world-compact" id="gravityLabSelector">
+        <div class="gl-world-compact-head">
+          <div><span class="gl-eyebrow">CHOOSE A WORLD · SELECT AN IMAGE</span><strong id="gravityLabWorldName">Earth</strong><span id="gravityLabWorldKind">SOLID WORLD · ARTIFICIAL TEST DECK</span></div>
+          <div><strong id="gravityLabG">9.8 m/s²</strong><span><span id="gravityLabRatio">1.00×</span> Earth gravity · <span id="gravityLabWeight">686 N on a 70 kg mass</span></span><span>Unboosted jump: <strong id="gravityLabWorldPrediction">0.46 m · 0.61 s</strong></span></div>
         </div>
-        <div class="gl-world-feature" id="gravityLabWorldFeature" aria-live="polite" aria-atomic="true">
-          <div class="gl-world-portrait"><img id="gravityLabWorldImage" src="{{BASE}}/assets/images/gravity-choice-earth.webp" width="200" height="200" alt="NASA reference image of Earth"><span>IMAGE NOT TO SCALE</span><a id="gravityLabSelectorCredit" href="https://spaceplace.nasa.gov/gallery-solar-system/en/" target="_blank" rel="noopener noreferrer">NASA Space Place</a></div>
-          <div class="gl-world-identity"><span class="gl-world-index" id="gravityLabWorldIndex">01 / 09 · SELECTED GRAVITY</span><strong id="gravityLabWorldName">Earth</strong><span class="gl-world-kind" id="gravityLabWorldKind">SOLID WORLD · REFERENCE CASE</span>
-            <div class="gl-world-force"><strong id="gravityLabRatio">1.00×</strong><span>Earth gravity</span></div>
-            <div class="gl-world-force-track" aria-hidden="true"><span id="gravityLabForceBar" style="width:42.4%"></span><i title="Earth reference gravity"></i></div>
-          </div>
-          <div class="gl-world-data">
-            <span>GRAVITY / WEIGHT FORCE</span>
-            <div class="gl-world-readout"><strong id="gravityLabG">9.8 m/s²</strong><span id="gravityLabWeight">686 N on a 70 kg mass</span></div>
-            <div class="gl-world-prediction"><span>ONE IDENTICAL JUMP</span><strong id="gravityLabWorldPrediction">0.46 m · 0.61 s</strong></div>
-          </div>
-        </div>
-        <div class="gl-world-rail-header"><span>EXPLORE NINE GRAVITY SETTINGS</span><span>SWIPE OR USE THE ARROWS</span></div>
         <div class="gl-world-rail-layout">
           <button type="button" id="gravityLabWorldPrev" class="gl-world-rail-arrow" aria-label="Previous world" disabled>‹</button>
-          <div id="gravityLabWorldRail" class="gl-world-rail" role="group" aria-label="Choose a world by its NASA reference image"></div>
+          <div id="gravityLabWorldRail" class="gl-world-rail" role="group" aria-label="Select a world from the reference image cards"></div>
           <button type="button" id="gravityLabWorldNext" class="gl-world-rail-arrow" aria-label="Next world">›</button>
         </div>
-        <p class="gl-world-rail-note">Photographic reference thumbnails, not relative planet diameters. <span>│</span> The amber tick marks Earth's 9.8 m/s² on a shared 0–23.1 m/s² scale.</p>
+        <p class="gl-world-rail-note">Swipe or use arrows. Images are not scaled to true diameters. Selected image credit: <a id="gravityLabSelectorCredit" href="https://spaceplace.nasa.gov/gallery-solar-system/en/" rel="noopener noreferrer" target="_blank">NASA Space Place</a>.</p>
       </div>
       <div class="gl-view" id="gravityLabView">
         <canvas id="gravityLabCanvas" tabindex="0" aria-label="First-person artificial gravity test chamber. WASD or arrows to walk, Space to jump, drag to look."></canvas>
@@ -72,16 +47,20 @@
         <div class="gl-hud" id="gravityLabHud" hidden>
           <div class="gl-hud-corner"><span id="gravityLabWorldHud">EARTH GRAVITY</span><strong id="gravityLabLiveHeight">0.00 m</strong><span id="gravityLabHeightLabel">HEIGHT ABOVE DECK</span></div>
           <div class="gl-flight-hud" id="gravityLabFlightStatus" hidden>
-            <span>FLIGHT TRIALS / <strong id="gravityLabFlightStage">GATE 01</strong></span>
+            <span>LEVEL <strong id="gravityLabLevel">01</strong> / 08 · <strong id="gravityLabFlightStage">GATE 01</strong></span>
             <div class="gl-flight-boost-label"><span>BOOST ENERGY</span><strong id="gravityLabBoostText">100%</strong></div>
             <div class="gl-flight-energy" role="progressbar" aria-label="Booster energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="gravityLabBoostMeter"><span id="gravityLabBoostFill" style="width:100%"></span></div>
             <span id="gravityLabFlightProgress">0 / 3 checkpoints</span>
           </div>
+          <div class="gl-reward" id="gravityLabReward" hidden aria-live="polite" aria-atomic="true">
+            <div class="gl-reward-ring" aria-hidden="true"></div>
+            <div class="gl-reward-copy"><span id="gravityLabRewardOverline">CHECKPOINT SECURED</span><strong id="gravityLabRewardTitle">GATE 01</strong><span id="gravityLabRewardDetail">BOOST REFILLED</span></div>
+            <button type="button" id="gravityLabNextLevel" hidden>Enter next level</button>
+          </div>
           <div class="gl-reticle" aria-hidden="true"></div>
           <div class="gl-image-note">SIMULATED LAB · LANDSCAPE IS REFERENCE IMAGERY</div>
           <div class="gl-game-actions">
-            <button type="button" id="gravityLabJump">Jump <span>Space</span></button>
-            <button type="button" id="gravityLabBoost" hidden>Boost <span>Hold Shift</span></button>
+            <button type="button" id="gravityLabJump">Jump <span>Tap / Hold</span></button>
             <button type="button" id="gravityLabReset">Reset</button>
           </div>
           <div id="gravityLabJoystick" class="gl-joystick" aria-label="Touch movement pad: drag to walk"><span class="gl-joystick-thumb" id="gravityLabStick"></span></div>

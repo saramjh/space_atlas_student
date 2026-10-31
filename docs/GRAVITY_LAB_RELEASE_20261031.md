@@ -137,3 +137,56 @@ Verification:
 - Science mode restored original Earth jump 0.46 m/0.61 s and hides Boost.
 - Real physical iOS Safari/Android performance and user engagement outcomes
   remain unmeasured.
+
+
+## 2026-10-31 Flight Trials progressive stages and unified mobile control
+
+User requested removal of redundant select-box/expanded selected-world feature,
+more replayable gameplay with progressively increasing checkpoints, and
+premium feedback at checkpoints and finish. We researched reference visuals:
+the clean cyan/amber luminous rings of Celerity's sci-fi portal course and
+the concentric-energy/particle checkpoint treatment in Ratchet & Clank. This
+implementation is original procedural Three.js and CSS, with no third-party
+game textures or screenshot redistribution.
+
+- World selection is exclusively the nine NASA image buttons in a horizontal
+  scroll-snap rail. The old duplicate dropdown and giant world-feature panel
+  were removed. A compact gravity/weight/unboosted-jump header stays visible
+  as essential science data, with the source link and true-size disclaimer.
+  Keyboard arrows/Home/End and rail previous/next buttons work.
+- 8 deterministic progressively longer levels: Level 1 has 3 checkpoints,
+  Level 2 has 4, ... Level 8 has 10. Every course has a spawn pad and
+  elevated platforms with bounded gaps and safe deterministic geometry.
+  Clearing a level reveals an explicit Next Level control; reaching the
+  eighth level's finish displays an all-levels-cleared summary. Switching
+  world or modes and Reset start from Level 1. No persistent account data.
+- The checkpoint event creates a finite (under 1.6 second) cyan orbital-ring
+  impulse and 24 reusable spark points in 3D; its event UI says CHECKPOINT
+  SECURED. The finish has a distinct copper-gold larger energy pulse and
+  persistent LEVEL ## CLEAR announcement with the next-level button.
+  Motion reduction disables optional animation and 3D spark bursts.
+  No 3D effect runs perpetually while idle.
+- One mobile Jump button: touch-down immediately starts the jump; hold beyond
+  140 ms engages the airborne booster; releasing the same pointer stops
+  thrust. Short taps use zero booster. The opposite thumb can hold joystick
+  movement at the same time. Desktop Space also supports hold-to-boost,
+  while Shift remains a separate optional booster key. Lost pointer capture,
+  pointercancel, tab hide, window blur and resets release held thrust.
+- Game scoring and unpowered science predictions continue to be separate.
+  The artificial thrust F=m(g+5.5) still varies by planet, is not a true
+  shared thruster comparison or a genuine human jump measurement.
+
+Verified:
+- Eight level geometry generations return 3..10 checkpoints, no gap beyond
+  6.01 m and bounded heights; per-planet booster/landing physics tests.
+- Actual Chromium desktop keyboard three-gate Level 1 run:
+  GATE01 -> GATE02 -> FINISH, copper-gold LEVEL 01 CLEAR,
+  Next Level triggers Level 2 with 4 checkpoints. First level one attempt.
+- Actual mobile (390px) two simultaneous CDP touch points on joystick and
+  Jump held for ~0.5s: 65% remaining and rising height. On explicitly
+  dispatched pointerup, energy stopped dropping. A separate ~70ms
+  single touch produced unboosted airborne jump with energy 100%.
+  Physical iOS Safari/Android touch-release ergonomics not yet verified:
+  CDP multi-touch touchEnd does not synthesize independent per-finger pointerup
+  when one other finger is still present, so direct pointerup was used as
+  an additional input-release test.
