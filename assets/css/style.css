@@ -1315,12 +1315,15 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .zoom-cinema-legend{pointer-events:none;position:absolute;inset:auto 16px 12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:#f1deba;text-shadow:0 1px 7px #050b14;font:700 10px/1.5 var(--font-data);letter-spacing:.08em}
 .scale-compare .zoom-stage-copy{padding:24px 20px 8px}
 .scale-compare .zoom-stage-copy .zoom-title{font-size:clamp(30px,4vw,44px)}
-.zoom-cinema-init{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:12px auto 18px;justify-content:center}
-.zoom-cinema-init button{min-height:44px;border:1px solid #29445d;background:#102b43;color:#fff;padding:11px 16px;font:600 13px var(--font-reading);cursor:pointer}
-.zoom-cinema-init button[aria-pressed=true]{background:#a25633}
-.zoom-cinema-init button:disabled{opacity:.55}
-.zoom-cinema-init button:focus-visible{outline:3px solid #a25633;outline-offset:3px}
-.zoom-cinema-init span{max-width:540px;font-size:13px;line-height:1.5;color:var(--muted)}
+.zoom-cinema-init{display:grid;justify-items:center;gap:10px;margin:18px auto 22px;text-align:center}
+.zoom-cinema-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;width:100%}
+.zoom-cinema-actions button{min-height:44px;border:1px solid #29445d;background:#102b43;color:#fff;padding:11px 16px;font:600 13px var(--font-reading);cursor:pointer}
+.zoom-cinema-actions button[hidden]{display:none}
+.zoom-cinema-actions button[aria-pressed=true]{background:#a25633}
+.zoom-cinema-actions button:disabled{opacity:.55}
+.zoom-cinema-actions button:focus-visible{outline:3px solid #a25633;outline-offset:3px}
+.zoom-cinema-init p{max-width:66ch;font-size:12px;line-height:1.5;color:var(--muted);margin:0 auto}
+@media(max-width:600px){.zoom-cinema-init{margin:14px auto 18px;gap:9px}.zoom-cinema-actions{display:grid;grid-template-columns:minmax(0,1fr);max-width:360px;gap:8px}.zoom-cinema-actions button{width:100%;white-space:normal}.zoom-cinema-init p{padding:0 8px}}
 @media(max-width:600px){.zoom-cinema-frame{aspect-ratio:5/6;min-height:275px;max-height:55dvh}.zoom-cinema-legend{inset:auto 9px 8px;font-size:8px}.scale-compare .zoom-stage-copy{padding:20px 12px 5px}}
 
 /* Only the active opt-in black-hole canvas captures gestures. Other scrolling stays native. */

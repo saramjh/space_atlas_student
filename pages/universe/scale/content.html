@@ -24,9 +24,11 @@
       </div>
     </div>
     <div class="zoom-cinema-init">
-      <button type="button" id="zoomCinemaActivate" aria-pressed="false" aria-controls="zoomCinemaFrame" disabled>Enter the illustrated cosmic journey</button>
-      <button type="button" id="zoomCinemaTour" aria-pressed="false" disabled hidden>Travel across all eight scales</button>
-      <span id="zoomCinemaStatus" role="status">The precise logarithmic ruler below remains available without this illustration.</span>
+      <div class="zoom-cinema-actions" role="group" aria-label="Illustrated cosmic journey controls">
+        <button type="button" id="zoomCinemaActivate" aria-pressed="false" aria-controls="zoomCinemaFrame" disabled>Enter the illustrated cosmic journey</button>
+        <button type="button" id="zoomCinemaTour" aria-pressed="false" disabled hidden>Travel across all eight scales</button>
+      </div>
+      <p id="zoomCinemaStatus" role="status">The precise logarithmic ruler below remains available without this illustration.</p>
     </div>
     <p class="cosmic-visual-note">The cinematic scene is an <strong>artist's conceptual illustration</strong>, not a continuous physically scaled journey. Each step compares a different measure (height, diameter, orbital span or separation); the ruler and reference table give the numerical scale.</p>
     <div class="cosmic-visual" aria-labelledby="cosmicRulerTitle">
