@@ -1979,6 +1979,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .gl-game-actions{position:absolute;bottom:16px;right:18px;display:flex;gap:7px;pointer-events:auto;align-items:end}
 .gl-game-actions button{border:1px solid #afc1c4;background:rgba(5,21,36,.88);color:#f4f5ef;min-height:44px;padding:10px 14px;font:700 12px var(--font-reading);cursor:pointer}
 .gl-game-actions button:first-child{background:#e5bd84;color:#202b34;border-color:#e5bd84;font-size:15px;min-width:115px}
+.gl-game-actions #gravityLabJump{touch-action:none;-webkit-user-select:none;user-select:none}
 .gl-game-actions button span{font-size:10px;margin-left:5px;opacity:.8}
 .gl-joystick,.gl-look{display:none}
 .gl-instrument{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#122f41;color:#f3f1e8}

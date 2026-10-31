@@ -53,7 +53,23 @@ function setPause(v){
  status.textContent=paused?'Simulation paused.':'Simulation resumed.';
 }
 choice.addEventListener('change',()=>{model=worldById(choice.value);readout();});
-$('gravityLabJump').addEventListener('click',doJump);
+// Touchscreen browsers can suppress a second finger's synthesized click while
+// a first finger holds a captured joystick. Jump must start on *touch down*,
+// independently of touch end and of the joystick pointer's lifetime.
+// Keep native click for mouse and keyboard; guard against a synthetic post-touch
+// click causing a second jump on high-gravity worlds with short flight times.
+const jumpAction=$('gravityLabJump');
+let lastTouchJumpAt=-Infinity;
+jumpAction.addEventListener('pointerdown',e=>{
+ if(e.pointerType!=='touch'&&e.pointerType!=='pen')return;
+ e.preventDefault();
+ lastTouchJumpAt=performance.now();
+ doJump();
+});
+jumpAction.addEventListener('click',e=>{
+ if(e.detail>0&&(e.pointerType==='touch'||e.pointerType==='pen'||performance.now()-lastTouchJumpAt<700))return;
+ doJump();
+});
 $('gravityLabPause').addEventListener('click',()=>setPause(!paused));
 $('gravityLabReset').addEventListener('click',reset);
 $('gravityLabStart').addEventListener('click',async()=>{

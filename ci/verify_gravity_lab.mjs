@@ -30,6 +30,14 @@ assert.match(ctrl,/prefers-reduced-motion/);
 assert.match(ctrl,/visibilitychange/);
 assert.match(ctrl,/requestAnimationFrame/);
 assert.match(ctrl,/pointerdown/);
+// A multi-touch jump must not depend solely on a synthesized click: another
+// finger may be held on the virtual joystick during the entire jump touch.
+assert.match(ctrl,/jumpAction\.addEventListener\('pointerdown',e=>/);
+assert.match(ctrl,/lastTouchJumpAt=performance\.now\(\)/);
+assert.match(ctrl,/jumpAction\.addEventListener\('click',e=>/);
+assert.match(ctrl,/e\.pointerType==='touch'/);
+assert.match(ctrl,/e\.detail>0.*lastTouchJumpAt<700/);
+assert.match(readFileSync('assets/css/style.css','utf8'),/\.gl-game-actions #gravityLabJump\{touch-action:none/);
 assert.match(ctrl,/keydown/);
 assert.match(ctrl,/TAKEOFF_MPS/);
 assert.match(ctrl,/const VISUAL_PROVENANCE=/);

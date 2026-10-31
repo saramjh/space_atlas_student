@@ -39,3 +39,12 @@ Opt-in WebGL, shared existing Three.js import map, no new runtime dependencies. 
 ## Non-goals / next
 
 Not a photorealistic 3D reconstruction of all surfaces. No atmospheric survival simulation. Performance on physical low-end mobile and classroom learning outcomes not measured. This pilot should remain deliberately scoped to one page; test actual touchscreen ergonomics and sustained FPS before adding missions or multi-level game features.
+
+
+## 2026-10-31 mobile multi-touch repair
+
+Issue reported by learner: holding the mobile joystick prevented simultaneously jumping with another finger. Root cause was input handling asymmetry: the joystick reacted to pointerdown while Jump reacted only to a synthesized click. Chromium suppresses that click during a multi-finger touch gesture. An actual Chrome DevTools Protocol `Input.dispatchTouchEvent` two-finger sequence reproduced the RED state: while holding one touch at the joystick and pressing Jump with the second, no jump began, even after both released.
+
+Fix: Jump activates immediately on touch/pen `pointerdown`; its existing mouse and keyboard click handling is preserved. Recent touch input suppresses a potential synthetic click after finger release, preventing a duplicate jump when local gravity is high. The Jump button applies `touch-action:none`, and the joystick maintains independent pointer capture.
+
+Verification (real Chromium CDP touch sequence, not a mocked pointer event): hold left joystick touch, move stick forward, press Jump with a second simultaneous touch. On finger down, status changed immediately to `Jumping in Earth gravity`; with both touches held, joystick movement changed direction while measured jump altitude advanced; releasing the second finger then the first led to exactly one completed Earth jump `0.46 m / 0.61 s`. Jupiter 0.26 s jump remained exactly once despite holding the jump finger beyond landing and releasing, and subsequent mouse click still initiated another jump. 390px viewport no horizontal overflow. Production full 147/147 tests passed. Physical iOS Safari/Android handset testing not performed.
