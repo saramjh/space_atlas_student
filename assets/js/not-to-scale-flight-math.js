@@ -24,3 +24,25 @@ export function physicalPlanetDiameterPx(diameterKm,radiusAU,stageRadiusPx){
  return diameterKm/AU_KM*stageRadiusPx/radiusAU;
 }
 export const SUN_DIAMETER_KM=1392700; // approximate NASA Science nominal Sun diameter
+
+// Physical-size inspection keeps an actual planet centered before widening to its orbit.
+// A camera radius is an AU half-span in the viewport; this is an orthographic diagram,
+// not a physical spacecraft trajectory or telescope angular-resolution claim.
+export function focusMinRadiusAU(diameterKm){
+ if(!Number.isFinite(diameterKm)||diameterKm<=0)throw new RangeError('Positive diameter required');
+ return diameterKm/AU_KM*1.15;
+}
+export function focusRadiusAUAtProgress(progress,diameterKm){
+ if(!Number.isFinite(progress)||progress<0||progress>1)throw new RangeError('Focus progress must be 0..1');
+ const min=focusMinRadiusAU(diameterKm);
+ return min*Math.pow(35/min,progress);
+}
+export function focusProgressAtRadiusAU(radiusAU,diameterKm){
+ if(!Number.isFinite(radiusAU)||radiusAU<=0)throw new RangeError('Positive radius required');
+ const min=focusMinRadiusAU(diameterKm);
+ return Math.max(0,Math.min(1,Math.log(radiusAU/min)/Math.log(35/min)));
+}
+export function pixelThresholdRadiusAU(diameterKm,stageRadiusPx){
+ if(!Number.isFinite(diameterKm)||diameterKm<=0||!Number.isFinite(stageRadiusPx)||stageRadiusPx<=0)throw new RangeError('Positive diameter and stage radius required');
+ return diameterKm/AU_KM*stageRadiusPx;
+}

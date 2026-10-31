@@ -1585,6 +1585,7 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .true-scale-controls{padding:17px 19px 10px;display:grid;gap:13px}
 .true-scale-focus-preset{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .true-scale-focus-preset button{background:#f6f2e9;border-color:#b8b1a5;color:#213a4a}
+.true-scale-focus-preset button{scroll-margin-top:145px}
 .true-scale-controls>label{font:600 13px/1.6 var(--font-reading);display:grid;gap:5px}
 .true-scale-controls input[type=range]{width:100%;accent-color:#b95d34;min-height:35px}
 .true-scale-control-row{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
@@ -1599,8 +1600,32 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 @media(max-width:700px){.true-scale-flight-head{display:block;padding:16px 13px}.true-scale-flight-head button{width:100%;margin-top:13px}.true-scale-stage{aspect-ratio:5/5;max-height:52dvh;min-height:268px}.true-scale-focus-preset{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.true-scale-focus-preset button{padding:9px 6px}.true-scale-controls{padding:12px;gap:9px}.true-scale-control-row label{flex:1 1 auto}.true-scale-stage-legend{font-size:8px}.true-scale-readout,.true-scale-selected{padding:7px 12px 0}.true-scale-caveat{padding:9px 12px 16px}}
 @media(prefers-reduced-motion:reduce){.true-scale-flight *{transition:none!important;animation:none!important}}
 /* Subpixel explanation stays by its checkbox, never over the camera. */
-.true-scale-reveal{margin:0;padding:4px 0 4px 13px;border-left:2px solid #a65033;color:#2a414e;font:600 12px/1.6 var(--font-reading)}
-.true-scale-reveal[hidden]{display:none}
+
+
+/* Physical-size camera: anchored planet close-up to outer-orbit scale on one ruler. */
+.true-scale-physics{padding:14px 16px;background:#f8f5ef;border:1px solid #c4beb1;display:grid;gap:12px}
+.true-scale-physics[hidden]{display:none}
+.true-scale-physics-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;color:#253b4b;font:600 14px/1.4 var(--font-reading)}
+.true-scale-physics-head span{font:600 11px/1.5 var(--font-data);color:#52606a}
+.true-scale-pixel-guide{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.true-scale-guide-label{font:600 10px/1.3 var(--font-data);color:#52606a}
+.true-scale-guide-label:nth-child(2){text-align:center;color:#a04d30}
+.true-scale-guide-label:nth-child(3){text-align:right}
+.true-scale-guide-track{grid-column:1/-1;position:relative;height:10px;background:linear-gradient(to right,#bdcad1 0 50%,#365b70 50% 100%);border:1px solid #8697a1}
+.true-scale-guide-threshold{position:absolute;left:50%;top:-5px;bottom:-5px;width:2px;background:#bc593b}
+.true-scale-guide-pointer{position:absolute;top:-6px;left:50%;height:20px;width:5px;background:#f7bb68;border:1px solid #553a24;transform:translateX(-50%);transition:left .08s linear}
+.true-scale-physics-readout{margin:0;font:600 12px/1.6 var(--font-reading);color:#233e50}
+.true-scale-texture-source{margin:0;font:400 11px/1.6 var(--font-reading);color:#52606a}
+.true-scale-texture-source a{color:#185072;text-decoration:underline;text-underline-offset:2px}
+.true-scale-source-details{font:400 11px/1.5 var(--font-reading);color:#52606a}
+.true-scale-source-details summary{cursor:pointer;font:600 11px/1.5 var(--font-reading);color:#35546b}
+.true-scale-source-details[open] p{margin:7px 0 0}
+
+.true-scale-guide-toggle{display:flex;align-items:center;gap:8px;font:600 12px/1.5 var(--font-reading)}
+.true-scale-guide-toggle input{width:19px;height:19px;accent-color:#a75330;flex:none}
+.true-scale-guide-toggle span{font-weight:400;color:#536773}
+@media(max-width:700px){.true-scale-physics{padding:12px}.true-scale-guide-label{font-size:9px}.true-scale-physics-head{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.true-scale-guide-pointer{transition:none}}
 
 /* Light-year: opt-in cinematic perspective with strict normalized-distance caveat. */
 .ly-cinema{background:#ede8df;border:1px solid #b9b5aa;margin:18px 0 28px;overflow:hidden}

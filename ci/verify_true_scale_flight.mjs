@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {AU_KM,PLANET_ORBITS,SUN_DIAMETER_KM,radiusAUAtProgress,progressAtRadiusAU,physicalPlanetDiameterPx} from '../assets/js/not-to-scale-flight-math.js';
+import {AU_KM,PLANET_ORBITS,SUN_DIAMETER_KM,radiusAUAtProgress,progressAtRadiusAU,focusRadiusAUAtProgress,focusProgressAtRadiusAU,pixelThresholdRadiusAU,physicalPlanetDiameterPx} from '../assets/js/not-to-scale-flight-math.js';
 const src=p=>readFileSync(p,'utf8');
 const page=src('pages/learn/not-to-scale/content.html');
 const html=src('public/learn/not-to-scale/index.html');
@@ -23,7 +23,7 @@ assert.ok(physicalPlanetDiameterPx(SUN_DIAMETER_KM,35,330)<.1);
 for(const bad of [-.1,1.1,Infinity,NaN])assert.throws(()=>radiusAUAtProgress(bad),RangeError);
 for(const bad of [0,-2,Infinity,NaN])assert.throws(()=>progressAtRadiusAU(bad),RangeError);
 assert.throws(()=>physicalPlanetDiameterPx(1,0,300),RangeError);
-for(const id of ['trueScaleFlight','trueScaleStage','trueScaleActivate','trueScaleCanvas','trueScaleFallback','trueScaleControls','trueScaleZoom','trueScaleSizeMode','trueScalePlay','trueScaleReverse','trueScalePlanet','trueScaleSelected','trueScaleReadout','trueScaleReveal']){
+for(const id of ['trueScaleFlight','trueScaleStage','trueScaleActivate','trueScaleCanvas','trueScaleFallback','trueScaleControls','trueScaleZoom','trueScaleSizeMode','trueScalePlay','trueScaleReverse','trueScalePlanet','trueScaleSelected','trueScaleReadout']){
  assert.match(page,new RegExp(`id="${id}"`));assert.match(html,new RegExp(`id="${id}"`));
 }
 assert.equal((page.match(/data-true-scale-focus="[^"]+"/g)||[]).length,4);
@@ -31,10 +31,34 @@ assert.match(core,/import\('\.\/not-to-scale-flight\.js'\)/);
 assert.match(ctrl,/physicalPlanetDiameterPx\(p\.diameterKm,radiusAU,pxRadius\)/);
 assert.match(ctrl,/const ppau=pxRadius\/radiusAU/);
 assert.match(ctrl,/displayRadius=sizesAreTrue\?diameterPx\/2/);
-assert.match(ctrl,/reveal.hidden=!markerSize.checked/);
-assert.match(ctrl,/reveal.textContent=.*true-scale disk/);
-assert.match(page,/<p id="trueScaleReveal" class="true-scale-reveal" role="note" hidden>/);
-assert.ok(page.indexOf('id="trueScaleReveal"')>page.indexOf('id="trueScaleSizeMode"'),'Subpixel note must follow its checkbox');
+assert.match(ctrl,/physics.hidden=!focus/);
+assert.match(ctrl,/ctx.fillText\(body.name.toUpperCase\(\)/);
+assert.match(ctrl,/const cameraWorldX=sizesAreTrue/);
+assert.match(ctrl,/getComputedStyle|focusRadiusAUAtProgress/);
+assert.match(ctrl,/setGuide/);
+assert.match(page,/id="trueScalePhysics"/);
+assert.match(page,/id="trueScaleGaugePointer"/);
+assert.match(page,/id="trueScaleGuide"/);
+assert.match(page,/svs.gsfc.nasa.gov\/2915/);
+assert.match(page,/maps.jpl.nasa.gov\/tmaps\/jupiter.html/);
+assert.match(ctrl,/const hemispheres=new Map/);
+assert.match(ctrl,/new URL\('\.\.\/images\/'/);
+for(const body of PLANET_ORBITS){
+ const start=focusRadiusAUAtProgress(0,body.diameterKm);
+ const end=focusRadiusAUAtProgress(1,body.diameterKm);
+ assert.ok(start<.005,'Closeup must be closer than one solar-system unit');
+ assert.ok(Math.abs(end-35)<1e-8);
+ const firstDiameter=physicalPlanetDiameterPx(body.diameterKm,start,260);
+ assert.ok(firstDiameter>100&&firstDiameter<300,'A real resolved disk must be visible at the close-up');
+ const threshold=pixelThresholdRadiusAU(body.diameterKm,260);
+ assert.ok(Math.abs(physicalPlanetDiameterPx(body.diameterKm,threshold,260)-1)<1e-12);
+ const mid=focusProgressAtRadiusAU(threshold,body.diameterKm);
+ assert.ok(mid>0&&mid<1);
+ assert.ok(Math.abs(focusRadiusAUAtProgress(mid,body.diameterKm)-threshold)/threshold<1e-10);
+ assert.ok(physicalPlanetDiameterPx(body.diameterKm,end,260)<.01);
+}
+
+assert.ok(page.indexOf('id="trueScalePhysics"')>page.indexOf('id="trueScaleSizeMode"'),'Pixel reference must follow its checkbox');
 assert.doesNotMatch(css,/\.true-scale-reveal\{position:absolute/,'No central overlay');
 assert.match(ctrl,/flightGoal=to;engine.start\(to\)/);
 assert.match(ctrl,/Math.abs\(p-flightGoal\)<\.0001/);
