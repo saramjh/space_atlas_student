@@ -28,7 +28,7 @@ def menu_data(raw, title_tag):
 def check():
     desktop = menu_data(NAV, "b")
     directory = menu_data(HOME, "strong")
-    assert len(desktop) == 26 and desktop == directory, (
+    assert len(desktop) == 27 and desktop == directory, (
         f"Navbar/home mismatch. Nav: {len(desktop)} Home: {len(directory)} "
         f"Different: {[p for p in desktop if directory.get(p) != desktop[p]]}"
     )

@@ -90,6 +90,7 @@ jobs:
           node ci/verify_svg_path_semantics.mjs
           node ci/verify_gravity_radius_geometry.mjs
           node ci/verify_immersive_stage_width.mjs
+          node ci/verify_ed138_discovery.mjs
           node ci/verify_ready_content.mjs
           node ci/verify_gravity_mechanism.mjs
           node ci/verify_gravity_immersive.mjs

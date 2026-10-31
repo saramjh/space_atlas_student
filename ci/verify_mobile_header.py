@@ -51,7 +51,7 @@ class Header(HTMLParser):
 
 def check():
     pages = sorted(PUBLIC.rglob("index.html"))
-    assert len(pages) == 29, f"Expected all 29 public pages; got {len(pages)}"
+    assert len(pages) == 30, f"Expected all 30 public pages; got {len(pages)}"
     for page in pages:
         html = page.read_text(encoding="utf-8")
         header = html.split("</header>", 1)[0]

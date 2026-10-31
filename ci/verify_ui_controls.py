@@ -48,7 +48,7 @@ class Structure(HTMLParser):
 
 
 def main():
-    assert len(PAGES) == 29, f"expected 29 generated pages, found {len(PAGES)}"
+    assert len(PAGES) == 30, f"expected 30 generated pages, found {len(PAGES)}"
     for page in PAGES:
         parsed = Structure()
         parsed.feed(page.read_text(encoding="utf-8"))

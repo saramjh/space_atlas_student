@@ -94,14 +94,14 @@ def main():
         parsed = PageParser()
         parsed.feed(p.read_text(encoding="utf-8"))
         documents[route] = parsed
-    assert len(documents) == 29, f"expected 27 lessons, updates and privacy page, got {len(documents)}"
+    assert len(documents) == 30, f"expected 28 learning pages, updates and privacy, got {len(documents)}"
     assert len(set(documents)) == len(documents)
     home = documents["/"]
     for anchor in ("atlas-directory", *CATEGORIES.values()):
         assert anchor in home.ids, f"missing real homepage category anchor {anchor}"
 
     topic_pages = set(documents) - {"/", "/updates/", "/privacy/"}
-    assert len(topic_pages) == 26
+    assert len(topic_pages) == 27
     inbound = Counter()
     main_edges = set()
     broken = []

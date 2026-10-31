@@ -63,8 +63,8 @@ def local_target(page, href):
 errors = []
 pages = sorted(PUBLIC.rglob("index.html"))
 learning_pages = [page for page in pages if page.relative_to(PUBLIC).as_posix() not in ("updates/index.html", "privacy/index.html")]
-if len(pages) != 29 or len(learning_pages) != 27:
-    errors.append(f"expected 27 learning pages + 2 site information pages, got {len(learning_pages)}+{len(pages)-len(learning_pages)}")
+if len(pages) != 30 or len(learning_pages) != 28:
+    errors.append(f"expected 28 learning pages + 2 site information pages, got {len(learning_pages)}+{len(pages)-len(learning_pages)}")
 
 # Production builds contain the AdSense loader; local/default builds deliberately do not.
 # When monetization is enabled, keep the site on the controlled one-slot contract.

@@ -1,0 +1,14 @@
+{
+  "path": "/solar-system/2026-ed138-dwarf-planet-candidate/",
+  "title": "2026 ED138: Is It the Sixth Dwarf Planet? | Space Atlas",
+  "description": "Rubin Observatory discovered 2026 ED138 in 2026. Is it the sixth dwarf planet? Not yet: explore its estimated 612–1,530 km size, orbit, and IAU status.",
+  "canonical": "https://saramjh.github.io/space_atlas_student/solar-system/2026-ed138-dwarf-planet-candidate/",
+  "ogTitle": "2026 ED138: Could It Become the Sixth Dwarf Planet?",
+  "ogDescription": "A new Rubin Observatory object beyond Neptune is a dwarf-planet candidate, not the officially confirmed sixth. Investigate the evidence and size uncertainty.",
+  "ogImage": "https://saramjh.github.io/space_atlas_student/assets/images/ed138-rubin-observation.jpg",
+  "jsonldName": "2026 ED138: Could It Become the Sixth Dwarf Planet?",
+  "jsonldDescription": "Evidence-based 2026 discovery guide for students: 2026 ED138's measured brightness, estimated diameter from albedo, orbit and IAU dwarf-planet classification status, with primary research links.",
+  "script": "/assets/js/ed138-dwarf-planet.js",
+  "learningResourceType": "Interactive Reference",
+  "interactivityType": "mixed"
+}
