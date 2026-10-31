@@ -17,7 +17,6 @@
       <div id="trueScaleFallback" class="true-scale-fallback" aria-label="Static solar-system overview. Actual distances must be compressed or shown with a scale ruler to fit all planets on one screen."><div class="true-scale-sun" aria-hidden="true"></div><p>From Mercury at 0.39 AU to Neptune at 30.05 AU, the empty distances grow much faster than the planet images.</p><p>Explore the zoomable model, or compare the original evidence diagrams below.</p></div>
       <canvas id="trueScaleCanvas" hidden aria-label="Interactive logarithmic camera zoom through a solar-system map where displayed orbital radii follow actual AU ratios. Select symbols by tapping, pan orientation by dragging, zoom by wheel or pinch. Planet marker sizes can switch to physical diameter."></canvas>
       <div class="true-scale-stage-legend" aria-hidden="true"><span>ORBIT POSITIONS · PHYSICAL AU RATIOS</span></div>
-      <p id="trueScaleReveal" class="true-scale-reveal" hidden>They vanished — because real planets are tiny compared with the space between them.</p>
     </div>
     <div class="true-scale-controls" id="trueScaleControls" hidden>
       <div class="true-scale-focus-preset" role="group" aria-label="Jump between solar-system camera scales">
@@ -29,6 +28,7 @@
         <label for="trueScalePlanet">Highlight <select id="trueScalePlanet"><option>Mercury</option><option>Venus</option><option selected>Earth</option><option>Mars</option><option>Jupiter</option><option>Saturn</option><option>Uranus</option><option>Neptune</option></select></label>
         <label class="true-scale-checkbox" for="trueScaleSizeMode"><input id="trueScaleSizeMode" type="checkbox"/> Render physical planet diameters (tiny at distance)</label>
       </div>
+      <p id="trueScaleReveal" class="true-scale-reveal" role="note" hidden>At true relative sizes, planets may be smaller than one screen pixel. Turn off physical diameters to restore enlarged markers.</p>
       <p class="motion-preference-note">Reduced motion: the automatic fly-through is disabled; zoom and planet selection work manually.</p>
     </div>
     <p id="trueScaleReadout" class="true-scale-readout" role="status">Camera distance comparison ready.</p>

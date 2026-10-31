@@ -32,6 +32,10 @@ assert.match(ctrl,/physicalPlanetDiameterPx\(p\.diameterKm,radiusAU,pxRadius\)/)
 assert.match(ctrl,/const ppau=pxRadius\/radiusAU/);
 assert.match(ctrl,/displayRadius=sizesAreTrue\?diameterPx\/2/);
 assert.match(ctrl,/reveal.hidden=!markerSize.checked/);
+assert.match(ctrl,/reveal.textContent=.*true-scale disk/);
+assert.match(page,/<p id="trueScaleReveal" class="true-scale-reveal" role="note" hidden>/);
+assert.ok(page.indexOf('id="trueScaleReveal"')>page.indexOf('id="trueScaleSizeMode"'),'Subpixel note must follow its checkbox');
+assert.doesNotMatch(css,/\.true-scale-reveal\{position:absolute/,'No central overlay');
 assert.match(ctrl,/flightGoal=to;engine.start\(to\)/);
 assert.match(ctrl,/Math.abs\(p-flightGoal\)<\.0001/);
 assert.match(ctrl,/trueScaleSizeMode|#trueScaleSizeMode/);

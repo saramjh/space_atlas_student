@@ -26,6 +26,10 @@ if(experience){
   const stageRadius=Math.min(Math.max(1,stage.clientWidth),Math.max(1,stage.clientHeight))*.43;
   const actualDiameter=physicalPlanetDiameterPx(p.diameterKm,radiusAUAtProgress(targetProgress),stageRadius);
   selection.textContent=`${p.name}: ${p.au.toFixed(2)} AU from the Sun (average semi-major axis), diameter ≈ ${p.diameterKm.toLocaleString('en-US')} km. At this camera scale its physical projected diameter is ${actualDiameter<.01?actualDiameter.toExponential(2):actualDiameter.toFixed(3)} CSS px. ${markerSize.checked?'True diameter mode: the disk may be smaller than one pixel; switch back to readable symbols to find it.':'Readable markers mode: its colored symbol is deliberately enlarged.'}`;
+  if(markerSize.checked){
+   const projected=actualDiameter<.01?actualDiameter.toExponential(2):actualDiameter.toFixed(3);
+   reveal.textContent=`${p.name}'s true-scale disk is ${projected} CSS px wide at this zoom — ${actualDiameter<1?'too small to resolve as a visible planet.':'shown at its calculated width.'} Orbit guides and background remain schematic. Uncheck this option to restore enlarged markers.`;
+  }
   reveal.hidden=!markerSize.checked;
  }
  function syncZoom(v){
