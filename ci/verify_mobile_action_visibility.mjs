@@ -56,14 +56,29 @@ for(const meta of metas){
  assert.equal(html.includes('mobile-feedback-dock.js'),Object.hasOwn(plans,meta.path),
   'Unexpected dock script injection for '+meta.path);
 }
-assert.match(dock,/insertBefore\(placeholder,item\)/);
-assert.match(dock,/replaceChild\(item,placeholder\)/);
-assert.match(dock,/element\.closest\('label'\)/);
+// Every dock must disclose extras and expose lesson-specific primary
+// actions; labels with dynamic output values accompany their inputs.
+assert.match(dock,/node\.parentNode\.insertBefore\(placeholder,node\)/);
+assert.match(dock,/placeholder\.parentNode\.replaceChild\(node,placeholder\)/);
+assert.match(dock,/e\.closest\('label'\)/);
+assert.match(dock,/document\.querySelector\('label\[for="/);
+assert.match(dock,/primary|priority/);
+assert.match(dock,/className='atlas-feedback-main'/);
+assert.match(dock,/className='atlas-feedback-details'/);
+assert.match(dock,/summary\.textContent='Additional controls/);
+assert.match(dock,/details\.open=false/);
 assert.match(dock,/breakpoint\.addEventListener\('change',schedule\)/);
 assert.match(dock,/revealActivatedScene\(\)/);
 assert.match(dock,/prefers-reduced-motion: reduce/);
 assert.match(css,/\.atlas-feedback-dock:not\(\[hidden\]\)/);
 assert.match(css,/@media\(max-width:620px\)/);
+assert.match(css,/\.atlas-feedback-main/);
+assert.match(css,/\.atlas-feedback-item\.is-field/);
+assert.match(css,/\.atlas-feedback-details>summary/);
+assert.doesNotMatch(css,/\.atlas-feedback-dock:not\(\[hidden\]\)\{display:flex;align-items:center;gap:8px;overflow-x:auto/);
+for(const id of ['transitPlay','transitAngle','transitRadius','bhAnimate','bhFlowSpeed','gravityProbePlay','gravityMass','gravityRadius']){
+ assert.match(dock,new RegExp("'"+id+"'"));
+}
 const lab=readFileSync('pages/solar-system/gravity-lab/content.html','utf8');
 assert.ok(lab.indexOf('id="gravityLabSelector"')<lab.indexOf('id="gravityLabModeFlight"'));
 assert.ok(lab.indexOf('id="gravityLabModeFlight"')<lab.indexOf('id="gravityLabView"'));

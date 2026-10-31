@@ -1,0 +1,1248 @@
+{
+  "date": "2026-11-01",
+  "scope": "20 corrected routes at two small-mobile viewports, 40 real Chrome DOM cases",
+  "cases": [
+    {
+      "route": "/black-holes/",
+      "screen": "320x568",
+      "primary": [
+        "bhAnimate",
+        "bhFlowSpeed"
+      ],
+      "additional": [
+        "bhGuide",
+        "bhGlide",
+        "bhZoomIn",
+        "bhZoomOut"
+      ],
+      "primaryVisible": true,
+      "dockH": 176,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "bhFlowSpeed",
+          "linked": true,
+          "aria": null,
+          "name": "Illustrative gas flow speed 1.0×"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/earth/seasons/",
+      "screen": "320x568",
+      "primary": [
+        "seasonAngle",
+        "tiltReal",
+        "tiltZero"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 125,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [
+        {
+          "id": "seasonAngle",
+          "linked": false,
+          "aria": "Earth's position in its orbit"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/exoplanets/transit-method/",
+      "screen": "320x568",
+      "primary": [
+        "transitPlay",
+        "transitAngle",
+        "transitRadius"
+      ],
+      "additional": [
+        "transitFocus",
+        "transitTrack"
+      ],
+      "primaryVisible": true,
+      "dockH": 176,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "transitAngle",
+          "linked": true,
+          "aria": "Planet orbital phase in degrees",
+          "name": "Orbital phase 0°"
+        },
+        {
+          "id": "transitRadius",
+          "linked": true,
+          "aria": "Planet radius as percent of stellar radius",
+          "name": "Planet radius 10% of stellar radius"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/galaxies/milky-way/",
+      "screen": "320x568",
+      "primary": [
+        "mw3DFocusSun",
+        "mw3DOverview"
+      ],
+      "additional": [
+        "mw3DHomecoming",
+        "mw3DZoomIn",
+        "mw3DZoomOut",
+        "mw3DRotateLeft",
+        "mw3DRotateRight"
+      ],
+      "primaryVisible": true,
+      "dockH": 104,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (5)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/galaxies/types/",
+      "screen": "320x568",
+      "primary": [
+        "galaxy3DPlay",
+        "galaxyInclination",
+        "galaxyOrbitMotion"
+      ],
+      "additional": [
+        "galaxyZoomIn",
+        "galaxyZoomOut",
+        "galaxyCameraReset"
+      ],
+      "primaryVisible": true,
+      "dockH": 176,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (3)",
+      "labels": [
+        {
+          "id": "galaxyInclination",
+          "linked": true,
+          "aria": null,
+          "name": "Viewing angle to the galaxy disk"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/learn/not-to-scale/",
+      "screen": "320x568",
+      "primary": [
+        "trueScalePlay",
+        "trueScaleZoom"
+      ],
+      "additional": [
+        "trueScaleReverse"
+      ],
+      "primaryVisible": true,
+      "dockH": 177,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "trueScaleZoom",
+          "linked": true,
+          "aria": null,
+          "name": "Camera zoom: near Sun to outer solar system"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/earth-moon-scale/",
+      "screen": "320x568",
+      "primary": [
+        "emFlightPlay",
+        "emFlightSlider"
+      ],
+      "additional": [
+        "emFlightMoon",
+        "emFlightEarth"
+      ],
+      "primaryVisible": true,
+      "dockH": 189,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "emFlightSlider",
+          "linked": true,
+          "aria": null,
+          "name": "Position along the conceptual journey 0%"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/eclipses/",
+      "screen": "320x568",
+      "primary": [
+        "eclipsePlay",
+        "eclipseAngle",
+        "eclipseNode"
+      ],
+      "additional": [
+        "btnSolarPos",
+        "btnLunarPos"
+      ],
+      "primaryVisible": true,
+      "dockH": 201,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "eclipseAngle",
+          "linked": false,
+          "aria": "Moon's position around Earth, in degrees"
+        },
+        {
+          "id": "eclipseNode",
+          "linked": true,
+          "aria": null,
+          "name": "Where the orbit crosses Earth's plane 90° away from Sun–Earth direction"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/phases/",
+      "screen": "320x568",
+      "primary": [
+        "moonAngle"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 60,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [
+        {
+          "id": "moonAngle",
+          "linked": false,
+          "aria": "Move the Moon around Earth through one idealized phase cycle, 0 to 360 degrees"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/tidal-locking/",
+      "screen": "320x568",
+      "primary": [
+        "lockAngle"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 77,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [
+        {
+          "id": "lockAngle",
+          "linked": false,
+          "aria": "Moon's position in orbit"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/tides/",
+      "screen": "320x568",
+      "primary": [
+        "tideCinemaPlay",
+        "tideCinemaAngle"
+      ],
+      "additional": [
+        "tideCinemaReset",
+        "tideCinemaZoomIn",
+        "tideCinemaZoomOut",
+        "tideCinemaObserver"
+      ],
+      "primaryVisible": true,
+      "dockH": 170,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "tideCinemaAngle",
+          "linked": true,
+          "aria": null,
+          "name": "Moon–Sun alignment 0°"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/astronomical-unit/",
+      "screen": "320x568",
+      "primary": [
+        "auExpeditionPlay",
+        "auExpeditionProgress"
+      ],
+      "additional": [
+        "auExpeditionReset",
+        "auExpeditionStop"
+      ],
+      "primaryVisible": true,
+      "dockH": 198,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "auExpeditionProgress",
+          "linked": true,
+          "aria": "Distance from Sun in hundredths of an astronomical unit",
+          "name": "Position on the real linear distance ruler 0.00 AU"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/gravity-and-orbits/",
+      "screen": "320x568",
+      "primary": [
+        "orbitLaunch",
+        "orbitSpeed"
+      ],
+      "additional": [
+        "orbitReset"
+      ],
+      "primaryVisible": true,
+      "dockH": 176,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "orbitSpeed",
+          "linked": true,
+          "aria": null,
+          "name": "Launch speed (model units)"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/gravity-comparison/",
+      "screen": "320x568",
+      "primary": [
+        "gravityMass",
+        "gravityRadius",
+        "gravityProbePlay"
+      ],
+      "additional": [
+        "gravityProbeReset",
+        "gravity3DZoomIn",
+        "gravity3DZoomOut",
+        "gravity3DRotate"
+      ],
+      "primaryVisible": true,
+      "dockH": 170,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "gravityMass",
+          "linked": true,
+          "aria": null,
+          "name": "Mass 1.0× Earth"
+        },
+        {
+          "id": "gravityRadius",
+          "linked": true,
+          "aria": null,
+          "name": "Radius 1.00× Earth"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/orbital-periods/",
+      "screen": "320x568",
+      "primary": [
+        "keplerOrbitPlay",
+        "keplerOrbitTime"
+      ],
+      "additional": [
+        "keplerOrbitReset",
+        "keplerOrbitZoomIn",
+        "keplerOrbitZoomOut",
+        "keplerOrbitFollow"
+      ],
+      "primaryVisible": true,
+      "dockH": 195,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "keplerOrbitTime",
+          "linked": true,
+          "aria": null,
+          "name": "Elapsed simulated Earth time 0.00 Earth yr"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/pluto-dwarf-planet/",
+      "screen": "320x568",
+      "primary": [
+        "plutoResonancePlay",
+        "plutoResonanceTime"
+      ],
+      "additional": [
+        "plutoResonanceReset"
+      ],
+      "primaryVisible": true,
+      "dockH": 196,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "plutoResonanceTime",
+          "linked": true,
+          "aria": null,
+          "name": "Progress through a simplified 495–496 year cycle 0%"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/temperature-comparison/",
+      "screen": "320x568",
+      "primary": [
+        "tempCompareA",
+        "tempCompareB"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 76,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/stars/life-cycle/",
+      "screen": "320x568",
+      "primary": [
+        "lifePlay",
+        "lifeSwitchMass"
+      ],
+      "additional": [
+        "lifeNext"
+      ],
+      "primaryVisible": true,
+      "dockH": 119,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/universe/light-year/",
+      "screen": "320x568",
+      "primary": [
+        "lyPlay",
+        "lyPhotonSlider"
+      ],
+      "additional": [
+        "lyCinemaFollow"
+      ],
+      "primaryVisible": true,
+      "dockH": 223,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "lyPhotonSlider",
+          "linked": true,
+          "aria": null,
+          "name": "Fraction of journey completed 100%"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/universe/scale/",
+      "screen": "320x568",
+      "primary": [
+        "zoomNext",
+        "zoomCinemaTour"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 60,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/black-holes/",
+      "screen": "390x667",
+      "primary": [
+        "bhAnimate",
+        "bhFlowSpeed"
+      ],
+      "additional": [
+        "bhGuide",
+        "bhGlide",
+        "bhZoomIn",
+        "bhZoomOut"
+      ],
+      "primaryVisible": true,
+      "dockH": 170,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "bhFlowSpeed",
+          "linked": true,
+          "aria": null,
+          "name": "Illustrative gas flow speed 1.0×"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/earth/seasons/",
+      "screen": "390x667",
+      "primary": [
+        "seasonAngle",
+        "tiltReal",
+        "tiltZero"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 125,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [
+        {
+          "id": "seasonAngle",
+          "linked": false,
+          "aria": "Earth's position in its orbit"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/exoplanets/transit-method/",
+      "screen": "390x667",
+      "primary": [
+        "transitPlay",
+        "transitAngle",
+        "transitRadius"
+      ],
+      "additional": [
+        "transitFocus",
+        "transitTrack"
+      ],
+      "primaryVisible": true,
+      "dockH": 176,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "transitAngle",
+          "linked": true,
+          "aria": "Planet orbital phase in degrees",
+          "name": "Orbital phase 0°"
+        },
+        {
+          "id": "transitRadius",
+          "linked": true,
+          "aria": "Planet radius as percent of stellar radius",
+          "name": "Planet radius 10% of stellar radius"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/galaxies/milky-way/",
+      "screen": "390x667",
+      "primary": [
+        "mw3DFocusSun",
+        "mw3DOverview"
+      ],
+      "additional": [
+        "mw3DHomecoming",
+        "mw3DZoomIn",
+        "mw3DZoomOut",
+        "mw3DRotateLeft",
+        "mw3DRotateRight"
+      ],
+      "primaryVisible": true,
+      "dockH": 104,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (5)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/galaxies/types/",
+      "screen": "390x667",
+      "primary": [
+        "galaxy3DPlay",
+        "galaxyInclination",
+        "galaxyOrbitMotion"
+      ],
+      "additional": [
+        "galaxyZoomIn",
+        "galaxyZoomOut",
+        "galaxyCameraReset"
+      ],
+      "primaryVisible": true,
+      "dockH": 170,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (3)",
+      "labels": [
+        {
+          "id": "galaxyInclination",
+          "linked": true,
+          "aria": null,
+          "name": "Viewing angle to the galaxy disk"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/learn/not-to-scale/",
+      "screen": "390x667",
+      "primary": [
+        "trueScalePlay",
+        "trueScaleZoom"
+      ],
+      "additional": [
+        "trueScaleReverse"
+      ],
+      "primaryVisible": true,
+      "dockH": 177,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "trueScaleZoom",
+          "linked": true,
+          "aria": null,
+          "name": "Camera zoom: near Sun to outer solar system"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/earth-moon-scale/",
+      "screen": "390x667",
+      "primary": [
+        "emFlightPlay",
+        "emFlightSlider"
+      ],
+      "additional": [
+        "emFlightMoon",
+        "emFlightEarth"
+      ],
+      "primaryVisible": true,
+      "dockH": 176,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "emFlightSlider",
+          "linked": true,
+          "aria": null,
+          "name": "Position along the conceptual journey 0%"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/eclipses/",
+      "screen": "390x667",
+      "primary": [
+        "eclipsePlay",
+        "eclipseAngle",
+        "eclipseNode"
+      ],
+      "additional": [
+        "btnSolarPos",
+        "btnLunarPos"
+      ],
+      "primaryVisible": true,
+      "dockH": 189,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "eclipseAngle",
+          "linked": false,
+          "aria": "Moon's position around Earth, in degrees"
+        },
+        {
+          "id": "eclipseNode",
+          "linked": true,
+          "aria": null,
+          "name": "Where the orbit crosses Earth's plane 90° away from Sun–Earth direction"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/phases/",
+      "screen": "390x667",
+      "primary": [
+        "moonAngle"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 60,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [
+        {
+          "id": "moonAngle",
+          "linked": false,
+          "aria": "Move the Moon around Earth through one idealized phase cycle, 0 to 360 degrees"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/tidal-locking/",
+      "screen": "390x667",
+      "primary": [
+        "lockAngle"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 77,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [
+        {
+          "id": "lockAngle",
+          "linked": false,
+          "aria": "Moon's position in orbit"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/moon/tides/",
+      "screen": "390x667",
+      "primary": [
+        "tideCinemaPlay",
+        "tideCinemaAngle"
+      ],
+      "additional": [
+        "tideCinemaReset",
+        "tideCinemaZoomIn",
+        "tideCinemaZoomOut",
+        "tideCinemaObserver"
+      ],
+      "primaryVisible": true,
+      "dockH": 170,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "tideCinemaAngle",
+          "linked": true,
+          "aria": null,
+          "name": "Moon–Sun alignment 0°"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/astronomical-unit/",
+      "screen": "390x667",
+      "primary": [
+        "auExpeditionPlay",
+        "auExpeditionProgress"
+      ],
+      "additional": [
+        "auExpeditionReset",
+        "auExpeditionStop"
+      ],
+      "primaryVisible": true,
+      "dockH": 185,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (2)",
+      "labels": [
+        {
+          "id": "auExpeditionProgress",
+          "linked": true,
+          "aria": "Distance from Sun in hundredths of an astronomical unit",
+          "name": "Position on the real linear distance ruler 0.00 AU"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/gravity-and-orbits/",
+      "screen": "390x667",
+      "primary": [
+        "orbitLaunch",
+        "orbitSpeed"
+      ],
+      "additional": [
+        "orbitReset"
+      ],
+      "primaryVisible": true,
+      "dockH": 170,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "orbitSpeed",
+          "linked": true,
+          "aria": null,
+          "name": "Launch speed (model units)"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/gravity-comparison/",
+      "screen": "390x667",
+      "primary": [
+        "gravityMass",
+        "gravityRadius",
+        "gravityProbePlay"
+      ],
+      "additional": [
+        "gravityProbeReset",
+        "gravity3DZoomIn",
+        "gravity3DZoomOut",
+        "gravity3DRotate"
+      ],
+      "primaryVisible": true,
+      "dockH": 170,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "gravityMass",
+          "linked": true,
+          "aria": null,
+          "name": "Mass 1.0× Earth"
+        },
+        {
+          "id": "gravityRadius",
+          "linked": true,
+          "aria": null,
+          "name": "Radius 1.00× Earth"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/orbital-periods/",
+      "screen": "390x667",
+      "primary": [
+        "keplerOrbitPlay",
+        "keplerOrbitTime"
+      ],
+      "additional": [
+        "keplerOrbitReset",
+        "keplerOrbitZoomIn",
+        "keplerOrbitZoomOut",
+        "keplerOrbitFollow"
+      ],
+      "primaryVisible": true,
+      "dockH": 195,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (4)",
+      "labels": [
+        {
+          "id": "keplerOrbitTime",
+          "linked": true,
+          "aria": null,
+          "name": "Elapsed simulated Earth time 0.00 Earth yr"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/pluto-dwarf-planet/",
+      "screen": "390x667",
+      "primary": [
+        "plutoResonancePlay",
+        "plutoResonanceTime"
+      ],
+      "additional": [
+        "plutoResonanceReset"
+      ],
+      "primaryVisible": true,
+      "dockH": 183,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "plutoResonanceTime",
+          "linked": true,
+          "aria": null,
+          "name": "Progress through a simplified 495–496 year cycle 0%"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/solar-system/temperature-comparison/",
+      "screen": "390x667",
+      "primary": [
+        "tempCompareA",
+        "tempCompareB"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 76,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/stars/life-cycle/",
+      "screen": "390x667",
+      "primary": [
+        "lifePlay",
+        "lifeSwitchMass"
+      ],
+      "additional": [
+        "lifeNext"
+      ],
+      "primaryVisible": true,
+      "dockH": 105,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/universe/light-year/",
+      "screen": "390x667",
+      "primary": [
+        "lyPlay",
+        "lyPhotonSlider"
+      ],
+      "additional": [
+        "lyCinemaFollow"
+      ],
+      "primaryVisible": true,
+      "dockH": 202,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (1)",
+      "labels": [
+        {
+          "id": "lyPhotonSlider",
+          "linked": true,
+          "aria": null,
+          "name": "Fraction of journey completed 100%"
+        }
+      ],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    },
+    {
+      "route": "/universe/scale/",
+      "screen": "390x667",
+      "primary": [
+        "zoomNext",
+        "zoomCinemaTour"
+      ],
+      "additional": [],
+      "primaryVisible": true,
+      "dockH": 60,
+      "overflow": false,
+      "scrollableDock": false,
+      "additionalClosed": true,
+      "summary": "Additional controls (0)",
+      "labels": [],
+      "requiredPresent": true,
+      "disclosure": {
+        "opened": true,
+        "expandedControlsVisible": true,
+        "closedAgain": true
+      }
+    }
+  ]
+}

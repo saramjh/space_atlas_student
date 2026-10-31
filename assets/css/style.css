@@ -2284,19 +2284,57 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 }
 
 
-/* Mobile action-to-result proximity: move the original controls, with their
-   listeners and IDs, immediately before each active visualization. */
+/* Mobile learning controls: essential action + variables are always visible.
+   Secondary camera tools are explicitly disclosed, never hidden in an
+   unlabeled horizontal strip. The real labels and live values stay together. */
 .atlas-feedback-dock{display:none}
 @media(max-width:620px){
- .atlas-feedback-dock:not([hidden]){display:flex;align-items:center;gap:8px;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#9eb5c3 #172c3d;min-height:57px;padding:7px 10px;background:#132b3c;border:1px solid #496578;border-bottom:0;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
- .atlas-feedback-dock>*{flex:0 0 auto;scroll-snap-align:start;max-width:190px}
- .atlas-feedback-dock button{display:inline-flex;justify-content:center;align-items:center;gap:4px;min-height:44px;max-width:180px;white-space:normal;padding:8px 11px;background:#21485e;border:1px solid #8caab8;color:#f7f7f0;font:600 11px/1.3 var(--font-reading);cursor:pointer}
- .atlas-feedback-dock button[aria-pressed=true],.atlas-feedback-dock button.active{background:#ad5737;border-color:#e5b18b}
- .atlas-feedback-dock button:focus-visible,.atlas-feedback-dock select:focus-visible,.atlas-feedback-dock input:focus-visible{outline:3px solid #f4ca92;outline-offset:2px}
- .atlas-feedback-dock button:disabled{opacity:.55;cursor:not-allowed}
- .atlas-feedback-dock label{display:flex;flex-direction:column;justify-content:center;gap:3px;max-width:200px;color:#f2eee4;font:600 10px/1.3 var(--font-reading)}
- .atlas-feedback-dock label input[type=range],.atlas-feedback-dock input[type=range]{width:155px;max-width:155px;accent-color:#efc38a;min-height:32px;margin:0}
- .atlas-feedback-dock select{max-width:190px;min-height:42px;background:#e9eee9;color:#122d40;border:1px solid #92a4af;padding:7px}
- .atlas-feedback-dock:has(>button:only-child){justify-content:flex-start}
- .atlas-feedback-dock,.atlas-feedback-dock+*{scroll-margin-top:126px}
+ .atlas-feedback-dock:not([hidden]){
+  display:block;min-width:0;padding:8px 9px 6px;background:#102b3e;
+  border:1px solid #526c79;border-bottom:0;color:#f2f4ee;
+  scroll-margin-top:126px;
+ }
+ .atlas-feedback-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;align-items:stretch}
+ .atlas-feedback-item{min-width:0}
+ .atlas-feedback-item.is-action{display:flex}
+ .atlas-feedback-item.is-action button{width:100%;min-width:0;min-height:44px;
+  justify-content:center;align-items:center;white-space:normal;
+  padding:7px 9px;background:#255068;color:#fff;border:1px solid #93b5c4;
+  font:600 11px/1.3 var(--font-reading);cursor:pointer}
+ .atlas-feedback-item.is-action button[aria-pressed=true],
+ .atlas-feedback-item.is-action button.active{background:#ad5737;border-color:#f1b887}
+ .atlas-feedback-item.is-action button:disabled{opacity:.55;cursor:not-allowed}
+ .atlas-feedback-main:has(>.is-field)>.is-action:first-child{grid-column:1/-1}
+ .atlas-feedback-item.is-field{display:flex;flex-direction:column;gap:3px;
+  align-items:stretch;justify-content:space-between;padding:6px 7px 4px;
+  background:#1b3c4d;border:1px solid #476474;min-height:60px}
+ .atlas-feedback-item.is-field label{min-width:0;font:600 10px/1.25 var(--font-reading);
+  color:#eff2ec;overflow-wrap:anywhere}
+ .atlas-feedback-item.is-field output,
+ .atlas-feedback-item.is-field label strong{color:#f5cd94;font-weight:700}
+ .atlas-feedback-item.is-field input[type=range]{width:100%;min-width:0;
+  height:26px;accent-color:#eac28b;margin:0}
+ .atlas-feedback-item.is-field select{width:100%;min-width:0;min-height:36px;
+  background:#eef2eb;color:#133245;border:1px solid #8da8b6;font-size:11px}
+ .atlas-feedback-main>.is-field:only-child{grid-column:1/-1;min-height:45px;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(118px,46%);
+  gap:8px;align-items:center}
+ .atlas-feedback-main>.is-field:only-child input[type=range]{height:32px}
+ .atlas-feedback-details{margin-top:7px;border-top:1px solid #557182}
+ .atlas-feedback-details[hidden]{display:none}
+ .atlas-feedback-details>summary{list-style:none;display:flex;align-items:center;
+  justify-content:space-between;min-height:37px;padding:7px 9px;
+  cursor:pointer;color:#f8e0b8;background:#203d50;font:600 11px/1.3 var(--font-reading)}
+ .atlas-feedback-details>summary::-webkit-details-marker{display:none}
+ .atlas-feedback-details>summary:after{content:'+';font-size:17px;line-height:1}
+ .atlas-feedback-details[open]>summary:after{content:'−'}
+ .atlas-feedback-extra{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;padding:8px 0 4px;max-height:min(33dvh,180px);overflow-y:auto}
+ .atlas-feedback-extra .atlas-feedback-item.is-field{grid-column:1/-1}
+ .atlas-feedback-dock button:focus-visible,
+ .atlas-feedback-dock summary:focus-visible,
+ .atlas-feedback-dock input:focus-visible,
+ .atlas-feedback-dock select:focus-visible{outline:3px solid #ffd299;outline-offset:2px}
+ .atlas-feedback-dock+*{scroll-margin-top:126px}
 }
