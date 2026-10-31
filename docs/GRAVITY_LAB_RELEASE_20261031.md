@@ -92,3 +92,48 @@ and native dropdown→Jupiter synchronized. Real Chromium CDP mobile two-pointer
 joystick + Jump on the Moon: mid-flight 0.48m, completed 2.81m / 3.75s.
 390px page has zero horizontal overflow. Physical iOS/Android performance
 not measured.
+
+
+## 2026-10-31 optional Flight Trials mini-game
+
+New same-page Gravity Lab / Flight Trials mode buttons distinguish two
+different questions. The original unpowered experiment and its NASA
+gravity data, 3.0 m/s launch model, output, links and learner prediction
+are unchanged in Science mode. In Flight Trials, the student tries a short
+artificial 3D course: launch to GATE 01 (0.72 m), GATE 02 (1.18 m), and FINISH
+(1.50 m). The fictional platforms are styled test infrastructure.
+
+Game physics uses an independent pure module gravity-flight-physics.js:
+- Mass remains 70 kg; initial launch is still 3.0 m/s.
+- HOLD Shift on desktop or HOLD Boost on touch while airborne. 1.0 s total
+  boost capacity per charge; no boost on ground.
+- Fictional flight assist auto-compensates gravity:
+  F_boost = mass * (g + 5.5 m/s²). Net acceleration +5.5 m/s² during boost,
+  and -g otherwise. NOT the same booster force on each planet, nor a human
+  jetpack or a claim about surviving planetary conditions.
+- Landing on an elevated platform recharges linearly over 2.5 seconds while
+  grounded, with no airborne recharge. Falling off a pad causes free fall,
+  and falling below the course returns to the latest checkpoint.
+- Visible four-pad challenge has three checkpoints. Completion reports
+  attempts, cumulative booster seconds across retries, and active simulated
+  movement time, separately from unboosted scientific jump measurements.
+- Reuses existing opt-in Three.js, no runtime dependencies or network assets,
+  no autoplay, mobile pixel ratio caps and reduced-motion behavior retained.
+- Mobile left joystick, right Jump then Boost press-and-hold, pointer
+  capture/release/cancel and window blur clear thrust independently.
+- World or mode change resets challenge; hidden tab retains flight trajectory
+  without advancing absent time, and clears held input.
+
+Verification:
+- TDD gravity flight unit tests first failed before Flight Trials UI existed,
+  then passed after implementation; verifies boost depletion and 2.5-second
+  recharge, NASA gravity variants, landing and UI input wiring.
+- Desktop actual Chromium keyboard walkthrough on Earth reached GATE 01,
+  GATE 02, FINISH in one attempt; 1.15 sec total booster time and
+  6.5 sec active movement time.
+- Mobile CDP actual two-finger events: joystick pointer 1, Jump pointer 2,
+  then Boost pointer 3, energy 100% to 45%, changing airborne height while
+  directional joystick remained held. 390px document fits 390px viewport.
+- Science mode restored original Earth jump 0.46 m/0.61 s and hides Boost.
+- Real physical iOS Safari/Android performance and user engagement outcomes
+  remain unmeasured.

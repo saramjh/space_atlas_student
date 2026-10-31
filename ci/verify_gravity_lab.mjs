@@ -53,7 +53,8 @@ assert.match(ctrl,/if\(document\.hidden\)suspend\(\);else if\(active\)wake\(\)/)
 assert.match(ctrl,/function suspend\(\)/);
 assert.match(ctrl,/last=0;keys\.clear\(\)/);
 assert.doesNotMatch(ctrl,/function suspend\(\)[\s\S]{0,260}air=grounded\(\)/);
-assert.match(ctrl,/if\(!active\|\|document\.hidden\|\|air\.airborne\)return/);
+assert.match(ctrl,/if\(!active\|\|document\.hidden\)return/);
+assert.match(ctrl,/if\(air\.airborne\)return/);
 
 assert.match(html,/id="gravityLabImageSource"/);
 assert.match(html,/no walkable solid surface/i);

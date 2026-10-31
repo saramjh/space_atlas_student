@@ -12,6 +12,20 @@
         <div><div class="gl-eyebrow">EXPERIMENT 01 / CONTROLLED VARIABLES</div><h2>One jumper. Different gravity.</h2></div>
         <div class="gl-rule"><span>70 kg reference mass</span><span>3.0 m/s takeoff</span><span>Gravity changes</span></div>
       </div>
+      <div class="gl-mode-switch" role="group" aria-label="Choose a gravity activity">
+        <button type="button" id="gravityLabModeScience" aria-pressed="true">
+          <span>01 / CONTROLLED EXPERIMENT</span><strong>Gravity Lab</strong>
+        </button>
+        <button type="button" id="gravityLabModeFlight" aria-pressed="false">
+          <span>02 / GAME CHALLENGE</span><strong>Flight Trials</strong>
+        </button>
+      </div>
+      <p class="gl-mode-explainer" id="gravityLabModeExplainer">Science mode: the same 3.0 m/s jump without any extra forces. Compare gravity using the measured arc.</p>
+      <div class="gl-trial-brief" id="gravityLabFlightInfo" hidden>
+        <div><span class="gl-eyebrow">FLIGHT TRIALS / OPTIONAL GAME</span><h3>Cross the aerial platforms.</h3>
+          <p>Jump, then <strong>hold Boost</strong> to gain height. Your energy lasts up to 1 second and recharges while standing in about 2.5 seconds. Land on the amber checkpoints, then reach the finish. Falling returns you to the last checkpoint.</p></div>
+        <div><strong>ASSISTED THRUST · NOT A NATURAL JUMP</strong><p>The fictional thruster auto-adjusts its force to <strong>mass × (local gravity + 5.5 m/s²)</strong>. Your unpowered fall still depends on the world; the game does <em>not</em> measure how high an unaided person can jump.</p></div>
+      </div>
       <div class="gl-world-control" id="gravityLabSelector">
         <div class="gl-world-heading">
           <div><div class="gl-eyebrow">GRAVITY FIELD / 01—09</div><h3>Choose your world</h3><p>One test chamber. Nine different pulls.</p></div>
@@ -56,23 +70,32 @@
           <p>Image reference: NASA/JPL-Caltech Perseverance. The platform is an artificial learning environment.</p>
         </div>
         <div class="gl-hud" id="gravityLabHud" hidden>
-          <div class="gl-hud-corner"><span id="gravityLabWorldHud">EARTH GRAVITY</span><strong id="gravityLabLiveHeight">0.00 m</strong><span>HEIGHT ABOVE DECK</span></div>
+          <div class="gl-hud-corner"><span id="gravityLabWorldHud">EARTH GRAVITY</span><strong id="gravityLabLiveHeight">0.00 m</strong><span id="gravityLabHeightLabel">HEIGHT ABOVE DECK</span></div>
+          <div class="gl-flight-hud" id="gravityLabFlightStatus" hidden>
+            <span>FLIGHT TRIALS / <strong id="gravityLabFlightStage">GATE 01</strong></span>
+            <div class="gl-flight-boost-label"><span>BOOST ENERGY</span><strong id="gravityLabBoostText">100%</strong></div>
+            <div class="gl-flight-energy" role="progressbar" aria-label="Booster energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="gravityLabBoostMeter"><span id="gravityLabBoostFill" style="width:100%"></span></div>
+            <span id="gravityLabFlightProgress">0 / 3 checkpoints</span>
+          </div>
           <div class="gl-reticle" aria-hidden="true"></div>
           <div class="gl-image-note">SIMULATED LAB · LANDSCAPE IS REFERENCE IMAGERY</div>
           <div class="gl-game-actions">
             <button type="button" id="gravityLabJump">Jump <span>Space</span></button>
+            <button type="button" id="gravityLabBoost" hidden>Boost <span>Hold Shift</span></button>
             <button type="button" id="gravityLabReset">Reset</button>
           </div>
           <div id="gravityLabJoystick" class="gl-joystick" aria-label="Touch movement pad: drag to walk"><span class="gl-joystick-thumb" id="gravityLabStick"></span></div>
           <div id="gravityLabLook" class="gl-look" aria-label="Touch look area: drag to turn"></div>
         </div>
       </div>
+      <p class="gl-trial-result" id="gravityLabTrialResult" hidden role="status" aria-live="polite">Reach the finish platform to complete a Flight Trial.</p>
+      <p id="gravityLabMeasureHint" class="gl-instrument-note" hidden>UNBOOSTED REFERENCE ONLY — the following jump predictions exclude the fictional thruster. Flight Trials progress is reported above.</p>
       <div class="gl-instrument">
         <div><span>EXPECTED PEAK</span><strong id="gravityLabHeight">0.46 m</strong></div>
         <div><span>EXPECTED AIR TIME</span><strong id="gravityLabHang">0.61 s</strong></div>
         <div><span>LAST COMPLETED JUMP</span><strong id="gravityLabLast">Ready to test</strong></div>
       </div>
-      <div class="gl-controls-help"><p id="gravityLabStatus" role="status" aria-live="polite">Choose an environment, then enter the lab. Controls work with a keyboard or touch.</p><p><strong>Desktop:</strong> WASD / arrow keys move · drag to look · Space to jump. <strong>Mobile:</strong> left pad moves · swipe the view to look · Jump button.</p></div>
+      <div class="gl-controls-help"><p id="gravityLabStatus" role="status" aria-live="polite">Choose an environment, then enter the lab. Controls work with a keyboard or touch.</p><p id="gravityLabControls"><strong>Desktop:</strong> WASD / arrow keys move · drag to look · Space to jump. <strong>Mobile:</strong> left pad moves · swipe the view to look · Jump button.</p></div>
       <p class="gl-caveat"><span id="gravityLabWorldNote">Earth-like gravity is reproduced inside a fictional level test chamber. This is not a visit to any real planetary surface. Backgrounds use sourced space imagery.</span> Selected-world observation image: <a id="gravityLabImageSource" href="https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a17_h_148_22727.html" target="_blank" rel="noopener noreferrer">NASA Apollo 17 Earth photograph</a>. Imagery is cropped as a conceptual observation wall, not a navigable landscape.</p>
       <noscript><p>This page includes a static physics comparison below. Interactive 3D walking requires JavaScript and a supported browser.</p></noscript>
     </div>
@@ -80,6 +103,7 @@
 </section>
 <section class="section"><div class="wrap">
   <div class="section-head"><div class="section-id">Science behind the jump</div><div><h2>Gravity changes the *entire* jump arc.</h2><p>With the same idealized launch speed, the upward velocity falls steadily under each world's constant downward acceleration.</p></div></div>
+  <p class="gl-science-boundary"><strong>Two separate experiences:</strong> The controlled experiment reports unpowered jumps only. Flight Trials adds a fictional, variable-strength thruster and obstacles for practice with gravity, thrust, energy budgeting and landing. A boosted jump must not be read as a planetary jump measurement.</p>
   <div class="gl-science">
     <div><h3>A reproducible comparison</h3><p>Our test person has a fixed <strong>70 kg mass</strong>. A training launcher gives the same <strong>3.0 m/s takeoff speed</strong> everywhere, regardless of how muscles, spacesuits or fatigue might really behave. No air resistance, atmospheric drag or changing gravity with height is included.</p>
       <p><strong>Maximum height:</strong> v₀² / (2g). <strong>Air time:</strong> 2v₀ / g. <strong>Weight force:</strong> mass × g, in newtons. Mass stays 70 kg; force changes.</p>

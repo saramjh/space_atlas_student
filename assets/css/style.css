@@ -2134,3 +2134,52 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 
 .gl-world-portrait a{color:#d8e5e7;font:500 9px/1.4 var(--font-reading);text-decoration:underline;text-underline-offset:2px;text-align:center}
 @media(max-width:650px){.gl-world-portrait a{font-size:8px}}
+
+
+/* Gravity Flight Trials — optional assisted game mode; the unboosted lab
+   remains the control condition. Architectural UI, not a fake NASA surface. */
+.gl-mode-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:#122d40;border-top:1px solid #3b5664}
+.gl-mode-switch button{display:flex;flex-direction:column;align-items:flex-start;gap:5px;text-align:left;border:0;border-right:1px solid #385467;border-bottom:3px solid transparent;background:transparent;color:#b9ccd4;min-height:74px;padding:13px 24px;cursor:pointer}
+.gl-mode-switch button:last-child{border-right:0}
+.gl-mode-switch button[aria-pressed="true"]{background:#234354;border-bottom-color:#f1c18b;color:#f9f4e6}
+.gl-mode-switch button span{font:700 9px/1.3 var(--font-data);letter-spacing:.08em}
+.gl-mode-switch button strong{font:700 clamp(17px,2vw,22px)/1.2 var(--font-display)}
+.gl-mode-switch button:focus-visible{outline:3px solid #f8d5a5;outline-offset:-3px}
+.gl-mode-explainer{padding:10px 24px;margin:0;background:#e6e9e6;color:#2a4959;font:500 12px/1.5 var(--font-reading)}
+.gl-trial-brief{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:center;padding:19px 24px;background:#0a1b2e;color:#f1f1e9;border-top:1px solid #4d6677}
+.gl-trial-brief[hidden],.gl-flight-hud[hidden],.gl-trial-result[hidden],#gravityLabBoost[hidden]{display:none!important}
+.gl-trial-brief h3{margin:5px 0;color:#f6e1c3;font:700 clamp(22px,2.6vw,29px)/1.15 var(--font-display)}
+.gl-trial-brief p{margin:5px 0 0;font:400 12px/1.65 var(--font-reading);color:#c1d0d9}
+.gl-trial-brief>div:last-child{padding:13px 17px;border-left:2px solid #f0bd80;background:#173347}
+.gl-trial-brief>div:last-child>strong{font:700 10px/1.4 var(--font-data);color:#f4c691}
+.gl-flight-hud{position:absolute;top:18px;right:18px;padding:11px 14px;background:rgba(4,19,33,.89);border:1px solid #6d92a3;min-width:180px;max-width:45%;font:600 10px/1.5 var(--font-data)}
+.gl-flight-hud>span{display:block;letter-spacing:.045em}
+.gl-flight-hud>span:last-child{color:#b9d1dd;margin-top:6px}
+.gl-flight-boost-label{display:flex;justify-content:space-between;gap:7px;margin:9px 0 5px}
+.gl-flight-boost-label strong{color:#ffd397}
+.gl-flight-energy{height:9px;border:1px solid #97adb5;background:#183448;overflow:hidden}
+.gl-flight-energy span{display:block;height:100%;background:linear-gradient(90deg,#e8b073,#f5d49f);transition:width .08s linear}
+.gl-game-actions #gravityLabBoost{touch-action:none;-webkit-user-select:none;user-select:none;background:#3b6c84;border-color:#a9dae6;color:#f3f8f8;min-width:110px}
+.gl-game-actions #gravityLabBoost:active{background:#f3bd80;color:#122d40}
+.gl-game-actions #gravityLabBoost:disabled{opacity:.5;cursor:not-allowed}
+.gl-trial-result{margin:0;padding:13px 24px;background:#e6dbc9;border-top:2px solid #bd8c58;color:#203c49;font:700 13px/1.5 var(--font-reading)}
+.gl-science-boundary{max-width:98ch;border-left:3px solid #bc8054;padding:11px 15px;background:#e9e5da;color:#304a5e;font:500 13px/1.7 var(--font-reading)}
+@media(max-width:650px){
+ .gl-mode-switch button{padding:12px 13px;min-height:68px}
+ .gl-mode-switch button span{font-size:8px}
+ .gl-mode-switch button strong{font-size:18px}
+ .gl-mode-explainer{padding:9px 13px;font-size:11px}
+ .gl-trial-brief{grid-template-columns:1fr;padding:14px 13px;gap:12px}
+ .gl-trial-brief>div:last-child{padding:10px}
+ .gl-flight-hud{right:8px;top:8px;padding:7px 9px;min-width:132px;max-width:58%;font-size:8px}
+ .gl-hud-corner:has(~ .gl-flight-hud:not([hidden])){top:9px;left:9px}
+ .gl-hud-corner strong{font-size:21px}
+ .gl-game-actions #gravityLabBoost{min-width:67px}
+ .gl-trial-result{padding:12px 13px;font-size:11px}
+ .gl-image-note:has(~ .gl-game-actions #gravityLabBoost:not([hidden])){display:none}
+}
+@media(prefers-reduced-motion:reduce){.gl-flight-energy span{transition:none}}
+
+.gl-instrument-note{margin:0;padding:10px 24px;background:#e8d9c1;color:#3a4651;font:700 10px/1.5 var(--font-data);letter-spacing:.04em}
+.gl-instrument-note[hidden]{display:none}
+@media(max-width:650px){.gl-instrument-note{padding:9px 12px;font-size:9px}}
