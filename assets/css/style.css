@@ -2767,3 +2767,94 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
  .life-stage .lbl{font-size:11px;line-height:1.2}
  .life-stage-chooser-hint{font-size:11px}
 }
+
+/* Moon Orbit Catcher -> next investigation: visually grounded exploration prompt.
+   The question is optional; related lessons stay reachable without an answer. */
+.moon-mission-routes{
+ border:1px solid #638093;
+ background:#132d3d;
+ padding:13px;
+ gap:9px;
+ scroll-margin-top:142px;
+}
+.moon-mission-routes .moon-discovery-index{
+ margin:0;color:#f2c98e;
+ font:700 11px/1.4 var(--font-data);text-transform:uppercase;letter-spacing:.075em;
+}
+.moon-discovery-hero{
+ display:grid;grid-template-columns:minmax(0,175px) minmax(0,1fr);
+ gap:12px;align-items:center;
+}
+.moon-discovery-preview{
+ display:block;width:100%;height:auto;background:#071923;
+ border:1px solid #436276;border-radius:3px;overflow:hidden;
+}
+.moon-discovery-preview text{fill:#cfdee7;font:650 11px/1.2 var(--font-data);letter-spacing:.015em}
+.moon-discovery-copy{min-width:0}
+.moon-discovery-copy h4{
+ margin:0 0 5px;color:#ffedcb;
+ font:650 clamp(16px,2vw,20px)/1.22 var(--font-display);
+}
+.moon-discovery-copy p{margin:0;color:#d5e5ec;font:400 13px/1.55 var(--font-reading)}
+.moon-discovery-prediction{padding-top:10px;border-top:1px solid #48667a}
+.moon-discovery-prediction>p:first-child{font:650 13px/1.5 var(--font-reading);color:#f6e7c9;margin:0 0 9px}
+.moon-discovery-answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.moon-discovery-answers button{
+ display:flex;align-items:center;justify-content:center;
+ border:1px solid #9fb8c7;background:#204456;color:#f3f7f7;
+ padding:10px 9px;min-height:44px;cursor:pointer;border-radius:3px;
+ font:600 12px/1.35 var(--font-reading);text-align:center;
+}
+.moon-discovery-answers button:hover:not(:disabled){background:#345f72}
+.moon-discovery-answers button.is-correct{background:#2d654c;border-color:#bfe4c7;color:#f7fff4}
+.moon-discovery-answers button.is-incorrect{background:#6b453d;border-color:#ebae9b;color:#fff6f2}
+.moon-discovery-answers button:focus-visible,
+.moon-mission-routes>a:focus-visible{outline:3px solid #ffce8a;outline-offset:3px}
+.moon-discovery-answers button:disabled{cursor:default;opacity:.88}
+.moon-mission-routes .moon-discovery-feedback{
+ min-height:0;margin:8px 0 0;color:#dfeee0;
+ font:500 12px/1.5 var(--font-reading);
+}
+.moon-mission-routes .moon-discovery-feedback:empty{display:none}
+.moon-mission-routes>a[data-moon-mission-route]{
+ display:block;padding:12px 14px;min-height:44px;border-radius:3px;
+ background:#f4d5a2;border:1px solid #f4d5a2;color:#152936;
+ font:750 13px/1.45 var(--font-reading);text-decoration:none;
+}
+.moon-mission-routes>a[data-moon-mission-route]:hover{background:#ffedcc}
+.moon-mission-routes [hidden]{display:none!important}
+@media(max-width:480px){
+ .moon-mission-routes{padding:11px}
+ .moon-discovery-hero{grid-template-columns:minmax(0,102px) 1fr;gap:9px}
+ .moon-discovery-copy h4{font-size:16px}
+ .moon-discovery-copy p{font-size:12px;line-height:1.4}
+ .moon-discovery-answers button{font-size:11px;padding:9px 5px}
+}
+@media(max-width:355px){
+ .moon-discovery-hero{grid-template-columns:1fr}
+ .moon-discovery-preview{width:min(100%,210px)}
+}
+
+.moon-mission-continue{
+ display:flex;align-items:stretch;gap:9px;flex-wrap:wrap;
+ padding-top:8px;border-top:1px solid #456276;
+}
+.moon-mission-continue button{
+ display:inline-flex;justify-content:center;align-items:center;
+ min-height:44px;padding:10px 14px;cursor:pointer;border-radius:3px;
+ background:#c1e7d3;color:#14392e;border:1px solid #c1e7d3;
+ font:750 13px/1.4 var(--font-reading);
+}
+.moon-mission-continue button:hover{background:#e4f8ed}
+.moon-mission-continue button:focus-visible{outline:3px solid #ffce8a;outline-offset:3px}
+.moon-mission-continue>a{
+ display:inline-flex;justify-content:center;align-items:center;
+ min-height:44px;padding:10px 0;color:#d5e6ef;
+ font:600 12px/1.4 var(--font-reading);text-underline-offset:3px
+}
+@media(max-width:460px){.moon-mission-continue{gap:5px}.moon-mission-continue button{flex:1 1 100%;}}
+
+@media(max-width:480px){
+ .moon-discovery-hero{grid-template-columns:minmax(0,122px) minmax(0,1fr)}
+ .moon-discovery-preview text{display:none}
+}

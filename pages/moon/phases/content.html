@@ -165,9 +165,9 @@
  <div class="wrap">
   <div class="moon-mission-lab" data-moon-missions>
    <div class="moon-mission-heading">
-    <p class="moon-mission-index">04 / Try it yourself · Moon Orbit Catcher</p>
+    <p class="moon-mission-index">04 / Play, predict, explore · Moon Orbit Catcher</p>
     <h2 id="moonMissionsHeading">Catch the right Moon phase.</h2>
-    <p>The Moon is moving. Steer its orbit, slow down near the target, and catch the correct phase before it passes. The Moon view and target stay beside your controls.</p>
+    <p>Three different challenges: follow a glowing target, catch a narrower window, then find the phase without a marked target. Every capture reveals a new space question and an experiment to try next.</p>
     <button id="moonMissionStart" type="button" aria-controls="moonMissionPlay" aria-expanded="false">Launch the Moon game</button>
    </div>
    <div class="moon-mission-play" id="moonMissionPlay" hidden>
@@ -223,8 +223,6 @@
       <output id="moonMissionSpeed">Orbiting · 22°/s</output>
       <button id="moonMissionPause" type="button" aria-pressed="false">Pause</button>
       <button id="moonMissionHint" type="button">Clue</button>
-      <button id="moonMissionNext" type="button" hidden>Next challenge</button>
-      <button id="moonMissionRestart" type="button" hidden>Play again</button>
      </div>
      <details class="moon-mission-precision" id="moonMissionPrecision">
       <summary>Manual orbit control · keyboard &amp; reduced motion</summary>
@@ -233,11 +231,53 @@
       <p id="moonMissionControlHelp">The game follows the same idealized orbit as the 3D simulator. Use this slider if timed controls are difficult. The Moon stops moving while you adjust it.</p>
      </details>
      <p id="moonMissionFeedback" class="moon-mission-feedback" role="status" aria-live="polite">Brake near the glowing target and capture the Moon inside its window. The Moon keeps moving until paused.</p>
-     <div id="moonMissionRoutes" class="moon-mission-routes" hidden>
-      <p id="moonMissionRouteWhy"></p>
-      <a data-moon-mission-route="quarter" href="{{BASE}}/moon/earth-moon-scale/" hidden>See the real Earth–Moon distance →</a>
-      <a data-moon-mission-route="full" href="{{BASE}}/moon/eclipses/" hidden>Why isn't every full Moon an eclipse? →</a>
-      <a data-moon-mission-route="waning" href="{{BASE}}/moon/tidal-locking/" hidden>Why do we see the same lunar face? →</a>
+     <div id="moonMissionRoutes" class="moon-mission-routes" hidden aria-labelledby="moonMissionDiscoveryTitle">
+      <p class="moon-discovery-index">Discovery unlocked · Choose your next experiment</p>
+      <div class="moon-discovery-hero">
+       <svg id="moonMissionDiscoveryPreview" class="moon-discovery-preview" viewBox="0 0 260 128" role="img" aria-label="Preview illustration of the next Moon science experiment">
+        <defs><radialGradient id="moonPreviewEarth" cx=".3" cy=".3"><stop offset="0" stop-color="#a8d9ed"/><stop offset="1" stop-color="#276c93"/></radialGradient></defs>
+        <g data-moon-discovery-preview="quarter" hidden>
+         <path d="M22 64 H238" fill="none" stroke="#dcb877" stroke-width="2" stroke-dasharray="4 8"/>
+         <circle cx="44" cy="64" r="27" fill="url(#moonPreviewEarth)"/>
+         <circle cx="225" cy="64" r="8" fill="#d7d6cb"/>
+         <text x="44" y="107" text-anchor="middle">EARTH</text><text x="225" y="107" text-anchor="middle">MOON</text>
+         <text x="135" y="43" text-anchor="middle">384,400 km avg.</text>
+        </g>
+        <g data-moon-discovery-preview="full" hidden>
+         <circle cx="28" cy="64" r="16" fill="#efbe6d"/><path d="M48 64 H240" stroke="#e7ba7e" stroke-width="2" stroke-dasharray="4 5"/>
+         <circle cx="130" cy="64" r="24" fill="url(#moonPreviewEarth)"/>
+         <path d="M82 100 Q130 17 178 37" fill="none" stroke="#9dc4d7" stroke-width="2.5"/>
+         <circle cx="174" cy="41" r="8" fill="#ddd7c9"/>
+         <text x="128" y="120" text-anchor="middle">TILTED ORBIT ≠ EVERY ECLIPSE</text>
+        </g>
+        <g data-moon-discovery-preview="waning" hidden>
+         <circle cx="130" cy="64" r="25" fill="url(#moonPreviewEarth)"/>
+         <circle cx="130" cy="64" r="54" fill="none" stroke="#708e9e" stroke-dasharray="3 7" stroke-width="1.5"/>
+         <g transform="translate(130 10)"><circle r="9" fill="#aab9c2"/><path d="M-6 0 L0 6 L6 0" stroke="#f2c781" stroke-width="2" fill="none"/></g>
+         <path d="M130 49 L130 22" stroke="#f2c781" stroke-width="2" stroke-dasharray="3 4"/>
+         <text x="130" y="122" text-anchor="middle">SAME FACE TOWARD EARTH</text>
+        </g>
+       </svg>
+       <div class="moon-discovery-copy">
+        <h4 id="moonMissionDiscoveryTitle">Next question</h4>
+        <p id="moonMissionDiscoveryTeaser"></p>
+       </div>
+      </div>
+      <a data-moon-mission-route="quarter" href="{{BASE}}/moon/earth-moon-scale/" hidden>Try the true-scale journey →</a>
+      <a data-moon-mission-route="full" href="{{BASE}}/moon/eclipses/" hidden>Try the eclipse tilt simulator →</a>
+      <a data-moon-mission-route="waning" href="{{BASE}}/moon/tidal-locking/" hidden>Try the synchronous-orbit model →</a>
+      <div class="moon-discovery-prediction">
+       <p id="moonMissionDiscoveryQuestion"></p>
+       <div id="moonMissionDiscoveryAnswer" class="moon-discovery-answers" role="group" aria-labelledby="moonMissionDiscoveryQuestion">
+        <button type="button" data-moon-discovery-answer="0">Yes</button>
+        <button type="button" data-moon-discovery-answer="1">No</button>
+       </div>
+       <p id="moonMissionDiscoveryFeedback" class="moon-discovery-feedback" role="status" aria-live="polite"></p>
+      </div>
+      <div class="moon-mission-continue">
+       <button id="moonMissionNext" type="button" hidden>Continue Moon challenge →</button>
+       <button id="moonMissionRestart" type="button" hidden>Replay Moon challenges →</button>
+      </div>
      </div>
     </div>
    </div>
@@ -279,11 +319,11 @@
 
 <section class="section section-last">
  <div class="wrap">
-  <div class="section-head"><div class="section-id">06 / Your next discovery</div><div><h2>Where could the Moon take you next?</h2></div></div>
+  <div class="section-head"><div class="section-id">06 / Your next discovery</div><div><h2>Choose the next Moon mystery.</h2><p>Each page has a different experiment to try. Follow the question you want to investigate—not just another article to read.</p></div></div>
   <div class="learning-grid">
-    <article class="step next-series-card"><div class="step-no">Next in this series →</div><h3><a href="{{BASE}}/moon/eclipses/">Solar & lunar eclipses ↗</a></h3><p>Use the same Sun-Earth-Moon geometry to see why eclipses do not happen every month.</p></article>
-    <article class="step"><div class="step-no">Scale</div><h3>Earth–Moon scale</h3><p>See the real Earth–Moon size and distance ratio that this simulator compresses.</p><p><a href="{{BASE}}/moon/earth-moon-scale/">Earth–Moon scale ↗</a></p></article>
-    <article class="step"><div class="step-no">Rotation</div><h3>Tidal locking</h3><p>Why the Moon rotates once per orbit and keeps nearly the same face toward Earth.</p><p><a href="{{BASE}}/moon/tidal-locking/">Tidal locking ↗</a></p></article>
+    <article class="step next-series-card"><div class="step-no">Next in this series →</div><h3><a href="{{BASE}}/moon/eclipses/">Solar & lunar eclipses ↗</a></h3><p>Change the Moon orbit’s tilt and node direction to investigate why a full Moon is not always an eclipse.</p></article>
+    <article class="step"><div class="step-no">Scale</div><h3>Earth–Moon scale</h3><p>Travel between Earth and the Moon, then compare the true-size and distance ruler.</p><p><a href="{{BASE}}/moon/earth-moon-scale/">Earth–Moon scale ↗</a></p></article>
+    <article class="step"><div class="step-no">Rotation</div><h3>Tidal locking</h3><p>Test the Moon’s spin and orbit to find out why it keeps nearly the same face toward Earth.</p><p><a href="{{BASE}}/moon/tidal-locking/">Tidal locking ↗</a></p></article>
   </div>
  </div>
 </section>
