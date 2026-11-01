@@ -2399,6 +2399,14 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
  .zoom-nav button{padding:8px 12px}
 }
 
+/* On wide touch tablets the homepage 3D solar-system controls must also
+   remain finger-sized; the existing phone-only rule does not cover iPads. */
+@media (any-pointer: coarse), (pointer: coarse){
+ .scene-controls>div:first-child button,.planet-quick-bar button{
+  min-height:44px;min-width:44px;display:inline-flex;align-items:center;
+  justify-content:center;line-height:1.3}
+}
+
 /* Longer scientific control labels get enough room for accurate terminology. */
 @media(max-width:620px){
  .atlas-feedback-main>.atlas-feedback-item.is-wide-label{grid-column:1/-1;

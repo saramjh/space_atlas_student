@@ -18,6 +18,9 @@ assert.match(css,/\.gl-view\.gl-touch-enabled \.gl-look:before/);
 assert.doesNotMatch(css,/@media\(max-width:650px\)\{[^}]*\.gl-joystick\{display:block/);
 assert.match(page,/Touchscreen \(phone or tablet\)/);
 assert.match(page,/role="group" aria-label="Touch movement pad/);
+// Sitewide tablet sweep discovered tiny 23px homepage quick-planet targets:
+// the prior <=620px rule alone did not protect iPad landscape/portrait.
+assert.match(css,/@media \(any-pointer: coarse\), \(pointer: coarse\)\{[\s\S]*?\.planet-quick-bar button\{[\s\S]*?min-height:44px/);
 // Keyboard remains a usable parallel input, not a mobile-vs-desktop exclusive mode.
 assert.match(js,/document\.addEventListener\('keydown',keydown\)/);
 assert.match(js,/look\.addEventListener\('pointermove',e=>/);
