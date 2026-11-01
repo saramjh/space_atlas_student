@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { MOON_MISSIONS, shortestOrbitDistance, matchesMoonMission } from '../assets/js/moon-missions.js';
+import { MOON_MISSIONS, shortestOrbitDistance, matchesMoonMission, advanceMoonOrbit, orbitPoint } from '../assets/js/moon-missions.js';
 import { moonModelAtDegrees, phaseLabelAtDegrees } from '../assets/js/moon-geometry.js';
 
 const source=readFileSync('assets/js/moon-phases.js','utf8');
@@ -12,6 +12,12 @@ assert.deepEqual(MOON_MISSIONS.map(m=>m.key),['quarter','full','waning']);
 assert.equal(shortestOrbitDistance(358,2),4);
 assert.equal(shortestOrbitDistance(2,358),4);
 assert.equal(shortestOrbitDistance(90,270),180);
+assert.ok(Math.abs(advanceMoonOrbit(350,22,1)-12)<1e-9);
+assert.ok(Math.abs(advanceMoonOrbit(10,-22,1)-348)<1e-9);
+assert.equal(orbitPoint(0).x,120);
+assert.equal(orbitPoint(90).y,31);
+assert.equal(orbitPoint(180).x,300);
+assert.throws(()=>advanceMoonOrbit(0,22,-1),RangeError);
 assert.throws(()=>shortestOrbitDistance(NaN,90),RangeError);
 for(const m of MOON_MISSIONS){
   assert.equal(matchesMoonMission(m.target,m),true,m.key);
@@ -30,7 +36,8 @@ assert.equal(moonModelAtDegrees(180).illuminatedFraction,1);
 assert.equal(phaseLabelAtDegrees(315),'Waning Crescent');
 assert.ok(moonModelAtDegrees(315).illuminatedFraction<.2);
 for(const id of ['moonMissionsHeading','moonMissionStart','moonMissionTarget','moonMissionCurrent',
- 'moonMissionAngle','moonMissionCheck','moonMissionHint','moonMissionNext','moonMissionRestart','moonMissionFeedback']){
+ 'moonMissionAngle','moonMissionCheck','moonMissionHint','moonMissionNext','moonMissionRestart','moonMissionFeedback',
+ 'moonMissionArena','moonMissionOrbiter','moonMissionGoal','moonMissionTargetArc','moonMissionBrake','moonMissionBoost','moonMissionPause']){
   assert.match(html,new RegExp('id="'+id+'"'),'Missing '+id);
   assert.match(built,new RegExp('id="'+id+'"'),'Missing built '+id);
 }
@@ -48,5 +55,13 @@ assert.match(built,/\/"?moon\/eclipses\//);
 for(const url of ['/moon/earth-moon-scale/','/moon/eclipses/','/moon/tidal-locking/'])
   assert.ok(html.includes('href="{{BASE}}'+url+'"'));
 assert.match(readFileSync('assets/js/moon-missions.js','utf8'),/moon_mission_next_topic/);
-assert.doesNotMatch(readFileSync('assets/js/moon-missions.js','utf8'),/localStorage|sessionStorage|setInterval|requestAnimationFrame|fetch\(/);
+const missionJS=readFileSync('assets/js/moon-missions.js','utf8');
+assert.doesNotMatch(missionJS,/localStorage|sessionStorage|setInterval|fetch\(/);
+assert.match(missionJS,/requestAnimationFrame\(tick\)/);
+assert.match(missionJS,/cancelAnimationFrame\(frame\)/);
+assert.match(missionJS,/prefers-reduced-motion/);
+assert.match(missionJS,/visibilitychange/);
+assert.match(missionJS,/pointerdown/);
+assert.match(missionJS,/ArrowLeft/);
+assert.match(missionJS,/moon_mission_catch_attempt/);
 console.log('MOON_MISSIONS_GATE_PASS');

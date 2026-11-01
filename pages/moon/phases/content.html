@@ -4,7 +4,7 @@
     <div class="kicker">Moon · Question</div>
     <h1>Moon phase simulator: why the Moon changes shape</h1>
     <p class="lead">The Moon does not change shape. Half is always lit by the Sun; what changes is how much of that lit half we can see from Earth. Drag the orbit slider or jump to a major phase and compare both views.</p>
-    <p class="moon-mission-entry"><a href="#moon-missions" data-moon-mission-entry>Try the three Moon missions →</a><span>Match the phase you see, check your orbit, and explore what happens next.</span></p>
+    <p class="moon-mission-entry"><a href="#moon-missions" data-moon-mission-entry>Play Moon Orbit Catcher →</a><span>Steer an orbiting Moon, capture the right phase, and unlock the next question.</span></p>
   </div>
 </section>
 
@@ -148,32 +148,74 @@
  <div class="wrap">
   <div class="moon-mission-lab" data-moon-missions>
    <div class="moon-mission-heading">
-    <p class="moon-mission-index">Moon mission / Interactive challenge</p>
-    <h2 id="moonMissionsHeading">Can you make the Moon match?</h2>
-    <p>Predict the Moon seen from Earth, then move it around a model orbit. Complete three challenges and discover a new space question. Every move also updates the 3D simulator above.</p>
-    <button id="moonMissionStart" type="button" aria-controls="moonMissionPlay" aria-expanded="false">Start three Moon missions</button>
+    <p class="moon-mission-index">Interactive space challenge / Moon Orbit Catcher</p>
+    <h2 id="moonMissionsHeading">Catch the right Moon phase.</h2>
+    <p>The Moon is moving. Steer its orbit, slow down near the target, and catch the correct phase before it passes. Every orbit position also updates the science simulator above.</p>
+    <button id="moonMissionStart" type="button" aria-controls="moonMissionPlay" aria-expanded="false">Launch the Moon game</button>
    </div>
    <div class="moon-mission-play" id="moonMissionPlay" hidden>
     <div class="moon-mission-task">
-     <p id="moonMissionProgress" class="moon-mission-progress">Mission 1 of 3</p>
-     <h3 id="moonMissionPrompt">Find the Moon when half its visible face is bright and the illuminated area is growing.</h3>
-     <p id="moonMissionClue">“Quarter” means one quarter through the phase cycle, not 25% bright.</p>
+     <p id="moonMissionProgress" class="moon-mission-progress">Challenge 1 of 3</p>
+     <h3 id="moonMissionPrompt">Catch a waxing half Moon.</h3>
+     <p id="moonMissionClue">The illuminated part is growing. “Quarter” means a quarter of the cycle, not 25% bright.</p>
+    </div>
+    <div class="moon-mission-stage" id="moonMissionStage">
+     <svg id="moonMissionArena" class="moon-mission-arena" viewBox="0 0 420 242" role="img" tabindex="0" aria-label="Top-down idealized Sun–Earth–Moon game orbit. Arrow keys move the Moon, Space captures the target.">
+      <defs>
+       <radialGradient id="missionEarthGradient" cx="33%" cy="28%" r="82%"><stop offset="0" stop-color="#66b4d3"/><stop offset=".62" stop-color="#21718f"/><stop offset="1" stop-color="#113347"/></radialGradient>
+       <radialGradient id="missionMoonGlow"><stop offset=".52" stop-color="#f9dba8" stop-opacity=".45"/><stop offset="1" stop-color="#f9dba8" stop-opacity="0"/></radialGradient>
+       <marker id="missionLightArrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#f1bf79" stroke-width="1.4"/></marker>
+      </defs>
+      <g class="moon-mission-stars" aria-hidden="true" fill="#8cabbf"><circle cx="52" cy="24" r="1"/><circle cx="76" cy="210" r=".8"/><circle cx="382" cy="32" r="1.1"/><circle cx="402" cy="189" r=".8"/><circle cx="342" cy="18" r=".7"/><circle cx="118" cy="222" r="1"/></g>
+      <g class="moon-mission-sun" aria-hidden="true"><circle cx="25" cy="120" r="15" fill="#f6bb65"/><circle cx="25" cy="120" r="25" fill="#f6bb65" opacity=".12"/><path d="M15 91 L18 82 M35 149 L39 156 M4 113 L0 112" stroke="#f6bb65" stroke-width="2"/></g>
+      <g class="moon-mission-sunlight" aria-hidden="true" stroke="#f0c080" stroke-width="1.4" opacity=".9"><path d="M45 50 H117" marker-end="url(#missionLightArrow)"/><path d="M45 190 H117" marker-end="url(#missionLightArrow)"/></g>
+      <text x="20" y="21" class="moon-mission-label">SUNLIGHT →</text>
+      <circle cx="210" cy="121" r="90" fill="none" stroke="#3b6074" stroke-width="3"/>
+      <circle cx="210" cy="121" r="90" fill="none" stroke="#99b2c2" stroke-dasharray="2 12" stroke-width="1.2" opacity=".45"/>
+      <path id="moonMissionTargetArc" d="" fill="none" stroke="#eccc82" stroke-width="14" stroke-linecap="round" opacity=".48"/>
+      <circle id="moonMissionGoal" cx="210" cy="31" r="15" fill="none" stroke="#f6d494" stroke-width="2" stroke-dasharray="4 3"/>
+      <line id="moonMissionSightline" x1="210" y1="121" x2="120" y2="121" stroke="#a4d0e4" stroke-dasharray="4 5" opacity=".66"/>
+      <circle cx="210" cy="121" r="22" fill="url(#missionEarthGradient)" stroke="#a4cbdf" stroke-width="1.5"/>
+      <path d="M202 107 L211 106 L219 115 L215 124 L207 124 L203 133 L194 130 L198 121 Z" fill="#80b49a" opacity=".8"/>
+      <path d="M223 134 L218 140 L213 138 L210 131 Z" fill="#80b49a" opacity=".7"/>
+      <text x="210" y="158" text-anchor="middle" class="moon-mission-label">EARTH</text>
+      <g id="moonMissionOrbiter" transform="translate(120 121)">
+       <circle r="25" fill="url(#missionMoonGlow)" class="moon-mission-orbiter-halo"/>
+       <circle r="11" fill="#26333c" stroke="#f3e1bd" stroke-width="1.6"/>
+       <path d="M0 -11 A11 11 0 0 0 0 11 Z" fill="#e8e2d1"/>
+       <circle cx="-4" cy="-4" r="1.9" fill="#a8a79e" opacity=".6"/>
+       <circle cx="-5" cy="3" r="1.5" fill="#a8a79e" opacity=".5"/>
+      </g>
+      <text x="380" y="215" text-anchor="end" class="moon-mission-label">NOT TO SCALE</text>
+     </svg>
+     <div class="moon-mission-radar" aria-hidden="true">
+      <span>TARGET WINDOW</span><div id="moonMissionSignal" class="moon-mission-signal"><i></i><i></i><i></i><i></i></div>
+     </div>
     </div>
     <div class="moon-mission-views">
-     <figure><canvas id="moonMissionTarget" width="140" height="140" role="img" aria-label="Target Moon phase: compare with your orbit"></canvas><figcaption>Target Moon</figcaption></figure>
-     <figure><canvas id="moonMissionCurrent" width="140" height="140" role="img" aria-label="Current Moon phase, changes as you move the slider"></canvas><figcaption>Your Moon <output id="moonMissionFraction">100% bright</output></figcaption></figure>
+     <figure><canvas id="moonMissionTarget" width="112" height="112" role="img" aria-label="Target Moon phase"></canvas><figcaption>Catch this phase</figcaption></figure>
+     <figure><canvas id="moonMissionCurrent" width="112" height="112" role="img" aria-label="Current illuminated Moon phase"></canvas><figcaption>In your orbit <output id="moonMissionFraction">100% bright</output></figcaption></figure>
     </div>
     <div class="moon-mission-controls">
-     <label for="moonMissionAngle">Move the Moon around Earth</label>
-     <input id="moonMissionAngle" type="range" min="0" max="360" step="1" value="180" aria-describedby="moonMissionControlHelp" />
-     <p id="moonMissionControlHelp">Drag or use arrow keys. Compare these two disks without scrolling; the model orbit above follows.</p>
-     <div class="moon-mission-actions">
-      <button id="moonMissionCheck" type="button">Check my orbit</button>
-      <button id="moonMissionHint" type="button">Give me a clue</button>
-      <button id="moonMissionNext" type="button" hidden>Next mission</button>
-      <button id="moonMissionRestart" type="button" hidden>Play the missions again</button>
+     <div class="moon-mission-flight">
+      <button id="moonMissionBrake" type="button" class="moon-mission-steer" aria-pressed="false">Hold to slow</button>
+      <button id="moonMissionCheck" type="button" class="moon-mission-capture">Capture phase</button>
+      <button id="moonMissionBoost" type="button" class="moon-mission-steer" aria-pressed="false">Hold to boost</button>
      </div>
-     <p id="moonMissionFeedback" class="moon-mission-feedback" role="status" aria-live="polite">Move your Moon to match the target. Then check your choice.</p>
+     <div class="moon-mission-toolbar">
+      <output id="moonMissionSpeed">Orbiting · 22°/s</output>
+      <button id="moonMissionPause" type="button" aria-pressed="false">Pause</button>
+      <button id="moonMissionHint" type="button">Clue</button>
+      <button id="moonMissionNext" type="button" hidden>Next challenge</button>
+      <button id="moonMissionRestart" type="button" hidden>Play again</button>
+     </div>
+     <details class="moon-mission-precision" id="moonMissionPrecision">
+      <summary>Manual orbit control · keyboard &amp; reduced motion</summary>
+      <label for="moonMissionAngle">Choose an exact model angle (0–360°)</label>
+      <input id="moonMissionAngle" type="range" min="0" max="360" step="1" value="180" aria-describedby="moonMissionControlHelp"/>
+      <p id="moonMissionControlHelp">The game follows the same idealized orbit as the 3D simulator. Use this slider if timed controls are difficult. The Moon stops moving while you adjust it.</p>
+     </details>
+     <p id="moonMissionFeedback" class="moon-mission-feedback" role="status" aria-live="polite">Brake near the glowing target and capture the Moon inside its window. The Moon keeps moving until paused.</p>
      <div id="moonMissionRoutes" class="moon-mission-routes" hidden>
       <p id="moonMissionRouteWhy"></p>
       <a data-moon-mission-route="quarter" href="{{BASE}}/moon/earth-moon-scale/" hidden>See the real Earth–Moon distance →</a>
@@ -182,8 +224,8 @@
      </div>
     </div>
    </div>
-   <noscript><style>.moon-mission-entry,#moonMissionStart{display:none!important}</style><p class="moon-mission-nojs">The optional game requires JavaScript. Use the phase table and NASA explanation above to complete the same predictions without it.</p></noscript>
-   <p class="moon-mission-source">Idealized classroom model, not a live sky forecast: fixed sunlight, circular orbit, northern-view Moon discs, and a 29.5-day synodic cycle. Real distance, orbital tilt and eclipses are not simulated. <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer">NASA Moon Phases</a> explains the science. The existing simulator and phase table work without playing.</p>
+   <noscript><style>.moon-mission-entry,#moonMissionStart{display:none!important}</style><p class="moon-mission-nojs">The optional real-time game requires JavaScript. Use the phase table and NASA explanation above to complete the same predictions without it.</p></noscript>
+   <p class="moon-mission-source">Idealized classroom model, not a live sky forecast: fixed sunlight, circular orbit, northern-view Moon discs, and a 29.5-day synodic cycle. Real distance, orbital tilt and eclipses are not simulated. Game orbit speed is accelerated for play, not a measurement. <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer">NASA Moon Phases</a> explains the science. The existing simulator and phase table work without playing.</p>
   </div>
  </div>
 </section>
