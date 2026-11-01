@@ -36,7 +36,11 @@ assert.ok(sizePage.indexOf('id="diameterLensPlay"')<sizePage.indexOf('id="diamet
 // A mobile Play action must be seen alongside its animated result.
 const moonPage=read('pages/moon/phases/content.html');
 const lockLessonPage=read('pages/moon/tidal-locking/content.html');
-assert.ok(moonPage.indexOf('id="moonPlay"')<moonPage.indexOf('id="moonCanvas"'));
+// Moon Phases now keeps Play beside the Earth-view result rather than above
+// the much taller top-down 3D orbit. Test the action/result adjacency instead.
+assert.ok(moonPage.indexOf('id="moonEarthView"')<moonPage.indexOf('id="moonPlay"'));
+assert.ok(moonPage.indexOf('id="moonPlay"')<moonPage.indexOf('id="moonAngle"'));
+assert.ok(moonPage.indexOf('id="moonAngle"')<moonPage.indexOf('id="moonAdvancedModel"'));
 assert.ok(lockLessonPage.indexOf('id="lockOrbitPlay"')<lockLessonPage.indexOf('id="lockCanvas"'));
 assert.equal((moonPage.match(/id="moonPlay"/g)||[]).length,1);
 assert.equal((lockLessonPage.match(/id="lockOrbitPlay"/g)||[]).length,1);

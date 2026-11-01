@@ -38,7 +38,10 @@ const match=Object.entries(plans).find(([path])=>location.pathname.endsWith(path
 if(match){
  const [route,plan]=match,priority=new Set(plan.primary);
  const breakpoint=matchMedia('(max-width:620px)'),scene=document.querySelector(plan.scene);
- const shouldDock=()=>breakpoint.matches||desktopAdjacent.has(route);
+ // Moon Phases now owns an Earth-view-adjacent slider and phase presets.
+ // Keep the shared dock for every other lesson; do not pull this input away from its visible result.
+ const shouldDock=()=> (breakpoint.matches||desktopAdjacent.has(route)) &&
+   !(route==='/moon/phases/'&&document.querySelector('#phaseLab .moon-earth-controls'));
  const dock=document.createElement('section');dock.className='atlas-feedback-dock';
  dock.setAttribute('aria-label','Controls for the interactive experiment');
  const main=document.createElement('div');main.className='atlas-feedback-main';

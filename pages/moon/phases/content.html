@@ -3,8 +3,8 @@
   <div class="wrap">
     <div class="kicker">Moon · Question</div>
     <h1>Moon phase simulator: why the Moon changes shape</h1>
-    <p class="lead">The Moon does not change shape. Half is always lit by the Sun; what changes is how much of that lit half we can see from Earth. Drag the orbit slider or jump to a major phase and compare both views.</p>
-    <p class="moon-mission-entry"><a href="#moon-missions" data-moon-mission-entry>Play Moon Orbit Catcher →</a><span>Steer an orbiting Moon, capture the right phase, and unlock the next question.</span></p>
+    <p class="lead">The Moon looks different from night to night, but its shape does not change. What changes from Earth’s point of view? Make a prediction, explore the Moon model, then try a moving-orbit challenge.</p>
+    <p class="moon-mission-entry"><a href="#moon-cer-activity">Start with one prediction →</a><a href="#moon-missions" data-moon-mission-entry>Already know the basics? Play Moon Orbit Catcher</a></p>
   </div>
 </section>
 
@@ -12,7 +12,7 @@
  <div class="wrap">
   <div class="section-head">
    <div class="section-id">01 / Predict before you model</div>
-   <div><h2 id="moonCerHeading">At First Quarter, how much of the Moon looks bright?</h2><p>Before touching the simulator, choose one of three equally sized drawings. Make a claim; then gather evidence from the Moon model below or a lamp-and-ball activity.</p></div>
+   <div><h2 id="moonCerHeading">At First Quarter, how much of the Moon looks bright?</h2><p>First Quarter is a name for a point in the Moon’s monthly cycle. Guess how much of the Moon looks bright, then compare with a model.</p></div>
   </div>
   <fieldset class="cer-prediction-fieldset" id="moonCerPrediction">
    <legend>Choose the illuminated part you expect to see from Earth.</legend>
@@ -73,10 +73,10 @@
  </div>
 </section>
 
-<section class="section">
+<section class="section moon-observation" id="moon-observation" aria-labelledby="moonObservationTitle">
  <div class="wrap">
+  <div class="section-head"><div class="section-id">02 / Observe and test</div><div><h2 id="moonObservationTitle">Why does the Moon look different?</h2><p>Try New Moon, First Quarter, then Full Moon. Compare where the Moon is with the bright area seen from Earth.</p></div></div>
   <div class="phase-lab" id="phaseLab" data-growth-model>
-    <div class="phase-stage-actions"><button type="button" id="moonPlay" aria-pressed="false" aria-controls="moonCanvas">Play phase cycle</button></div>
     <div class="phase-views">
       <div class="phase-view-system" id="moonSceneShell" aria-label="Top-down Sun-Earth-Moon system model, idealized and not to scale">
         <div class="phase-view-label">System view — above Earth's north pole</div>
@@ -88,9 +88,9 @@
         <div class="phase-view-label">What you see from Earth</div>
         <canvas id="moonEarthView" width="220" height="220" aria-label="Sunlit lunar sphere as seen from Earth, not Earth’s shadow"></canvas>
         <div class="phase-name" id="phaseName">Full Moon</div>
-      </div>
-    </div>
-    <div class="phase-controls">
+        <p class="moon-observe-prompt">Move the Moon. What happens to the bright part we see from Earth?</p>
+        <div class="moon-earth-controls">
+          <div class="phase-stage-actions"><button type="button" id="moonPlay" aria-pressed="false" aria-controls="moonCanvas">Play phase cycle</button></div>
       <input type="range" id="moonAngle" min="0" max="360" value="180" step="1" aria-label="Move the Moon around Earth through one idealized phase cycle, 0 to 360 degrees" />
       <p class="phase-transport-note" id="moonMotionNote">Start or pause one idealized phase cycle. The model stays still while paused.</p>
       <div class="query-preset-row" role="group" aria-label="Jump to a Moon phase">
@@ -108,6 +108,13 @@
           <button type="button" data-moon-angle="315" aria-pressed="false">Waning Crescent</button>
         </div>
       </details>
+        </div>
+        <div class="tool-readout" id="phaseMetrics" aria-live="polite">Day 14.8 of 29.5 · 100% illuminated as seen from Earth</div>
+      </div>
+    </div>
+    <details class="moon-lab-depth" id="moonAdvancedModel">
+     <summary>Explore more: when can you see the Moon, and what is this model simplifying?</summary>
+    <div class="phase-controls">
       <section class="moon-sky-clock" id="moonSkyClock" aria-labelledby="moonSkyTitle">
         <div class="moon-sky-header"><p class="thermal-kicker">Observer's day / an idealized clock</p><h3 id="moonSkyTitle">When would this Moon be in the sky?</h3><p>The phase above determines an <strong>approximate local solar-time</strong> rise, highest point and set. These are teaching approximations, not tonight's observation times or a lunar visibility forecast.</p></div>
         <div class="moon-sky-clock-values" role="group" aria-label="Schematic moonrise transit and moonset times"><div><span>Rise</span><strong id="moonSkyRise">18:00</strong></div><div><span>Highest</span><strong id="moonSkyTransit">00:00</strong></div><div><span>Set</span><strong id="moonSkySet">06:00</strong></div></div>
@@ -115,12 +122,14 @@
         <output id="moonSkyExplanation" class="moon-sky-explanation" aria-live="polite">A Full Moon rises around sunset and is highest around local midnight. The actual sky depends on your location and date.</output>
         <p class="scale-caption">Reference: <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer">NASA Moon Phases</a>. Approximate phase-linked solar hours apply to an idealized level horizon. The Sun's apparent position, Moon's declination, latitude, orbit tilt, refraction and weather are not simulated. No real-time sky data.</p>
       </section>
-      <div class="tool-readout" id="phaseMetrics" aria-live="polite">Day 14.8 of 29.5 · 100% illuminated as seen from Earth</div>
       <output class="phase-geometry-note" id="moonGeometryNote">Sun–Earth–Moon angle: 180°. Sunlight lights half of the Moon’s whole sphere; Earth sees 100% of its disk illuminated.</output>
       <div class="phase-hint">Move the Moon using the slider, phase buttons, or orbit itself; watch the dashed Earth-to-Moon sightline rotate. The Earth view shows that observer's illuminated fraction; the curved day–night boundary is on the Moon itself, not Earth’s shadow. The Sun is far off-screen to the left. This simplified fixed-Sun cycle maps one model revolution to 29.5 days (the real Moon’s sidereal orbital period is about 27.3 days). Orbital tilt and eclipses are not simulated.</div>
     </div>
+    </details>
   </div>
 
+  <details class="moon-reference" id="moonPhaseReference">
+   <summary>Moon facts and the full phase reference table</summary>
   <div class="phase-facts">
     <div><strong>29.5 days</strong>One synodic month — new moon to new moon.</div>
     <div><strong>8</strong>Named phases in one cycle.</div>
@@ -141,6 +150,14 @@
       </tbody>
     </table>
   </div>
+  </details>
+ </div>
+</section>
+
+<section class="section moon-concept-bridge" id="moon-explanation" aria-labelledby="moonExplanationTitle">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">03 / Explain what happened</div><div><h2 id="moonExplanationTitle">The Moon stays round. Our view changes.</h2><p>The Sun lights half of the Moon’s entire sphere. As the Moon orbits Earth, we see different portions of that sunlit half. At First Quarter about half the disk looks bright—“quarter” means a quarter of the cycle, not 25% bright. Earth’s shadow makes a lunar eclipse, not ordinary Moon phases.</p></div></div>
+  <p class="moon-learn-next">Now try catching the phases while the Moon moves.</p>
  </div>
 </section>
 
@@ -148,9 +165,9 @@
  <div class="wrap">
   <div class="moon-mission-lab" data-moon-missions>
    <div class="moon-mission-heading">
-    <p class="moon-mission-index">Interactive space challenge / Moon Orbit Catcher</p>
+    <p class="moon-mission-index">04 / Try it yourself · Moon Orbit Catcher</p>
     <h2 id="moonMissionsHeading">Catch the right Moon phase.</h2>
-    <p>The Moon is moving. Steer its orbit, slow down near the target, and catch the correct phase before it passes. Every orbit position also updates the science simulator above.</p>
+    <p>The Moon is moving. Steer its orbit, slow down near the target, and catch the correct phase before it passes. The Moon view and target stay beside your controls.</p>
     <button id="moonMissionStart" type="button" aria-controls="moonMissionPlay" aria-expanded="false">Launch the Moon game</button>
    </div>
    <div class="moon-mission-play" id="moonMissionPlay" hidden>
@@ -225,6 +242,7 @@
     </div>
    </div>
    <noscript><style>.moon-mission-entry,#moonMissionStart{display:none!important}</style><p class="moon-mission-nojs">The optional real-time game requires JavaScript. Use the phase table and NASA explanation above to complete the same predictions without it.</p></noscript>
+   <p class="moon-game-to-check"><a href="#evidence">Ready to explain it? Check what you learned →</a></p>
    <p class="moon-mission-source">Idealized classroom model, not a live sky forecast: fixed sunlight, circular orbit, northern-view Moon discs, and a 29.5-day synodic cycle. Real distance, orbital tilt and eclipses are not simulated. Game orbit speed is accelerated for play, not a measurement. <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer">NASA Moon Phases</a> explains the science. The existing simulator and phase table work without playing.</p>
   </div>
  </div>
@@ -232,17 +250,50 @@
 
 {{AD_PRIMARY}}
 
-<section class="section">
+<section class="section" id="evidence">
  <div class="wrap">
-  <div class="section-head"><div class="section-id">Try the simulator</div><div><h2>Three experiments that explain Moon phases.</h2><p>Change one thing at a time and use the Earth view to test your prediction.</p></div></div>
-  <div class="learning-grid">
-    <article class="step"><div class="step-no">01</div><h3>New → full Moon</h3><p>Jump to New Moon, then Full Moon. The Moon itself stays half sunlit; only the viewing geometry changes.</p></article>
-    <article class="step"><div class="step-no">02</div><h3>Quarter does not mean 25% lit</h3><p>At first and last quarter, roughly half of the visible disk is illuminated. "Quarter" describes the Moon's position in the cycle.</p></article>
-    <article class="step"><div class="step-no">03</div><h3>Separate phases from eclipses</h3><p>Ordinary phases happen every month. Earth's shadow only causes a lunar eclipse when the Sun, Earth, and Moon line up closely enough.</p></article>
+  <div class="section-head"><div class="section-id">05 / Check understanding</div><div><h2>Can you explain a Moon phase?</h2><p>Use what you saw in the model and the game. Choose an answer, then read why it works.</p></div></div>
+  <div class="scale-grid">
+    <div class="scale-viz scale-viz-full">
+      <div class="scale-quiz scale-quiz-compact">
+        <div class="scale-quiz-title">Quick check</div>
+        <p id="quizQuestion"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
+      </div>
+    </div>
+    <aside class="source-panel">
+      <h3>Evidence</h3>
+      <ol>
+        <li><div class="num">01</div><div><b>What Are the Moon's Phases?</b><span>NASA Space Place's explanation of the Sun-Earth-Moon geometry behind phases.</span></div><a href="https://spaceplace.nasa.gov/moon-phases/en/" target="_blank" rel="noreferrer">NASA Space Place ↗</a></li>
+        <li><div class="num">02</div><div><b>Moon: Facts</b><span>Diameter, orbit, and tidal-locking data used in this model.</span></div><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
+      </ol>
+      <p class="verify-line verify-line-spaced">Verified against <a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science, Moon facts ↗</a> · checked 2026</p>
+    </aside>
   </div>
  </div>
 </section>
 
+{{AD_SECONDARY}}
+
+<section class="section section-last">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">06 / Your next discovery</div><div><h2>Where could the Moon take you next?</h2></div></div>
+  <div class="learning-grid">
+    <article class="step next-series-card"><div class="step-no">Next in this series →</div><h3><a href="{{BASE}}/moon/eclipses/">Solar & lunar eclipses ↗</a></h3><p>Use the same Sun-Earth-Moon geometry to see why eclipses do not happen every month.</p></article>
+    <article class="step"><div class="step-no">Scale</div><h3>Earth–Moon scale</h3><p>See the real Earth–Moon size and distance ratio that this simulator compresses.</p><p><a href="{{BASE}}/moon/earth-moon-scale/">Earth–Moon scale ↗</a></p></article>
+    <article class="step"><div class="step-no">Rotation</div><h3>Tidal locking</h3><p>Why the Moon rotates once per orbit and keeps nearly the same face toward Earth.</p><p><a href="{{BASE}}/moon/tidal-locking/">Tidal locking ↗</a></p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section moon-educator-section" id="educator-resources" aria-labelledby="educatorResourcesTitle">
+ <div class="wrap">
+  <div class="section-head"><div class="section-id">For educators</div><div><h2 id="educatorResourcesTitle">Teaching Moon phases?</h2><p>Use the printable worksheet or open the complete teacher-led, device-free activity. Students can finish the lesson without reading these instructions.</p></div></div>
+  <p><a class="cer-print-link" href="{{BASE}}/assets/handouts/moon-phases-cer.html">Open the printable Moon phases worksheet and teacher guide →</a></p>
+  <details class="moon-teacher-disclosure" id="moonTeacherLesson">
+   <summary>Show the full 30–35 minute classroom lesson</summary>
 <section class="section teacher-use-section" aria-labelledby="teacher-moon-title">
  <div class="wrap">
   <div class="section-head"><div class="section-id">Teacher-ready / device-free</div><div><h2 id="teacher-moon-title">One Moon, three evidence checks.</h2><p>A suggested Claim–Evidence–Reasoning (CER) activity for U.S. upper elementary classrooms. No student device, login, or website is required.</p></div></div>
@@ -348,7 +399,12 @@
   <p class="cer-source-line">Science basis: <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer">NASA Moon Phases</a> and <a href="https://science.nasa.gov/mission/lro/lunar-activities/" target="_blank" rel="noopener noreferrer">NASA lunar learning activities</a>. Suggested lesson, not a classroom-tested or accredited curriculum. The printable guide is device-free and contains no ads or trackers.</p>
  </div>
 </section>
+  </details>
+ </div>
+</section>
 
+<details class="moon-model-limits" id="moonModelLimitations">
+ <summary>Model limitations and evidence: distances, orbital tilt, sizes</summary>
 <section class="section">
  <div class="wrap">
   <div class="section-head"><div class="section-id">What's simplified</div><div><h2>This model compresses a few things to stay readable.</h2><p>Every visualization on Space Atlas states what has been simplified, so a model is never mistaken for the evidence itself.</p></div></div>
@@ -359,41 +415,4 @@
   </div>
  </div>
 </section>
-
-<section class="section" id="evidence">
- <div class="wrap">
-  <div class="section-head"><div class="section-id">Misconception check</div><div><h2>What most people get wrong about Moon phases.</h2></div></div>
-  <div class="scale-grid">
-    <div class="scale-viz scale-viz-full">
-      <div class="scale-quiz scale-quiz-compact">
-        <div class="scale-quiz-title">Quick check</div>
-        <p id="quizQuestion"></p>
-        <div class="quiz-options" id="quizOptions"></div>
-        <div class="quiz-feedback" id="quizFeedback"></div>
-        <button class="quiz-retry" id="quizRetry" hidden>Try another question ↻</button>
-      </div>
-    </div>
-    <aside class="source-panel">
-      <h3>Evidence</h3>
-      <ol>
-        <li><div class="num">01</div><div><b>What Are the Moon's Phases?</b><span>NASA Space Place's explanation of the Sun-Earth-Moon geometry behind phases.</span></div><a href="https://spaceplace.nasa.gov/moon-phases/en/" target="_blank" rel="noreferrer">NASA Space Place ↗</a></li>
-        <li><div class="num">02</div><div><b>Moon: Facts</b><span>Diameter, orbit, and tidal-locking data used in this model.</span></div><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science ↗</a></li>
-      </ol>
-      <p class="verify-line verify-line-spaced">Verified against <a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noreferrer">NASA Science, Moon facts ↗</a> · checked 2026</p>
-    </aside>
-  </div>
- </div>
-</section>
-
-{{AD_SECONDARY}}
-
-<section class="section section-last">
- <div class="wrap">
-  <div class="section-head"><div class="section-id">Go deeper</div><div><h2>Keep exploring.</h2></div></div>
-  <div class="learning-grid">
-    <article class="step next-series-card"><div class="step-no">Next in this series →</div><h3><a href="{{BASE}}/moon/eclipses/">Solar & lunar eclipses ↗</a></h3><p>Use the same Sun-Earth-Moon geometry to see why eclipses do not happen every month.</p></article>
-    <article class="step"><div class="step-no">Scale</div><h3>Earth–Moon scale</h3><p>See the real Earth–Moon size and distance ratio that this simulator compresses.</p><p><a href="{{BASE}}/moon/earth-moon-scale/">Earth–Moon scale ↗</a></p></article>
-    <article class="step"><div class="step-no">Rotation</div><h3>Tidal locking</h3><p>Why the Moon rotates once per orbit and keeps nearly the same face toward Earth.</p><p><a href="{{BASE}}/moon/tidal-locking/">Tidal locking ↗</a></p></article>
-  </div>
- </div>
-</section>
+</details>

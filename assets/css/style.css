@@ -2603,3 +2603,79 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .moon-mission-lab.is-reduced .moon-mission-steer,.moon-mission-lab.is-reduced #moonMissionPause{display:none!important}
 .moon-mission-lab.is-reduced .moon-mission-flight{grid-template-columns:1fr}
 .moon-mission-lab.is-reduced .moon-mission-flight .moon-mission-capture{max-width:none}
+
+/* Moon learner editorial flow: prediction -> cause -> model -> challenge -> check.
+   Keep complete scientific/educator references, but opt-in for reading them. */
+#moon-cer-activity,#moon-observation,#moon-missions,#moon-explanation,#evidence,
+#educator-resources,#moonModelLimitations,#moonPhaseReference,#phaseLab{
+ scroll-margin-top:142px;
+}
+.moon-mission-entry a[data-moon-mission-entry]{
+ background:transparent;border-color:transparent;color:var(--muted);padding:8px 0;
+ font-weight:600;text-decoration:underline;text-underline-offset:4px;
+}
+.moon-mission-entry a[data-moon-mission-entry]:hover{background:transparent;color:var(--ink)}
+.moon-mission-entry a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.moon-observation .section-head{margin-bottom:22px}
+.moon-observation .phase-view-earth{justify-content:flex-start;gap:0;min-width:0}
+.moon-observe-prompt{max-width:36ch;margin:12px auto 10px;color:#3b4b54;font:500 14px/1.5 var(--font-reading)}
+.moon-earth-controls{width:100%;max-width:530px;text-align:left;margin:0 auto}
+.moon-earth-controls .phase-stage-actions{background:transparent;border:0;padding:3px 0 8px;justify-content:center}
+.moon-earth-controls .phase-stage-actions button{background:#16384e;border:1px solid #315267;min-height:44px;min-width:178px}
+.moon-earth-controls input[type=range]{width:100%;min-height:38px;accent-color:var(--accent);cursor:pointer}
+.moon-earth-controls input[type=range]:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.moon-earth-controls .phase-transport-note{margin:5px 0 12px;font-size:12px;line-height:1.45}
+.moon-earth-controls .query-preset-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+.moon-earth-controls .query-preset-row button{min-width:0;min-height:44px;white-space:normal;padding:9px 5px}
+.moon-earth-controls .phase-intermediate .query-preset-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.moon-observation .phase-view-earth .tool-readout{margin-top:12px;text-align:center;font-size:12px;line-height:1.5;color:#354958}
+.moon-lab-depth,.moon-reference{border-top:1px solid var(--rule);background:#ece9e1}
+.moon-lab-depth>summary,.moon-reference>summary,.moon-model-limits>summary{
+ display:list-item;cursor:pointer;font:650 14px/1.5 var(--font-reading);
+ color:#17394b;padding:15px 20px;min-height:48px;
+}
+.moon-lab-depth>summary:focus-visible,.moon-reference>summary:focus-visible,
+.moon-teacher-disclosure>summary:focus-visible,.moon-model-limits>summary:focus-visible{
+ outline:3px solid var(--accent);outline-offset:3px;
+}
+.moon-lab-depth .phase-controls{padding-top:5px}
+.moon-reference{margin-top:10px;padding-bottom:2px}
+.moon-reference .phase-facts,.moon-reference .table-scroll{margin:14px 20px}
+.moon-concept-bridge{padding:34px 0 25px}
+.moon-concept-bridge .section-head{margin-bottom:12px}
+.moon-concept-bridge .section-head p{max-width:68ch}
+.moon-learn-next{font:650 14px/1.5 var(--font-reading);color:#31576a;margin:0 0 8px}
+.moon-game-to-check{padding:10px 20px;margin:0;border-top:1px solid #526d7e;
+ font:650 13px/1.5 var(--font-reading);color:#ffe2ac}
+.moon-game-to-check a{color:inherit;text-underline-offset:3px}
+.moon-educator-section{padding-top:45px;padding-bottom:32px;border-top:1px solid var(--rule)}
+.moon-teacher-disclosure{margin-top:17px;border:1px solid var(--rule)}
+.moon-teacher-disclosure>summary{display:list-item;cursor:pointer;
+ padding:17px 20px;font:650 15px/1.4 var(--font-reading);min-height:54px}
+.moon-teacher-disclosure .teacher-use-section{padding:20px 0 32px}
+.moon-teacher-disclosure .teacher-use-section>.wrap{padding-left:20px;padding-right:20px}
+.moon-model-limits{border-top:1px solid var(--rule);margin:0 auto 30px;max-width:var(--page-width,1200px)}
+.moon-model-limits>.section{padding-top:8px;padding-bottom:20px}
+.moon-model-limits .learning-grid{margin-top:22px}
+@media(max-width:980px){
+ .moon-observation .phase-view-system{min-height:350px}
+ .moon-observation .phase-view-earth{padding:17px}
+}
+@media(max-width:620px){
+ .moon-observation .phase-view-system{min-height:330px}
+ .moon-observation .phase-view-earth{padding:13px}
+ .moon-observation .phase-view-earth .phase-view-label{margin-bottom:8px}
+ .moon-observation .phase-view-earth #moonEarthView{width:150px;height:150px}
+ .moon-observation .phase-name{font-size:18px;margin-top:8px}
+ .moon-observe-prompt{font-size:13px;margin:6px 0 8px}
+ .moon-earth-controls .phase-stage-actions{padding:0 0 4px}
+ .moon-earth-controls .phase-transport-note{margin:3px 0 7px;font-size:11px}
+ .moon-earth-controls .query-preset-row{gap:6px}
+ .moon-earth-controls .query-preset-row button{font-size:12px;min-height:40px}
+ .moon-reference .phase-facts,.moon-reference .table-scroll{margin:10px 13px}
+ .moon-concept-bridge{padding:26px 0 13px}
+ .moon-model-limits>summary{padding:16px}
+}
+
+.moon-observation .phase-view-earth{scroll-margin-top:132px}
+.moon-observation #moonEarthView{scroll-margin-top:135px}
