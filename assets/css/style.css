@@ -2746,3 +2746,24 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;
  padding:0!important;margin:-1px!important;overflow:hidden!important;
  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+
+/* The stage rail precedes its visual result: selecting a process never makes
+   the scene update above the student's viewport. Previous/Next stay primary. */
+.life-stage-chooser-hint{font:12px/1.45 var(--font-reading);
+ color:#42515c;margin:12px 0 8px}
+.life-stages{margin-bottom:10px}
+@media(max-width:620px){
+ .life-stages{display:grid;grid-auto-flow:column;
+  grid-auto-columns:minmax(108px,38%);grid-template-columns:none;
+  overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+  scrollbar-width:thin;scrollbar-color:#8096a5 #e8e5df;
+  overscroll-behavior-inline:contain;gap:7px;
+  padding:3px 4px 11px 2px}
+ .life-stages li{scroll-snap-align:start}
+ .life-stage{min-height:88px;padding:9px 7px;gap:4px}
+ .life-stage.active{padding:8px 6px}
+ .life-stage .dot{width:24px;height:24px}
+ .life-stage .lbl{font-size:11px;line-height:1.2}
+ .life-stage-chooser-hint{font-size:11px}
+}

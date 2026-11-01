@@ -94,6 +94,25 @@ playButton.disabled=reduceMotion.matches;
 
 let selectedMass = 'sun';
 let stageIndex = 0;
+// Explicit mobile stage selection reveals the changed physical scene.
+// Navigation by scroll is never automatic on page load or autoplay.
+function revealSelectedScene(){
+ if(!window.matchMedia('(max-width:620px)').matches)return;
+ requestAnimationFrame(()=>{
+  const scene=document.querySelector('#stellarCinema');
+  if(!scene)return;
+  const v=scene.getBoundingClientRect();
+  const header=document.querySelector('header')?.getBoundingClientRect().bottom||0;
+  const shown=Math.max(0,Math.min(innerHeight,v.bottom)-Math.max(header,v.top));
+  if(shown>=Math.min(190,v.height*.62))return;
+  const dock=document.querySelector('.atlas-feedback-dock:not([hidden])');
+  const anchor=dock||scene;
+  window.scrollTo({
+   top:Math.max(0,anchor.getBoundingClientRect().top+scrollY-header-8),
+   behavior:reduceMotion.matches?'instant':'smooth'
+  });
+ });
+}
 
 function render(rebuildSteps = false) {
   const path = PATHS[selectedMass];
@@ -131,6 +150,7 @@ toggle.addEventListener('click', (event) => {
   selectedMass = btn.dataset.mass;
   // Preserve the matching stage while rebuilding this alternate path.
   render(true);
+  revealSelectedScene();
 });
 switchMass.addEventListener('click', () => {
   stopSequence();
@@ -143,13 +163,15 @@ stages.addEventListener('click', (event) => {
   if (!btn || !stages.contains(btn)) return;
   stageIndex = Number(btn.dataset.stage);
   render();
+  revealSelectedScene();
 });
 previous.addEventListener('click', () => {
   stopSequence();
   if (stageIndex > 0) {
     stageIndex -= 1;
     render();
-    stages.querySelector(`[data-stage="${stageIndex}"]`).focus();
+    stages.querySelector(`[data-stage="${stageIndex}"]`).focus({preventScroll:true});
+    revealSelectedScene();
   }
 });
 next.addEventListener('click', () => {
@@ -157,7 +179,8 @@ next.addEventListener('click', () => {
   if (stageIndex < PATHS[selectedMass].length - 1) {
     stageIndex += 1;
     render();
-    stages.querySelector(`[data-stage="${stageIndex}"]`).focus();
+    stages.querySelector(`[data-stage="${stageIndex}"]`).focus({preventScroll:true});
+    revealSelectedScene();
   }
 });
 render();

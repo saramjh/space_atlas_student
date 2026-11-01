@@ -30,6 +30,7 @@ const cache=new Map(),textures=new Map();
 // Three distinct observations supply detail textures, not a single star's timeline.
 const refs={
  carina:{file:'carina-observed.jpg',name:'Carina star-forming region · Webb',credit:'NASA, ESA, CSA, and STScI',url:'https://esawebb.org/images/weic2205a/'},
+ l1527:{file:'protostar-observed.jpg',name:'Protostar L1527 · Webb',credit:'NASA, ESA, CSA, and STScI, J. DePasquale (STScI)',url:'https://esawebb.org/images/weic2219a/'},
  catseye:{file:'catseye-observed.jpg',name:"Cat's Eye planetary nebula · Hubble",credit:'J.P. Harrington and K.J. Borkowski (University of Maryland), and NASA/ESA',url:'https://esahubble.org/images/opo9501a/'},
  casa:{file:'casa-observed.jpg',name:'Cassiopeia A supernova remnant · Webb',credit:'NASA, ESA, CSA, STScI, D. Milisavljevic (Purdue University), T. Temim (Princeton University), I. De Looze (University of Gent)',url:'https://esawebb.org/images/weic2330e/'}
 };
@@ -282,7 +283,12 @@ function build(path,index){
     cloud(g,path===1?37:33,.14,path===1,1.12);
   }else nursery(g,path===1);
  }
- if(index===1)forming(g,path===1);
+ if(index===1){
+  // The Webb L1527 hourglass is an observational morphology anchor, not a
+  // before/after photograph of either representative modeled star.
+  observed(g,'l1527',.58);
+  forming(g,path===1);
+ }
  if(index===2){
   const r=path===1?158:132;
   cloud(g,path===1?29:68,.08,path===1,1.1);
@@ -330,6 +336,87 @@ function resize(){
  const w=Math.max(1,Math.round(r.width*dpr)),h=Math.max(1,Math.round(r.height*dpr));
  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
 }
+
+// Conceptual movement cues, deliberately not a physical time or velocity
+// simulation. Each cue marks a DIFFERENT process, rather than generic
+// twinkling. All are completely suppressed by reduced-motion.
+function processMotion(g,kind,t){
+ g.save();
+ const phase=t*.25;
+ if(kind==='protostar'||kind==='protoMassive'){
+  // Narrow bipolar streams move away from the infalling central source.
+  g.globalCompositeOperation='screen';
+  const extent=kind==='protoMassive'?220:190;
+  for(const dir of [-1,1])for(let k=0;k<23;k++){
+   const u=(k/23+phase*.11)%1;
+   const y=305+dir*(49+u*extent);
+   const spread=(7+u*20),x=560+Math.sin(k*17.1+t*.2)*spread*.43;
+   const a=(1-u)*.6;
+   g.fillStyle='rgba(142,217,255,'+a.toFixed(3)+')';
+   g.beginPath();g.ellipse(x,y,1.15+u*.85,3.5+u*2,0,0,TWO_PI);g.fill();
+  }
+ }
+ if(kind==='main'||kind==='mainMassive'){
+  // Gentle photospheric granular light and restrained magnetic loops.
+  const R=kind==='mainMassive'?158:132;
+  for(let k=0;k<5;k++){
+   const angle=k*1.37+phase*.14;
+   const rr=R*(.54+.16*Math.sin(k*4.4+phase*.17));
+   const x=560+Math.cos(angle)*rr,y=305+Math.sin(angle)*rr;
+   glow(g,x,y,11,kind==='mainMassive'?'168,205,255':'255,223,154',.038);
+  }
+ }
+ if(kind==='giant'||kind==='supergiant'){
+  // Low-frequency envelope-driven shedding beyond the photosphere.
+  const R=kind==='supergiant'?221:190;
+  for(let k=0;k<54;k++){
+   const u=(hash(k,14,2)+phase*.017)%1;
+   const ang=hash(k,8,4)*TWO_PI;
+   const rad=R+14+u*107;
+   const a=(1-u)*.22;
+   g.fillStyle='rgba(255,145,91,'+a.toFixed(3)+')';
+   g.beginPath();g.arc(560+Math.cos(ang)*rad,305+Math.sin(ang)*rad,
+    .5+hash(k,3,7)*1.5,0,TWO_PI);g.fill();
+  }
+ }
+ if(kind==='planetary'){
+  // Repeated gas shells: only their motion is illustrative, not expansion
+  // speed or observed time since ejection.
+  g.strokeStyle='rgba(130,226,246,.13)';g.lineWidth=2;
+  for(let j=0;j<2;j++){
+   const u=(phase*.012+j*.5)%1;
+   const r=115+u*124;
+   g.beginPath();g.ellipse(560,305,r,r*.65,-.2,0,TWO_PI);g.stroke();
+  }
+ }
+ if(kind==='supernova'){
+  // Inhomogeneous outward shock fronts, intentionally broken into arcs.
+  g.globalCompositeOperation='screen';
+  for(let band=0;band<2;band++){
+   const u=(phase*.03+band*.5)%1,r=124+u*155;
+   for(let k=0;k<13;k++){
+    const angle=(k/13)*TWO_PI+(hash(k,band,49)-.5)*.16;
+    const a=(1-u)*(.19+.14*hash(k,13,47));
+    g.strokeStyle='rgba(255,157,112,'+a.toFixed(3)+')';
+    g.lineWidth=1.4+hash(k,7,11)*2.3;
+    g.beginPath();g.arc(560,305,r,angle,angle+.095+hash(k,5,39)*.12);g.stroke();
+   }
+  }
+ }
+ if(kind==='remnants'){
+  // Periodic emission is pictured only for the neutron-star alternative.
+  g.save();g.translate(354,291);g.rotate(phase*.7);
+  const beam=g.createLinearGradient(0,-185,0,-21);
+  beam.addColorStop(0,'rgba(137,195,255,0)');
+  beam.addColorStop(1,'rgba(184,229,255,.22)');
+  g.fillStyle=beam;
+  g.beginPath();g.moveTo(-5,-21);g.lineTo(-34,-185);
+  g.lineTo(34,-185);g.lineTo(5,-21);g.closePath();g.fill();
+  g.restore();
+ }
+ g.restore();
+}
+
 function paint(now=0){
  if(!ctx)return;
  resize();
@@ -365,6 +452,7 @@ function paint(now=0){
    ctx.save();ctx.translate(354,291);ctx.rotate(t*.11);ctx.strokeStyle='rgba(173,234,255,.25)';
    ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(0,0,48,20,.3,0,TWO_PI);ctx.stroke();ctx.restore();
   }
+  processMotion(ctx,kind,t);
  }
  ctx.setTransform(1,0,0,1,0,0);
 }
@@ -374,7 +462,7 @@ function tick(now){
  frameHandle=requestAnimationFrame(tick);
 }
 function start(){
- if(active||!visible||reduced.matches||!ctx)return;
+ if(active||!visible||document.hidden||reduced.matches||!ctx)return;
  active=true;frameHandle=requestAnimationFrame(tick);
 }
 function stop(){active=false;if(frameHandle!==null){cancelAnimationFrame(frameHandle);frameHandle=null;}}
@@ -394,7 +482,7 @@ export function setStellarScene(mass,index){
  document.querySelector('#stellarCinemaNotice').textContent=sc[2];
  const link=document.querySelector('#stellarCinemaReference');
  if(link){
-  const key=step===0?'carina':step===4?(branch===0?'catseye':'casa'):null;
+  const key=step===0?'carina':step===1?'l1527':step===4?(branch===0?'catseye':'casa'):null;
   link.hidden=!key;
   if(key){
    link.href=refs[key].url;
@@ -409,6 +497,10 @@ export const stellarSceneNames=scenes.map(path=>path.map(s=>s[0]));
 if(ctx){
  addEventListener('resize',()=>paint(performance.now()),{passive:true});
  if('ResizeObserver'in window)new ResizeObserver(()=>paint(performance.now())).observe(canvas);
+ document.addEventListener('visibilitychange',()=>{
+  if(document.hidden)stop();
+  else {paint(performance.now());start();}
+ });
  if('IntersectionObserver'in window)new IntersectionObserver(entries=>{
   visible=entries.some(e=>e.isIntersecting);
   if(visible){paint(performance.now());start();}else stop();

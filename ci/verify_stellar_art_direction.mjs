@@ -8,6 +8,8 @@ const content=read('pages/stars/life-cycle/content.html');
 const html=read('public/stars/life-cycle/index.html');
 const css=read('assets/css/style.css');
 assert.match(logic,/import\('\.\/stellar-cinema\.js'\)/);
+assert.match(logic,/function revealSelectedScene/);
+assert.match(logic,/focus\(\{preventScroll:true\}\)/);
 assert.match(logic,/sceneEngine\.setStage\(stageIndex,selectedMass\)/);
 assert.match(logic,/createStellarEvolutionScene/,'Retain Canvas2D legacy fallback');
 for(const id of ['stellarCinema','stellarCinemaCanvas','stellarCinemaTitle','stellarCinemaNotice',
@@ -23,20 +25,28 @@ for(const phrase of ['MOLECULAR CLOUD','PROTOSTAR','MAIN SEQUENCE','RED GIANT',
 }
 assert.match(art,/observed\(g,'carina'/);
 assert.match(art,/observed\(g,'catseye'/);
+assert.match(art,/observed\(g,'l1527'/);
 assert.match(art,/observed\(g,'casa'/);
 assert.match(art,/!visible\)oldScene=null/,'Offscreen changes may not freeze the prior stage');
 assert.match(art,/reduced\.matches/);
 assert.match(art,/devicePixelRatio\|\|1,1\.65/);
 assert.match(art,/if\(cache\.size>4\)cache\.delete/);
 assert.match(art,/IntersectionObserver/);
+assert.match(art,/function processMotion/);
+assert.match(art,/processMotion\(ctx,kind,t\)/);
+assert.match(art,/document\.hidden\)stop\(\)/);
 assert.match(art,/cancelAnimationFrame\(frameHandle\)/);
 assert.match(art,/new URL\('\.\.\/images\/stellar-references\//);
 assert.match(css,/\.stellar-cinema-stage/);
 assert.match(css,/\.stellar-cinema-reference/);
 assert.match(css,/\.stellar-cinema-caption\{position:static/);
 assert.match(content,/forms, sizes and duration not to scale/);
+assert.ok(content.indexOf('id="lifeStages"')<content.indexOf('id="stellarCinema"'), 'Stage choices should lead directly into the visual consequence');
+assert.match(content,/life-stage-chooser-hint/);
+assert.match(css,/grid-auto-flow:column/);
 for(const asset of [
  ['carina-observed.jpg',225000],
+ ['protostar-observed.jpg',230000],
  ['catseye-observed.jpg',75000],
  ['casa-observed.jpg',265000]
 ]){
@@ -45,6 +55,7 @@ for(const asset of [
 }
 const credits=[
  ['NASA, ESA, CSA, and STScI','https://esawebb.org/images/weic2205a/'],
+ ['NASA, ESA, CSA, and STScI, J. DePasquale (STScI)','https://esawebb.org/images/weic2219a/'],
  ['J.P. Harrington and K.J. Borkowski (University of Maryland), and NASA/ESA',
  'https://esahubble.org/images/opo9501a/'],
  ['NASA, ESA, CSA, STScI, D. Milisavljevic (Purdue University), T. Temim (Princeton University), I. De Looze (University of Gent)',

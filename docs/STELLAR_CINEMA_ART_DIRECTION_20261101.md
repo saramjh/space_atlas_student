@@ -15,7 +15,7 @@ appear in separate side-by-side alternatives, not the same fate.
 
 ## Observation and art references
 
-All three stage-specific observation textures are from official, openly
+All four stage-specific observation textures are from official, openly
 reusable ESA/Webb or ESA/Hubble material; these are complete, unchanged
 credit lines as required by their CC BY 4.0 policies. They are cropped,
 darkened and mixed with an original canvas scene, and **the full attribution
@@ -23,6 +23,7 @@ is always visible alongside the stage**.
 
 | Stage / distinct object | Official image page | Full credit |
 |---|---|---|
+| Protostar (both paths), L1527 | https://esawebb.org/images/weic2219a/ | NASA, ESA, CSA, and STScI, J. DePasquale (STScI) |
 | Nebula (both paths), Carina NGC 3324 | https://esawebb.org/images/weic2205a/ | NASA, ESA, CSA, and STScI |
 | Sun-like planetary nebula, Cat's Eye NGC 6543 | https://esahubble.org/images/opo9501a/ | J.P. Harrington and K.J. Borkowski (University of Maryland), and NASA/ESA |
 | Massive supernova remnant, Cassiopeia A | https://esawebb.org/images/weic2330e/ | NASA, ESA, CSA, STScI, D. Milisavljevic (Purdue University), T. Temim (Princeton University), I. De Looze (University of Gent) |
@@ -31,7 +32,7 @@ Licensing:
 https://esawebb.org/copyright/
 https://esahubble.org/copyright/
 
-The three locally resized JPEG textures are ~530 KiB TOTAL, not downloaded
+The four locally resized JPEG textures are approximately 710 KiB TOTAL, not downloaded
 until relevant stages are visited. These observational examples establish
 the appropriate high-frequency morphology (sculpted pillars/dust lanes,
 nested gas shells, disrupted filaments) without misleading students into
@@ -65,11 +66,25 @@ thinking a single star was photographed during its entire life.
 - Each stage exposes a different accessible canvas description and
   'What to notice' teaching hint; official full credits remain visible.
 
+## Stage-by-stage learning flow and purposeful motion
+
+The six-stage selector now comes BEFORE the visual scene. Narrow phones
+show a one-row swipeable selector with an explicit instruction, while
+the always-visible Previous/Next controls remain in the main task dock.
+Selecting a stage or mass pathway scrolls to its result ONLY when most
+of the image was out of view. At 320x568, choosing Protostar after Nebula
+increased visible scene area from 98px to 319px without horizontal overflow.
+
+Animation cues are process-specific: bipolar jets, photospheric variations,
+stellar winds, gas-shell motion, broken supernova shock fronts and rotating
+beams only for the neutron-star alternative. These motion cues are neither
+physical measured rates nor an actual simulation of stellar evolution.
+The renderer pauses out of view and in background tabs. A student requesting
+reduced motion receives static, stage-distinct images.
+
 ## Verification
 
-The on-host Chromium sweep visited 12 stages at 1280x850 and 320x568:
-24 distinct canvas sample hashes, 0 horizontal overflow, 12 stage-specific
-titles and descriptions. Initial cached geometry renders were generally
+The final browser sweep visited 12 stages at each of 320x568, 390x667, and 1280x850: 36 distinct canvas hashes across 36 cases, no horizontal overflow, and stage-specific titles. Process animation was observed in four contrasting massive-star stages; reduced-motion frames remained unchanged. Initial cached geometry renders were generally
 ~2-145 ms in this browser; no claim is made about physical low-end devices.
 The old scientific-stage tests remain and a separate CI test validates
 assets, image size budgets, reduced motion/offscreen behavior and citations.
