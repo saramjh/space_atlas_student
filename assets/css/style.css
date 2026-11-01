@@ -2679,3 +2679,70 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 
 .moon-observation .phase-view-earth{scroll-margin-top:132px}
 .moon-observation #moonEarthView{scroll-margin-top:135px}
+/* Stellar gallery: original, procedural scientific scene illustration.
+   Night-blue image window visually distinct from the explanatory panel. */
+.stellar-cinema{padding:0;margin:0 0 0;min-width:0;background:#06131e;border:1px solid #2d4b60}
+.stellar-cinema-stage{position:relative;height:clamp(340px,40vw,550px);overflow:hidden;
+ background:radial-gradient(ellipse at 48% 55%,#102537,#020913 72%)}
+.stellar-cinema canvas{display:block;width:100%;height:100%;object-fit:cover;touch-action:pan-y}
+.stellar-cinema-head,.stellar-cinema-bottom{position:absolute;left:0;right:0;
+ padding-left:clamp(14px,2.8vw,30px);padding-right:clamp(14px,2.8vw,30px);
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ pointer-events:none;text-shadow:0 1px 12px #010813}
+.stellar-cinema-head{top:0;padding-top:21px;align-items:flex-start}
+.stellar-cinema-eyebrow,.stellar-cinema-counter,.stellar-cinema-basis{
+ font:600 10px/1.5 var(--font-data);letter-spacing:.1em;color:#c3d6e2}
+.stellar-cinema-counter{text-align:right;white-space:nowrap;color:#e2bd87}
+.stellar-cinema-bottom{bottom:0;padding-bottom:22px;align-items:flex-end;
+ background:linear-gradient(0deg,rgba(1,7,16,.77),transparent);padding-top:35px}
+.stellar-cinema-name{font:600 clamp(19px,3vw,32px)/1.08 var(--font-display);
+ color:#fff0d8;letter-spacing:.016em}
+.stellar-cinema-basis{color:#bad0da;text-align:right}
+.stellar-cinema-caption{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,28%);
+ gap:18px;align-items:start;padding:15px clamp(14px,2.8vw,30px);
+ color:#e6eef0;background:#102b3d;border-top:1px solid #3d5666;
+ font:13px/1.5 var(--font-reading)}
+.stellar-cinema-caption>div{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px}
+.stellar-cinema-caption-label{color:#ecc78e;font:700 10px/1.5 var(--font-data);letter-spacing:.08em}
+.stellar-cinema-caption strong{color:#f3f5f3;font-size:13px;font-weight:500}
+.stellar-cinema-truth{color:#b0c0c9;font-size:11px;line-height:1.5}
+.life-stage-panel{border-top:1px solid #345264}
+.life-stage .dot{border:1px solid rgba(8,21,33,.55);box-shadow:inset -5px -6px 8px rgba(0,0,0,.3),
+  0 0 0 2px rgba(255,255,255,.4);background:radial-gradient(circle at 33% 30%,
+  color-mix(in srgb,var(--life-color),white 52%),var(--life-color) 45%,
+  color-mix(in srgb,var(--life-color),black 45%) 100%)}
+@media(max-width:620px){
+ .stellar-cinema-stage{height:clamp(270px,88vw,365px)}
+ .stellar-cinema-head{padding-top:14px}
+ .stellar-cinema-head,.stellar-cinema-bottom{flex-wrap:wrap;gap:4px}
+ .stellar-cinema-eyebrow,.stellar-cinema-counter,.stellar-cinema-basis{font-size:9px}
+ .stellar-cinema-name{font-size:21px}
+ .stellar-cinema-bottom{padding-bottom:12px}
+ .stellar-cinema-caption{grid-template-columns:1fr;gap:6px;padding:12px 14px}
+ .stellar-cinema-caption>div{grid-template-columns:1fr;gap:3px}
+ .stellar-cinema-caption strong{font-size:12px}
+ .stellar-cinema-truth{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .stellar-cinema,.stellar-cinema *{animation:none!important;transition:none!important}
+}
+
+
+/* Cinema replacement: override the old miniature canvas framing in place. */
+.stellar-cinema{aspect-ratio:auto;min-height:0;max-height:none;overflow:visible}
+.stellar-cinema-stage{position:relative;width:100%}
+.stellar-cinema-stage canvas[hidden],.stellar-cinema-stage svg[hidden]{display:none}
+.stellar-cinema-stage svg{width:100%;height:100%;display:block}
+.stellar-cinema-caption{position:static;inset:auto;pointer-events:auto;
+ font-family:var(--font-reading);font-weight:400;letter-spacing:normal;
+ text-shadow:none}
+.stellar-cinema-truth{display:block}
+
+.stellar-cinema-reference{grid-column:1/-1;color:#e6c692;
+ font:11px/1.55 var(--font-reading);text-decoration:underline;
+ text-underline-offset:2px;overflow-wrap:anywhere}
+.stellar-cinema-reference:hover{color:#fff0d0}
+.stellar-cinema-reference[hidden]{display:none}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;
+ padding:0!important;margin:-1px!important;overflow:hidden!important;
+ clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}

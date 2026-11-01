@@ -58,6 +58,7 @@ jobs:
           node ci/verify_spectrum_beam.mjs
           node ci/verify_p1_visuals.mjs
           node ci/verify_stellar_cinema.mjs
+          node ci/verify_stellar_art_direction.mjs
           node ci/verify_resource_picker.mjs
           node ci/verify_image_provenance.mjs
           node ci/verify_planet_3d.mjs

@@ -42,13 +42,24 @@ const PROCESS_LABELS={
 let sceneEngine=null;
 async function loadScene(){
  try{
-  const {createStellarEvolutionScene}=await import('./stellar-evolution-scene.js');
-  sceneEngine=createStellarEvolutionScene(sceneCanvas);
-  sceneCanvas.hidden=false;sceneFallback.hidden=true;
-  sceneEngine.resize();sceneEngine.setStage(stageIndex,selectedMass);
+  // New no-network procedural cinema; the existing scientific controls and
+  // DOM stay intact, while old Canvas2D remains a safe fallback.
+  const {setStellarScene}=await import('./stellar-cinema.js');
+  sceneCanvas.hidden=false;
+  sceneFallback.hidden=true;
+  sceneEngine={setStage:(index,mass)=>setStellarScene(mass,index),resize:()=>{}};
+  sceneEngine.setStage(stageIndex,selectedMass);
  }catch(error){
-  sceneCanvas.hidden=true;sceneFallback.hidden=false;
-  console.warn('Star evolution painting unavailable; retained accessible evidence and stage explorer',error);
+  console.warn('New stellar art unavailable; using verified basic renderer',error);
+  try{
+   const {createStellarEvolutionScene}=await import('./stellar-evolution-scene.js');
+   sceneEngine=createStellarEvolutionScene(sceneCanvas);
+   sceneCanvas.hidden=false;sceneFallback.hidden=true;
+   sceneEngine.resize();sceneEngine.setStage(stageIndex,selectedMass);
+  }catch(fallbackError){
+   sceneCanvas.hidden=true;sceneFallback.hidden=false;
+   console.warn('Stellar canvas unavailable; using textual stage explorer',fallbackError);
+  }
  }
 }
 
