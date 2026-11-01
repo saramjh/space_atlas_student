@@ -2475,3 +2475,9 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
  .ed138-mobile-track .ed138-pluto-full{width:100%;background:#80b7c9}
  .ed138-mobile-chart p{font:11px/1.5 var(--font-reading);color:#c0cfd1;margin:0}
 }
+
+/* Disabled core steps stay in the task bar so their place in a sequence is
+   discoverable; the model re-enables them without a remount or cloned node. */
+.atlas-feedback-main button:disabled{
+ opacity:.52;cursor:not-allowed;
+}

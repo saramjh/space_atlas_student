@@ -1,0 +1,1533 @@
+{
+  "date": "2026-11-01",
+  "method": "Chromium CDP touchStart, touchMove, touchEnd, 768x1024 portrait and 1024x768 landscape",
+  "initial_cases": [
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 238.4140625,
+        "y": 462.765625
+      },
+      "route": "/",
+      "width": 768,
+      "height": 1024,
+      "action": "btnMotion",
+      "target": "#btnMotion",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 399.421875,
+        "y": 461.859375
+      },
+      "route": "/astronomy/electromagnetic-spectrum/",
+      "width": 768,
+      "height": 1024,
+      "action": "spectrumWaveToggle",
+      "target": "#spectrumWaveToggle",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 132.375,
+        "y": 462.078125
+      },
+      "route": "/black-holes/",
+      "width": 768,
+      "height": 1024,
+      "action": "bhAnimate",
+      "target": "#bhAnimate",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Noon Sun 73.5° · daylight 14.9 h",
+      "after": "Noon Sun 49.2° · daylight 11.9 h",
+      "pressed": null,
+      "value": "272",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 386,
+        "y": 448.53125
+      },
+      "route": "/earth/seasons/",
+      "width": 768,
+      "height": 1024,
+      "action": "seasonAngle",
+      "target": "#seasonExperiment",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Phase 0° · Light blocked 0.000% · Star brightness 100.000%. Outside the visible stellar disk: no transit.",
+      "after": "Phase 247° · Light blocked 0.000% · Star brightness 100.000%. Outside the visible stellar disk: no transit.",
+      "pressed": null,
+      "value": "247",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 400.484375,
+        "y": 447.90625
+      },
+      "route": "/exoplanets/transit-method/",
+      "width": 768,
+      "height": 1024,
+      "action": "transitAngle",
+      "target": "#transitReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Stage 1/4: camera approaches the Sun's approximate position within the Orion Spur (illustrative viewpoint, not an actual",
+      "after": "Focus on Sun: the cyan location is within the Orion Spur, roughly 26,000 light-years from the galactic center.",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 308.5,
+        "y": 469.390625
+      },
+      "route": "/galaxies/milky-way/",
+      "width": 768,
+      "height": 1024,
+      "action": "mw3DFocusSun",
+      "target": "#mw3DReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0° · projected thin-disk axis ratio ≈ 1.00. Face-on: curved arms are clearly visible. The galaxy itself did not change t",
+      "after": "60° · projected thin-disk axis ratio ≈ 0.50. Inclined: arms look flattened by the viewing angle. The galaxy itself did n",
+      "pressed": null,
+      "value": "60",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 309.625,
+        "y": 448.75
+      },
+      "route": "/galaxies/types/",
+      "width": 768,
+      "height": 1024,
+      "action": "galaxyInclination",
+      "target": "#galaxyAngleOutput",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Camera radius 4.97 AU. Orbital positions use physically proportional AU distances; background and colors are artistic.",
+      "after": "Camera radius 12.7 AU. Orbital positions use physically proportional AU distances; background and colors are artistic.",
+      "pressed": null,
+      "value": "756",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 386,
+        "y": 457.5
+      },
+      "route": "/learn/not-to-scale/",
+      "width": 768,
+      "height": 1024,
+      "action": "trueScaleZoom",
+      "target": "#trueScaleReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0%",
+      "after": "76%",
+      "pressed": null,
+      "value": "757",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 386,
+        "y": 461.390625
+      },
+      "route": "/moon/earth-moon-scale/",
+      "width": 768,
+      "height": 1024,
+      "action": "emFlightSlider",
+      "target": "#emFlightPercent",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "New Moon but the Moon is below the ecliptic plane by 0.26 model orbital radii. This representative geometry misses the e",
+      "after": "New Moon but the Moon is below the ecliptic plane by 0.06 model orbital radii. This representative geometry misses the e",
+      "pressed": null,
+      "value": "14",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 371,
+        "y": 448.625
+      },
+      "route": "/moon/eclipses/",
+      "width": 768,
+      "height": 1024,
+      "action": "eclipseNode",
+      "target": "#eclipseReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Day 14.8 of 29.5 · 100% illuminated as seen from Earth",
+      "after": "Day 22.3 of 29.5 · 48% illuminated as seen from Earth",
+      "pressed": null,
+      "value": "272",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 386,
+        "y": 447.96875
+      },
+      "route": "/moon/phases/",
+      "width": 768,
+      "height": 1024,
+      "action": "moonAngle",
+      "target": "#phaseMetrics",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0",
+      "after": "272",
+      "pressed": null,
+      "value": "272",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 384,
+        "y": 448.171875
+      },
+      "route": "/moon/tidal-locking/",
+      "width": 768,
+      "height": 1024,
+      "action": "lockAngle",
+      "target": "#lockAngle",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0° — Spring pattern: aligned contributions reinforce. Illustrative combined forcing contrast: 100% of this model’s align",
+      "after": "70° — Intermediate alignment: the strength and orientation of the idealized pattern change. Illustrative combined forcin",
+      "pressed": null,
+      "value": "70",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 212.5,
+        "y": 458.890625
+      },
+      "route": "/moon/tides/",
+      "width": 768,
+      "height": 1024,
+      "action": "tideCinemaAngle",
+      "target": "#tideModelReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "≈ 967 km",
+      "after": "≈ 684 km",
+      "pressed": null,
+      "value": "20",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 386,
+        "y": 457.109375
+      },
+      "route": "/solar-system/2026-ed138-dwarf-planet-candidate/",
+      "width": 768,
+      "height": 1024,
+      "action": "ed138Albedo",
+      "target": "#ed138Diameter",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0.00 AU",
+      "after": "22.73 AU",
+      "pressed": null,
+      "value": "2273",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 386,
+        "y": 458.296875
+      },
+      "route": "/solar-system/astronomical-unit/",
+      "width": 768,
+      "height": 1024,
+      "action": "auExpeditionProgress",
+      "target": "#auExpeditionPosition",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Earth: 1.00 AU (3.33% of the 30.05 AU physical ruler), but 14 scene units (28.00% of the 50-unit illustrative ruler). Th",
+      "after": "Mars: 1.52 AU (5.06% of the 30.05 AU physical ruler), but 17.5 scene units (35.00% of the 50-unit illustrative ruler). T",
+      "pressed": null,
+      "value": "Mars",
+      "inputType": "SELECT",
+      "coord": {
+        "x": 140.5,
+        "y": 460.609375
+      },
+      "route": "/solar-system/distance-scale/",
+      "width": 768,
+      "height": 1024,
+      "action": "distanceFocusPlanet",
+      "target": "#distanceFocusReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Select Compare three launch speeds to see three outcomes together. The original single-launch sandbox remains available.",
+      "after": "1.0: collision · 2.6: bounded computed trajectory · 4.1: escape. All paths share the same ideal central mass; these are ",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 601.2109375,
+        "y": 462.578125
+      },
+      "route": "/solar-system/gravity-and-orbits/",
+      "width": 768,
+      "height": 1024,
+      "action": "orbitCompareThree",
+      "target": "#orbitTrioReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "1.00× Earth",
+      "after": "240.70× Earth",
+      "pressed": null,
+      "value": "240.7",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 384,
+        "y": 448.375
+      },
+      "route": "/solar-system/gravity-comparison/",
+      "width": 768,
+      "height": 1024,
+      "action": "gravityMass",
+      "target": "#gravityModelResult",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 561.5,
+        "y": 477.203125
+      },
+      "route": "/solar-system/gravity-lab/",
+      "width": 768,
+      "height": 1024,
+      "action": "gravityLabModeFlight",
+      "target": "#gravityLabModeFlight",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0.00 Earth yr",
+      "after": "0.79 Earth yr",
+      "pressed": null,
+      "value": "788",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 308.609375,
+        "y": 448.171875
+      },
+      "route": "/solar-system/orbital-periods/",
+      "width": 768,
+      "height": 1024,
+      "action": "keplerOrbitTime",
+      "target": "#keplerOrbitTimeValue",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Close view",
+      "after": "76% outward",
+      "pressed": null,
+      "value": "76",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 384,
+        "y": 456.390625
+      },
+      "route": "/solar-system/planet-size-comparison/",
+      "width": 768,
+      "height": 1024,
+      "action": "diameterLensProgress",
+      "target": "#diameterLensPosition",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Earth · NASA Blue Marble montage",
+      "after": "Earth · NASA Blue Marble",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 175.84375,
+        "y": 462.796875
+      },
+      "route": "/solar-system/planet-types/",
+      "width": 768,
+      "height": 1024,
+      "action": "ptype3DStart",
+      "target": "#ptype3DStatus",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0% of mean-period teaching cycle: Neptune 0.00 / 3 laps; Pluto 0.00 / 2 laps. Two Pluto periods ≈ 496 yr; three Neptune ",
+      "after": "76% of mean-period teaching cycle: Neptune 2.28 / 3 laps; Pluto 1.52 / 2 laps. Two Pluto periods ≈ 496 yr; three Neptune",
+      "pressed": null,
+      "value": "76",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 386,
+        "y": 457.140625
+      },
+      "route": "/solar-system/pluto-dwarf-planet/",
+      "width": 768,
+      "height": 1024,
+      "action": "plutoResonanceTime",
+      "target": "#plutoResonanceReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Venus (+464°C) is 297°C warmer than Mercury (+167°C). References: Mercury — rocky surface mean; Venus — rocky surface me",
+      "after": "Mercury: +167°C. This is a NASA rocky surface mean; select another planet to compare.",
+      "pressed": null,
+      "value": "Mercury",
+      "inputType": "SELECT",
+      "coord": {
+        "x": 307.5,
+        "y": 460.390625
+      },
+      "route": "/solar-system/temperature-comparison/",
+      "width": 768,
+      "height": 1024,
+      "action": "tempCompareB",
+      "target": "#tempCompareReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Choose a learning goal, or browse the five official resources below. Every link remains available without JavaScript.",
+      "after": "Recommended official source: JPL Education. Its description and link are expanded below; open the link when ready.",
+      "pressed": null,
+      "value": "build",
+      "inputType": "SELECT",
+      "coord": {
+        "x": 290.140625,
+        "y": 462.640625
+      },
+      "route": "/sources/space-resources-for-students/",
+      "width": 768,
+      "height": 1024,
+      "action": "resourceGoal",
+      "target": "#resourceMatchResult",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "UNRESOLVED",
+      "before": "01 / 06 · CLOUD COLLAPSE",
+      "after": "01 / 06 · CLOUD COLLAPSE",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 591.2265625,
+        "y": 474.78125
+      },
+      "route": "/stars/life-cycle/",
+      "width": 768,
+      "height": 1024,
+      "action": "lifeNext",
+      "target": "#stellarCinemaProcess",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "8.3 minutes",
+      "after": "2.0 minutes",
+      "pressed": null,
+      "value": "24",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 308.90625,
+        "y": 448.609375
+      },
+      "route": "/universe/light-year/",
+      "width": 768,
+      "height": 1024,
+      "action": "lyPhotonSlider",
+      "target": "#lyPhotonElapsed",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the n",
+      "after": "Previous → current: approximately 7,495,294× larger in the compared length measures×10×10×10×10×10×10×7.50Every ×10 bloc",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 130.7578125,
+        "y": 462.53125
+      },
+      "route": "/universe/scale/",
+      "width": 768,
+      "height": 1024,
+      "action": "zoomNext",
+      "target": "#cosmicJump",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 581.6015625,
+        "y": 145
+      },
+      "route": "/",
+      "width": 1024,
+      "height": 768,
+      "action": "btnMotion",
+      "target": "#btnMotion",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 527.4609375,
+        "y": 351.84375
+      },
+      "route": "/astronomy/electromagnetic-spectrum/",
+      "width": 1024,
+      "height": 768,
+      "action": "spectrumWaveToggle",
+      "target": "#spectrumWaveToggle",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 132.375,
+        "y": 351.828125
+      },
+      "route": "/black-holes/",
+      "width": 1024,
+      "height": 768,
+      "action": "bhAnimate",
+      "target": "#bhAnimate",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Noon Sun 73.5° · daylight 14.9 h",
+      "after": "Noon Sun 49.2° · daylight 11.9 h",
+      "pressed": null,
+      "value": "272",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 514,
+        "y": 338.734375
+      },
+      "route": "/earth/seasons/",
+      "width": 1024,
+      "height": 768,
+      "action": "seasonAngle",
+      "target": "#seasonExperiment",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Phase 0° · Light blocked 0.000% · Star brightness 100.000%. Outside the visible stellar disk: no transit.",
+      "after": "Phase 248° · Light blocked 0.000% · Star brightness 100.000%. Outside the visible stellar disk: no transit.",
+      "pressed": null,
+      "value": "248",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 407.0390625,
+        "y": 338.109375
+      },
+      "route": "/exoplanets/transit-method/",
+      "width": 1024,
+      "height": 768,
+      "action": "transitAngle",
+      "target": "#transitReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Stage 1/4: camera approaches the Sun's approximate position within the Orion Spur (illustrative viewpoint, not an actual",
+      "after": "Focus on Sun: the cyan location is within the Orion Spur, roughly 26,000 light-years from the galactic center.",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 340,
+        "y": 359.28125
+      },
+      "route": "/galaxies/milky-way/",
+      "width": 1024,
+      "height": 768,
+      "action": "mw3DFocusSun",
+      "target": "#mw3DReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0° · projected thin-disk axis ratio ≈ 1.00. Face-on: curved arms are clearly visible. The galaxy itself did not change t",
+      "after": "60° · projected thin-disk axis ratio ≈ 0.50. Inclined: arms look flattened by the viewing angle. The galaxy itself did n",
+      "pressed": null,
+      "value": "60",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 540.4296875,
+        "y": 338.234375
+      },
+      "route": "/galaxies/types/",
+      "width": 1024,
+      "height": 768,
+      "action": "galaxyInclination",
+      "target": "#galaxyAngleOutput",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Camera radius 4.97 AU. Orbital positions use physically proportional AU distances; background and colors are artistic.",
+      "after": "Camera radius 12.6 AU. Orbital positions use physically proportional AU distances; background and colors are artistic.",
+      "pressed": null,
+      "value": "754",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 514,
+        "y": 347.390625
+      },
+      "route": "/learn/not-to-scale/",
+      "width": 1024,
+      "height": 768,
+      "action": "trueScaleZoom",
+      "target": "#trueScaleReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0%",
+      "after": "76%",
+      "pressed": null,
+      "value": "755",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 514,
+        "y": 351.625
+      },
+      "route": "/moon/earth-moon-scale/",
+      "width": 1024,
+      "height": 768,
+      "action": "emFlightSlider",
+      "target": "#emFlightPercent",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "New Moon but the Moon is below the ecliptic plane by 0.26 model orbital radii. This representative geometry misses the e",
+      "after": "New Moon but the Moon is below the ecliptic plane by 0.06 model orbital radii. This representative geometry misses the e",
+      "pressed": null,
+      "value": "14",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 377.5546875,
+        "y": 338.578125
+      },
+      "route": "/moon/eclipses/",
+      "width": 1024,
+      "height": 768,
+      "action": "eclipseNode",
+      "target": "#eclipseReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Day 14.8 of 29.5 · 100% illuminated as seen from Earth",
+      "after": "Day 22.3 of 29.5 · 48% illuminated as seen from Earth",
+      "pressed": null,
+      "value": "272",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 514,
+        "y": 338.15625
+      },
+      "route": "/moon/phases/",
+      "width": 1024,
+      "height": 768,
+      "action": "moonAngle",
+      "target": "#phaseMetrics",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0",
+      "after": "272",
+      "pressed": null,
+      "value": "272",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 512,
+        "y": 338.578125
+      },
+      "route": "/moon/tidal-locking/",
+      "width": 1024,
+      "height": 768,
+      "action": "lockAngle",
+      "target": "#lockAngle",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0° — Spring pattern: aligned contributions reinforce. Illustrative combined forcing contrast: 100% of this model’s align",
+      "after": "70° — Intermediate alignment: the strength and orientation of the idealized pattern change. Illustrative combined forcin",
+      "pressed": null,
+      "value": "70",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 276.5,
+        "y": 349.234375
+      },
+      "route": "/moon/tides/",
+      "width": 1024,
+      "height": 768,
+      "action": "tideCinemaAngle",
+      "target": "#tideModelReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "≈ 967 km",
+      "after": "≈ 684 km",
+      "pressed": null,
+      "value": "20",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 514,
+        "y": 347.515625
+      },
+      "route": "/solar-system/2026-ed138-dwarf-planet-candidate/",
+      "width": 1024,
+      "height": 768,
+      "action": "ed138Albedo",
+      "target": "#ed138Diameter",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0.00 AU",
+      "after": "22.67 AU",
+      "pressed": null,
+      "value": "2267",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 514,
+        "y": 348.078125
+      },
+      "route": "/solar-system/astronomical-unit/",
+      "width": 1024,
+      "height": 768,
+      "action": "auExpeditionProgress",
+      "target": "#auExpeditionPosition",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Earth: 1.00 AU (3.33% of the 30.05 AU physical ruler), but 14 scene units (28.00% of the 50-unit illustrative ruler). Th",
+      "after": "Mars: 1.52 AU (5.06% of the 30.05 AU physical ruler), but 17.5 scene units (35.00% of the 50-unit illustrative ruler). T",
+      "pressed": null,
+      "value": "Mars",
+      "inputType": "SELECT",
+      "coord": {
+        "x": 140.5,
+        "y": 349.78125
+      },
+      "route": "/solar-system/distance-scale/",
+      "width": 1024,
+      "height": 768,
+      "action": "distanceFocusPlanet",
+      "target": "#distanceFocusReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Select Compare three launch speeds to see three outcomes together. The original single-launch sandbox remains available.",
+      "after": "1.0: collision · 2.6: bounded computed trajectory · 4.1: escape. All paths share the same ideal central mass; these are ",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 857.2109375,
+        "y": 353.078125
+      },
+      "route": "/solar-system/gravity-and-orbits/",
+      "width": 1024,
+      "height": 768,
+      "action": "orbitCompareThree",
+      "target": "#orbitTrioReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "1.00× Earth",
+      "after": "244.90× Earth",
+      "pressed": null,
+      "value": "244.9",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 156.0078125,
+        "y": 337.828125
+      },
+      "route": "/solar-system/gravity-comparison/",
+      "width": 1024,
+      "height": 768,
+      "action": "gravityMass",
+      "target": "#gravityModelResult",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "",
+      "after": "",
+      "pressed": "true",
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 753.5,
+        "y": 367.140625
+      },
+      "route": "/solar-system/gravity-lab/",
+      "width": 1024,
+      "height": 768,
+      "action": "gravityLabModeFlight",
+      "target": "#gravityLabModeFlight",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0.00 Earth yr",
+      "after": "0.78 Earth yr",
+      "pressed": null,
+      "value": "784",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 315.1640625,
+        "y": 338.625
+      },
+      "route": "/solar-system/orbital-periods/",
+      "width": 1024,
+      "height": 768,
+      "action": "keplerOrbitTime",
+      "target": "#keplerOrbitTimeValue",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Close view",
+      "after": "75% outward",
+      "pressed": null,
+      "value": "75",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 512,
+        "y": 345.890625
+      },
+      "route": "/solar-system/planet-size-comparison/",
+      "width": 1024,
+      "height": 768,
+      "action": "diameterLensProgress",
+      "target": "#diameterLensPosition",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Earth · NASA Blue Marble montage",
+      "after": "Earth · NASA Blue Marble",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 175.84375,
+        "y": 352.5
+      },
+      "route": "/solar-system/planet-types/",
+      "width": 1024,
+      "height": 768,
+      "action": "ptype3DStart",
+      "target": "#ptype3DStatus",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "0% of mean-period teaching cycle: Neptune 0.00 / 3 laps; Pluto 0.00 / 2 laps. Two Pluto periods ≈ 496 yr; three Neptune ",
+      "after": "75% of mean-period teaching cycle: Neptune 2.25 / 3 laps; Pluto 1.50 / 2 laps. Two Pluto periods ≈ 496 yr; three Neptune",
+      "pressed": null,
+      "value": "75",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 514,
+        "y": 347.09375
+      },
+      "route": "/solar-system/pluto-dwarf-planet/",
+      "width": 1024,
+      "height": 768,
+      "action": "plutoResonanceTime",
+      "target": "#plutoResonanceReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Venus (+464°C) is 297°C warmer than Mercury (+167°C). References: Mercury — rocky surface mean; Venus — rocky surface me",
+      "after": "Mercury: +167°C. This is a NASA rocky surface mean; select another planet to compare.",
+      "pressed": null,
+      "value": "Mercury",
+      "inputType": "SELECT",
+      "coord": {
+        "x": 307.5,
+        "y": 349.890625
+      },
+      "route": "/solar-system/temperature-comparison/",
+      "width": 1024,
+      "height": 768,
+      "action": "tempCompareB",
+      "target": "#tempCompareReadout",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Choose a learning goal, or browse the five official resources below. Every link remains available without JavaScript.",
+      "after": "Recommended official source: JPL Education. Its description and link are expanded below; open the link when ready.",
+      "pressed": null,
+      "value": "build",
+      "inputType": "SELECT",
+      "coord": {
+        "x": 418.140625,
+        "y": 352.453125
+      },
+      "route": "/sources/space-resources-for-students/",
+      "width": 1024,
+      "height": 768,
+      "action": "resourceGoal",
+      "target": "#resourceMatchResult",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": false,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "UNRESOLVED",
+      "before": "01 / 06 · CLOUD COLLAPSE",
+      "after": "01 / 06 · CLOUD COLLAPSE",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 847.2265625,
+        "y": 364.984375
+      },
+      "route": "/stars/life-cycle/",
+      "width": 1024,
+      "height": 768,
+      "action": "lifeNext",
+      "target": "#stellarCinemaProcess",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "8.3 minutes",
+      "after": "2.0 minutes",
+      "pressed": null,
+      "value": "24",
+      "inputType": "INPUT",
+      "coord": {
+        "x": 470.78125,
+        "y": 338.6875
+      },
+      "route": "/universe/light-year/",
+      "width": 1024,
+      "height": 768,
+      "action": "lyPhotonSlider",
+      "target": "#lyPhotonElapsed",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    },
+    {
+      "status": "CONFIRMED",
+      "before": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the n",
+      "after": "Previous → current: approximately 7,495,294× larger in the compared length measures×10×10×10×10×10×10×7.50Every ×10 bloc",
+      "pressed": null,
+      "value": "",
+      "inputType": "BUTTON",
+      "coord": {
+        "x": 130.7578125,
+        "y": 352.734375
+      },
+      "route": "/universe/scale/",
+      "width": 1024,
+      "height": 768,
+      "action": "zoomNext",
+      "target": "#cosmicJump",
+      "layout": {
+        "overflow": false,
+        "jsLoaded": true,
+        "dock": true,
+        "coarse": true,
+        "touch": 5
+      }
+    }
+  ],
+  "fix_verification": "After moving both directions of stellar and cosmic step navigation to primary action dock, tested at 320x568, 768x1024 and 1024x768",
+  "fixed_stage_roundtrips": [
+    {
+      "width": 320,
+      "route": "/stars/life-cycle/",
+      "primary": [
+        "lifePrevious",
+        "lifeNext",
+        "lifeSwitchMass",
+        "lifePlay"
+      ],
+      "initial": "Stage 1 of 6 · Sun-like pathway",
+      "mid": "Stage 2 of 6 · Sun-like pathway",
+      "last": "Stage 1 of 6 · Sun-like pathway",
+      "first": {
+        "x": 219,
+        "y": 260.09375,
+        "h": 44,
+        "disabled": false,
+        "hit": "lifeNext",
+        "main": true,
+        "extra": false
+      },
+      "second": {
+        "x": 101,
+        "y": 260.09375,
+        "h": 44,
+        "disabled": false,
+        "hit": "lifePrevious",
+        "main": true,
+        "extra": false
+      }
+    },
+    {
+      "width": 320,
+      "route": "/universe/scale/",
+      "primary": [
+        "zoomPrev",
+        "zoomNext"
+      ],
+      "initial": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.",
+      "mid": "Previous → current: approximately 7,495,294× larger in the compared length measures×10×10×10×10×10×10×7.50Every ×10 block means one order of magnitude. This is a comparison of the listed approximate sizes or separations, not objects nested to scale.",
+      "last": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.",
+      "first": {
+        "x": 219,
+        "y": 260.546875,
+        "h": 44,
+        "disabled": false,
+        "hit": "zoomNext",
+        "main": true,
+        "extra": false
+      },
+      "second": {
+        "x": 101,
+        "y": 260.546875,
+        "h": 44,
+        "disabled": false,
+        "hit": "zoomPrev",
+        "main": true,
+        "extra": false
+      }
+    },
+    {
+      "width": 768,
+      "route": "/stars/life-cycle/",
+      "primary": [
+        "lifePrevious",
+        "lifeNext",
+        "lifeSwitchMass",
+        "lifePlay"
+      ],
+      "initial": "Stage 1 of 6 · Sun-like pathway",
+      "mid": "Stage 2 of 6 · Sun-like pathway",
+      "last": "Stage 1 of 6 · Sun-like pathway",
+      "first": {
+        "x": 272.578125,
+        "y": 452.5,
+        "h": 44,
+        "disabled": false,
+        "hit": "lifeNext",
+        "main": true,
+        "extra": false
+      },
+      "second": {
+        "x": 145.125,
+        "y": 452.5,
+        "h": 44,
+        "disabled": false,
+        "hit": "lifePrevious",
+        "main": true,
+        "extra": false
+      }
+    },
+    {
+      "width": 768,
+      "route": "/universe/scale/",
+      "primary": [
+        "zoomPrev",
+        "zoomNext"
+      ],
+      "initial": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.",
+      "mid": "Previous → current: approximately 7,495,294× larger in the compared length measures×10×10×10×10×10×10×7.50Every ×10 block means one order of magnitude. This is a comparison of the listed approximate sizes or separations, not objects nested to scale.",
+      "last": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.",
+      "first": {
+        "x": 232.6328125,
+        "y": 452.53125,
+        "h": 44,
+        "disabled": false,
+        "hit": "zoomNext",
+        "main": true,
+        "extra": false
+      },
+      "second": {
+        "x": 126.9375,
+        "y": 452.53125,
+        "h": 44,
+        "disabled": false,
+        "hit": "zoomPrev",
+        "main": true,
+        "extra": false
+      }
+    },
+    {
+      "width": 1024,
+      "route": "/stars/life-cycle/",
+      "primary": [
+        "lifePrevious",
+        "lifeNext",
+        "lifeSwitchMass",
+        "lifePlay"
+      ],
+      "initial": "Stage 1 of 6 · Sun-like pathway",
+      "mid": "Stage 2 of 6 · Sun-like pathway",
+      "last": "Stage 1 of 6 · Sun-like pathway",
+      "first": {
+        "x": 272.578125,
+        "y": 344.703125,
+        "h": 44,
+        "disabled": false,
+        "hit": "lifeNext",
+        "main": true,
+        "extra": false
+      },
+      "second": {
+        "x": 145.125,
+        "y": 344.703125,
+        "h": 44,
+        "disabled": false,
+        "hit": "lifePrevious",
+        "main": true,
+        "extra": false
+      }
+    },
+    {
+      "width": 1024,
+      "route": "/universe/scale/",
+      "primary": [
+        "zoomPrev",
+        "zoomNext"
+      ],
+      "initial": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.",
+      "mid": "Previous → current: approximately 7,495,294× larger in the compared length measures×10×10×10×10×10×10×7.50Every ×10 block means one order of magnitude. This is a comparison of the listed approximate sizes or separations, not objects nested to scale.",
+      "last": "Starting scale: one human height1.7 metres is the reference. Select Earth to see how many tenfold increases fit in the next step.",
+      "first": {
+        "x": 232.6328125,
+        "y": 344.734375,
+        "h": 44,
+        "disabled": false,
+        "hit": "zoomNext",
+        "main": true,
+        "extra": false
+      },
+      "second": {
+        "x": 126.9375,
+        "y": 344.734375,
+        "h": 44,
+        "disabled": false,
+        "hit": "zoomPrev",
+        "main": true,
+        "extra": false
+      }
+    }
+  ]
+}

@@ -22,9 +22,9 @@ const plans={
  '/solar-system/orbital-periods/':{scene:'#keplerOrbitStage',primary:['keplerOrbitPlay','keplerOrbitTime'],secondary:['keplerOrbitReset','keplerOrbitZoomIn','keplerOrbitZoomOut','keplerOrbitFollow']},
  '/solar-system/pluto-dwarf-planet/':{scene:'#plutoResonanceSVG',primary:['plutoResonancePlay','plutoResonanceTime'],secondary:['plutoResonanceReset']},
  '/solar-system/temperature-comparison/':{scene:'#tempChart',primary:['tempCompareA','tempCompareB'],secondary:[]},
- '/stars/life-cycle/':{scene:'#stellarCinema',primary:['lifePlay','lifeSwitchMass'],secondary:['lifeNext','lifePrevious']},
+ '/stars/life-cycle/':{scene:'#stellarCinema',primary:['lifePrevious','lifeNext','lifeSwitchMass','lifePlay'],secondary:[]},
  '/universe/light-year/':{scene:'#lyCinemaStage',primary:['lyPlay','lyPhotonSlider'],secondary:['lyCinemaFollow']},
- '/universe/scale/':{scene:'#zoomCinemaFrame',primary:['zoomCinemaTour','zoomNext'],secondary:['zoomPrev']},
+ '/universe/scale/':{scene:'#zoomCinemaFrame',primary:['zoomPrev','zoomNext','zoomCinemaTour'],secondary:[]},
 };
 // Desktop routes whose original below-the-scene Play controls made the
 // effect invisible in a 1280×800 viewport. Preserve original desktop
@@ -58,7 +58,7 @@ if(match){
   if(!dock.isConnected)scene.parentElement?.insertBefore(dock,scene);
   for(const id of [...plan.primary,...plan.secondary]){
    const e=document.getElementById(id);
-   if(!e||mounted.has(id)||hidden(e)||e.disabled||e.contains(scene))continue;
+   if(!e||mounted.has(id)||hidden(e)||e.contains(scene))continue;
    const field=e.matches('input,select,textarea');
    const label=field?(e.closest('label')||document.querySelector('label[for="'+id+'"]')):null;
    const nodes=label?(label.contains(e)?[label]:[label,e]):[e];

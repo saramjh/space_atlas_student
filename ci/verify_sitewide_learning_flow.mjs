@@ -181,6 +181,12 @@ for(const route of ['/black-holes/','/exoplanets/transit-method/','/galaxies/typ
  assert.ok(dock.includes("'"+route+"'"));
 assert.match(dock,/Math\.min\(170,r\.height\*\.5\)/);
 assert.match(dock,/generatedLabels/);
+// Chronological Next and Previous are always-visible learning actions,
+// including disabled Previous which must later enable without remount.
+assert.ok(dock.includes("primary:['lifePrevious','lifeNext','lifeSwitchMass','lifePlay'],secondary:[]"));
+assert.ok(dock.includes("primary:['zoomPrev','zoomNext','zoomCinemaTour'],secondary:[]"));
+assert.doesNotMatch(dock,/mounted\.has\(id\)\|\|hidden\(e\)\|\|e\.disabled/);
+
 assert.match(dock,/e\.addEventListener\('input',render\)/);
 const css=readFileSync('assets/css/style.css','utf8');
 assert.match(css,/@media\(min-width:621px\)[\s\S]*?\.atlas-feedback-dock:not/);
