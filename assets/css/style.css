@@ -2481,3 +2481,78 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .atlas-feedback-main button:disabled{
  opacity:.52;cursor:not-allowed;
 }
+
+/* Moon Missions: science-first, compact challenge; no auto-motion or scroll traps. */
+.moon-missions-section{padding-top:36px;padding-bottom:52px}
+.moon-mission-lab{border:1px solid #748b9a;background:#12212d;color:#f1f5f6;display:grid;grid-template-columns:minmax(0,.83fr) minmax(0,1.17fr);overflow:hidden}
+.moon-mission-heading{padding:30px clamp(17px,3vw,38px);border-right:1px solid #435a6b;align-self:stretch}
+.moon-mission-index{font:650 12px/1.4 var(--font-data);letter-spacing:.07em;text-transform:uppercase;color:#f1c68d;margin:0 0 12px}
+.moon-mission-heading h2{font:600 clamp(26px,3vw,39px)/1.1 var(--font-display);letter-spacing:-.025em;color:#f6f4ed;margin:0 0 15px}
+.moon-mission-heading>p:not(.moon-mission-index){font:400 15px/1.65 var(--font-reading);color:#dce7ee;margin:0 0 20px}
+.moon-mission-heading button,.moon-mission-actions button{border:1px solid #e0d2b6;background:#eddfc7;color:#17232d;min-height:44px;padding:10px 15px;border-radius:3px;font:650 14px/1.4 var(--font-reading);cursor:pointer}
+.moon-mission-heading button:hover,.moon-mission-actions button:hover{background:#fff1d7}
+.moon-mission-heading button:focus-visible,.moon-mission-actions button:focus-visible,.moon-mission-controls input:focus-visible,.moon-mission-routes a:focus-visible{outline:3px solid #ffce76;outline-offset:3px}
+.moon-mission-heading button,.moon-mission-actions button,.moon-mission-controls input{scroll-margin-top:150px}
+.moon-mission-heading button[hidden],.moon-mission-play[hidden],.moon-mission-routes[hidden],.moon-mission-actions button[hidden],.moon-mission-routes a[hidden]{display:none!important}
+.moon-mission-play{padding:22px clamp(17px,2.5vw,30px);display:grid;gap:15px;min-width:0;align-content:start}
+.moon-mission-progress{font:650 12px/1.3 var(--font-data);color:#f1c68d;letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px}
+.moon-mission-task h3{font:600 clamp(19px,2.2vw,24px)/1.3 var(--font-display);color:#fffaf0;margin:0 0 6px}
+.moon-mission-task>p:last-child{font:400 14px/1.5 var(--font-reading);color:#d7e3e9;margin:0}
+.moon-mission-views{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.moon-mission-views figure{margin:0;padding:12px 9px 10px;border:1px solid #617686;background:#0a151f;text-align:center;min-width:0}
+.moon-mission-views canvas{display:block;width:min(100%,128px);height:auto;aspect-ratio:1;margin:0 auto 8px;background:#080d12;border-radius:50%}
+.moon-mission-views figcaption{font:650 13px/1.4 var(--font-reading);color:#f4e6cb}
+.moon-mission-views output{display:block;font:450 12px/1.6 var(--font-data);color:#d4e5ef}
+.moon-mission-controls label{display:block;font:600 15px/1.4 var(--font-reading);margin-bottom:6px}
+.moon-mission-controls input[type=range]{width:100%;min-height:34px;accent-color:#f5c175;cursor:pointer}
+.moon-mission-controls>p:not(.moon-mission-feedback){font:400 12px/1.5 var(--font-reading);color:#d7e3e9;margin:2px 0 12px}
+.moon-mission-actions{display:flex;gap:8px;flex-wrap:wrap}
+.moon-mission-actions #moonMissionHint{background:transparent;color:#f1f5f6;border-color:#b6c5cd}
+.moon-mission-actions #moonMissionNext{background:#d9f0df;border-color:#d9f0df}
+.moon-mission-feedback{min-height:44px;font:500 14px/1.5 var(--font-reading);color:#f7ecd6;margin:13px 0 0}
+.moon-mission-routes{border-top:1px solid #71818c;padding-top:13px;display:grid;gap:6px}
+.moon-mission-routes p{margin:0;color:#d3e4ed;font:400 13px/1.6 var(--font-reading)}
+.moon-mission-routes a{color:#ffe3ab;text-underline-offset:3px;font:650 14px/1.5 var(--font-reading)}
+.moon-mission-source{grid-column:1/-1;border-top:1px solid #435a6b;padding:15px clamp(17px,3vw,38px);margin:0;color:#d6e4ed;font:400 12px/1.55 var(--font-reading)}
+.moon-mission-source a{color:#ffe3ab;text-underline-offset:3px}
+@media(max-width:820px){.moon-mission-lab{grid-template-columns:1fr}.moon-mission-heading{padding:23px 19px 17px;border-right:0;border-bottom:1px solid #435a6b}.moon-mission-heading>p:not(.moon-mission-index){margin-bottom:13px}.moon-mission-play{padding:18px 19px}.moon-mission-views canvas{width:min(100%,118px)}}
+@media(max-width:380px){.moon-missions-section{padding-top:22px}.moon-mission-heading{padding:18px 14px}.moon-mission-play{padding:14px;gap:12px}.moon-mission-views{gap:8px}.moon-mission-views figure{padding:8px 5px}.moon-mission-views canvas{width:min(100%,104px)}.moon-mission-actions button{flex:1 1 125px}.moon-mission-source{padding:13px 14px}}
+@media(prefers-reduced-motion:reduce){.moon-mission-lab *{scroll-behavior:auto!important}}
+
+/* Keep the game title but collapse its long introduction once a mobile player starts. */
+.moon-mission-play{scroll-margin-top:132px}
+@media(max-width:820px){
+ .moon-mission-lab.is-playing .moon-mission-heading{padding:13px 19px}
+ .moon-mission-lab.is-playing .moon-mission-heading h2{font-size:19px;margin:0}
+ .moon-mission-lab.is-playing .moon-mission-index,
+ .moon-mission-lab.is-playing .moon-mission-heading>p:not(.moon-mission-index){display:none}
+}
+@media(max-width:380px){
+ .moon-mission-lab.is-playing .moon-mission-heading{padding:10px 14px}
+ .moon-mission-views canvas{width:min(100%,88px)}
+ .moon-mission-task h3{font-size:18px;line-height:1.25}
+}
+
+.moon-mission-entry{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:18px 0 0;font:450 14px/1.5 var(--font-reading)}
+.moon-mission-entry a{display:inline-flex;align-items:center;min-height:44px;padding:9px 14px;background:#203745;border:1px solid #203745;color:#f8f2e7;font-weight:700;text-decoration:none;border-radius:3px}
+.moon-mission-entry a:hover{background:#38576a}
+.moon-mission-entry a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.moon-mission-entry span{color:var(--muted);max-width:55ch}
+@media(max-width:620px){.moon-mission-entry{align-items:stretch;flex-direction:column}.moon-mission-entry a{justify-content:center;width:100%;max-width:320px}}
+
+/* Small phones: keep target, live phase and controls visible together. */
+@media(max-width:380px) and (max-height:670px){
+ .moon-mission-play{padding:9px 14px;gap:7px}
+ .moon-mission-task h3{font-size:17px;line-height:1.15;margin-bottom:2px}
+ .moon-mission-task>p:last-child{font-size:12px;line-height:1.3}
+ .moon-mission-progress{margin-bottom:3px;font-size:11px}
+ .moon-mission-views canvas{width:min(100%,64px);margin-bottom:3px}
+ .moon-mission-views figure{padding:6px 4px 5px}
+ .moon-mission-views figcaption{font-size:12px;line-height:1.2}
+ .moon-mission-views output{font-size:11px;line-height:1.2}
+ .moon-mission-controls label{font-size:13px;margin-bottom:0}
+ .moon-mission-controls input[type=range]{min-height:29px}
+ .moon-mission-controls>p:not(.moon-mission-feedback){font-size:11px;line-height:1.3;margin:0 0 6px}
+ .moon-mission-actions{gap:6px}
+ .moon-mission-actions button{font-size:12px;min-height:40px;padding:6px 8px;flex:1 1 105px}
+ .moon-mission-feedback{font-size:12px;line-height:1.35;margin:8px 0 0;min-height:26px}

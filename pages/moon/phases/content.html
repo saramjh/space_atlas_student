@@ -4,6 +4,7 @@
     <div class="kicker">Moon · Question</div>
     <h1>Moon phase simulator: why the Moon changes shape</h1>
     <p class="lead">The Moon does not change shape. Half is always lit by the Sun; what changes is how much of that lit half we can see from Earth. Drag the orbit slider or jump to a major phase and compare both views.</p>
+    <p class="moon-mission-entry"><a href="#moon-missions" data-moon-mission-entry>Try the three Moon missions →</a><span>Match the phase you see, check your orbit, and explore what happens next.</span></p>
   </div>
 </section>
 
@@ -139,6 +140,50 @@
         <tr><td><strong>Last Quarter</strong></td><td>270°</td><td>~50%</td><td>The Moon is about three quarters of the way through the cycle.</td></tr>
       </tbody>
     </table>
+  </div>
+ </div>
+</section>
+
+<section class="section moon-missions-section" id="moon-missions" aria-labelledby="moonMissionsHeading">
+ <div class="wrap">
+  <div class="moon-mission-lab" data-moon-missions>
+   <div class="moon-mission-heading">
+    <p class="moon-mission-index">Moon mission / Interactive challenge</p>
+    <h2 id="moonMissionsHeading">Can you make the Moon match?</h2>
+    <p>Predict the Moon seen from Earth, then move it around a model orbit. Complete three challenges and discover a new space question. Every move also updates the 3D simulator above.</p>
+    <button id="moonMissionStart" type="button" aria-controls="moonMissionPlay" aria-expanded="false">Start three Moon missions</button>
+   </div>
+   <div class="moon-mission-play" id="moonMissionPlay" hidden>
+    <div class="moon-mission-task">
+     <p id="moonMissionProgress" class="moon-mission-progress">Mission 1 of 3</p>
+     <h3 id="moonMissionPrompt">Find the Moon when half its visible face is bright and the illuminated area is growing.</h3>
+     <p id="moonMissionClue">“Quarter” means one quarter through the phase cycle, not 25% bright.</p>
+    </div>
+    <div class="moon-mission-views">
+     <figure><canvas id="moonMissionTarget" width="140" height="140" role="img" aria-label="Target Moon phase: compare with your orbit"></canvas><figcaption>Target Moon</figcaption></figure>
+     <figure><canvas id="moonMissionCurrent" width="140" height="140" role="img" aria-label="Current Moon phase, changes as you move the slider"></canvas><figcaption>Your Moon <output id="moonMissionFraction">100% bright</output></figcaption></figure>
+    </div>
+    <div class="moon-mission-controls">
+     <label for="moonMissionAngle">Move the Moon around Earth</label>
+     <input id="moonMissionAngle" type="range" min="0" max="360" step="1" value="180" aria-describedby="moonMissionControlHelp" />
+     <p id="moonMissionControlHelp">Drag or use arrow keys. Compare these two disks without scrolling; the model orbit above follows.</p>
+     <div class="moon-mission-actions">
+      <button id="moonMissionCheck" type="button">Check my orbit</button>
+      <button id="moonMissionHint" type="button">Give me a clue</button>
+      <button id="moonMissionNext" type="button" hidden>Next mission</button>
+      <button id="moonMissionRestart" type="button" hidden>Play the missions again</button>
+     </div>
+     <p id="moonMissionFeedback" class="moon-mission-feedback" role="status" aria-live="polite">Move your Moon to match the target. Then check your choice.</p>
+     <div id="moonMissionRoutes" class="moon-mission-routes" hidden>
+      <p id="moonMissionRouteWhy"></p>
+      <a data-moon-mission-route="quarter" href="{{BASE}}/moon/earth-moon-scale/" hidden>See the real Earth–Moon distance →</a>
+      <a data-moon-mission-route="full" href="{{BASE}}/moon/eclipses/" hidden>Why isn't every full Moon an eclipse? →</a>
+      <a data-moon-mission-route="waning" href="{{BASE}}/moon/tidal-locking/" hidden>Why do we see the same lunar face? →</a>
+     </div>
+    </div>
+   </div>
+   <noscript><style>.moon-mission-entry,#moonMissionStart{display:none!important}</style><p class="moon-mission-nojs">The optional game requires JavaScript. Use the phase table and NASA explanation above to complete the same predictions without it.</p></noscript>
+   <p class="moon-mission-source">Idealized classroom model, not a live sky forecast: fixed sunlight, circular orbit, northern-view Moon discs, and a 29.5-day synodic cycle. Real distance, orbital tilt and eclipses are not simulated. <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer">NASA Moon Phases</a> explains the science. The existing simulator and phase table work without playing.</p>
   </div>
  </div>
 </section>

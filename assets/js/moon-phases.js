@@ -9,6 +9,7 @@ import { getPlanetTexture } from './textures.js';
 import { initQuiz } from './quiz-widget.js';
 import { initTeacherDistribution } from './teacher-distribution.js';
 import { initMoonCerActivity } from './moon-cer.js';
+import { initMoonMissions } from './moon-missions.js';
 
 const MOON_ORBIT_RADIUS = 9;
 
@@ -85,7 +86,10 @@ const phaseMetricsEl = document.querySelector('#phaseMetrics');
 // projected great-circle boundary on that sphere (elliptical at gibbous
 // and crescent phases), NOT Earth's shadow during a lunar eclipse.
 function drawEarthView(thetaRad) {
-  const size = earthViewCanvas.width;
+  return drawMoonCanvas(thetaRad, earthViewCanvas, earthViewCtx);
+}
+function drawMoonCanvas(thetaRad, targetCanvas, earthViewCtx = targetCanvas.getContext('2d')) {
+  const size = targetCanvas.width;
   const r = size / 2 - 4;
   const cx = size / 2, cy = size / 2;
   const image = earthViewCtx.createImageData(size, size);
@@ -124,6 +128,7 @@ const motionNote = document.querySelector('#moonMotionNote');
 const geometryNote = document.querySelector('#moonGeometryNote');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+let moonMissions = null;
 function applyAngle(deg) {
   document.querySelectorAll('[data-moon-angle]').forEach(button => {
     const selected = Number(button.dataset.moonAngle) === deg;
@@ -140,6 +145,7 @@ function applyAngle(deg) {
   ]);
   earthSightline.computeLineDistances();
   drawEarthView(deg * Math.PI / 180);
+  moonMissions?.sync(deg);
   phaseNameEl.textContent = phaseLabelAtDegrees(deg);
   if (phaseMetricsEl) {
     phaseMetricsEl.textContent = 'Day ' + model.phaseAgeDays.toFixed(1) + ' of 29.5 · ' +
@@ -282,6 +288,16 @@ canvas.addEventListener('pointerup', stopDragging);
 canvas.addEventListener('pointercancel', stopDragging);
 canvas.addEventListener('lostpointercapture', () => { activePointer = null; });
 
+moonMissions = initMoonMissions({
+  drawMoon: drawMoonCanvas,
+  getAngle: () => Number(slider.value),
+  setAngle: angle => {
+    setPlayState(false);
+    continuousAngle = angle;
+    slider.value = String(angle);
+    applyAngle(angle);
+  },
+});
 applyAngle(Number(slider.value));
 setPlayState(false);
 
