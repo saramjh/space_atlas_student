@@ -4,6 +4,31 @@ const $=id=>document.getElementById(id);
 const container=$('gravityLabView'),canvas=$('gravityLabCanvas'),poster=$('gravityLabPoster'),hud=$('gravityLabHud');
 const status=$('gravityLabStatus'),note=$('gravityLabWorldNote'),joystick=$('gravityLabJoystick'),stick=$('gravityLabStick'),look=$('gravityLabLook');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),coarse=matchMedia('(pointer: coarse)');
+const anyCoarse=matchMedia('(any-pointer: coarse)');
+// Tablet Safari can use a desktop-sized viewport (and a fine primary pointer
+// with a connected trackpad) while its screen still accepts touch input.
+// Never infer touchscreen controls from a phone-only CSS breakpoint.
+let touchObserved=false;
+function enableTouchControls(){
+ container.classList.add('gl-touch-enabled');
+ canvas.setAttribute('aria-label','First-person gravity chamber. Touch movement pad to walk, swipe the right side to look, Jump button to jump. Keyboard WASD, arrows and Space also work.');
+}
+function syncTouchControls(){
+ if(anyCoarse.matches||coarse.matches||(navigator.maxTouchPoints||0)>0||touchObserved){
+  enableTouchControls();
+ }else{
+  container.classList.remove('gl-touch-enabled');
+  canvas.setAttribute('aria-label','First-person gravity chamber. WASD or arrows to walk, Space to jump, drag to look.');
+ }
+}
+// A real touch event is a fallback for browsers reporting desktop pointer
+// capabilities. It does not disable mouse, pen or hardware keyboard input.
+container.addEventListener('pointerdown',e=>{
+ if(e.pointerType==='touch'){touchObserved=true;enableTouchControls();}
+},true);
+anyCoarse.addEventListener('change',syncTouchControls);
+coarse.addEventListener('change',syncTouchControls);
+syncTouchControls();
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),fmt=n=>n.toFixed(2);
 const rail=$('gravityLabWorldRail');
 const worldButtons=new Map();
@@ -150,8 +175,8 @@ function setMode(next){
   'Game mode: tap Jump; keep holding Jump to fly. Reach the finish to unlock a longer stage (3–10 checkpoints). Assisted thrust is not a natural jump.':
   'Science mode: the same 3.0 m/s jump without any extra forces. Compare gravity using the measured arc.';
  $('gravityLabControls').innerHTML=isGame?
-  '<strong>Desktop:</strong> WASD / arrows move · drag to look · Space jump; hold Space or Shift to boost. <strong>Mobile:</strong> left pad move · tap Jump; hold the same button to boost in flight.':
-  '<strong>Desktop:</strong> WASD / arrows move · drag to look · Space to jump. <strong>Mobile:</strong> left pad moves · swipe to look · Jump button.';
+  '<strong>Desktop:</strong> WASD / arrows move · drag to look · Space jump; hold Space or Shift to boost. <strong>Touchscreen (phone or tablet):</strong> left pad to move · swipe right side to look · tap Jump; hold to boost in flight.':
+  '<strong>Desktop:</strong> WASD / arrows move · drag to look · Space to jump. <strong>Touchscreen (phone or tablet):</strong> left pad moves · swipe right side to look · Jump button.';
  level=1;course=buildCourse(level);resetFlight();releaseJump();spaceHeld=false;air=grounded();jumpCount=0;
  $('gravityLabLast').textContent=isGame?'Unboosted lab only':'Ready to test';
  engine?.setMode(mode);
@@ -274,7 +299,7 @@ async function buildChamber(){
  const THREE=await import('three');
  const scene=new THREE.Scene();scene.background=new THREE.Color(0x050b16);scene.fog=new THREE.FogExp2(0x0a1221,.012);
  const camera=new THREE.PerspectiveCamera(66,1,.08,125);
- const lowPower=coarse.matches||matchMedia('(max-width:740px)').matches;
+ const lowPower=coarse.matches||anyCoarse.matches||(navigator.maxTouchPoints||0)>0||matchMedia('(max-width:740px)').matches;
  const renderer=new THREE.WebGLRenderer({canvas,antialias:!lowPower,powerPreference:'low-power'});
  renderer.setPixelRatio(Math.min(devicePixelRatio||1,lowPower?1.15:1.65));
  renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.27;
@@ -541,7 +566,7 @@ async function buildChamber(){
   if(e.code==='Space'){spaceHeld=false;stopBoost();}
  };
  document.addEventListener('keydown',keydown);document.addEventListener('keyup',keyup);
- canvas.addEventListener('pointerdown',e=>{if(coarse.matches)return;canvas.setPointerCapture(e.pointerId);pointer={id:e.pointerId,x:e.clientX,y:e.clientY};});
+ canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')return;canvas.setPointerCapture(e.pointerId);pointer={id:e.pointerId,x:e.clientX,y:e.clientY};});
  canvas.addEventListener('pointermove',e=>{if(!pointer||pointer.id!==e.pointerId)return;lookDelta(e.clientX-pointer.x,e.clientY-pointer.y);pointer.x=e.clientX;pointer.y=e.clientY;});
  const release=e=>{if(pointer?.id===e.pointerId)pointer=null;};
  canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);
@@ -559,7 +584,7 @@ async function buildChamber(){
  const lookEnd=e=>{if(lookPointer?.id===e.pointerId)lookPointer=null;};
  look.addEventListener('pointerup',lookEnd);look.addEventListener('pointercancel',lookEnd);
  const visibility=()=>{if(document.hidden)suspend();else if(active)wake();};
- const blur=()=>{releaseJump();spaceHeld=false;keys.clear();};
+ const blur=()=>{releaseJump();spaceHeld=false;stopBoost();keys.clear();touch.x=0;touch.z=0;setStick(0,0);pointer=null;stickPointer=null;lookPointer=null;};
  window.addEventListener('blur',blur);
  document.addEventListener('visibilitychange',visibility);
  resize();resetPosition();

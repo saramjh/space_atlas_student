@@ -2015,7 +2015,19 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
 .gl-game-actions button:first-child{background:#e5bd84;color:#202b34;border-color:#e5bd84;font-size:15px;min-width:115px}
 .gl-game-actions #gravityLabJump{touch-action:none;-webkit-user-select:none;user-select:none}
 .gl-game-actions button span{font-size:10px;margin-left:5px;opacity:.8}
+/* Touch controls are capability-driven, not tied to <=650px: iPad landscape
+   and hybrid devices commonly use desktop-size CSS viewports. */
 .gl-joystick,.gl-look{display:none}
+.gl-view.gl-touch-enabled .gl-joystick{display:block;position:absolute;z-index:3;bottom:calc(80px + env(safe-area-inset-bottom,0px));left:calc(12px + env(safe-area-inset-left,0px));width:clamp(116px,13vw,132px);height:clamp(116px,13vw,132px);border:2px solid rgba(229,237,240,.72);border-radius:50%;background:rgba(11,31,49,.72);pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none}
+.gl-view.gl-touch-enabled .gl-joystick:before,.gl-view.gl-touch-enabled .gl-joystick:after{content:"";position:absolute;background:rgba(207,230,235,.3);pointer-events:none}
+.gl-view.gl-touch-enabled .gl-joystick:before{height:1px;left:13px;right:13px;top:50%}
+.gl-view.gl-touch-enabled .gl-joystick:after{width:1px;top:13px;bottom:13px;left:50%}
+.gl-view.gl-touch-enabled .gl-joystick-thumb{display:block;position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);width:40px;height:40px;border-radius:50%;background:#c8d9df;border:1px solid white;box-shadow:0 0 16px #071c2d;pointer-events:none}
+.gl-view.gl-touch-enabled .gl-look{display:block;position:absolute;z-index:3;right:0;top:24%;bottom:85px;width:44%;pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none}
+.gl-view.gl-touch-enabled .gl-look:before{content:'SWIPE TO LOOK';position:absolute;right:12px;top:10px;color:#edf7f8;background:rgba(6,24,40,.7);border:1px solid rgba(201,228,232,.4);padding:4px 8px;font:700 9px/1.4 var(--font-data);letter-spacing:.05em;pointer-events:none}
+.gl-view.gl-touch-enabled .gl-game-actions{bottom:calc(16px + env(safe-area-inset-bottom,0px));right:calc(18px + env(safe-area-inset-right,0px))}
+.gl-view.gl-touch-enabled .gl-game-actions button{min-height:48px}
+
 .gl-instrument{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#122f41;color:#f3f1e8}
 .gl-instrument>div{display:grid;gap:7px;padding:18px 24px;border-right:1px solid #3d5869}
 .gl-instrument>div:last-child{border-right:0}
@@ -2060,12 +2072,9 @@ h2{font:600 clamp(32px,3.2vw,48px)/1.04 var(--font-display);letter-spacing:-.03e
  .gl-game-actions button:first-child{min-width:78px;font-size:13px}
  .gl-game-actions button span{display:none}
  .gl-image-note{left:11px;top:90px;bottom:auto;font-size:8px;max-width:220px}
- .gl-joystick{display:block;position:absolute;bottom:78px;left:11px;width:116px;height:116px;border:2px solid rgba(229,237,240,.5);border-radius:50%;background:rgba(11,31,49,.55);pointer-events:auto;touch-action:none}
- .gl-joystick:before,.gl-joystick:after{content:"";position:absolute;background:rgba(207,230,235,.3)}
- .gl-joystick:before{height:1px;left:13px;right:13px;top:50%}
- .gl-joystick:after{width:1px;top:13px;bottom:13px;left:50%}
- .gl-joystick-thumb{display:block;position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);width:40px;height:40px;border-radius:50%;background:#c8d9df;border:1px solid white;box-shadow:0 0 16px #071c2d}
- .gl-look{display:block;position:absolute;right:0;top:24%;bottom:85px;width:44%;pointer-events:auto;touch-action:none}
+ .gl-view.gl-touch-enabled .gl-joystick{bottom:calc(78px + env(safe-area-inset-bottom,0px));left:11px;width:116px;height:116px}
+ .gl-view.gl-touch-enabled .gl-game-actions{bottom:calc(9px + env(safe-area-inset-bottom,0px));right:9px}
+ .gl-view.gl-touch-enabled .gl-look{bottom:85px}
 }
 @media(prefers-reduced-motion:reduce){.gl-joystick-thumb,.gl-view *{transition:none!important}}
 
