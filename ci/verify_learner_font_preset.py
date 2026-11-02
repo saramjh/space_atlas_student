@@ -67,7 +67,7 @@ assert "assets/fonts/atkinson-hyperlegible-mono-latin.woff2" not in HEAD, "Mono 
 built = ROOT / "public/moon/phases/index.html"
 if built.is_file():
     content = built.read_text(encoding="utf-8")
-    assert "/space_atlas_student/assets/fonts/atkinson-hyperlegible-next-latin.woff2" in content
+    assert "/assets/fonts/atkinson-hyperlegible-next-latin.woff2" in content
     assert 'rel="canonical"' in content and "application/ld+json" in content
 
 print(f"LEARNER_FONT_PRESET_PASS: self-hosted OFL faces, bounded transfer={total} bytes, semantic roles")

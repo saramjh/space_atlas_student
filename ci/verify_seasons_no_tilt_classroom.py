@@ -19,7 +19,7 @@ assert 'same direction' in page.lower() and 'teacher' in page.lower()
 assert 'orbit' in page.lower() and 'not to scale' in page.lower()
 assert 'href="{{BASE}}/assets/handouts/earth-seasons-no-tilt.html"' in page
 assert 'id="noTiltTeacherTest"' in built
-assert '/space_atlas_student/assets/handouts/earth-seasons-no-tilt.html' in built
+assert '/assets/handouts/earth-seasons-no-tilt.html' in built
 assert (root/'public/assets/handouts/earth-seasons-no-tilt.html').is_file()
 assert 'rel="canonical"' in built and 'application/ld+json' in built
 assert 'adsbygoogle' in built

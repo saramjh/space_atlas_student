@@ -6,7 +6,7 @@ import json
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "/space_atlas_student"
+BASE = ""
 NAV = (ROOT / "templates/nav.html").read_text(encoding="utf-8")
 HOME = (ROOT / "pages/index/content.html").read_text(encoding="utf-8")
 PUBLIC = ROOT / "public"

@@ -18,10 +18,10 @@ assert meta['adFree'] is True and meta['excludeFromTopicSearch'] is True
 assert meta['pageType']=='WebPage'
 for path in PUB.rglob('index.html'):
  page=path.read_text(encoding='utf8')
- assert page.count('href="/space_atlas_student/privacy/"')==1,f'privacy footer must appear once: {path}'
+ assert page.count('href="/privacy/"')==1,f'privacy footer must appear once: {path}'
  assert page.count('This public site uses Google Analytics 4')==1,f'public data-use disclosure missing: {path}'
  assert 'Google AdSense' in page and 'under 13' in page,f'child-use notice missing: {path}'
 sitemap=(PUB/'sitemap.xml').read_text(encoding='utf8')
-assert 'https://saramjh.github.io/space_atlas_student/privacy/' in sitemap
+assert 'https://spaceatlasedu.org/privacy/' in sitemap
 assert 'certified COPPA compliant' not in html.lower()
 print('PASS: 1 truthful privacy page, global link, sitemap and ad-free notice')

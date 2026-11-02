@@ -197,13 +197,13 @@ for page in pages:
         if resources:
             errors.append(f"{rel}: policy is not a LearningResource")
         notice_pages = [item for item in graph if item.get("@type") == "WebPage"]
-        if len(notice_pages) != 1 or notice_pages[0].get("url") != "https://saramjh.github.io/space_atlas_student/privacy/":
+        if len(notice_pages) != 1 or notice_pages[0].get("url") != "https://spaceatlasedu.org/privacy/":
             errors.append(f"{rel}: expected one canonical WebPage")
     elif is_update_page:
         if resources:
             errors.append(f"{rel}: release notes are not LearningResource")
         collections = [item for item in graph if item.get("@type") == "CollectionPage"]
-        if len(collections) != 1 or collections[0].get("url") != "https://saramjh.github.io/space_atlas_student/updates/":
+        if len(collections) != 1 or collections[0].get("url") != "https://spaceatlasedu.org/updates/":
             errors.append(f"{rel}: expected one canonical CollectionPage")
     else:
         if len(resources) != 1:

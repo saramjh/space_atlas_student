@@ -6,7 +6,7 @@ from urllib.parse import urlsplit
 import json
 import xml.etree.ElementTree as ET
 
-PREFIX = "https://saramjh.github.io/space_atlas_student/"
+PREFIX = "https://spaceatlasedu.org/"
 PUBLIC = Path("public")
 
 

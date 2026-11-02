@@ -2,7 +2,7 @@
   "path": "/exoplanets/transit-method/",
   "title": "Exoplanet Transit Simulator — Interactive Light Curve | Space Atlas",
   "description": "Use an interactive exoplanet transit simulator to move a planet across its star and read the light-curve dip astronomers use to detect distant worlds.",
-  "canonical": "https://saramjh.github.io/space_atlas_student/exoplanets/transit-method/",
+  "canonical": "https://spaceatlasedu.org/exoplanets/transit-method/",
   "ogTitle": "Exoplanet Transit Simulator — Interactive Light Curve",
   "ogDescription": "Drag a planet across a star and watch the brightness dip that's how most exoplanets are actually found.",
   "ogImage": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&h=630&q=80",

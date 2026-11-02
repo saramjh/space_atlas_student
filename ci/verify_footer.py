@@ -15,7 +15,7 @@ EXPECTED = {
     "/updates/",
     "/privacy/",
 }
-SITE_BASE = "/space_atlas_student"
+SITE_BASE = ""
 
 
 class Footer(HTMLParser):

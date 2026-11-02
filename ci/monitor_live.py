@@ -17,7 +17,7 @@ from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = "https://saramjh.github.io/space_atlas_student/"
+SITE = "https://spaceatlasedu.org/"
 UA = "SpaceAtlasReadOnlyHealth/1.0 (+https://github.com/saramjh/space_atlas_student)"
 
 
@@ -123,7 +123,7 @@ def main():
             else:
                 try:
                     graph = json.loads(parsed.jsonld[0]).get("@graph", [])
-                    expected_type = "CollectionPage" if meta.get("pageType") == "CollectionPage" else "LearningResource"
+                    expected_type = meta.get("pageType") or "LearningResource"
                     if not any(x.get("@type") == expected_type and
                                x.get("url") == meta["canonical"] for x in graph):
                         issues.append(f"missing canonical {expected_type}")
@@ -136,15 +136,11 @@ def main():
                 elif parsed.ads.count("2983244729") != 1:
                     issues.append("manual primary ad changed")
             for src in parsed.loaded_scripts + parsed.stylesheets:
-                # Site-relative project paths are /space_atlas_student/assets/...
-                # (not a direct prefix of https://.../space_atlas_student/).
                 if not src or "/assets/" not in src:
                     continue
                 if src.startswith(base):
                     assets_to_check.add(src)
-                elif src.startswith("/space_atlas_student/") and base == SITE:
-                    assets_to_check.add(urljoin("https://saramjh.github.io", src))
-                elif src.startswith("/assets/") and base != SITE:
+                elif src.startswith("/assets/"):
                     assets_to_check.add(urljoin(base, src.lstrip("/")))
             record["issues"] = issues
             findings.extend(f"{meta['path']}: {item}" for item in issues)

@@ -44,7 +44,7 @@ assert.match(handout,/Claim[\s\S]*Evidence[\s\S]*Reasoning/i);
 assert.match(handout,/lamp[\s\S]*ball[\s\S]*observer/i);
 assert.match(handout,/30–35 minutes/);
 assert.match(handout,/Grades 3–5/);
-for(const forbidden of ['adsbygoogle','googletagmanager','analytics','<script','<iframe','https://saramjh.github.io/space_atlas_student']){
+for(const forbidden of ['adsbygoogle','googletagmanager','analytics','<script','<iframe','https://saramjh.github.io/space_atlas_student','https://spaceatlasedu.org']){
  assert.ok(!handout.includes(forbidden),'handout offline and tracker-free: '+forbidden);
 }
 assert.ok(existsSync('public/assets/handouts/moon-phases-cer.html'),'handout copied in built distribution');

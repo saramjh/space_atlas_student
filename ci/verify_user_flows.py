@@ -14,8 +14,8 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ROOT / "pages"
 PUBLIC = ROOT / "public"
-BASE = "/space_atlas_student"
-DOMAIN = "https://saramjh.github.io"
+BASE = ""
+DOMAIN = "https://spaceatlasedu.org"
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
 CATEGORIES = {
     "Solar System": "topics-solar-system",

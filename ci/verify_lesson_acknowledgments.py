@@ -30,7 +30,7 @@ require('<details' in built.split('id="lesson-acknowledgments"',1)[1][:240], "cl
 require('aria-label="Lesson improvement acknowledgments"' in built, "accessible details section")
 require('<summary>' in built.split('id="lesson-acknowledgments"',1)[1][:500], "collapsed one-line summary")
 require("See all updates" in built, "full archive linked")
-require("/space_atlas_student/updates/" in built,"archive uses correct static base")
+require("/updates/" in built,"archive uses correct static base")
 require("No endorsement" in built, "editorial advice not represented as endorsement")
 require(built.index('id="lesson-acknowledgments"') > built.index('class="section section-last"'), "placed after learning content")
 require("Christine Weis" not in built and "Jeff Adkins" not in built, "unapproved personal names never published")

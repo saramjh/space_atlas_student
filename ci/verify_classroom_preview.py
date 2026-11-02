@@ -8,7 +8,7 @@ public_home=ROOT/'public/index.html'
 before=digest(public_home) if public_home.exists() else None
 with tempfile.TemporaryDirectory(prefix='space-atlas-classroom-test-') as parent:
  dest=Path(parent)/'classroom'
- env={**os.environ,'SITE_BASE':'/space_atlas_student',
+ env={**os.environ,'SITE_BASE':'',
    'CLASSROOM_PREVIEW':'1','SITE_OUTPUT_DIR':str(dest),'ADSENSE_ENABLED':'1'}
  res=subprocess.run(['python3','build.py'],cwd=ROOT,env=env,capture_output=True,text=True)
  assert res.returncode==0,(res.stdout+res.stderr)[-1800:]
@@ -24,14 +24,14 @@ with tempfile.TemporaryDirectory(prefix='space-atlas-classroom-test-') as parent
   assert 'googletagmanager.com/gtag' not in s,path
   assert 'ad-resize-recovery.js' not in s,path
   assert 'https://unpkg.com/three@' not in s,path
-  assert '"three": "/space_atlas_student/assets/vendor/three/build/three.module.js"' in s,path
+  assert '"three": "/assets/vendor/three/build/three.module.js"' in s,path
   assert 'G-DTCVV5XRD3' not in s,path
   assert 'adsbygoogle.js' not in s,path
   assert '<ins class="adsbygoogle' not in s,path
   assert 'classroom-preview' in s,path
   assert 'This local teacher preview disables Google Analytics 4 and Google AdSense' in s,path
   assert 'This public site uses Google Analytics 4' not in s,path
-  assert 'href="/space_atlas_student/teacher-guide.html"' in s,path
+  assert 'href="/teacher-guide.html"' in s,path
   assert '<meta name="robots" content="noindex,nofollow,noarchive"' in s,path
  assert (dest/'moon/eclipses/index.html').is_file()
 

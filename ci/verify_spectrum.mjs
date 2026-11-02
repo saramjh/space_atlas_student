@@ -138,7 +138,7 @@ assert.equal(motionButton.getAttribute('aria-pressed'), 'false');
 assert.equal(ids.get('#spectrumPhotonBeam').classList.contains('beam-running'),false);
 
 const html = readFileSync('public/astronomy/electromagnetic-spectrum/index.html', 'utf8');
-assert.match(html, /<link rel="canonical" href="https:\/\/saramjh.github.io\/space_atlas_student\/astronomy\/electromagnetic-spectrum\/"/);
+assert.match(html, /<link rel="canonical" href="https:\/\/spaceatlasedu\.org\/astronomy\/electromagnetic-spectrum\/"/);
 assert.match(html, /<h1>Is visible light all there is to see in space\?<\/h1>/);
 assert.match(html, /Approximate wavelength ranges/);
 assert.match(html, /NASA GSFC/);

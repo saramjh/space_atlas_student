@@ -66,15 +66,15 @@ def check():
         assert "Search space topics" == button["label"], f"{page}: accessible search label"
         assert not doc.mobile_tab_buttons, f"{page}: buttons must not interrupt the topic-only horizontal nav"
         links = [url for url, _ in doc.mobile_tab_links]
-        assert links[:2] == ["/space_atlas_student/", "/space_atlas_student/#atlas-directory"], (
+        assert links[:2] == ["/", "/#atlas-directory"], (
             f"{page}: home/atlas directory must lead mobile subject links"
         )
         assert len(links) == 6 and len(set(links)) == 6, f"{page}: duplicated/missing mobile topic shortcuts"
         assert links[2:] == [
-            "/space_atlas_student/#topics-solar-system",
-            "/space_atlas_student/#topics-earth-moon",
-            "/space_atlas_student/#topics-deep-space",
-            "/space_atlas_student/#topics-guides",
+            "/#topics-solar-system",
+            "/#topics-earth-moon",
+            "/#topics-deep-space",
+            "/#topics-guides",
         ], f"{page}: mobile sections must match desktop and the homepage directory"
         assert "🔍" not in header, f"{page}: emoji search icon disallowed"
         assert '<svg viewBox="0 0 24 24"' in header, f"{page}: expected monochrome vector icon"

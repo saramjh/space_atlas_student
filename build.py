@@ -42,7 +42,7 @@ if CLASSROOM_PREVIEW:
 SITE_BASE = os.environ.get("SITE_BASE", "").rstrip("/")
 ADSENSE_ENABLED = (not CLASSROOM_PREVIEW
     and os.environ.get("ADSENSE_ENABLED", "").lower() in {"1", "true", "yes"})
-SITE_URL = "https://saramjh.github.io/space_atlas_student/"
+SITE_URL = "https://spaceatlasedu.org/"
 ADSENSE_PRIMARY_SLOT = "2983244729"
 ADSENSE_SECONDARY_SLOT = "1670163057"
 

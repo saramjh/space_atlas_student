@@ -6,7 +6,7 @@ const js = readFileSync('assets/js/planet-types.js','utf8');
 const module = readFileSync('assets/js/planet-surface-3d.js','utf8');
 
 assert.match(page, /<h1>What's actually inside a planet\?<\/h1>/);
-assert.match(page, /rel="canonical" href="https:\/\/saramjh.github.io\/space_atlas_student\/solar-system\/planet-types\/"/);
+assert.match(page, /rel="canonical" href="https:\/\/spaceatlasedu\.org\/solar-system\/planet-types\/"/);
 assert.match(page, /type="application\/ld\+json"/);
 assert.match(page, /What the interior comparison means/);
 assert.match(page, /Conceptual cross-sections · not to scale/);

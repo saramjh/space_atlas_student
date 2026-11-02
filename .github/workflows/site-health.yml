@@ -32,7 +32,7 @@ jobs:
 
       - name: Rebuild production site
         env:
-          SITE_BASE: /space_atlas_student
+          SITE_BASE: ""
           ADSENSE_ENABLED: '1'
         run: python3 build.py
 

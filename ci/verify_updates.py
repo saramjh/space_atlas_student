@@ -69,7 +69,7 @@ if parse.jsonld:
     require(not any(x.get("@type") == "LearningResource" for x in graph), "release notes mislabeled as lessons")
     if collections:
         require(collections[0].get("url") ==
-                "https://saramjh.github.io/space_atlas_student/updates/", "canonical mismatch")
+                "https://spaceatlasedu.org/updates/", "canonical mismatch")
         require(collections[0].get("dateModified") == records[0]["date"], "lastmod must be latest release date")
 require("ad-slot" not in html and "adsbygoogle.js" not in html, "release page must be ad-free")
 require(len(search) == 29 and all(x["path"] != "/updates/" for x in search),
@@ -96,13 +96,13 @@ for href in parse.hrefs:
                 f"broken local link {href}")
 sitemap = (PUBLIC / "sitemap.xml").read_text(encoding="utf-8")
 require(sitemap.count("<url>") == 31, "31 public sitemap pages required")
-require("<loc>https://saramjh.github.io/space_atlas_student/updates/</loc>" in sitemap,
+require("<loc>https://spaceatlasedu.org/updates/</loc>" in sitemap,
         "sitemap missing release page")
 for entry in PUBLIC.rglob("index.html"):
     contents = entry.read_text(encoding="utf-8")
     require('class="site-footer"' in contents and
             'class="site-footer-nav" aria-label="Footer navigation"' in contents and
-            'href="/space_atlas_student/updates/"' in contents,
+            'href="/updates/"' in contents,
             f"accessible shared footer or updates link missing on {entry}")
 if errors:
     print("Release history gate FAILED:")

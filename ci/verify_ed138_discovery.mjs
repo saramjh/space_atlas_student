@@ -38,13 +38,13 @@ assert.match(html,/https:\/\/rubinobservatory\.org\/news\/rubin-first-dwarf-plan
 assert.match(html,/https:\/\/iauarchive\.eso\.org\/public\/themes\/naming\//);
 assert.match(html,/rel="canonical"/);
 assert.match(html,/CC BY 4\.0/);
-assert.match(html,/src="\/space_atlas_student\/assets\/images\/ed138-rubin-observation\.jpg"/);
+assert.match(html,/src="\/assets\/images\/ed138-rubin-observation\.jpg"/);
 const img=statSync('assets/images/ed138-rubin-observation.jpg');
 assert.ok(img.size>20000&&img.size<650000,'source image should be real reasonably compressed Rubin observation');
 const nav=read('templates/nav.html'),home=read('pages/index/content.html');
 assert.match(nav,/2026-ed138-dwarf-planet-candidate/);assert.match(home,/2026-ed138-dwarf-planet-candidate/);
 for(const page of ['pages/solar-system/pluto-dwarf-planet/content.html','pages/solar-system/astronomical-unit/content.html','pages/sources/space-resources-for-students/content.html'])assert.match(read(page),/2026-ed138-dwarf-planet-candidate/);
-for(const back of ['solar-system/pluto-dwarf-planet','solar-system/astronomical-unit','sources/space-resources-for-students','solar-system/distance-scale'])assert.ok(html.includes('/space_atlas_student/'+back+'/'),'bidirectional learning link '+back);
+for(const back of ['solar-system/pluto-dwarf-planet','solar-system/astronomical-unit','sources/space-resources-for-students','solar-system/distance-scale'])assert.ok(html.includes('/'+back+'/'),'bidirectional learning link '+back);
 const sitemap=read('public/sitemap.xml');
 assert.match(sitemap,/2026-ed138-dwarf-planet-candidate/);
 assert.equal((sitemap.match(/<url>/g)||[]).length,31);

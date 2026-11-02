@@ -42,7 +42,7 @@ assert.match(fields['#provenanceExplanation'].textContent,/not how the scene cha
 
 const html=readFileSync('public/learn/read-space-images/index.html','utf8');
 assert.match(html,/<h1>Is that space photo actually a photo\?<\/h1>/);
-assert.match(html, /rel="canonical" href="https:\/\/saramjh.github.io\/space_atlas_student\/learn\/read-space-images\/"/);
+assert.match(html, /rel="canonical" href="https:\/\/spaceatlasedu\.org\/learn\/read-space-images\/"/);
 assert.match(html, /type="application\/ld\+json"/);
 assert.equal((html.match(/class="image-evidence-key"/g)||[]).length,1);
 assert.equal((html.match(/class="image-evidence-test"/g)||[]).length,3);
