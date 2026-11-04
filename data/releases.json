@@ -1,7 +1,127 @@
 {
   "schemaVersion": 1,
-  "notes": "Editorial, verified milestones only. Historical entries are dated changes, not retroactively assigned software versions. Entries require matching Git commits and live internal topic routes.",
+  "notes": "Verified milestones, newest first. Software releases cite their source commits and original change dates; independently verified external directory listings cite the publisher and date of verification, not an assumed date of acceptance. Entries retain lesson links and scientific/teacher-use limitations.",
   "releases": [
+    {
+      "id": "2026-11-04-ncase-program-directory-verified",
+      "date": "2026-11-04",
+      "category": "External directory listing · verified 4 Nov 2026",
+      "title": "Space Atlas is listed in NCASE's aerospace education resource index",
+      "summary": "On 4 November 2026, the National Coalition for Aviation and Space Education (NCASE) public Programs index was checked and found to feature Space Atlas as a free interactive Earth-and-space-science resource. This is a directory listing, not a NASA affiliation, NCASE endorsement, certification or classroom effectiveness assessment. Its first-publication date is not confirmed.",
+      "students": "Try the linked Moon phase and Earth season models. Each helps you make a prediction and check scientific evidence; no account is required.",
+      "teachers": "NCASE's entry identifies resources for educators, homeschool families and K–12 learners, and discloses the site's GA4 and AdSense use. It does not certify classroom effectiveness or child privacy compliance; educators should check school policies.",
+      "developers": "The NCASE Programs page was verified on 4 November. Its original GitHub Pages link currently redirects to the new Space Atlas domain. One factual link-correction request was already submitted, but the publisher has not confirmed an updated destination. Do not interpret inclusion as proof of classroom adoption or independent testing.",
+      "links": [
+        {
+          "label": "Explore Moon phases",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Explore Earth's seasons",
+          "path": "/earth/seasons/"
+        }
+      ],
+      "commits": [],
+      "kind": "external",
+      "sourceLinks": [
+        {
+          "label": "NCASE Programs — published Space Atlas listing",
+          "url": "https://ncase.org/programs/"
+        }
+      ]
+    },
+    {
+      "id": "2026-11-02-dedicated-domain-and-branding",
+      "date": "2026-11-02",
+      "category": "Site address and branding",
+      "title": "Space Atlas is available at spaceatlasedu.org",
+      "summary": "Space Atlas now has its own spaceatlasedu.org address, with the existing interactive lessons under the same routes. The published site also has a unified logo and favicon, and old GitHub Pages links redirect to the new domain.",
+      "students": "Use the dedicated address to find Moon, Earth and space science lessons without changing how the learning models work.",
+      "teachers": "This is a domain and identity improvement, not an educational accreditation. Previously shared external listings and account-side analytics settings may still require separate maintenance.",
+      "developers": "Commits 8333ee11 and 15df75d0 track domain preparation and logo/favicon updates. HTTPS and old-domain redirect were checked on 4 November; this entry does not claim that every external directory link or provider dashboard is updated.",
+      "links": [
+        {
+          "label": "Explore the lessons",
+          "path": "/"
+        },
+        {
+          "label": "Moon phases lesson",
+          "path": "/moon/phases/"
+        }
+      ],
+      "commits": [
+        "8333ee11",
+        "15df75d0"
+      ]
+    },
+    {
+      "id": "2026-11-01-moon-missions-and-stellar-visuals",
+      "date": "2026-11-01",
+      "category": "Interactive missions and evidence-led imagery",
+      "title": "Moon Missions game and a richer star-life-cycle journey",
+      "summary": "Moon Phases gained interactive matching missions and next-topic discovery, while the Star Life Cycle visual journey received more observation-led scenes and a Webb-related protostar reference.",
+      "students": "Try matching the Moon's appearance with its position, then explore the representative stages of stellar evolution.",
+      "teachers": "These are teaching models and visual references, not an assessed improvement in pupil outcomes. Stellar stage animations are not scaled to real stellar lifetimes.",
+      "developers": "Moon mission progression is traceable to commits 1c313ec6, fbd72fbf and ddcf5447; stellar visual updates to 6ac31cb6 and 037bb3c3. Referenced telescope imagery and illustrated scenes are not interchangeable.",
+      "links": [
+        {
+          "label": "Try Moon Missions",
+          "path": "/moon/phases/"
+        },
+        {
+          "label": "Explore stellar evolution",
+          "path": "/stars/life-cycle/"
+        }
+      ],
+      "commits": [
+        "1c313ec6",
+        "fbd72fbf",
+        "ddcf5447",
+        "6ac31cb6",
+        "037bb3c3"
+      ]
+    },
+    {
+      "id": "2026-10-31-gravity-lab-flight-trials",
+      "date": "2026-10-31",
+      "category": "Interactive gravity experience",
+      "title": "Gravity Lab and progressive first-person Flight Trials",
+      "summary": "Gravity Lab lets learners compare the same jump speed on different worlds. Optional Flight Trials add game checkpoints, boost stamina and touch controls.",
+      "students": "Choose a world, compare an unboosted jump, then try the game challenge.",
+      "teachers": "The controlled jump uses a fixed initial launch speed, not a prediction of an individual student's athletic ability. Platforms above giant planets are artificial test decks; game boosters introduce extra forces.",
+      "developers": "Initial first-person gravity model and game additions are traceable to commits 03122ab5, a8e9303d, 3bf52914 and 30556dcb. No real astronaut training or learning outcome is claimed.",
+      "links": [
+        {
+          "label": "Open Gravity Lab",
+          "path": "/solar-system/gravity-lab/"
+        }
+      ],
+      "commits": [
+        "03122ab5",
+        "a8e9303d",
+        "3bf52914",
+        "30556dcb"
+      ]
+    },
+    {
+      "id": "2026-10-31-ed138-discovery-explainer",
+      "date": "2026-10-31",
+      "category": "Scientific discovery and uncertainty",
+      "title": "2026 ED138: a distant dwarf-planet candidate explained",
+      "summary": "A new source-linked lesson examines Rubin Observatory's October 2026 announcement of the distant 2026 ED138 object, including its provisional size and orbit estimates.",
+      "students": "See why astronomers can infer a distant body's orbit from repeated points of light, without possessing a close-up photograph of its surface.",
+      "teachers": "2026 ED138 is a dwarf-planet candidate, not an officially named sixth dwarf planet. Diameter estimates depend on assumed surface reflectivity and remain provisional.",
+      "developers": "Published discovery-explainer commit 3f2c7e11 is linked. Update the claims as new observations and formal classifications become available.",
+      "links": [
+        {
+          "label": "Explore the 2026 ED138 lesson",
+          "path": "/solar-system/2026-ed138-dwarf-planet-candidate/"
+        }
+      ],
+      "commits": [
+        "3f2c7e11"
+      ]
+    },
     {
       "id": "2026-10-29-google-ad-view-resize-user-recovery",
       "date": "2026-10-29",

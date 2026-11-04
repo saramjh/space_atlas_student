@@ -84,7 +84,10 @@ also regenerates `sitemap.xml` from the current page list.
 
 1. Edit data/releases.json to describe a substantive, verified milestone.
    Include its original date, student benefit, teacher limitations, relevant
-   learning page links and traceable Git commits.
+   learning page links and traceable Git commits. For an independently verified
+   external listing, set kind=external, use the verification date rather than an
+   assumed listing date, and include the original publisher URL in sourceLinks
+   instead of attributing a software commit to a third-party decision.
 2. Run the static build, the existing 27-lesson regressions and
    python3 ci/verify_updates.py. Review the student/teacher/developer copy,
    canonical, schema type, link integrity and mobile layout before publishing.
