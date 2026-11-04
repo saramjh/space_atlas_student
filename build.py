@@ -79,8 +79,20 @@ def load_release_data():
         for key in ("title", "category", "summary", "students", "teachers", "developers"):
             if not isinstance(item.get(key), str) or not item[key].strip():
                 raise ValueError(f"{rid}: missing {key}")
-        if not item.get("links") or not item.get("commits"):
-            raise ValueError(f"{rid}: missing links or commits")
+        kind = item.get("kind", "release")
+        if kind not in ("release", "external"):
+            raise ValueError(f"{rid}: invalid milestone kind")
+        if not item.get("links"):
+            raise ValueError(f"{rid}: missing lesson links")
+        if kind == "release" and not item.get("commits"):
+            raise ValueError(f"{rid}: missing traceable release commits")
+        if kind == "external" and (item.get("commits") or not item.get("sourceLinks")):
+            raise ValueError(f"{rid}: external listing requires independent evidence, not software commits")
+        for source in item.get("sourceLinks", []):
+            from urllib.parse import urlparse
+            parsed = urlparse(source.get("url", ""))
+            if not source.get("label") or parsed.scheme != "https" or not parsed.hostname:
+                raise ValueError(f"{rid}: invalid external evidence link")
         for link in item["links"]:
             if not link.get("label") or link.get("path") not in known_paths or link["path"] == "/updates/":
                 raise ValueError(f"{rid}: invalid lesson link {link!r}")
@@ -105,16 +117,27 @@ def render_release_timeline(releases):
             f'target="_blank" rel="noopener noreferrer"><code>{e(sha)}</code></a>'
             for sha in item["commits"]
         )
+        external = item.get("kind") == "external"
+        sources = "".join(
+            f'<li><a href="{e(src["url"])}" target="_blank" rel="noopener noreferrer">{e(src["label"])} ↗</a></li>'
+            for src in item.get("sourceLinks", [])
+        )
+        evidence = (f'<div class="updates-release-links"><strong>Original publisher</strong><ul>{sources}</ul></div>'
+                    if external else "")
+        detail_heading = "Independent verification and limits" if external else "For developers · commits and checks"
+        trace = "" if external else f'<p>Related changes: {commits}</p>'
+        date_text = f'Verified {e(item["date"])}' if external else e(item["date"])
         blocks.append(
             f'<article class="updates-release" id="release-{e(item["id"])}">'
-            f'<div class="updates-release-meta"><time datetime="{e(item["date"])}">{e(item["date"])}</time>'
+            f'<div class="updates-release-meta"><time datetime="{e(item["date"])}">{date_text}</time>'
             f'<span>{e(item["category"])}</span></div>'
             f'<h3>{e(item["title"])}</h3><p>{e(item["summary"])}</p>'
             f'<div class="updates-audience-copy"><div><h4>For learners</h4><p>{e(item["students"])}</p></div>'
             f'<div><h4>For educators</h4><p>{e(item["teachers"])}</p></div></div>'
             f'<div class="updates-release-links"><strong>Explore the lessons</strong><ul>{links}</ul></div>'
-            f'<details class="updates-technical"><summary>For developers · commits and checks</summary>'
-            f'<p>{e(item["developers"])}</p><p>Related changes: {commits}</p></details>'
+            f'{evidence}'
+            f'<details class="updates-technical"><summary>{detail_heading}</summary>'
+            f'<p>{e(item["developers"])}</p>{trace}</details>'
             '</article>'
         )
     return '<div class="updates-timeline">' + "".join(blocks) + '</div>'

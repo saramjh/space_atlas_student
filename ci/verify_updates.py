@@ -83,6 +83,11 @@ require('rel="canonical"' in html, "missing canonical")
 for r in records:
     require(f'id="release-{r["id"]}"' in html, f"missing milestone {r['id']}")
     require(r["date"] in parse.times, f"missing release date {r['date']}")
+    if r.get("kind") == "external":
+        require(not r["commits"], "external listing cannot claim software release commits")
+        require("Verified " + r["date"] in html, "external verification date not labeled")
+        for source in r["sourceLinks"]:
+            require(source["url"] in parse.hrefs, f"missing publisher evidence {source['url']}")
     for c in r["commits"]:
         require(f"/commit/{c}" in html, f"missing traceable commit {c}")
     for link in r["links"]:
