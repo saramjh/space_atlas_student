@@ -48,6 +48,7 @@ jobs:
           python3 ci/verify_footer.py
           python3 ci/verify_user_flows.py
           python3 ci/verify_classroom_preview.py
+          python3 ci/verify_teacher_share_canonical.py
           python3 ci/verify_ui_controls.py
           python3 ci/verify_mobile_header.py
           python3 ci/verify_navigation_dropdowns.py
