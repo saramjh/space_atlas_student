@@ -33,7 +33,8 @@ assert.ok(!scale.includes('role="tablist"'));
 const au=source('public/solar-system/astronomical-unit/index.html');
 assert.ok(au.includes('149,597,870,700 metres'));
 assert.ok(au.includes('149,597,870.7 km'));
-assert.ok(au.includes('IAU2012_English.pdf'));
+assert.ok(au.includes('href="https://drive.google.com/file/d/1FBKjaswlP-rTs6z6V4WygXsbdHKVHYcP/view"'), 'AU citation must point to the IAU-listed 2012 PDF');
+assert.ok(!au.includes('https://www.iau.org/static/resolutions/IAU2012_English.pdf'), 'Deprecated IAU PDF URL must not appear on the AU lesson');
 assert.equal((au.match(/aria-pressed="true"/g)||[]).length,1);
 assert.match(source('assets/js/astronomical-unit.js'),/aria-pressed/);
 
