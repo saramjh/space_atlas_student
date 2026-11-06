@@ -14,13 +14,13 @@ The live atlas requires no knowledge of Git or software versions.
 
 | Audience | Start here | What to expect |
 | --- | --- | --- |
-| **Students and general visitors** | [Explore Space Atlas](https://saramjh.github.io/space_atlas_student/) · [What's New](https://saramjh.github.io/space_atlas_student/updates/) | Try updated interactive lessons and review what the model simplifies. |
-| **Teachers and families** | [Classroom learning](https://saramjh.github.io/space_atlas_student/moon/phases/) · [Update notes for educators](https://saramjh.github.io/space_atlas_student/updates/#for-educators) | Look for teaching relevance, scientific sources and limitations of demonstrations. |
-| **Developers and contributors** | [Architecture](#structure) · [Release process](#release-process) · [Technical history](https://saramjh.github.io/space_atlas_student/updates/#for-builders) | Review implementation, tests, verified commit links and static SEO contracts. |
+| **Students and general visitors** | [Explore Space Atlas](https://spaceatlasedu.org/) · [What's New](https://spaceatlasedu.org/updates/) | Try updated interactive lessons and review what the model simplifies. |
+| **Teachers and families** | [Classroom learning](https://spaceatlasedu.org/moon/phases/) · [Update notes for educators](https://spaceatlasedu.org/updates/#for-educators) | Look for teaching relevance, scientific sources and limitations of demonstrations. |
+| **Developers and contributors** | [Architecture](#structure) · [Release process](#release-process) · [Technical history](https://spaceatlasedu.org/updates/#for-builders) | Review implementation, tests, verified commit links and static SEO contracts. |
 
 ## Public updates
 
-The [What's New page](https://saramjh.github.io/space_atlas_student/updates/)
+The [What's New page](https://spaceatlasedu.org/updates/)
 shows the same dated releases with different information for three audiences:
 learner activities, classroom explanations and expandable developer references.
 The curated source is data/releases.json, not an automated dump of Git commits.
