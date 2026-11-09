@@ -1,0 +1,6 @@
+# Report only a generic contact request in a public issue, never exploit details.
+Contact: https://github.com/saramjh/space_atlas_student/issues/new
+Expires: 2027-05-01T00:00:00Z
+Canonical: https://spaceatlasedu.org/.well-known/security.txt
+Policy: https://github.com/saramjh/space_atlas_student/blob/main/SECURITY.md
+Preferred-Languages: en, ko
