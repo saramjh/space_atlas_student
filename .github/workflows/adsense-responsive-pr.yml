@@ -23,7 +23,9 @@ jobs:
           node-version: '24.22.1'
       - name: Build published configuration
         env:
-          SITE_BASE: /space_atlas_student
+          # Canonical production site is rooted at spaceatlasedu.org/.
+          # The old project-site prefix made the existing footer gate fail on all 31 pages.
+          SITE_BASE: ''
           ADSENSE_ENABLED: '1'
         run: python3 build.py
       - name: Run all published-site regression checks without deploying
