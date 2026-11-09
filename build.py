@@ -592,6 +592,10 @@ def main():
         shutil.copytree(vendor, PUBLIC / "assets/vendor/three")
         guide = read(TEMPLATES / "classroom-facilitator.html").replace("{{BASE}}", SITE_BASE)
         (PUBLIC / "teacher-guide.html").write_text(guide, encoding="utf-8")
+    # Publish RFC 9116 contact metadata as regular static files.
+    if (ROOT / ".well-known").is_dir():
+        shutil.copytree(ROOT / ".well-known", PUBLIC / ".well-known")
+        (PUBLIC / ".nojekyll").write_text("", encoding="utf-8")
     if (ROOT / "robots.txt").is_file():
         shutil.copy(ROOT / "robots.txt", PUBLIC / "robots.txt")
 
