@@ -214,6 +214,23 @@ for page in pages:
     if rel != Path("index.html") and not any(item.get("@type") == "BreadcrumbList" for item in graph):
         errors.append(f"{rel}: missing BreadcrumbList")
 
+# RFC 9116: verify public security contact metadata without exposing a private address.
+security_txt = PUBLIC / ".well-known" / "security.txt"
+if not security_txt.is_file():
+    errors.append("missing /.well-known/security.txt")
+else:
+    body = security_txt.read_text(encoding="utf-8")
+    for required in (
+        "Contact: https://github.com/saramjh/space_atlas_student/issues/new",
+        "Expires: 2027-05-01T00:00:00Z",
+        "Canonical: https://spaceatlasedu.org/.well-known/security.txt",
+        "Policy: https://github.com/saramjh/space_atlas_student/blob/main/SECURITY.md",
+    ):
+        if required not in body:
+            errors.append("security.txt missing "+required.split(":")[0])
+    if not (PUBLIC / ".nojekyll").is_file():
+        errors.append("missing .nojekyll for .well-known path")
+
 if errors:
     print("Space Atlas regression gate FAILED:")
     for error in errors:
